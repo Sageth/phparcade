@@ -12,7 +12,7 @@ better adherence to new coding standards.  A production "demo" of the front-end 
 * Custom languages module
 * Customizable theme modules and uploading
 * Custom pages
-* Database-driven design
+* Database-driven design, including stored procedures
 * [Disqus](https://disqus.com/) Commenting System (optional)
 * External email support (e.g. [Google Apps for Work](https://goo.gl/S3SgCr), Gmail)
 * HTML5 games and other custom code implementations
