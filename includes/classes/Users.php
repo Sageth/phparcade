@@ -118,7 +118,6 @@ class Users {
     }
     public static function getUsersAll() {
         /* Only used by admin on the get users page */
-        /* Uses index */
         try {
             $sql = 'SELECT `id`,`username`,`totalgames`,`ip`,`last_login` FROM `members` ORDER BY `username` ASC;';
             $stmt = mySQL::getConnection()->prepare($sql);
@@ -143,6 +142,12 @@ class Users {
     }
     public static function isUserLoggedIn() {
         return isset($_SESSION['user']) ? true : false;
+    }
+    public static function isOnline($id) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_IsOnline(:userid);');
+        $stmt->bindParam(':userid', $id);
+        $stmt->execute();
+        return $stmt->rowCount() == 1;
     }
     public static function passwordRecoveryForm() {
         $dbconfig = Core::getDBConfig();
@@ -257,11 +262,9 @@ class Users {
 
         if ($user !== null) {
             /* Uses index */
-            $sql = 'UPDATE `members` SET `totalgames` = `totalgames` + 1 WHERE `id` = :userid';
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePlaycount(:userid);');
             $stmt->bindParam(':userid', $user['id']);
             $stmt->execute();
-            $stmt->closeCursor();
         }
     }
     public static function userAdd($username, $email, $status = "") {
@@ -343,7 +346,6 @@ class Users {
         return $status;
     }
     public static function userDelete($id, $admin = 'No') {
-        /* Uses index */
         $sql = 'DELETE FROM `members` WHERE `id` = :userid AND `admin` = :admin;';
         try {
             $stmt = mySQL::getConnection()->prepare($sql);
@@ -427,14 +429,11 @@ class Users {
     }
     public static function userGeneratePassword($username, $password) {
         $hashandsalt = password_hash($password, PASSWORD_DEFAULT);
-        /* Uses index */
-        $sql = 'UPDATE `members` SET `password` = :hashandsalt WHERE `username` = :username;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GeneratePassword(:username, :hashandsalt);');
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':hashandsalt', $hashandsalt);
             $stmt->execute();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
@@ -446,13 +445,11 @@ class Users {
         }
         session_regenerate_id();
         /* Uses reference lookup */
-        $sql = "SELECT * FROM `members` WHERE `username` = :username AND `active` = 'Yes';";
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetSession(:username);');
             $stmt->bindParam(':username', $username);
             $stmt->execute();
             $user = $stmt->fetch();
-            $stmt->closeCursor();
             $_SESSION['user'] =
                 array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
                       'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'aim' => $user['aim'],
