@@ -1,0 +1,3 @@
+[player] beat your high score in [gamename] with a score of [gamescore].
+
+Game link: [gameurl]

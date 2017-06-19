@@ -1,0 +1,3 @@
+Thank you for registering.
+Username: [username]
+Password: [password]

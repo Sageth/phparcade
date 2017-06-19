@@ -1,0 +1,12 @@
+{
+  "require": {
+    "claviska/simpleimage": "3.*",
+    "gargron/fileupload": "1.*",
+    "google/recaptcha": "1.*",
+    "phpmailer/phpmailer": "5.*",
+    "roave/security-advisories": "dev-master"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

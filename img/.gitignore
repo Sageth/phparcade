@@ -1,0 +1,6 @@
+# Ignore everything in this directory
+# Add a comment to this line
+*
+# Except this file and robots.txt
+!.gitignore
+!robots.txt
