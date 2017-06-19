@@ -424,7 +424,8 @@ class Users {
     public static function userPasswordMD5($password) {
         /* This method is only used for legacy accounts. It generally won't be used, as
            all accounts which are logged into or set up after December 2016 use the PHP
-           password_hash() and password_verify() functions.  */
+           password_hash() and password_verify() functions.  The initial admin password
+           also requires this function, as the hash is predictable. */
         return md5($password);
     }
     public static function userGeneratePassword($username, $password) {
