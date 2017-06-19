@@ -408,13 +408,11 @@ class Users {
         return $hash;
     }
     public static function userGetPassword($username) {
-        $sql = 'SELECT `password` from `members` WHERE `username` = :username;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetPassword(:username);');
             $stmt->bindParam(':username', $username);
             $stmt->execute();
             $password = $stmt->fetchColumn();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
