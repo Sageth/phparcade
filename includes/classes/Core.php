@@ -142,6 +142,10 @@ class Core {
                         $metadata['metapagedesc'] = $user['username'] . "'s " . gettext('profile');
                         $metadata['metapagekeywords'] = "";
                     }
+                } else {
+                    $metadata['metapagetitle'] = "";
+                    $metadata['metapagedesc'] = "";
+                    $metadata['metapagekeywords'] = "";
                 }
                 break;
             default:
