@@ -413,11 +413,21 @@ class Users {
             $stmt->execute();
             $user = $stmt->fetch();
             $_SESSION['user'] =
-                array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
-                      'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'aim' => $user['aim'],
-                      'facebook' => $user['facebook_id'], 'github' => $user['github_id'], 'msn' => $user['msn'],
-                      'twitter' => $user['twitter_id'], 'avatar' => $user['avatarurl'],
-                      'admin' => $user['admin'], 'ip' => $user['ip'], 'birth_date' => $user['birth_date'],
+                array('id' => $user['id'],
+                      'name' => $username,
+                      'email' => $user['email'],
+                      'active' => $user['active'],
+                      'regtime' => $user['regtime'],
+                      'totalgames' => $user['totalgames'],
+                      'aim' => $user['aim'],
+                      'facebook' => $user['facebook_id'],
+                      'github' => $user['github_id'],
+                      'msn' => $user['msn'],
+                      'twitter' => $user['twitter_id'],
+                      'avatar' => $user['avatarurl'],
+                      'admin' => $user['admin'],
+                      'ip' => $user['ip'],
+                      'birth_date' => $user['birth_date'],
                       'last_login' => $user['last_login']);
         } catch (PDOException $e) {
             Core::showError($e->getMessage());

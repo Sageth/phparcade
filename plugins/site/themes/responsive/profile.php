@@ -140,7 +140,7 @@ $dbconfig = Core::getDBConfig(); ?>
             }
         } else {
             if ($params[1] === 'edit') {
-                $user = $_SESSION['user'];
+                $user = Users::getUserbyID($_SESSION['user']['id']);
                 if ($params[2] == "" || !isset($params[2])) { ?>
                     <form action="<?php echo SITE_URL; ?>" method="post" enctype="multipart/form-data" role="form" autocomplete="off">
                         <div class="col-lg-4">
@@ -211,21 +211,21 @@ $dbconfig = Core::getDBConfig(); ?>
                                         <label for="facebook_id"><?php echo gettext('facebook'); ?></label>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><?php echo gettext('facebook_link'); ?></span>
-                                            <input type="text" class="form-control" placeholder="Friendly Name" name="facebook_id" value="<?php echo $user['facebook']; ?>" />
+                                            <input type="text" class="form-control" placeholder="Friendly Name" name="facebook_id" value="<?php echo $user['facebook_id']; ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="github"><?php echo gettext('github_id'); ?></label>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><?php echo gettext('github_link'); ?></span>
-                                            <input type="text" class="form-control" placeholder="Friendly Name" name="github_id" value="<?php echo $user['github']; ?>" />
+                                            <input type="text" class="form-control" placeholder="Friendly Name" name="github_id" value="<?php echo $user['github_id']; ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="twitter"><?php echo gettext('twitter'); ?></label>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><?php echo gettext('twitter_link'); ?></span>
-                                            <input type="text" class="form-control" placeholder="Friendly Name" name="twitter_id" value="<?php echo $user['twitter']; ?>" />
+                                            <input type="text" class="form-control" placeholder="Friendly Name" name="twitter_id" value="<?php echo $user['twitter_id']; ?>" />
                                         </div>
                                     </div>
                                 </div>
