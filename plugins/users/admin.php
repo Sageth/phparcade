@@ -174,12 +174,6 @@ function users_admin($mthd) {
 							</div>
 							<div class="form-group">
 								<label>
-									<?php echo gettext('yahoo');?> <?php echo gettext('messenger');?>
-									<input class="form-control" type='text' name='yahoo' value='<?php echo $user['yahoo'];?>'/>
-								</label>
-							</div>
-							<div class="form-group">
-								<label>
 									<?php echo gettext('msn');?> <?php echo gettext('messenger');?>
 									<input class="form-control" type='text' name='msn' value='<?php echo $user['msn'];?>'/>
 								</label>

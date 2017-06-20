@@ -13,7 +13,7 @@ class Users {
         global $params;
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $user = $_SESSION['user'];
-        $birthdate = !empty($_POST['birth_date']) ? $_POST['birth_date'] : '2018-01-01';
+        $birthdate = !empty($_POST['birth_date']) ? $_POST['birth_date'] : '';
         if ($user == false) {
             $params[3] = 'failure';
         }
@@ -44,7 +44,7 @@ class Users {
             $_POST['avatarurl'] = str_replace('//', "", $_POST['avatarurl']);
         }
         try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :avatar, :birthdate, :email, :id, :github, :facebook, :msn, :twitter, :yahoo');
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :avatar, :birthdate, :email, :id, :github, :facebook, :msn, :twitter)');
             $stmt->bindParam(':aim', $_POST['aim']);
             $stmt->bindParam(':avatar', $_POST['avatarurl']);
             $stmt->bindParam(':birthdate', $birthdate);
@@ -54,7 +54,6 @@ class Users {
             $stmt->bindParam(':facebook', $_POST['facebook_id']);
             $stmt->bindParam(':msn', $_POST['msn']);
             $stmt->bindParam(':twitter', $_POST['twitter_id']);
-            $stmt->bindParam(':yahoo', $_POST['yahoo']);
             $stmt->execute();
         } catch (PDOException $e) {
             if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
@@ -85,7 +84,6 @@ class Users {
         return password_hash($password, PASSWORD_DEFAULT);
     }
     public static function getUserbyID($id) {
-        /* Uses index */
         try {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetMemberbyID(:userid);');
             $stmt->bindParam(':userid', $id);
@@ -126,7 +124,7 @@ class Users {
         return isset($_SESSION['user']) ? true : false;
     }
     public static function isOnline($id) {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_IsOnline(:userid);');
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Sessions_IsOnline(:userid);');
         $stmt->bindParam(':userid', $id);
         $stmt->execute();
         return $stmt->rowCount() == 1;
@@ -345,16 +343,15 @@ class Users {
     public static function userEdit($id) {
         /* Used in admin to edit users. Be careful of the "isadmin" when using it elsewhere */
         try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :aim, :yahoo, :msn, :isadmin, :memberid);');
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :aim, :msn, :isadmin, :memberid);');
+            $stmt->bindParam(':memberid', $id);
             $stmt->bindParam(':username', $_POST['username']);
             $stmt->bindParam(':email', $_POST['email']);
             $stmt->bindParam(':active', $_POST['active']);
             $stmt->bindParam(':twitter', $_POST['twitter_id']);
             $stmt->bindParam(':aim', $_POST['aim']);
-            $stmt->bindParam(':yahoo', $_POST['yahoo']);
             $stmt->bindParam(':msn', $_POST['msn']);
             $stmt->bindParam(':isadmin', $_POST['isadmin']);
-            $stmt->bindParam(':memberid', $id);
             $stmt->execute();
             Core::showSuccess(gettext('updatesuccess'));
         } catch (PDOException $e) {
@@ -425,7 +422,7 @@ class Users {
                 array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
                       'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'aim' => $user['aim'],
                       'facebook' => $user['facebook_id'], 'github' => $user['github_id'], 'msn' => $user['msn'],
-                      'twitter' => $user['twitter_id'], 'yahoo' => $user['yahoo'], 'avatar' => $user['avatarurl'],
+                      'twitter' => $user['twitter_id'], 'avatar' => $user['avatarurl'],
                       'admin' => $user['admin'], 'ip' => $user['ip'], 'birth_date' => $user['birth_date'],
                       'last_login' => $user['last_login']);
         } catch (PDOException $e) {

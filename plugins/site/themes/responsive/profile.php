@@ -13,7 +13,7 @@ $dbconfig = Core::getDBConfig(); ?>
                 $i = 0;
                 $avatar = trim($user['avatarurl'] === '') ? SITE_URL . 'includes/images/noav.png' : SITE_URL .
                                                                                                     $user['avatarurl'];
-                $status = Sessions::isOnline($user['id']) ? gettext('online') : gettext('offline');
+                $status = Users::isOnline($user['id']) ? gettext('online') : gettext('offline');
                 $games = Games::getGamesChamp($user['id']); ?>
                 <div class="col-sm-10">
                     <h1>
@@ -146,6 +146,7 @@ $dbconfig = Core::getDBConfig(); ?>
         } else {
             if ($params[1] === 'edit') {
                 $user = $_SESSION['user'];
+                print_r($user);
                 if ($params[2] == "" || !isset($params[2])) {?>
                     <form action="<?php echo SITE_URL; ?>" method="post" enctype="multipart/form-data" role="form" autocomplete="off">
                         <div class="col-lg-4">
@@ -207,10 +208,6 @@ $dbconfig = Core::getDBConfig(); ?>
                                     <div class="form-group">
                                         <label for="msn"><?php echo gettext('msn'); ?></label>
                                         <input class="form-control" type='text' title="<?php echo gettext('msn'); ?>" name='msn' value='<?php echo $user['msn']; ?>'/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="yahoo"><?php echo gettext('yahoo'); ?></label>
-                                        <input class="form-control" type='text' title="<?php echo gettext('yahoo'); ?>" name='yahoo' value='<?php echo $user['yahoo']; ?>'/>
                                     </div>
                                     <div class="form-group">
                                         <label for="facebook_id"><?php echo gettext('facebook'); ?></label>
