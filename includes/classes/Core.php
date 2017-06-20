@@ -133,12 +133,16 @@ class Core {
                 $metadata['metapagekeywords'] = $page['keywords'];
                 break;
             case (is('profile')):
-                $params[2] = $params[2] ?? "";
-                $user = Users::getUserbyID($params[2]);
-                $metadata['metapagetitle'] =
-                    $dbconfig['sitetitle'] . ' - ' . $user['username'] . "'s " . gettext('profile');
-                $metadata['metapagedesc'] = $user['username'] . "'s " . gettext('profile');
-                $metadata['metapagekeywords'] = "";
+                if ($params[1] != 'edit') {
+                    if ($params[2] != 'editdone') {
+                        $params[2] = $params[2] ?? "";
+                        $user = Users::getUserbyID($params[2]);
+                        $metadata['metapagetitle'] =
+                            $dbconfig['sitetitle'] . ' - ' . $user['username'] . "'s " . gettext('profile');
+                        $metadata['metapagedesc'] = $user['username'] . "'s " . gettext('profile');
+                        $metadata['metapagekeywords'] = "";
+                    }
+                }
                 break;
             default:
                 $metadata['metapagetitle'] = $dbconfig['sitetitle'];

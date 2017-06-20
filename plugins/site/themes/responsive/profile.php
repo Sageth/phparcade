@@ -5,7 +5,7 @@ $dbconfig = Core::getDBConfig(); ?>
 <hr>
 <div class="row">
     <div class="col-lg-12"><?php
-        if ($params[1] === 'view') {
+        if ($params[1] === 'view' && $params[1] != 'edit') {
             $user = Users::getUserbyID($params[2]);
             if ($user == false) {
                 Core::showInfo(gettext('noexist'));
@@ -13,7 +13,6 @@ $dbconfig = Core::getDBConfig(); ?>
                 $i = 0;
                 $avatar = trim($user['avatarurl'] === '') ? SITE_URL . 'includes/images/noav.png' : SITE_URL .
                                                                                                     $user['avatarurl'];
-                $status = Users::isOnline($user['id']) ? gettext('online') : gettext('offline');
                 $games = Games::getGamesChamp($user['id']); ?>
                 <div class="col-sm-10">
                     <h1>
@@ -36,10 +35,6 @@ $dbconfig = Core::getDBConfig(); ?>
                         <li class="list-group-item text-right">
                             <span class="pull-left"><?php echo gettext('joindate'); ?></span>
                             <?php echo date('Y-m-d', $user['regtime']); ?>
-                        </li>
-                        <li class="list-group-item text-right">
-                            <span class="pull-left"><?php echo gettext('status'); ?></span>
-                            <?php echo $status; ?>
                         </li>
                         <li class="list-group-item text-right">
                             <span class="pull-left"><?php echo gettext('lastlogin'); ?></span>
@@ -146,8 +141,7 @@ $dbconfig = Core::getDBConfig(); ?>
         } else {
             if ($params[1] === 'edit') {
                 $user = $_SESSION['user'];
-                print_r($user);
-                if ($params[2] == "" || !isset($params[2])) {?>
+                if ($params[2] == "" || !isset($params[2])) { ?>
                     <form action="<?php echo SITE_URL; ?>" method="post" enctype="multipart/form-data" role="form" autocomplete="off">
                         <div class="col-lg-4">
                             <div class="panel panel-default">
@@ -164,6 +158,10 @@ $dbconfig = Core::getDBConfig(); ?>
                                         <input style="display:none;" type="password" title="fake" name="fakepasswordremembered"/>
                                     </div>
                                     <!-- End Fake password workaround -->
+                                    <div class="form-group">
+                                        <label for="id"><?php echo gettext('ID'); ?></label>
+                                        <input class="form-control" type="number" title="id" name="id" value="<?php echo $user['id']; ?>" disabled/>
+                                    </div>
                                     <div class="form-group">
                                         <label for="email"><?php echo gettext('email'); ?></label>
                                         <input class="form-control" type="email" title="email" name="email" value="<?php echo $user['email']; ?>"/>

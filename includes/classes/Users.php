@@ -85,8 +85,8 @@ class Users {
     }
     public static function getUserbyID($id) {
         try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetMemberbyID(:userid);');
-            $stmt->bindParam(':userid', $id);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetMemberbyID(:memberid);');
+            $stmt->bindParam(':memberid', $id);
             $stmt->execute();
             $user = $stmt->fetch();
             if ($stmt->rowCount() != 1) {
@@ -122,12 +122,6 @@ class Users {
     }
     public static function isUserLoggedIn() {
         return isset($_SESSION['user']) ? true : false;
-    }
-    public static function isOnline($id) {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Sessions_IsOnline(:userid);');
-        $stmt->bindParam(':userid', $id);
-        $stmt->execute();
-        return $stmt->rowCount() == 1;
     }
     public static function passwordRecoveryForm() {
         $dbconfig = Core::getDBConfig();
