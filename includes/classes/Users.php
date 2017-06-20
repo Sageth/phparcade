@@ -7,15 +7,16 @@ class Users {
     protected $user;
     private function __construct() {}
     public static function edit_profile_do() {
+        /* TODO: Figure out why this doesn't work */
         if (!isset($_SESSION)) {
             session_start();
         }
         global $params;
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        $user = $_SESSION['user'];
-        $birthdate = !empty($_POST['birth_date']) ? $_POST['birth_date'] : '';
+        //$user = $_SESSION['user'];
+        $user = Users::getUserbyID($_SESSION['user']['id']);
         if ($user == false) {
-            $params[3] = 'failure';
+            Core::showInfo(gettext('noexist'));
         }
         if ($_FILES['uploadavatar']['name'] > '') {
             $fileExt = '';
@@ -44,10 +45,9 @@ class Users {
             $_POST['avatarurl'] = str_replace('//', "", $_POST['avatarurl']);
         }
         try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :avatar, :birthdate, :email, :id, :github, :facebook, :msn, :twitter)');
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :avatar, :email, :id, :github, :facebook, :msn, :twitter);');
             $stmt->bindParam(':aim', $_POST['aim']);
             $stmt->bindParam(':avatar', $_POST['avatarurl']);
-            $stmt->bindParam(':birthdate', $birthdate);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':id', $user['id']);
             $stmt->bindParam(':github', $_POST['github_id']);
@@ -68,6 +68,7 @@ class Users {
         }
         $params[3] = 'success';
         header('Location: user/profile');
+        return;
     }
     public static function userPasswordUpdateByID($id, $password) {
         try {
