@@ -13,7 +13,7 @@ class Users {
         global $params;
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $user = $_SESSION['user'];
-        $birthdate = !empty($_POST['birth_date']) ? $_POST['birth_date'] : '';
+        $birthdate = !empty($_POST['birth_date']) ? $_POST['birth_date'] : '2018-01-01';
         if ($user == false) {
             $params[3] = 'failure';
         }
@@ -43,20 +43,8 @@ class Users {
         } else {
             $_POST['avatarurl'] = str_replace('//', "", $_POST['avatarurl']);
         }
-        /* Uses index */
-        $sql = 'UPDATE `members`
-			SET `aim` = :aim,
-				`yahoo` = :yahoo,
-				`msn` = :msn,
-				`twitter_id` = :twitter,
-				`facebook_id` = :facebook,
-				`github_id` = :github,
-				`avatarurl` = :avatar,
-				`birth_date` = :birthdate,
-				`email` = :email
-			WHERE `id` = :id';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :avatar, :birthdate, :email, :id, :github, :facebook, :msn, :twitter, :yahoo');
             $stmt->bindParam(':aim', $_POST['aim']);
             $stmt->bindParam(':avatar', $_POST['avatarurl']);
             $stmt->bindParam(':birthdate', $birthdate);
@@ -68,7 +56,6 @@ class Users {
             $stmt->bindParam(':twitter', $_POST['twitter_id']);
             $stmt->bindParam(':yahoo', $_POST['yahoo']);
             $stmt->execute();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
                 Core::showSuccess(gettext('emailvalid'));
@@ -84,14 +71,11 @@ class Users {
         header('Location: user/profile');
     }
     public static function userPasswordUpdateByID($id, $password) {
-        /* Uses index */
-        $sql = 'UPDATE `members` SET `password` = :password WHERE `id` = :memberid;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberPassword(:password, :memberid);');
             $stmt->bindParam(':password', Users::userPasswordHash($password));
             $stmt->bindParam(':memberid', $id);
             $stmt->execute();
-            $stmt->closeCursor();
             Core::showSuccess(gettext('updatesuccess'));
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
@@ -119,11 +103,9 @@ class Users {
     public static function getUsersAll() {
         /* Only used by admin on the get users page */
         try {
-            $sql = 'SELECT `id`,`username`,`totalgames`,`ip`,`last_login` FROM `members` ORDER BY `username` ASC;';
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetAllMembers();');
             $stmt->execute();
             $user = $stmt->fetchAll();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
@@ -167,6 +149,7 @@ class Users {
         }
     }
     public static function passwordRecovery() {
+        /* TODO: Convert to _sp */
         $dbconfig = Core::getDBConfig();
         $inicfg = Core::getINIConfig();
         $status = '';
@@ -268,6 +251,7 @@ class Users {
         }
     }
     public static function userAdd($username, $email, $status = "") {
+        /* TODO: Convert to _sp */
         $dbconfig = Core::getDBConfig();
         $inicfg = Core::getINIConfig();
         if (!empty($username) || !empty($email)) {
@@ -346,13 +330,12 @@ class Users {
         return $status;
     }
     public static function userDelete($id, $admin = 'No') {
-        $sql = 'DELETE FROM `members` WHERE `id` = :userid AND `admin` = :admin;';
+        /* Delete users, unless they're an admin.  Don't delete admins. Bad idea. */
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
-            $stmt->bindParam(':userid', $id);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_DeleteMember(:memberid, :admin);');
+            $stmt->bindParam(':memberid', $id);
             $stmt->bindParam(':admin', $admin);
             $stmt->execute();
-            $stmt->closeCursor();
             Core::showSuccess(gettext('deletesuccess'));
         } catch (PDOException $e) {
             Core::showWarning(gettext('deleteadminfailure'));
@@ -360,19 +343,9 @@ class Users {
         }
     }
     public static function userEdit($id) {
-        /* Uses index */
-        $sql = 'UPDATE 	`members`
-					SET    	`username` = :username,
-							`email` = :email,
-							`active` = :active,
-							`twitter_id` = :twitter,
-							`aim` = :aim,
-							`yahoo` = :yahoo,
-							`msn` = :msn,
-							`admin` = :isadmin
-					WHERE  	`id` = :memberid;';
+        /* Used in admin to edit users. Be careful of the "isadmin" when using it elsewhere */
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :aim, :yahoo, :msn, :isadmin, :memberid);');
             $stmt->bindParam(':username', $_POST['username']);
             $stmt->bindParam(':email', $_POST['email']);
             $stmt->bindParam(':active', $_POST['active']);
@@ -383,7 +356,6 @@ class Users {
             $stmt->bindParam(':isadmin', $_POST['isadmin']);
             $stmt->bindParam(':memberid', $id);
             $stmt->execute();
-            $stmt->closeCursor();
             Core::showSuccess(gettext('updatesuccess'));
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
