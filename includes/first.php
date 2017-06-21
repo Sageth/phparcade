@@ -1,13 +1,11 @@
 <?php
 Core::stopDirectAccess();
-/* This is the former 'first.php' */
 if (!Administrations::isAdminArea()) {
     $pathinfo = $_SERVER['PATH_INFO'] ?? getenv('PATH_INFO');
     if (empty($pathinfo)) {
         $pathinfo = $_SERVER['ORIG_PATH_INFO'] ?? getenv('ORIG_PATH_INFO');
     }
-    $pathinfo = $pathinfo == "" ||
-                $pathinfo === 'index.php' ? ($_GET['params'] ?? '') : substr($pathinfo, 1, 4096);
+    $pathinfo = $pathinfo == "" || $pathinfo === 'index.php' ? ($_GET['params'] ?? '') : substr($pathinfo, 1, 4096);
     $params = explode('/', $pathinfo);
     $act = $params[0];
     // POST should only be used for forms. The params variable tells what you're doing.
@@ -21,8 +19,11 @@ if (!Administrations::isAdminArea()) {
 }
 Core::loadLinks();
 Languages::loadLanguage();
-
-if (!isset($_SESSION)) {session_start();} else {$user = $_SESSION['user'];}
+if (!isset($_SESSION)) {
+    session_start();
+} else {
+    $user = $_SESSION['user'];
+}
 $dbconfig = Core::getDBConfig();
 /** @noinspection PhpUndefinedVariableInspection */
 $params[2] = $params[2] ?? "";
@@ -38,38 +39,34 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
             } else {  //Same thing as above to pass unit tests
                 $array = Games::getGames('all', 0, $dbconfig['rssnumlatest'], '-all-', -1);
             }
-            echo "<?xml version='1.0' encoding='UTF-8' ?>";?>
+            echo "<?xml version='1.0' encoding='UTF-8' ?>"; ?>
             <rss version="2.0" xmlns="http://purl.org/rss/1.0/modules/content/"
-                 xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                  xmlns:atom="http://www.w3.org/2005/Atom"
-                 xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-                 xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
-                 xmlns:georss="http://www.georss.org/georss"
-                 xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
-                 xmlns:media="http://search.yahoo.com/mrss/">
-                <channel>
-                    <title><?php echo $dbconfig['sitetitle']; ?></title><?php echo PHP_EOL; ?>
-                    <description><?php echo $dbconfig['metadesc']; ?></description>
-                    <link><?php echo SITE_URL; ?></link>
-                    <atom:link href='<?php echo $dbconfig['rssfeed'];?>' rel='self' type='application/rss+xml' /><?php PHP_EOL;
-                    for ($i = 0; $i < $dbconfig['rssnumlatest']; $i++) {
-                        $title = $array[$i]['name'];
-                        $desc = $array[$i]['desc'];
-                        $link = Core::getLinkGame($array[$i]['id']);
-                        PHP_EOL; ?>
-                        <item>
-                            <title><?php echo $title; ?></title>
-                            <link><?php echo $link; ?></link>
-                            <description><![CDATA[<?php echo $desc; ?>]]></description>
-                            <guid><?php echo $link; ?></guid>
-                            <category>Games</category>
-                            <category>Flash Games</category>
-                            <category>Online Games</category>
-                            <category>Browser Games</category>
-                        </item><?php echo PHP_EOL;
-                    } ?>
-                </channel>
+            >
+            <channel>
+                <title><?php echo $dbconfig['sitetitle']; ?></title><?php echo PHP_EOL; ?>
+                <description><?php echo $dbconfig['metadesc']; ?></description>
+                <link><?php echo SITE_URL; ?></link>
+                <atom:link href='<?php echo $dbconfig['rssfeed']; ?>'
+                           rel='self'
+                           type='application/rss+xml'/><?php PHP_EOL;
+                for ($i = 0; $i < $dbconfig['rssnumlatest']; $i++) {
+                    $title = $array[$i]['name'];
+                    $desc = $array[$i]['desc'];
+                    $link = Core::getLinkGame($array[$i]['id']);
+                    PHP_EOL; ?>
+                    <item>
+                    <title><?php echo $title; ?></title>
+                    <link><?php echo $link; ?></link>
+                    <description><![CDATA[<?php echo $desc; ?>]]></description>
+                    <guid><?php echo $link; ?></guid>
+                    <category>Games</category>
+                    <category>Flash Games</category>
+                    <category>Online Games</category>
+                    <category>Browser Games</category>
+                    </item><?php echo PHP_EOL;
+                } ?>
+            </channel>
             </rss><?php
             break;
     }
@@ -124,9 +121,9 @@ switch ($act) {
             return 'notallfields';
         }
         break;
+    case 'profile':
+        if ($params[2] === 'editdone') {
+            Core::doEvent('profileediting');
+        }
     default:
 }
-if ($act === 'profile' && $params[2] === 'editdone') {
-    Core::doEvent('profileediting');
-}
-

@@ -60,8 +60,9 @@ class Ads {
             Core::showError($e->getMessage());
         }
     }
-    public static function showAds() {
+    public static function showAds($location) {
         /* Displays ad on the front-end webpage */
+        /* TODO: Add location to stored procedure */
         try {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_GetAll_Random();');
             $stmt->execute();

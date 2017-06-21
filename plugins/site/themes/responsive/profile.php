@@ -142,25 +142,20 @@ $dbconfig = Core::getDBConfig(); ?>
             if ($params[1] === 'edit') {
                 $user = Users::getUserbyID($_SESSION['user']['id']);
                 if ($params[2] == "" || !isset($params[2])) { ?>
-                    <form action="<?php echo SITE_URL; ?>" method="post" enctype="multipart/form-data" role="form" autocomplete="off">
+                    <form action="<?php echo SITE_URL; ?>" method="POST" autocomplete="off">
                         <div class="col-lg-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <?php echo gettext('accountinformation'); ?>
                                 </div>
                                 <div class="panel-body">
-                                    <!-- fake fields are a workaround for chrome autofill getting the wrong fields
-                                         See https://code.google.com/p/chromium/issues/detail?id=352347 -->
-                                    <div class="form-group">
-                                        <label for="fakeusernameremembered"></label>
-                                        <label for="fakepasswordremembered"></label>
-                                        <input style="display:none;" type="text" title="fake" name="fakeusernameremembered"/>
-                                        <input style="display:none;" type="password" title="fake" name="fakepasswordremembered"/>
-                                    </div>
-                                    <!-- End Fake password workaround -->
                                     <div class="form-group">
                                         <label for="id"><?php echo gettext('ID'); ?></label>
-                                        <input class="form-control" type="number" title="id" name="id" value="<?php echo $user['id']; ?>" disabled/>
+                                        <input class="form-control" type="text" title="id" name="id" value="<?php echo $user['id']; ?>" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="username"><?php echo gettext('username'); ?></label>
+                                        <input class="form-control" type="text" title="username" name="username" value="<?php echo $user['username']; ?>" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label for="email"><?php echo gettext('email'); ?></label>
@@ -168,11 +163,11 @@ $dbconfig = Core::getDBConfig(); ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="birth_date"><?php echo gettext('datebirth'); ?></label>
-                                        <input class="form-control" type="text" title="<?php echo gettext('datebirth'); ?>" name="birth_date" placeholder="<?php echo $user['birth_date']; ?>" disabled/>
+                                        <input class="form-control" type="text" title="<?php echo gettext('datebirth'); ?>" name="birth_date" placeholder="<?php echo $user['birth_date']; ?>" disabled />
                                     </div>
                                     <div class="form-group">
                                         <label for="email"><?php echo gettext('password'); ?></label>
-                                        <input class="form-control" title="<?php echo gettext('password'); ?>" type="password" name="password" placeholder="&nbsp;"/>
+                                        <input class="form-control" type="password" title="<?php echo gettext('password'); ?>" name="password" placeholder=""/>
                                         <p class="help-block"><?php echo gettext('blank'); ?></p>
                                     </div>
                                 </div>
@@ -233,16 +228,17 @@ $dbconfig = Core::getDBConfig(); ?>
                             </div>
                         </div>
                         <input type='hidden' name='params' value='profile/edit/editdone'/>
-                        <button type="submit" class="btn btn-primary" value="<?php echo gettext('profileedit'); ?>">
+                        <button type='submit' class='btn btn-primary' value='<?php echo gettext('profileedit'); ?>'>
                             <?php echo gettext('submit'); ?>
                         </button>
                     </form><?php
-                }
-            } else {
-                if ($params[2] === 'editdone') {
-                    echo gettext('updatesuccess');
                 } else {
-                    echo gettext('error');
+                    if ($params[0] === 'profile' && $params[2] === 'editdone' ) {
+                        Users::edit_profile_do();
+                        Core::showSuccess(gettext('updatesuccess'));
+                    } else {
+                        Core::showError(gettext('error'));
+                    }
                 }
             }
         } ?>

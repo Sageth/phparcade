@@ -3,20 +3,35 @@ declare(strict_types=1);
 Core::stopDirectAccess();
 
 class Users {
+    protected $params;
     protected $status;
     protected $user;
     private function __construct() {}
     public static function edit_profile_do() {
-        /* TODO: Figure out why this doesn't work */
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        global $params;
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        //$user = $_SESSION['user'];
-        $user = Users::getUserbyID($_SESSION['user']['id']);
-        if ($user == false) {
-            Core::showInfo(gettext('noexist'));
+
+        try {
+            $stmt =
+                mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :email, :github, :facebook, :msn, :twitter, :id);');
+            $stmt->bindParam(':aim', $_POST['aim']);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':github', $_POST['github_id']);
+            $stmt->bindParam(':facebook', $_POST['facebook_id']);
+            $stmt->bindParam(':msn', $_POST['msn']);
+            $stmt->bindParam(':twitter', $_POST['twitter_id']);
+            $stmt->bindParam(':id', $_POST['id']);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            $params[2] = 'wompwomp';
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+                Core::showSuccess(gettext('emailvalid'));
+            } else {
+                Core::showError(gettext('emailinvalid'));
+            }
+            Core::showError($e->getMessage());
+        }
+        if ($_POST['password'] != '') {
+            self::userPasswordUpdateByID($_POST['id'], $_POST['password']);
         }
         if ($_FILES['uploadavatar']['name'] > '') {
             $fileExt = '';
@@ -44,31 +59,6 @@ class Users {
         } else {
             $_POST['avatarurl'] = str_replace('//', "", $_POST['avatarurl']);
         }
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :avatar, :email, :id, :github, :facebook, :msn, :twitter);');
-            $stmt->bindParam(':aim', $_POST['aim']);
-            $stmt->bindParam(':avatar', $_POST['avatarurl']);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':id', $user['id']);
-            $stmt->bindParam(':github', $_POST['github_id']);
-            $stmt->bindParam(':facebook', $_POST['facebook_id']);
-            $stmt->bindParam(':msn', $_POST['msn']);
-            $stmt->bindParam(':twitter', $_POST['twitter_id']);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-                Core::showSuccess(gettext('emailvalid'));
-            } else {
-                Core::showError(gettext('emailinvalid'));
-            }
-            Core::showError($e->getMessage());
-        }
-        if ($_POST['password'] != '') {
-            self::userPasswordUpdateByID($user['id'], $_POST['password']);
-        }
-        $params[3] = 'success';
-        header('Location: user/profile');
-        return;
     }
     public static function userPasswordUpdateByID($id, $password) {
         try {
@@ -235,7 +225,6 @@ class Users {
         }
         /* Null checker to prevent extra log entries when user isn't logged in */
         $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
-
         if ($user !== null) {
             /* Uses index */
             $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePlaycount(:userid);');
@@ -338,7 +327,8 @@ class Users {
     public static function userEdit($id) {
         /* Used in admin to edit users. Be careful of the "isadmin" when using it elsewhere */
         try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :aim, :msn, :isadmin, :memberid);');
+            $stmt =
+                mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :aim, :msn, :isadmin, :memberid);');
             $stmt->bindParam(':memberid', $id);
             $stmt->bindParam(':username', $_POST['username']);
             $stmt->bindParam(':email', $_POST['email']);
@@ -414,22 +404,11 @@ class Users {
             $stmt->execute();
             $user = $stmt->fetch();
             $_SESSION['user'] =
-                array('id' => $user['id'],
-                      'name' => $username,
-                      'email' => $user['email'],
-                      'active' => $user['active'],
-                      'regtime' => $user['regtime'],
-                      'totalgames' => $user['totalgames'],
-                      'aim' => $user['aim'],
-                      'facebook' => $user['facebook_id'],
-                      'github' => $user['github_id'],
-                      'msn' => $user['msn'],
-                      'twitter' => $user['twitter_id'],
-                      'avatar' => $user['avatarurl'],
-                      'admin' => $user['admin'],
-                      'ip' => $user['ip'],
-                      'birth_date' => $user['birth_date'],
-                      'last_login' => $user['last_login']);
+                array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
+                      'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'aim' => $user['aim'],
+                      'facebook' => $user['facebook_id'], 'github' => $user['github_id'], 'msn' => $user['msn'],
+                      'twitter' => $user['twitter_id'], 'avatar' => $user['avatarurl'], 'admin' => $user['admin'],
+                      'ip' => $user['ip'], 'birth_date' => $user['birth_date'], 'last_login' => $user['last_login']);
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
