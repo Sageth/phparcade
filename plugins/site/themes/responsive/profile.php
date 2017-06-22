@@ -142,7 +142,7 @@ $dbconfig = Core::getDBConfig(); ?>
             if ($params[1] === 'edit') {
                 $user = Users::getUserbyID($_SESSION['user']['id']);
                 if ($params[2] == "" || !isset($params[2])) { ?>
-                    <form action="<?php echo SITE_URL; ?>" method="POST" autocomplete="off">
+                    <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
                         <div class="col-lg-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -234,8 +234,30 @@ $dbconfig = Core::getDBConfig(); ?>
                     </form><?php
                 } else {
                     if ($params[0] === 'profile' && $params[2] === 'editdone' ) {
-                        Users::edit_profile_do();
+                        /* Update user profile entries */
+                        Users::UpdateProfile();
+
+                        /* Update Password if necessary */
+                        if ($_POST['password'] != '') {
+                            Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
+                            Core::showSuccess(gettext('updatesuccess'));
+                        }
+
+                        /* If the file upload size isn't 0 (see print_r($_FILES)), then upload */
+                        if ($_FILES['uploadavatar']['size'] != 0) {
+                            /* Send the ID so you know what database entry to update.
+                               Then pick the path. And then name all uploads after their respective users.
+                               Makes it much easier to find people if you need to delete files or such. */
+                            Users::uploadAvatar($user['id'], 'uploads/', $user['username'].'.png');
+                            Core::showSuccess(gettext('Avatar Uploaded Successfully'));
+                        } else {
+                            /* And if you didn't select an avatar, be nice and tell them */
+                            Core::showInfo(gettext('A new avatar was not provided.'));
+                        }
+
+                        /* Show success on the other stuff that's not an avatar or password */
                         Core::showSuccess(gettext('updatesuccess'));
+
                     } else {
                         Core::showError(gettext('error'));
                     }

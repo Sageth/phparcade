@@ -7,7 +7,7 @@ class Users {
     protected $status;
     protected $user;
     private function __construct() {}
-    public static function edit_profile_do() {
+    public static function UpdateProfile() {
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 
         try {
@@ -30,35 +30,8 @@ class Users {
             }
             Core::showError($e->getMessage());
         }
-        if ($_POST['password'] != '') {
-            self::userPasswordUpdateByID($_POST['id'], $_POST['password']);
-        }
-        if ($_FILES['uploadavatar']['name'] > '') {
-            $fileExt = '';
-            if (strpos($_FILES['uploadavatar']['name'], 'jpg') > "") {
-                $fileExt = 'jpg';
-            } elseif (strpos($_FILES['uploadavatar']['name'], 'gif') > "") {
-                $fileExt = 'gif';
-            } elseif (strpos($_FILES['uploadavatar']['name'], 'jpeg') > "") {
-                $fileExt = 'jpeg';
-            } elseif (strpos($_FILES['uploadavatar']['name'], 'png') > "") {
-                $fileExt = 'png';
-            }
-            if ($fileExt > '') {
-                // Where the file is going to be placed
-                $target_path = 'uploads/';
-                /* Add the original filename to our target path.
-                Result is "uploads/filename.extension" */
-                $target_path .= basename($_FILES['uploadavatar']['name']);
-                move_uploaded_file($_FILES['uploadavatar']['tmp_name'], $target_path);
-                $_POST['avatarurl'] = 'uploads/' . basename($_FILES['uploadavatar']['name']);
-            } else {
-                //illegal file type, so save nothing
-                $_POST['avatarurl'] = '';
-            }
-        } else {
-            $_POST['avatarurl'] = str_replace('//', "", $_POST['avatarurl']);
-        }
+
+
     }
     public static function userPasswordUpdateByID($id, $password) {
         try {
@@ -231,6 +204,42 @@ class Users {
             $stmt->bindParam(':userid', $user['id']);
             $stmt->execute();
         }
+    }
+    public static function uploadAvatar($id, $path, $filename) {
+        /* Comes from the Profile page.  Take the ID in so you can do database work.
+          Then concat the path and filename from profile.php and upload. */
+        $avatarpath = $path.$filename;
+
+        /* Needs to be 10MB and either png, jpg, or gif MIME Type */
+        $validator = new FileUpload\Validator\Simple(1024 * 1024 * 10, ['image/png']);
+
+        /* Upload path */
+        $pathresolver = new FileUpload\PathResolver\Simple($path);
+
+        /* The machine's filesystem */
+        $filesystem = new FileUpload\FileSystem\Simple();
+
+        /* File Uploader itself */
+        $fileupload = new FileUpload\FileUpload($_FILES['uploadavatar'], $_SERVER);
+        $filenamegenerator = new FileUpload\FileNameGenerator\Custom($filename);
+
+        /* Adding it all together.  Note: can always add multiple validators, or use none */
+        $fileupload->setPathResolver($pathresolver);
+        $fileupload->setFileSystem($filesystem);
+        $fileupload->setFileNameGenerator($filenamegenerator);
+        $fileupload->addValidator($validator);
+
+        /* Uploading */
+        /** @noinspection PhpUnusedLocalVariableInspection */
+        list($files, $headers) = $fileupload->processAll();
+
+        /* Now update the database */
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateAvatar(:id, :avatarurl);');
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':avatarurl', $avatarpath);
+        $stmt->execute();
+
+        return;
     }
     public static function userAdd($username, $email, $status = "") {
         /* TODO: Convert to _sp */
