@@ -108,7 +108,7 @@ global $params; ?>
 							<table class="table table-striped table-hover" id="dataTables-example">
 								<thead>
 									<tr>
-										<th>&nbsp;</th>
+										<th><?php echo gettext('Ranking');?></th>
 										<th><?php echo gettext('player'); ?></th>
 										<th><?php echo gettext('score'); ?></th>
 									<th><?php echo gettext('date'); ?></th>
@@ -119,14 +119,19 @@ global $params; ?>
 										foreach ($scores as $score) {
 											++$i;
 											$d_score = date('m/d/Y', $score['date']);
-											$user = Users::getUserbyID($score['player']); ?>
+											$user = Users::getUserbyID($score['player']);
+                                            $avatar = $user['avatarurl'] === '' ? SITE_URL .
+                                                                                  'includes/images/noav.png' : SITE_URL .
+                                                                                                               $user['avatarurl']; ?>
 											<tr class="odd gradeA">
 												<td><?php echo $i; ?></td>
 												<td>
-													<a href="<?php echo Core::getLinkProfile($user['id']); ?>">
-														<?php echo $user['username']; ?>
-													</a>
-												</td>
+                                                    <img src="<?php echo $avatar;?>" class="img img-responsive img-circle" style="float:left" height="30" width="30" />
+                                                    &nbsp;
+                                                    <a href="<?php echo Core::getLinkProfile($user['id']); ?>">
+                                                        <?php echo $user['username']; ?>
+                                                    </a>
+                                                </td>
 												<td><?php echo Scores::formatScore($score['score']); ?></td>
 												<td><?php echo $d_score; ?></td>
 											</tr><?php
