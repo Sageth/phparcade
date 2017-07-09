@@ -6,7 +6,6 @@
 # git has its own built in compression methods
 # Logs and databases #
 ######################
-*.sql
 # OS generated files #
 ######################
 *.lock
