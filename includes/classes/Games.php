@@ -73,15 +73,12 @@ class Games {
 	public static function updateGameOrder() {
         $games = self::getGames('all', 0, 10000, '-all', -1);
         $i = 1;
-        /* TODO: Make this use index */
-        $sql = 'UPDATE `games` SET `order` = :gameorder WHERE `id` = :gameid;';
-        $stmt = mySQL::getConnection()->prepare($sql);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGameOrder(:gameorder, :gameid);');
         foreach ($games as $game) {
             try {
                 $stmt->bindParam(':gameorder', $i);
                 $stmt->bindParam(':gameid', $game['id']);
                 $stmt->execute();
-                $stmt->closeCursor();
                 return;
             } catch (PDOException $e) {
                 Core::showError($e->getMessage());
@@ -108,45 +105,38 @@ class Games {
             $limitstart = ($page - 1) * $gamesperpage;
             $limitend = $gamesperpage;
         }
-        if ($category == 'all') {
-            /* Carousel and admin "manage media" sections */
-            if (Administrations::isAdminArea()) {
-                /* TODO: Make this use index */
+        switch ($category) {
+            case 'all':
+                /* Carousel and admin "manage media" sections */
+                /* TODO: Break this out into separate functions */
                 $sql =
-                    'SELECT * FROM `games` WHERE `release_date` != :release_date ORDER BY `name` ASC LIMIT :limitstart,:limitend;';
-            } else {
-                /* Uses index */
-                $sql =
-                    'SELECT * FROM `games` WHERE `release_date` <= :release_date ORDER BY `playcount` DESC LIMIT :limitstart,:limitend;';
-            }
-            try {
-                $stmt = mySQL::getConnection()->prepare($sql);
-                $stmt->bindParam(':release_date', $time);
-                $stmt->bindParam(':limitstart', $limitstart);
-                $stmt->bindParam(':limitend', $limitend);
-                $stmt->execute();
-                $games = $stmt->fetchAll();
-                $stmt->closeCursor();
-            } catch (PDOException $e) {
-                echo gettext('error') . ' ' . $e->getMessage() . "\n";
-            }
-        } else {
-            /* Category page */
-            /* TODO: Make this use index */
-            $sql =
-                "SELECT * FROM `games` WHERE `cat` = :category AND `active` = 'Yes' AND release_date <= :release_date ORDER BY `name` ASC LIMIT :limitstart,:limitend;";
-            try {
-                $stmt = mySQL::getConnection()->prepare($sql);
-                $stmt->bindParam(':release_date', $time);
-                $stmt->bindParam(':category', $category);
-                $stmt->bindParam(':limitstart', $limitstart);
-                $stmt->bindParam(':limitend', $limitend);
-                $stmt->execute();
-                $games = $stmt->fetchAll();
-                $stmt->closeCursor();
-            } catch (PDOException $e) {
-                echo gettext('error') . ' ' . $e->getMessage() . "\n";
-            }
+                    Administrations::isAdminArea() ? 'CALL sp_Games_GetGamesByReleasedate_ASC(:release_date, :limitstart, :limitend);' : 'CALL sp_Games_GetGamesByReleasedate_DESC(:release_date, :limitstart, :limitend);';
+                try {
+                    $stmt = mySQL::getConnection()->prepare($sql);
+                    $stmt->bindParam(':release_date', $time);
+                    $stmt->bindParam(':limitstart', $limitstart);
+                    $stmt->bindParam(':limitend', $limitend);
+                    $stmt->execute();
+                    $games = $stmt->fetchAll();
+                } catch (PDOException $e) {
+                    echo gettext('error') . ' ' . $e->getMessage() . "\n";
+                }
+                break;
+            default:
+                /* Category page */
+                try {
+                    $stmt =
+                        mySQL::getConnection()->prepare('CALL sp_Games_GetGamesByCategory_ASC(:category, :release_date, :limitstart, :limitend);');
+                    $stmt->bindParam(':category', $category);
+                    $stmt->bindParam(':release_date', $time);
+                    $stmt->bindParam(':limitstart', $limitstart);
+                    $stmt->bindParam(':limitend', $limitend);
+                    $stmt->execute();
+                    $games = $stmt->fetchAll();
+                } catch (PDOException $e) {
+                    echo gettext('error') . ' ' . $e->getMessage() . "\n";
+                }
+                break;
         }
         /** @noinspection PhpUndefinedVariableInspection */
         foreach ($games as $game) {
@@ -159,14 +149,11 @@ class Games {
         return $games;
     }
 	public static function getCategory($name) {
-        /* Uses Index */
-        $sql = 'SELECT * FROM `categories` WHERE `name` = :categoryname;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryByName(:categoryname);');
             $stmt->bindParam(':categoryname', $name);
             $stmt->execute();
             $category = $stmt->fetch();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
@@ -174,14 +161,11 @@ class Games {
         return $category;
     }
 	public static function getCategoryID($id) {
-        /* Uses Index */
-        $sql = 'SELECT * FROM `categories` WHERE `id` = :categoryid;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryByID(:categoryid);');
             $stmt->bindParam(':categoryid', $id);
             $stmt->execute();
             $category = $stmt->fetch();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
@@ -190,13 +174,10 @@ class Games {
     }
 	public static function getCategoryIDMax() {
         /* Gets max order and sets the new category to be max(order)+1 */
-        /* Uses Index */
-        $sql = 'SELECT MAX(`order`) AS maxOrder FROM `categories`;';
-        $stmt = mySQL::getConnection()->prepare($sql);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryMaxID();');
         $stmt->execute();
         $order = $stmt->fetch();
         $order = $order['maxOrder'] + 1;
-        $stmt->closeCursor();
         return $order;
     }
 	public static function getCategorySelect($name, $prev = null) {
@@ -226,7 +207,6 @@ class Games {
         $stmt->bindParam(':parentcat', $parent);
         $stmt->execute();
         $category = $stmt->fetchAll();
-        $stmt->closeCursor();
         return $category;
     }
 	public static function getGame($id) {

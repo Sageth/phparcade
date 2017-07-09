@@ -108,7 +108,7 @@ INSERT INTO `phparcade`.`config` SET `key`='twitter_username',`value`='';
 -- Table structure for table `games`
 --
 
-CREATE TABLE IF NOT EXISTS `games` (
+CREATE TABLE `games` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nameid` varchar(255) NOT NULL DEFAULT '',
   `name` varchar(255) NOT NULL DEFAULT '',
@@ -138,10 +138,11 @@ CREATE TABLE IF NOT EXISTS `games` (
   `customcode` longtext DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nameid_UNIQUE` (`nameid`),
-  KEY `idx_game_lookup` (`id`,`nameid`,`name`,`desc`(100),`instructions`(100)) USING BTREE,
   KEY `idx_cat_lookup` (`playcount`,`release_date`,`cat`,`nameid`,`name`,`width`,`height`,`type`,`flags`,`time`) USING BTREE,
+  KEY `idx_game_lookup` (`id`,`nameid`,`name`,`desc`(100),`instructions`(100)) USING BTREE,
+  KEY `idx_game_search` (`name`,`release_date`,`id`,`nameid`),
   FULLTEXT KEY `search` (`name`,`desc`,`instructions`,`keywords`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2741 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `games_champs`
@@ -346,6 +347,38 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Ads_GetAllbyName`()
 DELIMITER ;
 
 -- Categories
+DROP PROCEDURE IF EXISTS `sp_Categories_GetCategoryByID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoryByID`(
+  IN c_categoryid INT(10))
+  BEGIN
+    SELECT *
+    FROM `categories`
+    WHERE `id` = c_categoryid;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Categories_GetCategoryByName`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoryByName`(
+  IN c_name VARCHAR(255))
+  BEGIN
+    SELECT *
+    FROM `categories`
+    WHERE `name` = c_name;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Categories_GetCategoryMaxID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoryMaxID`()
+  BEGIN
+    SELECT MAX(`order`)
+      AS maxOrder
+    FROM `categories`;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Categories_UpdateOrder`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_UpdateOrder`(
@@ -392,6 +425,24 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetBrokenByID`()
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Games_GetGamesByCategory_ASC`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesByCategory_ASC`(
+  IN g_category VARCHAR(255),
+  IN g_release_date INT(10),
+  IN g_limitstart INT(10),
+  IN g_limitend INT(10))
+  BEGIN
+    SELECT *
+    FROM `games`
+    WHERE `cat` = g_category
+          AND `active` = 'Yes'
+          AND release_date <= g_release_date
+    ORDER BY `name` ASC
+    LIMIT g_limitstart, g_limitend;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Games_GetGameByID`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGameByID`(
@@ -410,6 +461,36 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamebyNameid`()
   BEGIN
     SELECT `nameid`
     FROM `games`;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Games_GetGamesByReleasedate_ASC`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesByReleasedate_ASC`(
+  IN g_release_date INT(10),
+  IN g_limitstart INT(10),
+  IN g_limitend INT(10))
+  BEGIN
+    SELECT *
+    FROM `games`
+    WHERE `release_date` != g_release_date
+    ORDER BY `name` ASC
+    LIMIT g_limitstart, g_limitend;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Games_GetGamesByReleasedate_DESC`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesByReleasedate_DESC`(
+  IN g_release_date INT(10),
+  IN g_limitstart INT(10),
+  IN g_limitend INT(10))
+  BEGIN
+    SELECT *
+    FROM `games`
+    WHERE `release_date` <= g_release_date
+    ORDER BY `playcount` DESC
+    LIMIT g_limitstart, g_limitend;
   END ;;
 DELIMITER ;
 
@@ -456,6 +537,18 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetRandom8`()
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Games_UpdateGameOrder`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGameOrder`(
+  IN g_order INT(10),
+  IN g_id INT(10))
+  BEGIN
+    UPDATE `games`
+    SET `order` = g_order
+    WHERE `id` = g_id;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Games_UpdateGamePlaycountbyID`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGamePlaycountbyID`(
@@ -468,7 +561,6 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGamePlaycountby
 DELIMITER ;
 
 -- Games_Score
-
 DROP PROCEDURE IF EXISTS `sp_GamesScore_GetScores_ASC`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesScore_GetScores_ASC`(
