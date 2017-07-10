@@ -5,14 +5,10 @@ class Sessions {
     protected $rowcount;
     private function __construct() {}
 	public static function isOnline($id) {
-        /* Uses index */
-        $sql = 'SELECT * FROM `sessions` WHERE `userid` = :userid;';
-        $stmt = mySQL::getConnection()->prepare($sql);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Sessions_GetSessionbyUserid(:userid);');
         $stmt->bindParam(':userid', $id);
         $stmt->execute();
-        $rowcount = $stmt->rowCount();
-        $stmt->closeCursor();
-        return $rowcount == 1;
+        return $stmt->rowCount() == 1;
     }
     private function __clone() {}
 }

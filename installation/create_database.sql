@@ -1008,4 +1008,16 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Pages_UpdatePage`(
   END ;;
 DELIMITER ;
 
+-- Sessions
+DROP PROCEDURE IF EXISTS `sp_Sessions_GetSessionbyUserid`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Sessions_GetSessionbyUserid`(
+  IN s_userid INT(10))
+  BEGIN
+    SELECT *
+    FROM `sessions`
+    WHERE `userid` = s_userid;
+  END ;;
+DELIMITER ;
+
 USE `phparcade`;
