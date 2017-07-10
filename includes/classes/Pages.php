@@ -8,23 +8,17 @@ class Pages {
     }
 	public static function getPage($id) {
         /* Used to display on the front-end website */
-        /* TODO: Convert to _sp */
-        $sql = 'SELECT * FROM pages WHERE `id` = :pageid LIMIT 1';
-        $stmt = mySQL::getConnection()->prepare($sql);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_GetPagesbyPageID(:pageid);');
         $stmt->bindParam(':pageid', $id);
         $stmt->execute();
         $page = $stmt->fetch();
-        $stmt->closeCursor();
         return $page;
     }
 	public static function getPages() {
         /* Used to display all pages in the admin */
-        /* TODO: Convert to _sp */
-        $sql = "SELECT * FROM `pages` WHERE `id` != '' ORDER BY `id` ASC;";
-        $stmt = mySQL::getConnection()->prepare($sql);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_GetPagesbyID_ASC();');
         $stmt->execute();
         $page = $stmt->fetchAll();
-        $stmt->closeCursor();
         return $page;
     }
 	public static function getSubmitButton($active = 'active') { ?>
@@ -65,10 +59,8 @@ class Pages {
         </div><?php
     }
 	public static function pageDelete($id) {
-        /* TODO: Convert to _sp */
-        $sql = 'DELETE FROM `pages` WHERE `id` = :pageid;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_DeletePagebyID(:pageid);');
             $stmt->bindParam(':pageid', $id);
             $stmt->execute();
             $stmt->closeCursor();
@@ -78,10 +70,7 @@ class Pages {
         }
     }
 	public static function pageAdd($id = null, $title, $content, $keywords, $description) {
-        /* TODO: Make this use index */
-        /* TODO: Convert to _sp */
-        $sql = 'INSERT INTO `pages` ( `id` , `title` , `content` , `keywords` , `description` )
-				VALUES (:pageid, :pagetitle, :pagecontent, :pagekeywords, :pagedescription)';
+        $sql = 'CALL sp_Pages_InsertPage(:pageid, :pagetitle, :pagecontent, :pagekeywords, :pagedescription);';
         try {
             $stmt = mySQL::getConnection()->prepare($sql);
             $stmt->bindParam(':pageid', $id);
@@ -90,25 +79,20 @@ class Pages {
             $stmt->bindParam(':pagekeywords', $keywords);
             $stmt->bindParam(':pagedescription', $description);
             $stmt->execute();
-            $stmt->closeCursor();
             Core::showSuccess(gettext('addsuccess'));
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
     }
 	public static function pageUpdate($id, $title, $content, $description, $keywords) {
-        /* TODO: Convert to _sp */
-        $sql =
-            'UPDATE `pages` SET `title` = :title, `content` = :content, `description` = :description, `keywords` = :keywords WHERE `id` = :id;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_UpdatePage(:id, :title, :content, :keywords, :description);');
             $stmt->bindParam(':content', $content);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':keywords', $keywords);
             $stmt->bindParam(':title', $title);
             $stmt->execute();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }

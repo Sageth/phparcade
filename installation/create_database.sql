@@ -623,6 +623,17 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetIDandName`()
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Games_GetNameidByCategory`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetNameidByCategory`(
+  IN g_catname VARCHAR(255))
+  BEGIN
+    SELECT `nameid`
+    FROM `games`
+    WHERE `cat` = g_catname;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Games_GetPlaycount_Total`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetPlaycount_Total`()
@@ -933,6 +944,65 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdatePlaycount`(
     UPDATE `members`
     SET `totalgames` = `totalgames` + 1
     WHERE `id` = userid;
+  END ;;
+DELIMITER ;
+
+-- Pages
+DROP PROCEDURE IF EXISTS `sp_Pages_GetPagesbyPageID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Pages_GetPagesbyPageID`(
+  IN p_pageid INT(10))
+  BEGIN
+    SELECT *
+    FROM `pages`
+    WHERE `id` = p_pageid
+    LIMIT 1;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Pages_GetPagesbyID_ASC`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Pages_GetPagesbyID_ASC`()
+  BEGIN
+    SELECT *
+    FROM `pages`
+    WHERE `id` != ''
+    ORDER BY `id` ASC;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Pages_InsertPage`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Pages_InsertPage`(
+  IN p_pageid INT(10),
+  IN p_pagetitle VARCHAR(255),
+  IN p_pagecontent TEXT,
+  IN p_pagekeywords VARCHAR(255),
+  IN p_pagedescription VARCHAR(255))
+  BEGIN
+    INSERT INTO `pages`
+      (`id`, `title`, `content`, `keywords`, `description`)
+    VALUES
+      (p_pageid, p_pagetitle, p_pagecontent, p_pagekeywords, p_pagedescription);
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Pages_UpdatePage`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Pages_UpdatePage`(
+  IN p_pageid INT(10),
+  IN p_pagetitle VARCHAR(255),
+  IN p_pagecontent TEXT,
+  IN p_pagekeywords VARCHAR(255),
+  IN p_pagedescription VARCHAR(255))
+  BEGIN
+    UPDATE `pages`
+    SET
+      `title` = p_pagetitle,
+      `content` = p_pagecontent,
+      `description` = p_pagedescription,
+      `keywords` = p_pagekeywords
+    WHERE `id` = p_pageid;
   END ;;
 DELIMITER ;
 

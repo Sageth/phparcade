@@ -156,15 +156,12 @@ class Core {
         return $metadata;
     }
 	public static function getPages($category = '') {
-        /* TODO: Convert to _sp */
         $dbconfig = Core::getDBConfig();
         try {
-            $sql = 'SELECT `nameid` FROM `games` WHERE `cat` = :catname'; //Uses index
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetNameidByCategory(:catname);');
             $stmt->bindParam(':catname', $category);
             $stmt->execute();
             $pages = ceil($stmt->rowCount() / $dbconfig['gamesperpage']);
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
