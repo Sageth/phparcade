@@ -23,16 +23,8 @@ include_once __DIR__ . '/scoresys.php'; ?>
         <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo SITE_URL; ?>favicon.ico" title="FavIcon"/>
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
-        <!-- This section does lazy loading of the CSS as described here: https://github.com/filamentgroup/loadCSS/ -->
-        <link rel="preload" href="<?php echo CSS_BOOTSTRAP_THEME; ?>" as="style" onload="this.rel='stylesheet'">
-        <noscript>
-            <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>"/>
-        </noscript>
-        <link rel="preload" href="<?php echo CSS_FONTAWESOME; ?>" as="style" onload="this.rel='stylesheet'">
-        <noscript>
-            <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
-        </noscript>
-        <!-- End lazy loading -->
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
         <meta name="description" content="<?php echo $metadata['metapagedesc']; ?>"/>
         <meta name="keywords" content="<?php echo $metadata['metapagekeywords']; ?>"/>
         <meta name="language" content="English"/>
@@ -53,7 +45,7 @@ include_once __DIR__ . '/scoresys.php'; ?>
                 <meta property="fb:app_id" content="<?php echo $dbconfig['facebook_appid']; ?>"/><?php
                 break;
             case is('register'): ?>
-                <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>"></script><?php
+                <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>" defer></script><?php
             default:
         }
         if ($dbconfig['spotim_on'] === 'on') {
