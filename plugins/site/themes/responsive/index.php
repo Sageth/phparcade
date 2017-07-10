@@ -52,12 +52,13 @@ include_once __DIR__ . '/scoresys.php'; ?>
                 <meta property="og:description" content="<?php echo $game['desc']; ?>"/>
                 <meta property="fb:app_id" content="<?php echo $dbconfig['facebook_appid']; ?>"/><?php
                 break;
+            case is('register'): ?>
+                <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>"></script><?php
             default:
         }
         if ($dbconfig['spotim_on'] === 'on') {
             include_once INST_DIR . 'includes/js/Spotim/spotim.php';
         } ?>
-        <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>"></script>
     </head>
     <body><?php
         if ($dbconfig['ga_enabled'] === 'on') {
