@@ -461,7 +461,7 @@ class Games {
     }
 	public static function updateGameChamp($tplayerid, $tplayername, $tscore, $time, $gameid) {
         try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GameChamps_UpdateChamp(:top_user, :top_score, :curr_time, :top_nameid);');
+            $stmt = mySQL::getConnection()->prepare('CALL sp_GameChamps_UpdateChamp(:top_nameid, :top_user, :top_score, :curr_time, :game_id);');
             $stmt->bindParam(':top_nameid', $tplayerid);
             $stmt->bindParam(':top_user', $tplayername);
             $stmt->bindParam(':top_score', $tscore);

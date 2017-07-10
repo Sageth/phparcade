@@ -745,15 +745,17 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_UpdateChamp`(
   IN gc_top_nameid INT(11),
   IN gc_top_user INT(11),
   IN gc_top_score FLOAT,
-  IN gc_curr_time INT(10))
+  IN gc_curr_time INT(10),
+  IN gc_gameid INT(11))
   BEGIN
     UPDATE `games_champs`
     SET
+      `nameid`= gc_top_nameid,
       `player`= gc_top_user,
       `score` = gc_top_score,
       `date`  = gc_curr_time
     WHERE
-      `nameid` =  gc_top_nameid
+      `nameid` =  gc_gameid
     LIMIT 1;
   END ;;
 DELIMITER ;
