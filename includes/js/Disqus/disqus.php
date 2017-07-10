@@ -1,14 +1,11 @@
-<?php $currentlink = '/' . trim($_SERVER['REQUEST_URI'], '/');
+<?php $currentlink = SITE_URL . trim($_SERVER['REQUEST_URI'], '/');
 $dbconfig = Core::getDBConfig(); ?>
+<!--suppress ALL -->
 <div id="disqus_thread"></div>
 <script data-cfasync="false">
-    /**
-    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-    */
     var disqus_config = function () {
-        this.page.url = '<?php echo $currentlink;?>';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = '<?php echo $game['id'];?>'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = '<?php echo $currentlink;?>';
+        this.page.identifier = '<?php echo $game['id'];?>';
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

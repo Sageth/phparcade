@@ -153,7 +153,7 @@ global $params; ?>
 						<h3 class="panel-title"><?php echo gettext('disqus'); ?></h3>
 					</div>
 					<div class="panel-body">
-						<?php require_once INST_DIR . 'includes/js/Disqus/disqus.php';?>
+						<?php include_once(INST_DIR . 'includes/js/Disqus/disqus.php');?>
 					</div>
 				</div>
 			</div><?php
