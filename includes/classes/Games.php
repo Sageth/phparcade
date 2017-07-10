@@ -195,10 +195,10 @@ class Games {
 	public static function getCategories($sort) {
         switch ($sort) {
             case 'DESC':
-                $sql = 'SELECT * FROM `categories` ORDER BY `order` DESC;'; //Uses index
+                $sql = 'CALL sp_Categories_GetCategoriesByOrder_DESC();';
                 break;
             case 'ASC':
-                $sql = 'SELECT * FROM `categories` ORDER BY `order` ASC;'; //Uses index
+                $sql = 'CALL sp_Categories_GetCategoriesByOrder_ASC();';
                 break;
             default:
                 $sql = "";
@@ -262,14 +262,11 @@ class Games {
         return $game;
     }
 	public static function getGameByNameID($nameid) {
-        /* TODO: Make this use index */
-        $sql = 'SELECT * FROM `games` WHERE `nameid` = :gamenameid;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid(:gamenameid);');
             $stmt->bindParam(':gamenameid', $nameid);
             $stmt->execute();
             $game = $stmt->fetch();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
@@ -277,14 +274,11 @@ class Games {
         return $game;
     }
 	public static function getGameCountByNameID($nameid) {
-        /* TODO: Make this use index */
-        $sql = 'SELECT * FROM `games` WHERE `nameid` = :gamenameid;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid(:gamenameid);');
             $stmt->bindParam(':gamenameid', $nameid);
             $stmt->execute();
             $rowcount = $stmt->rowCount();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
@@ -303,14 +297,11 @@ class Games {
         return $games;
     }
 	public static function getGamesChamp($playerid) {
-        /* TODO: Make this use index */
-        $sql = 'SELECT `nameid`,`player` FROM `games_champs` WHERE `player` = :playerid;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetPlayerNameID(:playerid);');
             $stmt->bindParam(':playerid', $playerid);
             $stmt->execute();
             $games = $stmt->fetchAll();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
@@ -320,21 +311,15 @@ class Games {
 	public static function getGamesCount($category) {
         $time = Core::getCurrentDate();
         if ($category == 'all') {
-            /* TODO: Make this use index */
-            $sql = "SELECT `id` FROM `games` WHERE `active` = 'Yes' AND release_date <= :releasedate;";
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_ActivebyReleaseDate(:releasedate);');
             $stmt->bindParam(':releasedate', $time);
         } else {
-            /* TODO: Make this use index */
-            $sql =
-                "SELECT `id` FROM `games` WHERE `active` = 'Yes' AND release_date <= :releasedate AND cat = :category;";
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_ActivebyCategory(:releasedate, :category');
             $stmt->bindParam(':category', $category);
             $stmt->bindParam(':releasedate', $time);
         }
         $stmt->execute();
         $rowcount = $stmt->rowCount();
-        $stmt->closeCursor();
         return $rowcount;
     }
 	public static function getGamesHomePage() {
@@ -349,10 +334,8 @@ class Games {
         return $games;
     }
 	public static function getGamesInactive($active = 'No') {
-        /* TODO: Make this use index */
-        $sql = 'SELECT * FROM `games` WHERE `active`= :active;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Active(:active);');
             $stmt->bindParam(':active', $active);
             $stmt->execute();
             $games = $stmt->fetchAll();
@@ -364,14 +347,11 @@ class Games {
         return $games;
     }
 	public static function getGamesInactiveCount($active = 'No') {
-        /* TODO: Make this use index */
-        $sql = 'SELECT * FROM `games` WHERE `active`= :active;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Active(:active);');
             $stmt->bindParam(':active', $active);
             $stmt->execute();
             $rowcount = $stmt->rowCount();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
@@ -380,14 +360,11 @@ class Games {
     }
 	public static function getGamesBroken() {
         $yes = 'Yes';
-        /* TODO: Make this use index */
-        $sql = 'SELECT `id` FROM `games` WHERE `broken` = :broken;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
-            $stmt->bindParam(':notactive', $yes);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Broken(:broken);');
+            $stmt->bindParam(':broken', $yes);
             $stmt->execute();
             $games = $stmt->fetchAll();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
@@ -416,11 +393,8 @@ class Games {
         return $games;
     }
 	public static function insertCategory($id = null, $name, $description, $keywords, $order, $type) {
-        /* TODO: Make this use index */
-        $sql = 'INSERT INTO `categories` ( `id` , `name` , `desc` , `keywords`, `order` , `type`)
-					VALUES (:catid, :catname, :catdesc, :catkeywords, :catorder, :cattype);';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_InsertCategory(:catid, :catname, :catdesc, :catkeywords, :catorder, :cattype);');
             $stmt->bindParam(':catid', $id);
             $stmt->bindParam(':catname', $name);
             $stmt->bindParam(':catdesc', $description);
@@ -428,34 +402,27 @@ class Games {
             $stmt->bindParam(':catorder', $order);
             $stmt->bindParam(':cattype', $type);
             $stmt->execute();
-            $stmt->closeCursor();
             Core::showSuccess(gettext('addsuccess'));
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
     }
 	public static function updateCategory($id, $name, $type, $description, $keywords) {
-        /* TODO: Make this use index */
-        $sql =
-            'UPDATE `categories` SET `name` = :catname, `type` = :cattype, `desc` = :catdesc, `keywords` = :catkeywords WHERE `id` = :catid;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_UpdateCategory(:catid, :catname, :catdesc, :catkeywords, :cattype);');
+            $stmt->bindParam(':catid', $id);
             $stmt->bindParam(':catname', $name);
-            $stmt->bindParam(':cattype', $type);
             $stmt->bindParam(':catdesc', $description);
             $stmt->bindParam(':catkeywords', $keywords);
-            $stmt->bindParam(':catid', $id);
+            $stmt->bindParam(':cattype', $type);
             $stmt->execute();
-            $stmt->closeCursor();
             Core::showSuccess(gettext('updatesuccess'));
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
     }
 	public static function updateCategoryOrder($categories, $i = 1) {
-        /* TODO: Make this use index */
-        $sql = 'UPDATE `categories` SET `order` = :catorder WHERE `id` = :catid;';
-        $stmt = mySQL::getConnection()->prepare($sql);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_UpdateOrder(:catorder, :catid);');
         foreach ($categories as $category) {
             $category['order'] = $i;
             try {
@@ -463,33 +430,15 @@ class Games {
                 $stmt->bindParam(':catorder', $category['order']);
                 $stmt->execute();
                 ++$i;
-                $stmt->closeCursor();
             } catch (PDOException $e) {
                 Core::showError($e->getMessage());
             }
         }
     }
 	public static function updateGame($id) {
-        /* TODO: Make this use index */
-        $sql = 'UPDATE `games`
-					SET
-						`name`      = :gamename,
-						`nameid`    = :gamenameid,
-						`desc`      = :gamedesc,
-						`cat`       = :gamecat,
-						`keywords`  = :gamekeywords,
-						`flags`     = :gameflags,
-						`instructions` = :gameinstructions,
-						`customcode`= :gamecustomcode,
-						`width`     = :gamewidth,
-						`height`    = :gameheight,
-						`active`    = :gameactive,
-						`release_date` = :gamerelease
-					WHERE
-						`id` = :gameid;';
         try {
             $_POST['active'] = array_key_exists('active', $_POST) ? 'Yes' : 'No';
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGame(:gamename, :gamenameid, :gamedesc, :gamecat, :gamekeywords, :gameflags, :gameinstructions, :gamecustomcode, :gamewidth, :gameheight, :gameactive, :gamerelease, :gameid);');
             $stmt->bindParam(':gamename', $_POST['name']);
             $stmt->bindParam(':gamenameid', $_POST['nameid']);
             $stmt->bindParam(':gamedesc', $_POST['desc']);
@@ -511,18 +460,14 @@ class Games {
         }
     }
 	public static function updateGameChamp($tplayerid, $tplayername, $tscore, $time, $gameid) {
-        /* TODO: Make this use index */
-        $sql =
-            'UPDATE `games_champs` SET `nameid`= :top_nameid, `player`= :top_user, `score` = :top_score, `date`  = :curr_time WHERE `nameid` =  :game_id	LIMIT 1';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_GameChamps_UpdateChamp(:top_user, :top_score, :curr_time, :top_nameid);');
             $stmt->bindParam(':top_nameid', $tplayerid);
             $stmt->bindParam(':top_user', $tplayername);
             $stmt->bindParam(':top_score', $tscore);
             $stmt->bindParam(':curr_time', $time);
             $stmt->bindParam(':game_id', $gameid);
             $stmt->execute();
-            $stmt->closeCursor();
             return;
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";

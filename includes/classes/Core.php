@@ -46,7 +46,7 @@ class Core {
     }
     public static function getAdminGamePageCount() {
         try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid();');
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();');
             $stmt->execute();
             $get_total_rows = $stmt->rowCount(); //Total Records
             $pages = ceil($get_total_rows / 50);

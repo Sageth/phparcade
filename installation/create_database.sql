@@ -108,7 +108,7 @@ INSERT INTO `phparcade`.`config` SET `key`='twitter_username',`value`='';
 -- Table structure for table `games`
 --
 
-CREATE TABLE `games` (
+CREATE TABLE IF NOT EXISTS `games` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nameid` varchar(255) NOT NULL DEFAULT '',
   `name` varchar(255) NOT NULL DEFAULT '',
@@ -141,6 +141,9 @@ CREATE TABLE `games` (
   KEY `idx_cat_lookup` (`playcount`,`release_date`,`cat`,`nameid`,`name`,`width`,`height`,`type`,`flags`,`time`) USING BTREE,
   KEY `idx_game_lookup` (`id`,`nameid`,`name`,`desc`(100),`instructions`(100)) USING BTREE,
   KEY `idx_game_search` (`name`,`release_date`,`id`,`nameid`),
+  KEY `idx_releasedate_lookup` (`id`,`active`,`release_date`,`cat`),
+  KEY `idx_game_active` (`active`),
+  KEY `idx_game_broken` (`broken`),
   FULLTEXT KEY `search` (`name`,`desc`,`instructions`,`keywords`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2741 DEFAULT CHARSET=utf8;
 
@@ -153,7 +156,8 @@ CREATE TABLE IF NOT EXISTS `games_champs` (
   `player` int(11) NOT NULL,
   `date` int(10) NOT NULL,
   `score` float NOT NULL DEFAULT 0,
-  PRIMARY KEY (`nameid`)
+  PRIMARY KEY (`nameid`),
+  KEY `idx_playerscore_lookup` (`nameid`,`player`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -369,6 +373,26 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoryByNam
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Categories_GetCategoriesByOrder_ASC`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoriesByOrder_ASC`()
+  BEGIN
+    SELECT *
+    FROM `categories`
+    ORDER BY `order` ASC;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Categories_GetCategoriesByOrder_DESC`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoriesByOrder_DESC`()
+  BEGIN
+    SELECT *
+    FROM `categories`
+    ORDER BY `order` DESC;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Categories_GetCategoryMaxID`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoryMaxID`()
@@ -376,6 +400,42 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoryMaxID
     SELECT MAX(`order`)
       AS maxOrder
     FROM `categories`;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Categories_InsertCategory`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_InsertCategory`(
+  IN c_catid INT(10),
+  IN c_catname VARCHAR(255),
+  IN c_catdesc VARCHAR(255),
+  IN c_catkeywords VARCHAR(255),
+  IN c_catorder INT(10),
+  IN c_cattype VARCHAR(255))
+  BEGIN
+    INSERT INTO `categories`
+    (`id`, `name`, `desc`, `keywords`, `order`, `type`)
+    VALUES
+      (c_catid, c_catname, c_catdesc, c_catkeywords, c_catorder, c_cattype);
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Categories_UpdateCategory`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_UpdateCategory`(
+  IN c_catid INT(10),
+  IN c_catname VARCHAR(255),
+  IN c_catdesc VARCHAR(255),
+  IN c_catkeywords VARCHAR(255),
+  IN c_cattype VARCHAR(255))
+  BEGIN
+    UPDATE `categories`
+    SET
+      `name` = c_catname,
+      `type` = c_cattype,
+      `desc` = c_catdesc,
+      `keywords` = c_catkeywords
+    WHERE `id` = c_catid;
   END ;;
 DELIMITER ;
 
@@ -425,6 +485,17 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetBrokenByID`()
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Games_GetGames_Broken`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGames_Broken`(
+  IN g_broken ENUM('Yes','No'))
+  BEGIN
+    SELECT `id`
+    FROM `games`
+    WHERE `broken` = g_broken;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Games_GetGamesByCategory_ASC`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesByCategory_ASC`(
@@ -457,7 +528,56 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS `sp_Games_GetGamebyNameid`;
 DELIMITER ;;
-CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamebyNameid`()
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamebyNameid`(
+  IN g_nameid VARCHAR(255))
+  BEGIN
+    SELECT *
+    FROM `games`
+    WHERE `nameid` = g_nameid;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Games_GetGames_Active`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGames_Active`(
+  IN g_active VARCHAR(10))
+  BEGIN
+    SELECT *
+    FROM `games`
+    FORCE INDEX(idx_game_active)
+    WHERE `active`= g_active;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Games_GetGames_ActivebyReleaseDate`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGames_ActivebyReleaseDate`(
+  IN g_releasedate INT(10))
+  BEGIN
+    SELECT `id`
+    FROM `games`
+    WHERE `active` = 'Yes'
+          AND release_date <= g_releasedate;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Games_GetGames_ActivebyCategory`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGames_ActivebyCategory`(
+  IN g_releasedate INT(10),
+  IN g_category VARCHAR(255))
+  BEGIN
+    SELECT `id`
+    FROM `games`
+    WHERE `active` = 'Yes'
+          AND release_date <= g_releasedate
+          AND cat = g_category;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Games_GetGamesNameid`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesNameid`()
   BEGIN
     SELECT `nameid`
     FROM `games`;
@@ -537,6 +657,42 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetRandom8`()
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Games_UpdateGame`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGame`(
+  IN g_gamename VARCHAR(255),
+  IN g_gamenameid VARCHAR(255),
+  IN g_gamedesc TEXT,
+  IN g_gamecat VARCHAR(255),
+  IN g_gamekeywords VARCHAR(255),
+  IN g_gameflags VARCHAR(15),
+  IN g_gameinstructions TEXT,
+  IN g_gamecustomcode LONGTEXT,
+  IN g_gamewidth INT(10),
+  IN g_gameheight INT(10),
+  IN g_gameactive ENUM('Yes','No'),
+  IN g_gamerelease INT(10),
+  IN g_gameid INT(10))
+  BEGIN
+    UPDATE `games`
+    SET
+      `name`      = g_gamename,
+      `nameid`    = g_gamenameid,
+      `desc`      = g_gamedesc,
+      `cat`       = g_gamecat,
+      `keywords`  = g_gamekeywords,
+      `flags`     = g_gameflags,
+      `instructions` = g_gameinstructions,
+      `customcode`= g_gamecustomcode,
+      `width`     = g_gamewidth,
+      `height`    = g_gameheight,
+      `active`    = g_gameactive,
+      `release_date` = g_gamerelease
+    WHERE
+      `id` = g_gameid;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Games_UpdateGameOrder`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGameOrder`(
@@ -557,6 +713,37 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGamePlaycountby
     UPDATE `games`
     SET `playcount` = `playcount` + 1
     WHERE `id` = gameid;
+  END ;;
+DELIMITER ;
+
+-- Games_Champs
+DROP PROCEDURE IF EXISTS `sp_GamesChamps_GetPlayerNameID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_GetPlayerNameID`(
+  IN ch_playerid INT(10))
+  BEGIN
+    SELECT `nameid`,`player`
+    FROM `games_champs`
+    WHERE `player` = ch_playerid;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_GameChamps_UpdateChamp`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_UpdateChamp`(
+  IN gc_top_nameid INT(11),
+  IN gc_top_user INT(11),
+  IN gc_top_score FLOAT,
+  IN gc_curr_time INT(10))
+  BEGIN
+    UPDATE `games_champs`
+    SET
+      `player`= gc_top_user,
+      `score` = gc_top_score,
+      `date`  = gc_curr_time
+    WHERE
+      `nameid` =  gc_top_nameid
+    LIMIT 1;
   END ;;
 DELIMITER ;
 
