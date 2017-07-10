@@ -1,4 +1,4 @@
-<?php $currentlink = SITE_URL . trim($_SERVER['REQUEST_URI'], '/');
+<?php $currentlink = '/' . trim($_SERVER['REQUEST_URI'], '/');
 $dbconfig = Core::getDBConfig(); ?>
 <div id="disqus_thread"></div>
 <script data-cfasync="false">
