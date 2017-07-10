@@ -146,8 +146,6 @@ global $params; ?>
 			<!-- End Game Code --><?php
 		}
 		if ($dbconfig['disqus_on'] === 'on') { ?>
-            <!-- CloudFlare Server-side Exclude hides comments from suspicious visitors -->
-            <!--sse-->
             <div class="clearfix invisible" itemprop="comment"></div>
 			<div class="col-lg-12">
 				<div class="panel panel-info">
