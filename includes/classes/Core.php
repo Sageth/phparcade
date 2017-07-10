@@ -156,6 +156,7 @@ class Core {
         return $metadata;
     }
 	public static function getPages($category = '') {
+        /* TODO: Convert to _sp */
         $dbconfig = Core::getDBConfig();
         try {
             $sql = 'SELECT `nameid` FROM `games` WHERE `cat` = :catname'; //Uses index

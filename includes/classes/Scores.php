@@ -25,7 +25,6 @@ class Scores {
     }
     public static function getGameScore($nameid, $sort, $limitnum) {
         /* Strips "-score" from game to be compatible with v2 Arcade Games */
-        /* Uses index */
         $nameid = str_replace('-score', "", $nameid);
         switch ($sort) {
             case 'ASC':
@@ -49,6 +48,7 @@ class Scores {
     }
     public static function submitGameScore($nameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link = '', $sort = 'DESC') {
         /* TODO: Separate this monster into different functions */
+        /* TODO: Convert to _sp */
         if (!isset($_SESSION)) {
             session_start();
         }

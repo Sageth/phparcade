@@ -8,7 +8,7 @@ class Pages {
     }
 	public static function getPage($id) {
         /* Used to display on the front-end website */
-        /* Uses index */
+        /* TODO: Convert to _sp */
         $sql = 'SELECT * FROM pages WHERE `id` = :pageid LIMIT 1';
         $stmt = mySQL::getConnection()->prepare($sql);
         $stmt->bindParam(':pageid', $id);
@@ -19,7 +19,7 @@ class Pages {
     }
 	public static function getPages() {
         /* Used to display all pages in the admin */
-        /* Uses index */
+        /* TODO: Convert to _sp */
         $sql = "SELECT * FROM `pages` WHERE `id` != '' ORDER BY `id` ASC;";
         $stmt = mySQL::getConnection()->prepare($sql);
         $stmt->execute();
@@ -65,7 +65,7 @@ class Pages {
         </div><?php
     }
 	public static function pageDelete($id) {
-        /* Uses index */
+        /* TODO: Convert to _sp */
         $sql = 'DELETE FROM `pages` WHERE `id` = :pageid;';
         try {
             $stmt = mySQL::getConnection()->prepare($sql);
@@ -79,6 +79,7 @@ class Pages {
     }
 	public static function pageAdd($id = null, $title, $content, $keywords, $description) {
         /* TODO: Make this use index */
+        /* TODO: Convert to _sp */
         $sql = 'INSERT INTO `pages` ( `id` , `title` , `content` , `keywords` , `description` )
 				VALUES (:pageid, :pagetitle, :pagecontent, :pagekeywords, :pagedescription)';
         try {
@@ -96,7 +97,7 @@ class Pages {
         }
     }
 	public static function pageUpdate($id, $title, $content, $description, $keywords) {
-        /* Uses index */
+        /* TODO: Convert to _sp */
         $sql =
             'UPDATE `pages` SET `title` = :title, `content` = :content, `description` = :description, `keywords` = :keywords WHERE `id` = :id;';
         try {
