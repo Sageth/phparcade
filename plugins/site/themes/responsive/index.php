@@ -47,9 +47,6 @@ include_once __DIR__ . '/scoresys.php'; ?>
             case is('register'): ?>
                 <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>" defer></script><?php
             default:
-        }
-        if ($dbconfig['spotim_on'] === 'on') {
-            include_once INST_DIR . 'includes/js/Spotim/spotim.php';
         } ?>
     </head>
     <body><?php

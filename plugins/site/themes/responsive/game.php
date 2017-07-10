@@ -158,13 +158,7 @@ global $params; ?>
 						<?php require_once INST_DIR . 'includes/js/Disqus/disqus.php';?>
 					</div>
 				</div>
-			</div><!--/sse--><?php
-		}
-		if ($dbconfig['spotim_on'] === 'on') { ?>
-            <!-- CloudFlare Server-side Exclude hides comments from suspicious visitors -->
-            <!--sse-->
-            <div id="spot-im-frame-inpage" itemprop="comment"></div>
-            <!--/sse--><?php
+			</div><?php
 		}
 	} else { ?>
 		<h1><?php echo gettext('404status'); ?></h1>

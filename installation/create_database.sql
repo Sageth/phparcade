@@ -96,8 +96,6 @@ INSERT INTO `phparcade`.`config` SET `key`='rssfeed',`value`='';
 INSERT INTO `phparcade`.`config` SET `key`='rssnumlatest',`value`='15';
 INSERT INTO `phparcade`.`config` SET `key`='sitetitle',`value`='phpArcade, Free Online Script';
 INSERT INTO `phparcade`.`config` SET `key`='sort',`value`='ASC';
-INSERT INTO `phparcade`.`config` SET `key`='spotim_on',`value`='on';
-INSERT INTO `phparcade`.`config` SET `key`='spotim_id',`value`='';
 INSERT INTO `phparcade`.`config` SET `key`='theight',`value`='200';
 INSERT INTO `phparcade`.`config` SET `key`='theme',`value`='responsive';
 INSERT INTO `phparcade`.`config` SET `key`='twidth',`value`='200';

@@ -1022,21 +1022,6 @@ msgstr ""
 msgid "sortorder"
 msgstr "Sort Order"
 
-msgid "spotim"
-msgstr "Spot.im"
-
-msgid "spotim_enabled"
-msgstr "Spot.im Enabled:"
-
-msgid "spotim_id"
-msgstr "Spot.im id:"
-
-msgid "spotim_id_location1"
-msgstr "This can be found in as a text string in the code from spot.im."
-
-msgid "spotim_id_location2"
-msgstr "When you grab the code, put whatever is in quotes after 'spotid='"
-
 msgid "sql"
 msgstr "SQL"
 

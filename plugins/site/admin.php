@@ -345,7 +345,6 @@ function site_admin($mthd) {
 		case 'social-config':
 			$checkeddisqus = ($dbconfig['disqus_on'] === 'on') ? 'checked' : "";
 			$checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
-			$checkedspotim = ($dbconfig['spotim_on'] === 'on') ? 'checked' : "";
 			$checkedtwittr = ($dbconfig['twitter_on'] === 'on') ? 'checked' : ""; ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
@@ -371,38 +370,6 @@ function site_admin($mthd) {
 								<label><?php echo gettext('disqus_user'); ?></label>
 								<input class="form-control" title="Disqus User" type='text' name='disqus_user'
 								       value='<?php echo $dbconfig['disqus_user']; ?>'/>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<?php echo Core::showGlyph('wechat');?>&nbsp;<?php echo gettext('spotim'); ?>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('database');?>
-										<label><?php echo gettext('spotim_enabled'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="spotim_on"></label>
-											<input type="checkbox" name="spotim_on" id="spotim_on" <?php echo $checkedspotim; ?> data-toggle="toggle"/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr/>
-							<div class="form-group">
-								<label><?php echo gettext('spotim_id'); ?></label>
-								<input class="form-control" title="Spot.IM ID" type='text' name='spotim_id'
-								       value='<?php echo $dbconfig['spotim_id']; ?>'/>
-								<p class="help-block">
-									<?php echo gettext('spotim_id_location1'); ?>
-									<?php echo gettext('spotim_id_location2'); ?>
-								</p>
 							</div>
 						</div>
 						<div class="panel-footer">&nbsp;</div>
@@ -517,8 +484,6 @@ function site_admin($mthd) {
 			Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
 			Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
 			Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
-			Administrations::updateConfig('spotim_on', array_key_exists('spotim_on', $_POST) ? 'on' : 'off');
-			Administrations::updateConfig('spotim_id', $_POST['spotim_id']);
 			Administrations::updateConfig('twitter_on', array_key_exists('twitter_on', $_POST) ? 'on' : 'off');
 			Administrations::updateConfig('twitter_username', $_POST['twitter_username']);
 			Core::showSuccess(gettext('updatesuccess'));

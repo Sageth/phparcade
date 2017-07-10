@@ -19,7 +19,6 @@ better adherence to new coding standards.  A production "demo" of the front-end 
 * Internal high score system for some game types, primarily ibPro v2
 * **Responsive design** for front-end and back-end
 * RSS Feeds
-* [Spot.IM](https://www.spot.im/) Comment System (optional)
 * Supports PHP7 and the latest strict standards of MySQL 5.6+
 * User administration and profiles
 
