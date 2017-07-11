@@ -54,6 +54,9 @@ repositories. This code has not been tested on Apache. It may work with some bas
 * [Start Bootstrap](http://startbootstrap.com/) for the base admin theme
 * [phpArcade](https://www.phparcade.com) is made open source by permission. Please note that the maintainer(s) of this 
 repository do not imply ownership or affiliation with [GameSiteScript](http://www.gamesitescript.com) or its contents.
+* [JetBrains](https://www.jetbrains.com/) has been incredibly helpful and I'd like to thank them for their products and 
+continued offering of an [open source license](https://www.jetbrains.com/buy/opensource/).  
+![JetBrains Logo](https://www.phparcade.com/includes/images/jetbrains-variant-3.svg)
 
 ## Developers:
 * Sage Russell - Project maintainer, developer. 
