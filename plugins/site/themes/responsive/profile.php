@@ -136,7 +136,20 @@ $dbconfig = Core::getDBConfig(); ?>
                         </div>
                     </div>
                 </div>
-                </div><?php
+                <script type="application/ld+json">
+                {
+                    "@context": "http://schema.org",
+                    "@type": "Person",
+                    "name": "<?php echo $user['username'];?>",
+                    "url": "<?php echo SITE_URL;?>profile/view/<?php echo $user['id'];?>/<?php echo $user['username'];?>.html"
+                    <?php if (!empty($user['facebook_id']) || (!empty($user['github_id'])) || (!empty($user['twitter_id']))) { ?>,
+                    "sameAs": [
+                        <?php if (!empty($user['facebook_id'])) { ?>"http://www.facebook.com/<?php echo $user['facebook_id'];?>",<?php } ?>
+                        <?php if (!empty($user['github_id'])) { ?>"http://www.github.com/<?php echo $user['github_id'];?>",<?php } ?>
+                        <?php if (!empty($user['twitter_id'])) { ?>"http://www.twitter.com/<?php echo $user['twitter_id'];?>"<?php } ?>
+                    ]<?php } ?>
+                }
+                </script><?php
             }
         } else {
             if ($params[1] === 'edit') {

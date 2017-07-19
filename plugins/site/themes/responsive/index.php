@@ -96,5 +96,39 @@ include_once __DIR__ . '/scoresys.php'; ?>
         } /** @noinspection MissingOrEmptyGroupStatementInspection */ else {
             /* Do nothing */
         } ?>
+        <script type="application/ld+json">
+        {
+            "@context":"http://schema.org",
+            "@type":"Organization",
+            "name":"<?php echo $dbconfig['sitetitle'];?>",
+            "url":"<?php echo SITE_URL;?>",
+            "sameAs": [
+                "<?php echo URL_TWITTER . $dbconfig['twitter_username'];?>",
+                "<?php echo $dbconfig['facebook_pageurl'];?>"
+            ]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+            "@context":"http://schema.org",
+            "@type":"WebSite",
+            "name":"<?php echo $dbconfig['sitetitle'];?>",
+            "alternateName": "Play fun flash games, html5 games, and mobile games for free.",
+            "url":"<?php echo SITE_URL;?>",
+            "exampleOfWork":"<?php echo URL_GITHUB_PHPARCADE;?>",
+            "sameAs":"<?php echo URL_GITHUB_PHPARCADE;?>",
+            "isAccessibleForFree":"true",
+            "keywords":"<?php echo $metadata['metapagekeywords'];?>",
+            "description":"<?php echo strip_tags($metadata['metapagedesc']);?>",
+            "license":"<?php echo SITE_URL;?>LICENSE.md",
+            "workExample":"https://www.phparcade.com",
+            "potentialAction" : {
+                "@type" : "SearchAction",
+                "target" : "<?php echo SITE_URL;?>?q={search_term}",
+                "query-input" : "required name=search_term"
+            }
+        }
+        </script>
     </body>
 </html>
