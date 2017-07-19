@@ -29,8 +29,8 @@ include_once __DIR__ . '/scoresys.php'; ?>
         <meta name="keywords" content="<?php echo $metadata['metapagekeywords']; ?>"/>
         <meta name="language" content="English"/>
         <meta name="no-email-collection" content="https://www.unspam.com/noemailcollection"/>
-        <meta name="robots" content="index,follow"/><?php
-        switch (true) {
+        <meta name="robots" content="noarchive"/>
+        <?php switch (true) {
             case is('home'): ?>
                 <link rel="stylesheet" href="<?php echo SITE_THEME_DIR; ?>css/style.min.css" /><?php
                 break;
