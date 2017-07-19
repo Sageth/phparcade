@@ -9,10 +9,10 @@ include_once __DIR__ . '/scoresys.php'; ?>
 <!DOCTYPE html>
     <?php switch (true) {
         case is('game'):
-            echo '<html itemscope itemtype="https://schema.org/Game" lang="en" xmlns="https://www.w3.org/1999/xhtml" xmlns:fb="https://ogp.me/ns/fb#">';
+            echo '<html itemscope itemtype="https://schema.org/Game" lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">';
             break;
         default:
-            echo '<html lang="en" xmlns="https://www.w3.org/1999/xhtml" xmlns:fb="https://ogp.me/ns/fb#">';
+            echo '<html lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">';
     } ?>
     <head>
         <meta charset="<?php echo CHARSET; ?>">
@@ -39,10 +39,10 @@ include_once __DIR__ . '/scoresys.php'; ?>
                 /** @noinspection PhpUndefinedVariableInspection */
                 $game = Games::getGame($params[1]); ?>
                 <meta property="og:type" content="video.movie"/>
-                <meta itemprop="alternativeHeadline" property="og:title" content="<?php echo $metadata['metapagetitle']; ?>"/>
+                <meta itemprop="alternativeHeadline" property="og:title" content="<?php echo $game['name'];?>"/>
                 <meta itemprop="keywords" content="<?php echo $game['keywords'];?>" />
                 <meta itemprop="thumbnailUrl" property="og:image" content="<?php echo $dbconfig['imgurl'] . $game['nameid']; ?>.png"/>
-                <meta itemprop="image" property="og:image" content="<?php echo $dbconfig['imgurl'] . $game['nameid']; ?>.png"/>
+                <meta itemprop="image" content="<?php echo $dbconfig['imgurl'] . $game['nameid']; ?>.png"/>
                 <meta itemprop="url" property="og:url" content="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
                 <meta itemprop="description" property="og:description" content="<?php echo strip_tags($game['desc']); ?>"/>
                 <meta itemprop="identifier" property="fb:app_id" content="<?php echo $dbconfig['facebook_appid']; ?>"/><?php
