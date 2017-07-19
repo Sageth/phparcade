@@ -38,13 +38,13 @@ include_once __DIR__ . '/scoresys.php'; ?>
             case is('game'):
                 /** @noinspection PhpUndefinedVariableInspection */
                 $game = Games::getGame($params[1]); ?>
-                <meta itemprop="alternativeHeadline" property="og:title" content="<?php echo $metadata['metapagetitle']; ?>"/>
                 <meta property="og:type" content="video.movie"/>
-                <meta itemprop="keywords" property="og:keywords" content="<?php echo $game['keywords'];?>" />
+                <meta itemprop="alternativeHeadline" property="og:title" content="<?php echo $metadata['metapagetitle']; ?>"/>
+                <meta itemprop="keywords" content="<?php echo $game['keywords'];?>" />
                 <meta itemprop="thumbnailUrl" property="og:image" content="<?php echo $dbconfig['imgurl'] . $game['nameid']; ?>.png"/>
                 <meta itemprop="image" property="og:image" content="<?php echo $dbconfig['imgurl'] . $game['nameid']; ?>.png"/>
                 <meta itemprop="url" property="og:url" content="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
-                <meta itemprop="description" property="og:description" content="<?php echo $game['desc']; ?>"/>
+                <meta itemprop="description" property="og:description" content="<?php echo strip_tags($game['desc']); ?>"/>
                 <meta itemprop="identifier" property="fb:app_id" content="<?php echo $dbconfig['facebook_appid']; ?>"/><?php
                 break;
             case is('register'): ?>
