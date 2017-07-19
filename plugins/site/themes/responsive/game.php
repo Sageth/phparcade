@@ -1,7 +1,7 @@
 <?php if(!isset($_SESSION)){session_start();$user = $_SESSION['user'];}
 Users::updateUserPlaycount();
 global $params; ?>
-<div itemscope itemtype="https://schema.org/Game"><?php
+<div><?php
 	$dbconfig = Core::getDBConfig();
     Core::doEvent('gamepage');
 	$metadata = Core::getPageMetaData();
@@ -15,15 +15,15 @@ global $params; ?>
 		$game['time'] = date('M d, Y', $game['time']);
 		Games::updateGamePlaycount($game['id']); ?>
 		<div class="col-lg-12">
-			<h1 class="page-header" itemprop="name"><?php echo $game['name']; ?></h1>
+			<h1 class="page-header" itemprop="headline"><?php echo $game['name']; ?></h1>
 		</div>
-		<div class="col-lg-6">
+        <div class="col-lg-6">
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h2 class="panel-title"><?php echo gettext('description'); ?></h2>
 				</div>
 				<div class="panel-body">
-					<p class="text-info" itemprop="description"><?php echo $game['desc']; ?></p>
+					<p class="text-info"><?php echo $game['desc']; ?></p>
 				</div>
 			</div>
 		</div>
@@ -146,13 +146,13 @@ global $params; ?>
 			<!-- End Game Code --><?php
 		}
 		if ($dbconfig['disqus_on'] === 'on') { ?>
-            <div class="clearfix invisible" itemprop="comment"></div>
+            <div class="clearfix invisible"></div>
 			<div class="col-lg-12">
 				<div class="panel panel-info">
 					<div class="panel-heading">
 						<h3 class="panel-title"><?php echo gettext('disqus'); ?></h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" itemprop="comment">
 						<?php include_once(INST_DIR . 'includes/js/Disqus/disqus.php');?>
 					</div>
 				</div>
@@ -217,14 +217,6 @@ global $params; ?>
     </div>
 	<!-- End Related Items -->
     <div class="col-lg-12">
-        <div class="panel panel-default">
-		    <div class="panel-heading"><?php echo gettext('gamemetadata');?></div>
-		    <div class="panel-body">
-                <p itemprop="keywords"><?php echo $game['keywords']; ?></p>
-                <p itemprop="datePublished"><?php echo $dt->format('Y-m-d H:i:s'); ?></p>
-                <p itemprop="thumbnailUrl"><?php echo $thumbnailurl; ?></p>
-                <p itemprop="image"><?php echo $thumbnailurl; ?></p>
-            </div>
-        </div>
+        <h6 class="">First Published: <?php echo $dt->format('Y-m-d H:i:s'); ?></h6>
     </div>
 </div>
