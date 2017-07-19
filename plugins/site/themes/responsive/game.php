@@ -232,7 +232,7 @@ global $params; ?>
             "@type":"PeopleAudience",
             "suggestedMinAge":"13"
           },
-          "description":"<?php echo $game['desc']; ?>",
+          "description":"<?php echo strip_tags($game['desc']); ?>",
           "numberOfPlayers":{
             "@type":"QuantitativeValue",
             "minValue":"1",
