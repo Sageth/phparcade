@@ -42,7 +42,7 @@ $i = 0; ?>
 						</a>
 						<div class="caption">
 							<h3><?php echo $game['name']; ?></h3>
-							<p><?php echo $game['desc']; ?></p>
+							<p><?php echo strip_tags($game['desc']); ?></p>
 							<p>
 								<a href="<?php echo $link; ?>" class="btn btn-primary btn-lg btn-block" role="button">
 									<?php echo gettext('playnow'); ?>

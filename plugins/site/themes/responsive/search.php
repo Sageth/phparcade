@@ -9,7 +9,7 @@ $dbconfig = Core::getDBConfig(); ?>
             </h1>
         </div>
         <div class="panel-body"><?php
-            $games = Search::searchGames($_GET['q']);
+            $games = Search::searchGames(Core::getCurrentDate(), $_GET['q'], 51);
             $i = 0;
             foreach ($games as $game) {
                 $link = Core::getLinkGame($game['id']);

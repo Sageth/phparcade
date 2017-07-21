@@ -4,23 +4,15 @@ Core::stopDirectAccess();
 class Search {
     protected $games;
     private function __construct() {}
-	public static function searchGames($query) {
-        /* Uses index */
-        $time = Core::getCurrentDate();
-        $sql = "SELECT `id`,`nameid`,`name`,`cat`,`desc` 
-                    FROM `games`
-					WHERE `active` = 'Yes' 
-					AND `release_date` <= :releasedate 
-					AND MATCH (`name`,`desc`,`instructions`,`keywords`)
-					AGAINST (:searchterm WITH QUERY EXPANSION) LIMIT 51;";
+	public static function searchGames($time, $query, $limit) {
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_SearchbyText(:releasedate, :searchterm, :glimit');
             $stmt->bindParam(':releasedate', $time);
             $stmt->bindParam(':searchterm', $query, PDO::PARAM_STR);
+            $stmt->bindParam(':glimit', $limit);
             $stmt->execute();
             $searchresults = $stmt->fetchAll();
             $rowcount = $stmt->rowCount();
-            $stmt->closeCursor();
             if ($query === "" || $rowcount < 1) {
                 die (gettext('nr'));
             }

@@ -63,16 +63,14 @@ class Pages {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_DeletePagebyID(:pageid);');
             $stmt->bindParam(':pageid', $id);
             $stmt->execute();
-            $stmt->closeCursor();
             Core::showSuccess(gettext('deletesuccess'));
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
     }
 	public static function pageAdd($id = null, $title, $content, $keywords, $description) {
-        $sql = 'CALL sp_Pages_InsertPage(:pageid, :pagetitle, :pagecontent, :pagekeywords, :pagedescription);';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_InsertPage(:pageid, :pagetitle, :pagecontent, :pagekeywords, :pagedescription);');
             $stmt->bindParam(':pageid', $id);
             $stmt->bindParam(':pagetitle', $title);
             $stmt->bindParam(':pagecontent', $content);

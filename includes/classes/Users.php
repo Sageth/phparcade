@@ -44,6 +44,17 @@ class Users {
             Core::showError($e->getMessage());
         }
     }
+    public static function userPasswordUpdatebyEmail($password, $username, $email){
+        try {
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePasswordbyUserEmail(:password, :username, :useremail);');
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':useremail', $email);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            Core::showError($e->getMessage());
+        }
+    }
     public static function userPasswordHash($password) {
         return password_hash($password, PASSWORD_DEFAULT);
     }
@@ -105,7 +116,6 @@ class Users {
         }
     }
     public static function passwordRecovery() {
-        /* TODO: Convert to _sp */
         $dbconfig = Core::getDBConfig();
         $inicfg = Core::getINIConfig();
         $status = '';
@@ -116,16 +126,13 @@ class Users {
             $password = self::passwordGenerate();
             $clearpass = $password;
             $password = self::userPasswordHash($password);
+
             /* Only sends email if the user actually exists */
-            /* Uses index */
-            $sql =
-                'SELECT `username`,`email` FROM `members` WHERE `username` = :username AND `email`= :useremail LIMIT 1;';
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetUsernameAndEmail(:username, :useremail);');
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':useremail', $email);
             $stmt->execute();
             $count = $stmt->rowCount();
-            $stmt->closeCursor();
             if ($count == 1) {
                 $mail = new PHPMailer();
                 $body = file_get_contents(INST_DIR . 'includes/messages/forgottenmessage.txt');
@@ -148,22 +155,16 @@ class Users {
                 $mail->msgHTML($body);
                 $address = $email;
                 $mail->addAddress($address, $dbconfig['emaildomain']);
-                /* Uses index */
-                $sql =
-                    'UPDATE `members` SET `password` = :password WHERE `username` = :username AND `email` = :useremail;';
-                try {
-                    $stmt = mySQL::getConnection()->prepare($sql);
-                    $stmt->bindParam(':password', $password);
-                    $stmt->bindParam(':username', $username);
-                    $stmt->bindParam(':useremail', $email);
-                    $stmt->execute();
-                    $stmt->closeCursor();
-                } catch (PDOException $e) {
-                    Core::showError($e->getMessage());
-                }
+
+                /* This allows the next stored procedure in userPasswordUpdatebyEmail() to run simultaneously */
+                $stmt->nextRowset();
+
+                /* Do the actual update of the password in the database */
+                self::userPasswordUpdatebyEmail($password, $username, $email);
+
                 if (!$mail->send()) { ?>
                     <p class="bg-danger">
-                    <?php echo gettext('emailfail'); ?>
+                        <?php echo gettext('emailfail'); ?>
                     </p><?php
                     if ($dbconfig['emaildebug'] > 0) {
                         $status = 'emailfail';
@@ -242,24 +243,19 @@ class Users {
         return;
     }
     public static function userAdd($username, $email, $status = "") {
-        /* TODO: Convert to _sp */
         $dbconfig = Core::getDBConfig();
         $inicfg = Core::getINIConfig();
         if (!empty($username) || !empty($email)) {
-            /* Uses index */
-            $sql = 'SELECT `username`, `email` FROM `members` WHERE `username` = :username OR `email` = :useremail;';
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetUsernameOREmail(:username, :useremail);');
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':useremail', $email);
             $stmt->execute();
             $rowcount = $stmt->rowCount();
-            $stmt->closeCursor();
+
             if ($rowcount > 0) {
-                $stmt->closeCursor();
                 $status = 'usertaken';
             } else {
                 if ($rowcount == 0) {
-                    $stmt->closeCursor();
                     $password = self::passwordGenerate();
                     $clearpass = $password;
                     $password = self::userPasswordHash($password);
@@ -291,13 +287,9 @@ class Users {
                         $null = null;
                         $yes = 'Yes';
                         $no = 'No';
-                        /* Inserts shouldn't use index */
-                        $sql = 'INSERT INTO `members`
-                                  (`id`,`username`,`password`,`email`,`active`,`admin`,`ip`)
-						        VALUES
-						          (:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip)';
+                        $stmt->nextRowset();
                         try {
-                            $stmt = mySQL::getConnection()->prepare($sql);
+                            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
                             $stmt->bindParam(':memberid', $null);
                             $stmt->bindParam(':memberusername', $username);
                             $stmt->bindParam(':memberpassword', $password);
@@ -306,7 +298,6 @@ class Users {
                             $stmt->bindParam(':memberadmin', $no);
                             $stmt->bindParam(':memberip', $_SERVER['REMOTE_ADDR']);
                             $stmt->execute();
-                            $stmt->closeCursor();
                         } catch (PDOException $e) {
                             Core::showError($e->getMessage());
                         }

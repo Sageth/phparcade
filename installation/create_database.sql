@@ -349,6 +349,16 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Ads_GetAllbyName`()
 DELIMITER ;
 
 -- Categories
+DROP PROCEDURE IF EXISTS `sp_Categories_DeleteCategorybyID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_DeleteCategorybyID`(
+  IN c_id INT(10))
+  BEGIN
+    DELETE FROM `categories`
+    WHERE `id` = c_id;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Categories_GetCategoryByID`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoryByID`(
@@ -472,6 +482,43 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Config_Update`(
 DELIMITER ;
 
 -- Games
+DROP PROCEDURE IF EXISTS `sp_Games_AddGames`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_AddGames`(
+  IN g_id INT(10),
+  IN g_nameid VARCHAR(255),
+  IN g_name VARCHAR(255),
+  IN g_desc TEXT,
+  IN g_instructions TEXT,
+  IN g_category VARCHAR(255),
+  IN g_order INT(10),
+  IN g_width INT(10),
+  IN g_height INT(10),
+  IN g_type ENUM('PNG','FLV','SWF','extlink','CustomCode'),
+  IN g_playcount INT(10),
+  IN g_flags VARCHAR(15),
+  IN g_keywords VARCHAR(255),
+  IN g_time INT(10),
+  IN g_release_date INT(10),
+  IN g_customcode LONGTEXT)
+  BEGIN
+    INSERT INTO `games` (
+      `id`, `nameid`, `name`, `desc`, `instructions`, `cat`, `order`, `width`, `height`, `type`, `playcount`, `flags`, `keywords`, `time`, `release_date`, `customcode`
+    ) VALUES (
+      g_id, g_nameid, g_name, g_desc, g_instructions, g_category, g_order, g_width, g_height, g_type, g_playcount, g_flags, g_keywords, g_time, g_release_date, g_customcode
+    );
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Games_DeleteGamebyID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_DeleteGamebyID`(
+  IN g_id INT(10))
+  BEGIN
+    DELETE FROM `games`
+    WHERE `id` = g_id;
+  END ;;
+DELIMITER ;
 DROP PROCEDURE IF EXISTS `sp_Games_GetBrokenByID`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetBrokenByID`()
@@ -666,6 +713,22 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetRandom8`()
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Games_SearchbyText`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_SearchbyText`(
+  IN g_releasedate INT(12),
+  IN g_searchterm VARCHAR(255),
+  IN g_limit INT(10))
+  BEGIN
+    SELECT `id`,`nameid`,`name`,`cat`,`desc`
+    FROM `games`
+    WHERE `active` = 'Yes'
+          AND `release_date` <= g_releasedate
+          AND MATCH (`name`,`desc`,`instructions`,`keywords`)
+          AGAINST (g_searchterm WITH QUERY EXPANSION) LIMIT g_limit;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Games_UpdateGame`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGame`(
@@ -788,6 +851,24 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesScore_GetScores_DESC`(
 DELIMITER ;
 
 -- Members
+DROP PROCEDURE IF EXISTS `sp_Members_AddMember`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_AddMember`(
+  IN m_id INT(10),
+  IN m_username VARCHAR(16),
+  IN m_password VARCHAR(255),
+  IN m_email VARCHAR(255),
+  IN m_active VARCHAR(10),
+  IN m_admin VARCHAR(10),
+  IN m_ip VARCHAR(45))
+  BEGIN
+    INSERT INTO `members`
+    (`id`,`username`,`password`,`email`,`active`,`admin`,`ip`)
+    VALUES
+      (m_id, m_username, m_password, m_email, m_active, m_admin, m_ip);
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Members_DeleteMember`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_DeleteMember`(
@@ -878,6 +959,32 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_GetPassword`(
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Members_GetUsernameAndEmail`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_GetUsernameAndEmail`(
+  IN m_username VARCHAR(16),
+  IN m_email VARCHAR(255))
+  BEGIN
+    SELECT `username`,`email`
+    FROM `members`
+    WHERE `username` = m_username
+          AND `email`= m_email LIMIT 1;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Members_GetUsernameOREmail`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_GetUsernameOREmail`(
+  IN m_username VARCHAR(16),
+  IN m_useremail VARCHAR(255))
+  BEGIN
+    SELECT `username`, `email`
+    FROM `members`
+    WHERE `username` = m_username
+          OR `email` = m_useremail;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Members_GetSession`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_GetSession`(
@@ -914,6 +1021,19 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateMemberPasswor
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Members_UpdatePasswordbyUserEmail`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdatePasswordbyUserEmail`(
+  IN m_password VARCHAR(255),
+  IN m_username VARCHAR(16),
+  IN m_useremail VARCHAR(255))
+  BEGIN
+    UPDATE `members`
+    SET `password` = m_password
+    WHERE `username` = m_username
+          AND `email` = m_useremail;
+  END ;;
+DELIMITER ;
 DROP PROCEDURE IF EXISTS `sp_Members_UpdateMemberProfile`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateMemberProfile`(

@@ -11,16 +11,8 @@ class Games {
     private function __construct() {
     }
 	public static function addGame($id, $nameid, $gameorder, $gwidth, $gheight, $type, $playcount, $release_date) {
-        $time = Core::getCurrentDate();
-        $sql = 'INSERT INTO `games`
-						(`id`, `nameid`, `name`, `desc`, `instructions`, `cat`, `order`, `width`, `height`,
-						 `type`, `playcount`, `flags`, `keywords`, `time`, `release_date`, `customcode`)
-					VALUES 
-						(:gameid, :gamenameid,:gamename,:gamedesc,:gameinstructions,:gamecat,:gameorder,
-						 :gamewidth, :gameheight, :gametype, :gameplaycount, :gameflags, :gamekeywords,
-						 :gametime, :gamereleasedate, :gamecustomcode);';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_AddGames(:gameid, :gamenameid, :gamename, :gamedesc, :gameinstructions, :gamecat, :gameorder, :gamewidth, :gameheight, :gametype, :gameplaycount, :gameflags, :gamekeywords, :gametime, :gamereleasedate, :gamecustomcode);');
             $stmt->bindParam(':gameid', $id);
             $stmt->bindParam(':gamenameid', $nameid);
             $stmt->bindParam(':gamename', $_POST['name']);
@@ -34,38 +26,31 @@ class Games {
             $stmt->bindParam(':gameplaycount', $playcount);
             $stmt->bindParam(':gameflags', $_POST['flags']);
             $stmt->bindParam(':gamekeywords', $_POST['keywords']);
-            $stmt->bindParam(':gametime', $time);
+            $stmt->bindParam(':gametime', Core::getCurrentDate());
             $stmt->bindParam(':gamereleasedate', $release_date);
             $stmt->bindParam(':gamecustomcode', $_POST['customcode']);
             $stmt->execute();
             Core::showSuccess(gettext('addsuccess'));
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
     }
 	public static function deleteCategory($id) {
-        /* Uses Index */
-        $sql = 'DELETE FROM `categories` WHERE `id` = :catid;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_DeleteCategorybyID(:catid);');
             $stmt->bindParam(':catid', $id);
             $stmt->execute();
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
     }
 	public static function deleteGame($id) {
-        /* Uses Index */
-        $sql = 'DELETE FROM `games` WHERE `id` = :gameid;';
         try {
-            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_DeleteGamebyID(:gameid);');
             $stmt->bindParam(':gameid', $id);
             $stmt->execute();
             Games::updateGameOrder();
             Core::showSuccess(gettext('deletesuccess'));
-            $stmt->closeCursor();
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
@@ -94,7 +79,6 @@ class Games {
             Page = "-all-",
             Games Per Page = 30 */
         $dbconfig = Core::getDBConfig();
-        $time = Core::getCurrentDate();
         if ($gamesperpage == -1 && isset($page)) {
             $gamesperpage = $dbconfig['gamesperpage'];
         }
@@ -113,7 +97,7 @@ class Games {
                     Administrations::isAdminArea() ? 'CALL sp_Games_GetGamesByReleasedate_ASC(:release_date, :limitstart, :limitend);' : 'CALL sp_Games_GetGamesByReleasedate_DESC(:release_date, :limitstart, :limitend);';
                 try {
                     $stmt = mySQL::getConnection()->prepare($sql);
-                    $stmt->bindParam(':release_date', $time);
+                    $stmt->bindParam(':release_date', Core::getCurrentDate());
                     $stmt->bindParam(':limitstart', $limitstart);
                     $stmt->bindParam(':limitend', $limitend);
                     $stmt->execute();
@@ -128,7 +112,7 @@ class Games {
                     $stmt =
                         mySQL::getConnection()->prepare('CALL sp_Games_GetGamesByCategory_ASC(:category, :release_date, :limitstart, :limitend);');
                     $stmt->bindParam(':category', $category);
-                    $stmt->bindParam(':release_date', $time);
+                    $stmt->bindParam(':release_date', Core::getCurrentDate());
                     $stmt->bindParam(':limitstart', $limitstart);
                     $stmt->bindParam(':limitend', $limitend);
                     $stmt->execute();
