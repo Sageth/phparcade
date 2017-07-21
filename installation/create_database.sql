@@ -789,6 +789,22 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGamePlaycountby
 DELIMITER ;
 
 -- Games_Champs
+DROP PROCEDURE IF EXISTS `sp_GameChamps_AddScore`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_AddScore`(
+  IN gc_nameid INT(10),
+  IN gc_player INT(11),
+  IN gc_score FLOAT,
+  IN gc_date INT(10)
+)
+  BEGIN
+    INSERT INTO `games_champs`
+    (`nameid`, `player`, `score`, `date`)
+    VALUES
+      (gc_nameid, gc_player, gc_score, gc_date);
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_GamesChamps_GetPlayerNameID`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_GetPlayerNameID`(
@@ -797,6 +813,30 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_GetPlayerNameID
     SELECT `nameid`,`player`
     FROM `games_champs`
     WHERE `player` = ch_playerid;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_GameChamps_SelectAll`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_SelectAll`(
+  IN gc_nameid INT(11))
+  BEGIN
+    SELECT *
+    FROM `games_champs`
+    WHERE `nameid` = gc_nameid;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_GameChamps_GetScoresbyPlayerandGame`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_GetScoresbyPlayerandGame`(
+  IN gc_nameid INT(11),
+  IN gc_player INT(11))
+  BEGIN
+    SELECT *
+    FROM `games_champs`
+    WHERE `nameid` = gc_nameid
+          AND `player` = gc_player;
   END ;;
 DELIMITER ;
 
@@ -817,6 +857,24 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_UpdateChamp`(
       `date`  = gc_curr_time
     WHERE
       `nameid` =  gc_gameid
+    LIMIT 1;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_GameChamps_UpdateScore`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_UpdateScore`(
+  IN gc_nameid INT(10),
+  IN gc_player INT(11),
+  IN gc_score FLOAT,
+  IN gc_date INT(10)
+)
+  BEGIN
+    UPDATE `games_champs`
+    SET `score` = gc_score,
+      `date` = gc_date,
+      `player` = gc_player
+    WHERE `nameid` = gc_nameid
     LIMIT 1;
   END ;;
 DELIMITER ;
@@ -847,6 +905,41 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesScore_GetScores_DESC`(
     WHERE `nameid` = gamenameid
     ORDER BY `score` DESC
     LIMIT limitnum;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_GameScore_InsertPlayerScore`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameScore_InsertPlayerScore`(
+  IN gs_nameid INT(11),
+  IN gs_player INT(11),
+  IN gs_score FLOAT,
+  IN gs_ip TEXT,
+  IN gs_date INT(10))
+  BEGIN
+    INSERT INTO `games_score`
+    (`nameid`, `player`, `score`, `ip`, `date`)
+    VALUES
+      (gs_nameid, gs_player, gs_score, gs_ip, gs_date);
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_GameScore_UpdatePlayerScore`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameScore_UpdatePlayerScore`(
+  IN gs_nameid INT(11),
+  IN gs_player INT(11),
+  IN gs_score FLOAT,
+  IN gs_ip TEXT,
+  IN gs_date INT(10))
+  BEGIN
+    UPDATE `games_score`
+    SET	`score` = gs_score,
+      `ip` = gs_ip,
+      `date` = gs_date
+    WHERE
+      `nameid` = gs_nameid AND
+      `player` = gs_player;
   END ;;
 DELIMITER ;
 
