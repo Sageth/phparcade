@@ -5,7 +5,6 @@ $dbconfig = Core::getDBConfig();
 $metadata = Core::getPageMetaData();
 include_once __DIR__ . '/themeconfig.php';
 include_once __DIR__ . '/scoresys.php';
-header("X-DNS-Prefetch-Control: on");
 ?>
 
 <!DOCTYPE html>
