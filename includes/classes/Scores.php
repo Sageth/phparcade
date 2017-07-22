@@ -46,6 +46,14 @@ class Scores {
     public static function getScoreType($string, $ostring) {
         return stristr($ostring, $string) ? true : false;
     }
+    public static function submitGameScore($nameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link = '', $sort = 'DESC') {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        $time = Core::getCurrentDate();
+        self::updateGameChamp($nameid, $player, $score, $sort, $time);
+        self::updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link);
+    }
     public static function updateGameChamp($nameid, $player, $score, $sort, $time){
         /* Figure out who the champion is and their highest score in the GamesChamp table */
         $gamechamp = self::GetGameChampsbyGameNameID($nameid);
@@ -70,55 +78,6 @@ class Scores {
                     break;
             }
         }
-    }
-    public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link){
-        /* Update games_score table */
-        $gamescore = self::GetGameScorebyNameID($nameid, $player);
-
-        /* $gamescore[]:
-            [id]
-                [0] = Score ID (PK)
-            [nameid]
-                [1] = Game name ID (game number)
-            [player]
-                [2] = Player ID
-            [score]
-                [3] = Current player's score being submitted
-            [ip]
-                [4] = Current player's IP address
-            [date]
-                [5] = Current epoch time */
-
-        if (self::GetGameScorebyNameIDRowCount($nameid, $player) === 0) {
-            self::InsertScoreIntoGameScore($nameid, $_SESSION['user']['id'], $score, $ip, $time, $link);
-        } else {
-            switch ($sort) {
-                case 'ASC':
-                    if ($score < $gamescore['score']) {
-                        self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
-                        Core::loadRedirect(gettext('scoresaved'), $link);
-                    } else {
-                        Core::loadRedirect(gettext('scorewontsaved'), $link);
-                    }
-                    break;
-                case 'DESC':
-                    if ($score >= $gamescore['score']) {
-                        self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
-                        Core::loadRedirect(gettext('scoresaved'), $link);
-                    } else {
-                        Core::loadRedirect(gettext('scorewontsaved'), $link);
-                    }
-                    break;
-            }
-        }
-    }
-    public static function submitGameScore($nameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link = '', $sort = 'DESC') {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        $time = Core::getCurrentDate();
-        self::updateGameChamp($nameid, $player, $score, $sort, $time);
-        self::updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link);
     }
     public static function GetGameChampsbyGameNameID($nameid) {
         /* Gets all of the champions (highest score for an individual player) for a particular game */
@@ -181,6 +140,47 @@ class Scores {
             $stmt->closeCursor();
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
+        }
+    }
+    public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link){
+        /* Update games_score table */
+        $gamescore = self::GetGameScorebyNameID($nameid, $player);
+
+        /* $gamescore[]:
+            [id]
+                [0] = Score ID (PK)
+            [nameid]
+                [1] = Game name ID (game number)
+            [player]
+                [2] = Player ID
+            [score]
+                [3] = Current player's score being submitted
+            [ip]
+                [4] = Current player's IP address
+            [date]
+                [5] = Current epoch time */
+
+        if (self::GetGameScorebyNameIDRowCount($nameid, $player) === 0) {
+            self::InsertScoreIntoGameScore($nameid, $_SESSION['user']['id'], $score, $ip, $time, $link);
+        } else {
+            switch ($sort) {
+                case 'ASC':
+                    if ($score < $gamescore['score']) {
+                        self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
+                        Core::loadRedirect(gettext('scoresaved'), $link);
+                    } else {
+                        Core::loadRedirect(gettext('scorewontsaved'), $link);
+                    }
+                    break;
+                case 'DESC':
+                    if ($score >= $gamescore['score']) {
+                        self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
+                        Core::loadRedirect(gettext('scoresaved'), $link);
+                    } else {
+                        Core::loadRedirect(gettext('scorewontsaved'), $link);
+                    }
+                    break;
+            }
         }
     }
     public static function GetGameScorebyNameID($nameid, $player) {
