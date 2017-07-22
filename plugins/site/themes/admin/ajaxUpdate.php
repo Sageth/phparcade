@@ -10,7 +10,6 @@ try {
         $stmt->bindParam(':categoryid', $id);
         $stmt->execute();
     }
-    $stmt->closeCursor();
 } catch (PDOException $e) {
     Core::showError($e->getMessage());
 }
