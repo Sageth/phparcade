@@ -79,6 +79,7 @@ class Games {
             Page = "-all-",
             Games Per Page = 30 */
         $dbconfig = Core::getDBConfig();
+        $time = Core::getCurrentDate();
         if ($gamesperpage == -1 && isset($page)) {
             $gamesperpage = $dbconfig['gamesperpage'];
         }
@@ -97,7 +98,7 @@ class Games {
                     Administrations::isAdminArea() ? 'CALL sp_Games_GetGamesByReleasedate_ASC(:release_date, :limitstart, :limitend);' : 'CALL sp_Games_GetGamesByReleasedate_DESC(:release_date, :limitstart, :limitend);';
                 try {
                     $stmt = mySQL::getConnection()->prepare($sql);
-                    $stmt->bindParam(':release_date', Core::getCurrentDate());
+                    $stmt->bindParam(':release_date', $time);
                     $stmt->bindParam(':limitstart', $limitstart);
                     $stmt->bindParam(':limitend', $limitend);
                     $stmt->execute();
@@ -112,7 +113,7 @@ class Games {
                     $stmt =
                         mySQL::getConnection()->prepare('CALL sp_Games_GetGamesByCategory_ASC(:category, :release_date, :limitstart, :limitend);');
                     $stmt->bindParam(':category', $category);
-                    $stmt->bindParam(':release_date', Core::getCurrentDate());
+                    $stmt->bindParam(':release_date', $time);
                     $stmt->bindParam(':limitstart', $limitstart);
                     $stmt->bindParam(':limitend', $limitend);
                     $stmt->execute();
@@ -123,7 +124,7 @@ class Games {
                 break;
         }
         /** @noinspection PhpUndefinedVariableInspection */
-        foreach ($games as $game) {
+        foreach ($games as $game)  {
             $game['name'] = htmlentities($game['name']);
             $game['cat'] = htmlentities($game['cat']);
             $game['desc'] = Core::encodeHTMLEntity($game['desc'], ENT_QUOTES);
