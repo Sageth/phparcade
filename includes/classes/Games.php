@@ -323,6 +323,7 @@ class Games {
             $stmt->bindParam(':active', $active);
             $stmt->execute();
             $games = $stmt->fetchAll();
+            $stmt->closeCursor();
         } catch (PDOException $e) {
             echo gettext('error') . ' ' . $e->getMessage() . "\n";
         }
@@ -437,6 +438,7 @@ class Games {
             $stmt->bindParam(':gameid', $id);
             $stmt->execute();
             Core::showSuccess(gettext('updatesuccess'));
+            $stmt->closeCursor();
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
         }
