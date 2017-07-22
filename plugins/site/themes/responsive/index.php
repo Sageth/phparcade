@@ -4,7 +4,9 @@ if ($_SESSION) {$user = $_SESSION;}
 $dbconfig = Core::getDBConfig();
 $metadata = Core::getPageMetaData();
 include_once __DIR__ . '/themeconfig.php';
-include_once __DIR__ . '/scoresys.php'; ?>
+include_once __DIR__ . '/scoresys.php';
+header("X-DNS-Prefetch-Control: on");
+?>
 
 <!DOCTYPE html>
 <html lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">
@@ -12,6 +14,7 @@ include_once __DIR__ . '/scoresys.php'; ?>
         <meta charset="<?php echo CHARSET; ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
         <title><?php echo $metadata['metapagetitle']; ?></title>
+        <link rel="preconnect" href="https:////cdnjs.cloudflare.com">
         <link rel="alternate" type="application/rss+xml" href="<?php echo SITE_URL; ?>" title="<?php echo $dbconfig['sitetitle']; ?>"/>
         <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
         <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
@@ -93,8 +96,6 @@ include_once __DIR__ . '/scoresys.php'; ?>
         <?php if (true == is('game')) { ?>
             <!--suppress JSUnresolvedLibraryURL -->
             <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>"></script><?php
-        } /** @noinspection MissingOrEmptyGroupStatementInspection */ else {
-            /* Do nothing */
         } ?>
         <script type="application/ld+json">
         {
