@@ -46,104 +46,96 @@ class Scores {
     public static function getScoreType($string, $ostring) {
         return stristr($ostring, $string) ? true : false;
     }
-    public static function submitGameScore($nameid = '',
-                                           $score = 0,
-                                           $player = '',
-                                           $ip = '1.1.1.1',
-                                           $link = '',
-                                           $sort = 'DESC') {
+    public static function updateGameChamp($nameid, $player, $score, $sort, $time){
+        /* Figure out who the champion is and their highest score in the GamesChamp table */
+        $gamechamp = self::GetGameChampsbyGameNameID($nameid);
 
-        if (!isset($_SESSION)) {session_start();}
-        $time = Core::getCurrentDate();
-
-        $gamechamp = self::GetGameChampbyNameID($nameid);
-
-        /* If there is no champion, insert it */
-        if (self::GetGameChampbyNameID_RowCount($nameid) === 0) {
+        if (self::GetGameChampbyGameNameID_RowCount($nameid) === 0) {
+            /* If there is no champion, then INSERT the score into the game champs table */
             self::InsertScoreIntoGameChamps($nameid, $_SESSION['user']['id'], $score, $time);
         } else {
             /* If there is a champion, figure out who it is */
-            $post = false;
             switch ($sort) {
+                /* If the game is a low-score-wins game (e.g. Golf), then update the score */
                 case 'ASC':
                     if ($score <= $gamechamp['score']) {
-                        $post = true;
+                        self::UpdatePlayerScoreInGameChamps($gamechamp['nameid'], $player, $score, $time);
                     }
                     break;
                 default:
+                    /* Otherwise, just make sure you have a higher score and then update */
                     if ($score >= $gamechamp['score']) {
-                        $post = true;
+                        self::UpdatePlayerScoreInGameChamps($gamechamp['nameid'], $player, $score, $time);
                     }
                     break;
             }
-            if ($post == true) {
-                self::UpdatePlayerScoreInGameChamps($gamechamp['nameid'], $player, $score, $time);
-            }
         }
+    }
+    public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link){
         /* Update games_score table */
-        $newscore = self::GetGameScorebyNameID($nameid,$player);
+        $gamescore = self::GetGameScorebyNameID($nameid, $player);
+
+        /* $gamescore[]:
+            [id]
+                [0] = Score ID (PK)
+            [nameid]
+                [1] = Game name ID (game number)
+            [player]
+                [2] = Player ID
+            [score]
+                [3] = Current player's score being submitted
+            [ip]
+                [4] = Current player's IP address
+            [date]
+                [5] = Current epoch time */
+
         if (self::GetGameScorebyNameIDRowCount($nameid, $player) === 0) {
             self::InsertScoreIntoGameScore($nameid, $_SESSION['user']['id'], $score, $ip, $time, $link);
         } else {
-            $post = false;
             switch ($sort) {
                 case 'ASC':
-                    if ($score < $newscore['score']) {
-                        $post = true;
+                    if ($score < $gamescore['score']) {
+                        self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
+                        Core::loadRedirect(gettext('scoresaved'), $link);
                     } else {
                         Core::loadRedirect(gettext('scorewontsaved'), $link);
                     }
                     break;
                 case 'DESC':
-                    if ($score >= $newscore['score']) {
-                        $post = true;
+                    if ($score >= $gamescore['score']) {
+                        self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
+                        Core::loadRedirect(gettext('scoresaved'), $link);
                     } else {
                         Core::loadRedirect(gettext('scorewontsaved'), $link);
                     }
                     break;
             }
-            if ($post == true) {
-                self::UpdateScoreIntoGameScore($newscore['nameid'], $newscore['player'], $score, $ip, $time);
-                Core::loadRedirect(gettext('scoresaved'), $link);
-            }
         }
     }
-    public static function UpdateScoreIntoGameScore($gamenameid, $player, $score, $ip, $time){
-        $sql = 'UPDATE `games_score`
-					        SET	`score` = :gamescore,
-						        `ip` = :ip,
-						        `date` = :currenttime
-					        WHERE
-						        `nameid` = :gamenameid AND
-						        `player` = :player;';
-        try {
-            $stmt = mySQL::getConnection()->prepare($sql);
-            $stmt->bindParam(':ip', $ip);
-            $stmt->bindParam(':currenttime', $time);
-            $stmt->bindParam(':gamenameid', $gamenameid);
-            $stmt->bindParam(':gamescore', $score);
-            $stmt->bindParam(':player', $player);
-            $stmt->execute();
-            $stmt->closeCursor();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
+    public static function submitGameScore($nameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link = '', $sort = 'DESC') {
+        if (!isset($_SESSION)) {
+            session_start();
         }
+        $time = Core::getCurrentDate();
+        self::updateGameChamp($nameid, $player, $score, $sort, $time);
+        self::updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link);
     }
-    public static function GetGameChampbyNameID($nameid){
+    public static function GetGameChampsbyGameNameID($nameid) {
+        /* Gets all of the champions (highest score for an individual player) for a particular game */
         $sql = 'SELECT * FROM `games_champs` WHERE `nameid` = :nameid;';
         try {
             $stmt = mySQL::getConnection()->prepare($sql);
             $stmt->bindParam(':nameid', $nameid);
             $stmt->execute();
-            $nkq = $stmt->fetch();
+            $champions = $stmt->fetch();
             $stmt->closeCursor();
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
             die();
         }
-        return $nkq;
+        return $champions;
     }
-    public static function GetGameChampbyNameID_RowCount($nameid){
+    public static function GetGameChampbyGameNameID_RowCount($nameid) {
         $sql = 'SELECT * FROM `games_champs` WHERE `nameid` = :nameid;';
         try {
             $stmt = mySQL::getConnection()->prepare($sql);
@@ -157,7 +149,7 @@ class Scores {
         }
         return $rowcount;
     }
-    public static function InsertScoreIntoGameChamps($gamenameid, $player, $score, $time){
+    public static function InsertScoreIntoGameChamps($gamenameid, $player, $score, $time) {
         $sql = 'INSERT INTO `games_champs` (`nameid`, `player`, `score`, `date`) 
                     VALUES (:nameid, :player, :score, :currenttime)';
         try {
@@ -172,7 +164,7 @@ class Scores {
             Core::showError($e->getMessage());
         }
     }
-    public static function UpdatePlayerScoreInGameChamps($gamenameid, $player, $score, $time){
+    public static function UpdatePlayerScoreInGameChamps($gamenameid, $player, $score, $time) {
         $sql = 'UPDATE `games_champs` 
                             SET `score` = :gamescore, 
                                 `date` = :currenttime, 
@@ -191,7 +183,7 @@ class Scores {
             Core::showError($e->getMessage());
         }
     }
-    public static function GetGameScorebyNameID($nameid, $player){
+    public static function GetGameScorebyNameID($nameid, $player) {
         $sql = 'SELECT * FROM `games_score` WHERE `nameid` = :nameid AND `player` = :player;';
         try {
             $stmt = mySQL::getConnection()->prepare($sql);
@@ -206,7 +198,7 @@ class Scores {
         }
         return $gamesscore;
     }
-    public static function GetGameScorebyNameIDRowCount($nameid, $player){
+    public static function GetGameScorebyNameIDRowCount($nameid, $player) {
         $sql = 'SELECT * FROM `games_score` WHERE `nameid` = :nameid AND `player` = :player;';
         try {
             $stmt = mySQL::getConnection()->prepare($sql);
@@ -221,7 +213,7 @@ class Scores {
         }
         return $rowcount;
     }
-    public static function InsertScoreIntoGameScore($gamenameid, $player, $score, $ip, $time, $link){
+    public static function InsertScoreIntoGameScore($gamenameid, $player, $score, $ip, $time, $link) {
         $sql = 'INSERT INTO `games_score` (`nameid`, `player`, `score`, `ip`, `date`)
 				        VALUES (:nameid, :player, :score, :ip, :currenttime)';
         try {
@@ -237,6 +229,27 @@ class Scores {
         } catch (PDOException $e) {
             Core::showError($e->getMessage());
             die();
+        }
+    }
+    public static function UpdateScoreIntoGameScore($gamenameid, $player, $score, $ip, $time) {
+        $sql = 'UPDATE `games_score`
+					        SET	`score` = :gamescore,
+						        `ip` = :ip,
+						        `date` = :currenttime
+					        WHERE
+						        `nameid` = :gamenameid AND
+						        `player` = :player;';
+        try {
+            $stmt = mySQL::getConnection()->prepare($sql);
+            $stmt->bindParam(':ip', $ip);
+            $stmt->bindParam(':currenttime', $time);
+            $stmt->bindParam(':gamenameid', $gamenameid);
+            $stmt->bindParam(':gamescore', $score);
+            $stmt->bindParam(':player', $player);
+            $stmt->execute();
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            Core::showError($e->getMessage());
         }
     }
     private function __clone() {
