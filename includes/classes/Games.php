@@ -12,6 +12,7 @@ class Games {
     }
 	public static function addGame($id, $nameid, $gameorder, $gwidth, $gheight, $type, $playcount, $release_date) {
         try {
+            $time = Core::getCurrentDate();
             $stmt = mySQL::getConnection()->prepare('CALL sp_Games_AddGames(:gameid, :gamenameid, :gamename, :gamedesc, :gameinstructions, :gamecat, :gameorder, :gamewidth, :gameheight, :gametype, :gameplaycount, :gameflags, :gamekeywords, :gametime, :gamereleasedate, :gamecustomcode);');
             $stmt->bindParam(':gameid', $id);
             $stmt->bindParam(':gamenameid', $nameid);
@@ -26,7 +27,7 @@ class Games {
             $stmt->bindParam(':gameplaycount', $playcount);
             $stmt->bindParam(':gameflags', $_POST['flags']);
             $stmt->bindParam(':gamekeywords', $_POST['keywords']);
-            $stmt->bindParam(':gametime', Core::getCurrentDate());
+            $stmt->bindParam(':gametime', $time);
             $stmt->bindParam(':gamereleasedate', $release_date);
             $stmt->bindParam(':gamecustomcode', $_POST['customcode']);
             $stmt->execute();
