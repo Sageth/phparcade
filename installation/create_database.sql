@@ -12,13 +12,13 @@ CREATE SCHEMA IF NOT EXISTS `phparcade`
 -- Table structure for table `ads`
 --
 
-CREATE TABLE IF NOT EXISTS`ads` (
+CREATE TABLE IF NOT EXISTS `ads` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `code` text NOT NULL,
   `location` varchar(255) NOT NULL DEFAULT '',
   `advertisername` varchar(255) NOT NULL DEFAULT '',
-  `adcomment` text NOT NULL
+  `adcomment` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_ads` (`name`,`location`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;

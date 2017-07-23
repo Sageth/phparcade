@@ -43,6 +43,7 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
             <rss version="2.0" xmlns="http://purl.org/rss/1.0/modules/content/"
                  xmlns:atom="http://www.w3.org/2005/Atom"
             >
+            <!--suppress HtmlExtraClosingTag -->
             <channel>
                 <title><?php echo $dbconfig['sitetitle']; ?></title><?php echo PHP_EOL; ?>
                 <description><?php echo $dbconfig['metadesc']; ?></description>
@@ -56,14 +57,14 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
                     $link = Core::getLinkGame($array[$i]['id']);
                     PHP_EOL; ?>
                     <item>
-                    <title><?php echo $title; ?></title>
-                    <link><?php echo $link; ?></link>
-                    <description><![CDATA[<?php echo $desc; ?>]]></description>
-                    <guid><?php echo $link; ?></guid>
-                    <category>Games</category>
-                    <category>Flash Games</category>
-                    <category>Online Games</category>
-                    <category>Browser Games</category>
+                        <title><?php echo $title; ?></title>
+                        <link><?php echo $link; ?></link>
+                        <description><![CDATA[<?php echo $desc; ?>]]></description>
+                        <guid><?php echo $link; ?></guid>
+                        <category>Games</category>
+                        <category>Flash Games</category>
+                        <category>Online Games</category>
+                        <category>Browser Games</category>
                     </item><?php echo PHP_EOL;
                 } ?>
             </channel>
