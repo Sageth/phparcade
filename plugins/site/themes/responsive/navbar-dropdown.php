@@ -19,15 +19,13 @@ if (Users::isUserLoggedIn()) { ?>
                 <?php /** @noinspection PhpUndefinedVariableInspection */
                 echo $user['name']; ?>
             </li><?php
-            if ($user['admin'] == 'Yes') { ?>
+            if ($user['admin'] === 'Yes') { ?>
                 <li class="divider"></li>
                 <li>
                     <a href="<?php echo SITE_URL_ADMIN; ?>">
                         <?php echo gettext('admin'); ?>
                     </a>
                 </li><?php
-            } /** @noinspection MissingOrEmptyGroupStatementInspection */ else {
-                /* Do nothing */
             } ?>
             <li class="divider"></li>
             <li class="dropdown-header">

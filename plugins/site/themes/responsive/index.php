@@ -22,7 +22,6 @@ include_once __DIR__ . '/scoresys.php';
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
-        <link itemprop="additionalType" href="http://schema.org/WebPage"/>
         <meta name="description" content="<?php echo $metadata['metapagedesc']; ?>"/>
         <meta name="keywords" content="<?php echo $metadata['metapagekeywords']; ?>"/>
         <meta name="language" content="English"/>
@@ -54,8 +53,6 @@ include_once __DIR__ . '/scoresys.php';
         include_once __DIR__ . '/navbar.php';
         if (true == is('home')) {
             include_once __DIR__ . '/carousel.php';
-        } /** @noinspection MissingOrEmptyGroupStatementInspection */ else {
-            /* Do nothing */
         } ?>
         <!--Content Section -->
         <div class="container">
