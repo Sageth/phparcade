@@ -136,7 +136,7 @@ $dbconfig = Core::getDBConfig(); ?>
                         </div>
                     </div>
                 </div>
-                <script type="application/ld+json">
+                <script type="application/ld+json" defer>
                 {
                     "@context": "http://schema.org",
                     "@type": "Person",

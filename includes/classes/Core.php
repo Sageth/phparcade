@@ -217,19 +217,9 @@ class Core {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title><?php echo gettext('redirection'); ?></title>
             <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
-            <!-- This section does lazy loading of the CSS as described here: https://github.com/filamentgroup/loadCSS/ -->
-            <link rel="preload" href="<?php echo CSS_BOOTSTRAP_THEME; ?>" as="style" onload="this.rel='stylesheet'">
-            <noscript>
-                <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>"/>
-            </noscript>
-            <link rel="preload" href="<?php echo SITE_THEME_DIR; ?>" as="style" onload="this.rel='stylesheet'">
-            <noscript>
-                <link rel="stylesheet" href="<?php echo SITE_THEME_DIR; ?>"/>
-            </noscript>
-            <link rel="preload" href="<?php echo CSS_FONTAWESOME; ?>" as="style" onload="this.rel='stylesheet'">
-            <noscript>
-                <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
-            </noscript>
+            <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>"/>
+            <link rel="stylesheet" href="<?php echo SITE_THEME_DIR; ?>"/>
+            <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
             <meta name="robots" content="noindex,nofollow"/>
             <meta http-equiv="refresh" content="1;URL=<?php echo $url; ?>"/>
         </head>

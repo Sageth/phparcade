@@ -38,6 +38,7 @@ a:focus {
 }
 .carousel-caption {
 	z-index: 10;
+	text-shadow: none !important;
 }
 .carousel .item {
 	min-height: 300px;
@@ -50,10 +51,6 @@ a:focus {
 	min-width: 100%;
 	min-height: 300px;
 }
-.carousel-caption {
-	text-shadow: none;
-}
-
 .home-game-title{
     font-family:inherit;
     font-size:24px;
@@ -63,7 +60,7 @@ a:focus {
 }
 /* ========================================
     LOGIN & REGISTRATINO SOCIAL MEDIA BUTTONS
-    ======================================   */
+    ======================================
 
 @media (min-width: 768px) {
     .omb_row-sm-offset-3 div:first-child[class*="col-"] {

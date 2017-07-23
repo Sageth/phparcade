@@ -13,23 +13,17 @@ include_once __DIR__ . '/scoresys.php';
         <meta charset="<?php echo CHARSET; ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
         <title><?php echo $metadata['metapagetitle']; ?></title>
+        <!-- Preconnections -->
         <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+        <link rel="preconnect" href="https://cdn.flashtalking.com">
         <link rel="preconnect" href="https://www.googleapis.com">
-        <link rel="alternate" type="application/rss+xml" href="<?php echo SITE_URL; ?>" title="<?php echo $dbconfig['sitetitle']; ?>"/>
-        <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
-        <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
-        <link rel="shortcut icon" type="image/x-icon" href="<?php echo SITE_URL; ?>favicon.ico" title="FavIcon"/>
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
-        <meta name="description" content="<?php echo $metadata['metapagedesc']; ?>"/>
-        <meta name="keywords" content="<?php echo $metadata['metapagekeywords']; ?>"/>
-        <meta name="language" content="English"/>
-        <meta name="no-email-collection" content="https://www.unspam.com/noemailcollection"/>
-        <meta name="robots" content="noarchive"/>
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+        <!-- End Preconnections -->
+
+        <!-- Run this first so you get your local CSS loaded before external JS -->
         <?php switch (true) {
             case is('home'): ?>
-                <link rel="stylesheet" href="<?php echo SITE_THEME_DIR; ?>css/style.min.css" /><?php
+                <link rel="stylesheet" href="<?php echo SITE_THEME_DIR; ?>css/style.css" /><?php
                 break;
             case is('game'):
                 /** @noinspection PhpUndefinedVariableInspection */
@@ -45,6 +39,24 @@ include_once __DIR__ . '/scoresys.php';
                 <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>" defer></script><?php
             default:
         } ?>
+
+        <!-- Load everything else -->
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
+
+        <link rel="alternate" type="application/rss+xml" href="<?php echo SITE_URL; ?>" title="<?php echo $dbconfig['sitetitle']; ?>"/>
+        <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
+        <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
+
+        <link rel="shortcut icon" type="image/x-icon" href="<?php echo SITE_URL; ?>favicon.ico" title="FavIcon"/>
+
+        <meta name="description" content="<?php echo $metadata['metapagedesc']; ?>"/>
+        <meta name="keywords" content="<?php echo $metadata['metapagekeywords']; ?>"/>
+        <meta name="language" content="English"/>
+        <meta name="no-email-collection" content="https://www.unspam.com/noemailcollection"/>
+        <meta name="robots" content="noarchive"/>
+
     </head>
     <body>
         <?php if ($dbconfig['ga_enabled'] === 'on') {
@@ -88,13 +100,13 @@ include_once __DIR__ . '/scoresys.php';
             </div>
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
-        <script src="<?php echo JS_JQUERY; ?>"></script>
-        <script src="<?php echo JS_BOOTSTRAP; ?>"></script>
+        <script src="<?php echo JS_JQUERY; ?>" defer></script>
+        <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
         <?php if (true == is('game')) { ?>
             <!--suppress JSUnresolvedLibraryURL -->
-            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>"></script><?php
+            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" defer></script><?php
         } ?>
-        <script type="application/ld+json">
+        <script type="application/ld+json" defer>
         {
             "@context":"http://schema.org",
             "@type":"Organization",
@@ -107,7 +119,7 @@ include_once __DIR__ . '/scoresys.php';
         }
         </script>
 
-        <script type="application/ld+json">
+        <script type="application/ld+json" defer>
         {
             "@context":"http://schema.org",
             "@type":"WebSite",

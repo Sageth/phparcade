@@ -124,12 +124,12 @@ $content = $content ?? ''; ?>
                 </div>
             </div><!-- /#page-wrapper -->
         </div><!-- /#wrapper -->
-        <script src="<?php echo JS_JQUERY; ?>"></script>
-        <script src="<?php echo JS_JQUERY_UI; ?>"></script>
-        <script src="<?php echo JS_TABLESORT; ?>"></script>
-        <script src="<?php echo JS_BOOTSTRAP; ?>"></script>
-        <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>"></script>
-        <script src="<?php echo JS_METISMENU; ?>"></script>
-        <script src="<?php echo JS_SB_ADMIN_2; ?>"></script>
+        <script src="<?php echo JS_JQUERY; ?>" defer></script>
+        <script src="<?php echo JS_JQUERY_UI; ?>" defer></script>
+        <script src="<?php echo JS_TABLESORT; ?>" defer></script>
+        <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
+        <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" defer></script>
+        <script src="<?php echo JS_METISMENU; ?>" defer></script>
+        <script src="<?php echo JS_SB_ADMIN_2; ?>" defer></script>
     </body>
 </html>

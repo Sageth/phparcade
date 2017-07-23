@@ -2,7 +2,7 @@
 $dbconfig = Core::getDBConfig(); ?>
 <!--suppress ALL -->
 <div id="disqus_thread"></div>
-<script data-cfasync="false">
+<script data-cfasync="false" defer>
     var disqus_config = function () {
         this.page.url = '<?php echo $currentlink;?>';
         this.page.identifier = '<?php echo $game['id'];?>';

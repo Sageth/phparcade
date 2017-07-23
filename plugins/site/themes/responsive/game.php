@@ -213,7 +213,7 @@ global $params; ?>
         </div>
     </div>
     <!-- Schema -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" defer>
         {
           "@context": "http://schema.org",
           "@type": "Game",
