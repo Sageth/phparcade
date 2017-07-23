@@ -62,8 +62,8 @@ global $params; ?>
             $tscore = $tscore['score'];
             $info[0] = $info ?? '';
             if ($tscore <> $info[0]) {
-                //Compare the top score to the champ ($info) which is defined in scoreinfo.php
-                // If the scores don't match, then correct it.
+                /* Compare the top score to the champ ($info) which is defined in scoreinfo.php
+                   If the scores don't match, then correct it. */
                 Games::updateGameChamp($tnameid, $tuser, $tscore, Core::getCurrentDate(), $game['id']);
             }
         }
@@ -212,17 +212,6 @@ global $params; ?>
             </div>
         </div>
     </div>
-    <div class="col-lg-12">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h2 class="panel-title"><?php echo gettext('relatedproducts'); ?></h2>
-            </div>
-            <div class="panel-body">
-                <script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=b6978aaa-8da0-4748-bfab-fb4d3d78a04d&storeId=freonlflaga07-20"></script>
-            </div>
-        </div>
-    </div>
-    <!-- End Related Items -->
     <!-- Schema -->
     <script type="application/ld+json">
         {
