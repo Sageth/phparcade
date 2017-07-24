@@ -35,8 +35,9 @@ class Users {
     }
     public static function userPasswordUpdateByID($id, $password) {
         try {
+            $password = Users::userPasswordHash($password);
             $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberPassword(:password, :memberid);');
-            $stmt->bindParam(':password', Users::userPasswordHash($password));
+            $stmt->bindParam(':password', $password);
             $stmt->bindParam(':memberid', $id);
             $stmt->execute();
             Core::showSuccess(gettext('updatesuccess'));
