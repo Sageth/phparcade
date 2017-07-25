@@ -2,7 +2,7 @@
 if(!isset($_SESSION)){session_start();}
 
 global $params;
-$dbconfig = Core::getDBConfig(); ?>
+$dbconfig = Core::getInstance()->getDBConfig(); ?>
 <div class="col-lg-12">
 	<div class="panel panel-info">
 		<div class="panel-heading">

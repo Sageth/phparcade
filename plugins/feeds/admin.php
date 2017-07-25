@@ -8,7 +8,7 @@ Administrations::addSubLink(gettext('configuration'), 'index.php?act=feeds&mthd=
  * @param $mthd
  */
 function feeds_admin($mthd) {
-	$dbconfig = Core::getDBConfig();
+	$dbconfig = Core::getInstance()->getDBConfig();
 	switch($mthd){
 		case "":
 		case 'config':

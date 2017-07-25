@@ -33,7 +33,7 @@ foreach ($arr as $plugin) {
     }
 }
 // Make sure the user is logged in.
-$dbconfig = Core::getDBConfig();
+$dbconfig = Core::getInstance()->getDBConfig();
 if ($dbconfig['membersenabled'] === 'on') {
     if (!isset($_SESSION)) {
         session_start();

@@ -1,6 +1,6 @@
 <!--Begin Content Below Carousel --><?php
 if(!isset($_SESSION)){session_start();}
-$dbconfig = Core::getDBConfig();
+$dbconfig = Core::getInstance()->getDBConfig();
 $i = 0;
 $games = Games::getGamesHomePage();
 foreach ($games as $game) {

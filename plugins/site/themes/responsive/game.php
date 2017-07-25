@@ -5,11 +5,12 @@
 Users::updateUserPlaycount();
 global $params; ?>
 <div><?php
-    $dbconfig = Core::getDBConfig();
+    $dbconfig = Core::getInstance()->getDBConfig();
     Core::doEvent('gamepage');
     $metadata = Core::getPageMetaData();
     $game = Games::getGame($params[1]);
     if (isset($game['id'])) {
+        $time = Core::getCurrentDate();
         $img = $dbconfig['imgurl'] . $game['nameid'] . '.png';
         $thumbnailurl = $img;
         $origgamename = $game['name'];
@@ -64,7 +65,7 @@ global $params; ?>
             if ($tscore <> $info[0]) {
                 /* Compare the top score to the champ ($info) which is defined in scoreinfo.php
                    If the scores don't match, then correct it. */
-                Games::updateGameChamp($tnameid, $tuser, $tscore, Core::getCurrentDate(), $game['id']);
+                Games::updateGameChamp($tnameid, $tuser, $tscore, $time, $game['id']);
             }
         }
         /* End Games Champs Fix */ ?>
@@ -155,14 +156,14 @@ global $params; ?>
         if ($dbconfig['disqus_on'] === 'on') { ?>
             <div class="clearfix invisible"></div>
             <div class="col-lg-12">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><?php echo gettext('disqus'); ?></h3>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><?php echo gettext('disqus'); ?></h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php include_once(INST_DIR . 'includes/js/Disqus/disqus.php'); ?>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <?php include_once(INST_DIR . 'includes/js/Disqus/disqus.php'); ?>
-                </div>
-            </div>
             </div><?php
         }
     } else { ?>

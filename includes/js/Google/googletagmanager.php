@@ -1,4 +1,4 @@
-<?php $dbconfig = Core::getDBConfig(); ?>
+<?php $dbconfig = Core::getInstance()->getDBConfig(); ?>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo $dbconfig['ga_id']; ?>"

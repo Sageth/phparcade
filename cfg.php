@@ -25,8 +25,15 @@ ini_set('session.cookie_httponly', 1);
 /* Set Timezone */
 date_default_timezone_set('America/New_York');
 
+/* Enable debug logging in non-prod */
+$inicfg = Core::getINIConfig();
+if ($inicfg['environment']['state'] === "dev"){
+    error_reporting(-1);
+    ini_set('display_errors', 'On');
+}
+
 /* ******* END INI SETTINGS ******* */
-$dbconfig = Core::getDBConfig();
+$dbconfig = Core::getInstance()->getDBConfig();
 
 /* Define site constants */
 define('INST_DIR', $_SERVER['DOCUMENT_ROOT'] . '/');

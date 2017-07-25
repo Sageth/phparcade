@@ -6,7 +6,7 @@ function users_links() {
 Administrations::addSubLink(gettext('manage'), 'index.php?act=users&mthd=manage', 'users');
 Administrations::addSubLink(gettext('configuration'), 'index.php?act=users&mthd=config-form', 'users');
 function users_admin($mthd) {
-	$dbconfig = Core::getDBConfig();
+	$dbconfig = Core::getInstance()->getDBConfig();
 	switch($mthd) {
 		case 'config-do':
 			Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');

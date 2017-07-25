@@ -1,9 +1,17 @@
 <?php
-if (!isset($_SESSION)) {session_start();}
-if ($_SESSION) {$user = $_SESSION;}
-$dbconfig = Core::getDBConfig();
+/* Fixes errors on score submission because the autoloader isn't found */
+require_once $_SERVER['DOCUMENT_ROOT'] . '/cfg.php';
+
+
+if (!isset($_SESSION)) {
+    session_start();
+}
+if ($_SESSION) {
+    $user = $_SESSION;
+}
+$dbconfig = Core::getInstance()->getDBConfig();
 $metadata = Core::getPageMetaData();
-include_once __DIR__ . '/themeconfig.php';
+/* include_once __DIR__ . '/themeconfig.php'; */
 include_once __DIR__ . '/scoresys.php';
 ?>
 
@@ -14,10 +22,10 @@ include_once __DIR__ . '/scoresys.php';
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
         <title><?php echo $metadata['metapagetitle']; ?></title>
         <!-- Preconnections -->
-        <link rel="preconnect" href="//cdnjs.cloudflare.com">
-        <link rel="preconnect" href="//cdn.flashtalking.com">
-        <link rel="preconnect" href="//www.googleapis.com">
-        <link rel="preconnect" href="//pagead2.googlesyndication.com">
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+        <link rel="preconnect" href="https://cdn.flashtalking.com">
+        <link rel="preconnect" href="https://www.googleapis.com">
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com">
         <!-- End Preconnections -->
 
         <!-- Run this first so you get your local CSS loaded before external JS -->

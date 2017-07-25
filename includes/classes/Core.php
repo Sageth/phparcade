@@ -1,13 +1,23 @@
 <?php
 declare(strict_types=1);
 Core::stopDirectAccess();
+
 class Core {
     private static $dbconfig;
+    private static $instance;
     protected      $act;
     protected      $config;
     protected      $line;
     protected      $links_arr;
     protected      $string;
+
+    public static function getInstance() {
+        /* Singleton use */
+        if (!self::$instance instanceof self) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
     private function __construct() {
     }
     public static function getDBConfig() {
@@ -109,7 +119,7 @@ class Core {
         return $links_arr['editprofile'];
     }
 	public static function getPageMetaData() {
-        $dbconfig = Core::getDBConfig();
+        $dbconfig = Core::getInstance()->getDBConfig();
         global $params;
         switch (true) {
             case (is('game')):
@@ -156,7 +166,7 @@ class Core {
         return $metadata;
     }
 	public static function getPages($category = '') {
-        $dbconfig = Core::getDBConfig();
+        $dbconfig = Core::getInstance()->getDBConfig();
         try {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetNameidByCategory(:catname);');
             $stmt->bindParam(':catname', $category);
@@ -207,7 +217,7 @@ class Core {
         return $links_arr;
     }
 	public static function loadRedirect($message, $url = 'refurl') {
-        $dbconfig = Core::getDBConfig();
+        $dbconfig = Core::getInstance()->getDBConfig();
         if ($url == 'refurl') {
             $url = $_SERVER['HTTP_REFERER'];
         } ?>
@@ -296,7 +306,7 @@ class Core {
 }
 function load_theme() {
     global $config;
-    $dbconfig = Core::getDBConfig();
+    $dbconfig = Core::getInstance()->getDBConfig();
     $config['themeinc'] = INST_DIR . 'plugins/site/themes/' . $dbconfig['theme'] . '/index.php';
 }
 function load_admin_theme() {

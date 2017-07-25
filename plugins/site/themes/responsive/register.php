@@ -1,4 +1,4 @@
-<?php $dbconfig = Core::getDBConfig(); ?>
+<?php $dbconfig = Core::getInstance()->getDBConfig(); ?>
 
 <div class="omb_login">
 	<h3 class="omb_authTitle">

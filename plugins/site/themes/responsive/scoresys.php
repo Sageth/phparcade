@@ -1,11 +1,16 @@
 <?php
 if(!isset($_SESSION)){session_start();}
-$dbconfig = Core::getDBConfig();
+$dbconfig = Core::getInstance()->getDBConfig();
 $_GET['act'] = $_GET['act'] ?? '';
 if ($_GET['act'] == 'Arcade' && $_GET['do'] == 'newscore') { //v2 games
-	$info = Games::getGameByNameID($_POST['gname']);
-	$sort = Scores::getScoreType('lowhighscore', $info['flags']) ? 'ASC' : 'DESC';
-	$link = Core::getLinkGame($info['id']);
+    /* 'gname' comes from the submission in Flash */
+	$game = Games::getGameByNameID($_POST['gname']);
+
+	/* Get the game flags to determine scoring type */
+	$sort = Scores::getScoreType('lowhighscore', $game['flags']) ? 'ASC' : 'DESC';
+
+	/* Get the game link */
+	$link = Core::getLinkGame($game['id']);
 	if ($dbconfig['highscoresenabled'] === 'off') {
 		Core::loadRedirect(gettext('highscoresoffline'), $link);
 	}
@@ -17,7 +22,7 @@ if ($_GET['act'] == 'Arcade' && $_GET['do'] == 'newscore') { //v2 games
 				Core::loadRedirect(gettext('scoretoolow'), $link);
 			}
 			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
-			Scores::submitGameScore($info[0], $_POST['gscore'], $_SESSION['user']['id'], $ip, $link, $sort);
+			Scores::submitGameScore($game['id'], $_POST['gscore'], $_SESSION['user']['id'], $ip, $link, $sort);
 		} else {
 			Core::loadRedirect(gettext('errorsubmitscore'), $link);
 		}

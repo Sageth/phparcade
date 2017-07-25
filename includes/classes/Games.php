@@ -79,7 +79,7 @@ class Games {
             Limit End = 10,
             Page = "-all-",
             Games Per Page = 30 */
-        $dbconfig = Core::getDBConfig();
+        $dbconfig = Core::getInstance()->getDBConfig();
         $time = Core::getCurrentDate();
         if ($gamesperpage == -1 && isset($page)) {
             $gamesperpage = $dbconfig['gamesperpage'];

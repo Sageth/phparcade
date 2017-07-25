@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION)){session_start();}
-$dbconfig = Core::getDBConfig();
+$dbconfig = Core::getInstance()->getDBConfig();
 global $params; ?>
 <div class="col-lg-12">
 	<div class="panel panel-info">

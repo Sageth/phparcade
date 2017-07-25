@@ -24,7 +24,7 @@ class Search {
         return $searchresults;
     }
 	public static function getGoogleSearchID() {
-        $dbconfig = Core::getDBConfig();
+        $dbconfig = Core::getInstance()->getDBConfig();
         return $dbconfig['google_search_ID'];
     }
     private function __clone() {}

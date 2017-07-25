@@ -1,6 +1,6 @@
 <?php
 if(!isset($_SESSION)){session_start();}
-$dbconfig = Core::getDBConfig(); ?>
+$dbconfig = Core::getInstance()->getDBConfig(); ?>
 <div class="mostpop_header_bg">&nbsp;</div>
 <div class="mostpop_content"><?php
 	$games = Games::getGames('all',6,10, '-all-',5);

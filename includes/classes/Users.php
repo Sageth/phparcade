@@ -100,7 +100,7 @@ class Users {
         return isset($_SESSION['user']) ? true : false;
     }
     public static function passwordRecoveryForm() {
-        $dbconfig = Core::getDBConfig();
+        $dbconfig = Core::getInstance()->getDBConfig();
         if ($dbconfig['passwordrecovery'] === 'on') { ?>
         <form action='<?php echo SITE_URL; ?>' method='post'><br/>
             <?php echo gettext('username'); ?>:<br/>
@@ -117,7 +117,7 @@ class Users {
         }
     }
     public static function passwordRecovery() {
-        $dbconfig = Core::getDBConfig();
+        $dbconfig = Core::getInstance()->getDBConfig();
         $inicfg = Core::getINIConfig();
         $status = '';
         if ($dbconfig['passwordrecovery'] === 'on') {
@@ -244,7 +244,7 @@ class Users {
         return;
     }
     public static function userAdd($username, $email, $status = "") {
-        $dbconfig = Core::getDBConfig();
+        $dbconfig = Core::getInstance()->getDBConfig();
         $inicfg = Core::getINIConfig();
         if (!empty($username) || !empty($email)) {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetUsernameOREmail(:username, :useremail);');

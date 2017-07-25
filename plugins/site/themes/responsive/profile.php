@@ -1,7 +1,7 @@
 <?php
 if (!isset($_SESSION)) {session_start();}
 global $params;
-$dbconfig = Core::getDBConfig(); ?>
+$dbconfig = Core::getInstance()->getDBConfig(); ?>
 <hr>
 <div class="row">
     <div class="col-lg-12"><?php

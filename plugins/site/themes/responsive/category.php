@@ -1,7 +1,7 @@
 <?php
 if(!isset($_SESSION)){session_start();}
 global $params;
-$dbconfig = Core::getDBConfig();
+$dbconfig = Core::getInstance()->getDBConfig();
 $category = Games::getCategory($params[1]);
 $games = Games::getGames($category['name'],0,10,$params[2], $dbconfig['gamesperpage']);
 $i = 0; ?>

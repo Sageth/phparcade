@@ -13,7 +13,7 @@ Administrations::addSubLink(gettext('managemedia'), 'index.php?act=media&amp;mth
  * @param $mthd
  */
 function media_admin($mthd) {
-    $dbconfig = Core::getDBConfig();
+    $dbconfig = Core::getInstance()->getDBConfig();
     switch ($mthd) {
         case 'addcat-do':
             $order = Games::getCategoryIDMax();
@@ -72,7 +72,7 @@ function media_admin($mthd) {
             </form><?php
             break;
         case 'addgame-do':
-            $dbconfig = Core::getDBConfig();
+            $dbconfig = Core::getInstance()->getDBConfig();
             //Check that the game isn't already added
             $gameid =
                 (!empty(strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)))) ? strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));

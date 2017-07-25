@@ -7,7 +7,7 @@ Administrations::addSubLink(gettext('mainconfig'), 'index.php?act=site&mthd=site
 Administrations::addSubLink(gettext('theme'), 'index.php?act=site&mthd=theme-config', 'site');
 Administrations::addSubLink(gettext('socialconfig'), 'index.php?act=site&mthd=social-config', 'site');
 function site_admin($mthd) {
-	$dbconfig = Core::getDBConfig();
+	$dbconfig = Core::getInstance()->getDBConfig();
 	$prerequisites = Administrations::getPreReqs();
 	$processUser = Administrations::getProcessUser();
 	switch ($mthd) {

@@ -5,7 +5,7 @@ function scores_links() {
 Administrations::addSubLink(gettext('configuration'), 'index.php?act=scores&mthd=config-form', 'scores');
 
 function scores_admin($mthd) {
-	$dbconfig = Core::getDBConfig();
+	$dbconfig = Core::getInstance()->getDBConfig();
 	if ($mthd == 'config-form') {
 		$checkedhsenable = ($dbconfig['highscoresenabled'] === 'on') ? 'checked' : "";
 		$checkedguests = ($dbconfig['loginrequired'] === 'on') ? 'checked' : ""; ?>
