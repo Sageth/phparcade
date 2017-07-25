@@ -118,7 +118,7 @@ class Users {
     }
     public static function passwordRecovery() {
         $dbconfig = Core::getInstance()->getDBConfig();
-        $inicfg = Core::getINIConfig();
+        $inicfg = Core::getInstance()->getINIConfig();
         $status = '';
         if ($dbconfig['passwordrecovery'] === 'on') {
             /** @noinspection PhpUndefinedVariableInspection */
@@ -245,7 +245,7 @@ class Users {
     }
     public static function userAdd($username, $email, $status = "") {
         $dbconfig = Core::getInstance()->getDBConfig();
-        $inicfg = Core::getINIConfig();
+        $inicfg = Core::getInstance()->getINIConfig();
         if (!empty($username) || !empty($email)) {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetUsernameOREmail(:username, :useremail);');
             $stmt->bindParam(':username', $username);

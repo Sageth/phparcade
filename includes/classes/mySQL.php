@@ -4,15 +4,16 @@ Core::stopDirectAccess();
 class mySQL {
     protected static $db;
     private function __construct() {
-        $inicfg = Core::getINIConfig();
+        $inicfg = Core::getInstance()->getINIConfig();
         try {
             // assign PDO object to db variable
             self::$db = new PDO($inicfg['database']['driver'] . ':host=' . $inicfg['database']['host'] . ';port=' .
                                 $inicfg['database']['port'] . ';dbname=' .
                                 $inicfg['database']['schema'], $inicfg['database']['user'], $inicfg['database']['pass'], [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']);
-            # Enable logging of exceptions
+            /* Enable logging of exceptions */
             self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            # Disable emulation of prepared statements, use REAL prepared statements instead.
+
+            /* Disable emulation of prepared statements, use REAL prepared statements instead. */
             self::$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         } catch (PDOException $e) {
             if ($inicfg['environment']['state'] === 'dev') {

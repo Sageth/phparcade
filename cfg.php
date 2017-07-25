@@ -26,7 +26,7 @@ ini_set('session.cookie_httponly', 1);
 date_default_timezone_set('America/New_York');
 
 /* Enable debug logging in non-prod */
-$inicfg = Core::getINIConfig();
+$inicfg = Core::getInstance()->getINIConfig();
 if ($inicfg['environment']['state'] === "dev"){
     error_reporting(-1);
     ini_set('display_errors', 'On');
