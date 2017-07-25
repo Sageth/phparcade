@@ -415,11 +415,11 @@ class Users {
         }
     }
     public static function userSessionEnd() {
-        if (isset($_SESSION)) {
-            $_SESSION = array();
-            session_destroy();
-            header('Location: index.php');
-        }
+        /* Resume sesion, then destroy it */
+        if (!isset($_SESSION)) {session_start();}
+        unset($_SESSION['user']);
+        if (isset($_SESSION['user'])){session_destroy();}
+        header('Location: index.php');
     }
     private function __clone() {
     }
