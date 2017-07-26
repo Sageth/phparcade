@@ -3,11 +3,11 @@ if(!isset($_SESSION)){session_start();}
 $dbconfig = Core::getInstance()->getDBConfig();
 $_GET['act'] = $_GET['act'] ?? '';
 if ($_GET['act'] == 'Arcade' && $_GET['do'] == 'newscore') { //v2 games
-    /* 'gname' comes from the submission in Flash */
+    /* 'gname' comes from the submission in Flash and is equal to `game`.`nameid` */
 	$game = Games::getGameByNameID($_POST['gname']);
 
 	/* Get the game flags to determine scoring type */
-	$sort = Scores::getScoreType('lowhighscore', $game['flags']) ? 'ASC' : 'DESC';
+    $sort = Scores::getScoreType('lowhighscore', $game['flags']) ? 'ASC' : 'DESC';
 
 	/* Get the game link */
 	$link = Core::getLinkGame($game['id']);

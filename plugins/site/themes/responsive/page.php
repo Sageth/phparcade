@@ -1,5 +1,4 @@
 <?php
-if(!isset($_SESSION)){session_start();}
 /** @noinspection PhpUndefinedVariableInspection */
 $page = Pages::getPage($params[1]); ?>
 <div class="col-lg-12">

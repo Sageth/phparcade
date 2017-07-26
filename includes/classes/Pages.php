@@ -7,11 +7,20 @@ class Pages {
     private function __construct() {
     }
 	public static function getPage($id) {
-        /* Used to display on the front-end website */
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_GetPagesbyPageID(:pageid);');
-        $stmt->bindParam(':pageid', $id);
-        $stmt->execute();
-        $page = $stmt->fetch();
+        try {
+            /* Used to display on the front-end website */
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_GetPagesbyPageID(:pageid);');
+            $stmt->bindParam(':pageid', $id);
+            $stmt->execute();
+            if ($stmt->rowCount() === 1) {
+                $page = $stmt->fetch();
+            } elseif ($stmt->rowCount() === 0){
+                die(Core::returnStatusCode(404));
+            }
+        } catch (PDOException $e) {
+            Core::showError($e->getMessage());
+        }
+        /** @noinspection PhpUndefinedVariableInspection */
         return $page;
     }
 	public static function getPages() {
@@ -22,7 +31,7 @@ class Pages {
         return $page;
     }
 	public static function getSubmitButton($active = 'active') { ?>
-        <button type="submit" class="btn btn-primary <?php echo $active; ?>" value="<?php echo gettext('submit'); ?>">
+        <button class="btn btn-primary <?php echo $active; ?>" value="<?php echo gettext('submit'); ?>">
             <?php echo gettext('submit'); ?>
         </button><?php
     }
