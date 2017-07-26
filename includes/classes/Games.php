@@ -229,7 +229,9 @@ class Games {
                                          $game['filename'] . '" width="' . $game['width'] . '" height="' .
                                          $game['height'] . '">';
                         $game['code'] .= '<!--<![endif]-->';
-                        $game['code'] .= 'Sorry, you must have flash to <strong>play ' . $game['name'] . '</strong>';
+                        $game['code'] .= '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">';
+                        $game['code'] .= 'Is ' . $game['name'] . ' not loading? Fix it here!';
+                        $game['code'] .= '</button>';
                         $game['code'] .= '<!--[if !IE]>-->';
                         $game['code'] .= '</object>';
                         $game['code'] .= '<!--<![endif]-->';
