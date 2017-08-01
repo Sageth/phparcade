@@ -124,14 +124,6 @@ class Games {
                 }
                 break;
         }
-        /** @noinspection PhpUndefinedVariableInspection */
-        foreach ($games as $game)  {
-            $game['name'] = htmlentities($game['name']);
-            $game['cat'] = htmlentities($game['cat']);
-            $game['desc'] = Core::encodeHTMLEntity($game['desc'], ENT_QUOTES);
-            $game['instructions'] = Core::encodeHTMLEntity($game['instructions'], ENT_QUOTES);
-            $game['keywords'] = Core::encodeHTMLEntity($game['keywords'], ENT_QUOTES);
-        }
         return $games;
     }
 	public static function getCategory($name) {
