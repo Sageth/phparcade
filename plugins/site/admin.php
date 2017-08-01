@@ -160,7 +160,7 @@ function site_admin($mthd) {
 			</div><?php
 			break;
 		case 'logout':
-			unset($_SESSION['user']);
+			Users::userSessionEnd();
 			break;
 		case 'site-config':
 			$checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : ""; ?>
