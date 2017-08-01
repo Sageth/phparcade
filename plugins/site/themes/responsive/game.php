@@ -212,8 +212,6 @@ global $params; ?>
                 unset($gameslikethis); ?>
             </div>
         </div>
-
-        /* Adds modal to tell users how to enable Flash */
         <?php Core::getFlashModal();?>
     </div>
     <!-- Schema -->
