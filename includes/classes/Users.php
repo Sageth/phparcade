@@ -9,17 +9,25 @@ class Users {
     private function __construct() {
     }
     public static function UpdateProfile() {
+        /* Sanitization */
+        $aim = filter_var($_POST['aim'], FILTER_SANITIZE_STRING);
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        $github = filter_var($_POST['github_id'], FILTER_SANITIZE_STRING);
+        $facebook = filter_var($_POST['facebook_id'], FILTER_SANITIZE_STRING);
+        $msn = filter_var($_POST['msn'], FILTER_SANITIZE_STRING);
+        $twitter = filter_var($_POST['twitter_id'], FILTER_SANITIZE_STRING);
+        $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+
         try {
             $stmt =
                 mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :email, :github, :facebook, :msn, :twitter, :id);');
-            $stmt->bindParam(':aim', $_POST['aim']);
+            $stmt->bindParam(':aim', $aim);
             $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':github', $_POST['github_id']);
-            $stmt->bindParam(':facebook', $_POST['facebook_id']);
-            $stmt->bindParam(':msn', $_POST['msn']);
-            $stmt->bindParam(':twitter', $_POST['twitter_id']);
-            $stmt->bindParam(':id', $_POST['id']);
+            $stmt->bindParam(':github', $github);
+            $stmt->bindParam(':facebook', $facebook);
+            $stmt->bindParam(':msn', $msn);
+            $stmt->bindParam(':twitter', $twitter);
+            $stmt->bindParam(':id', $id);
             $stmt->execute();
         } catch (PDOException $e) {
             $params[2] = 'wompwomp';
@@ -342,6 +350,9 @@ class Users {
         return $hashandsalt;
     }
     public static function userSessionStart($username) {
+        /* Sanitization */
+        $username = filter_var($username, FILTER_SANITIZE_STRING);
+
         if (!isset($_SESSION)) {
             session_start();
         }
@@ -350,6 +361,7 @@ class Users {
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         $user = $stmt->fetch();
+
         $_SESSION['user'] =
             array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
                   'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'aim' => $user['aim'],
