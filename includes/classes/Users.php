@@ -148,8 +148,8 @@ class Users {
     public static function passwordGenerate($pw = "", $length = 8, $i = 0) {
         $possible = '!@#$%^&*0123456789bcdfghjkmnpqrstvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
         while ($i < $length) {
-            $char = $possible[random_int(0, strlen($possible) - 1)];
-            if (false === strpos($pw, $char)) {
+            $char = $possible[random_int(0, mb_strlen($possible) - 1)];
+            if (false === mb_strpos($pw, $char)) {
                 $pw .= $char;
                 ++$i;
             }

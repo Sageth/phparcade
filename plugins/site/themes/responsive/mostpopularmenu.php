@@ -10,10 +10,10 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
 	foreach ($games_rand as $game => $gamevalue) {
 		++$i;
 		$link = Core::getLinkGame($games[$gamevalue]['id']);
-		if (strlen($games[$gamevalue]['desc']) > 35) {
+		if (mb_strlen($games[$gamevalue]['desc']) > 35) {
 			$games[$gamevalue]['desc'] = substr($games[$gamevalue]['desc'], 0, 35) . ' ..';
 		}
-		if (strlen($games[$gamevalue]['name']) > 18) {
+		if (mb_strlen($games[$gamevalue]['name']) > 18) {
 			$games[$gamevalue]['name'] = substr($games[$gamevalue]['name'], 0, 18);
 		} ?>
 		<div class='mostpopular_box'>

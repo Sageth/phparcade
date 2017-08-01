@@ -173,7 +173,7 @@ function ads_admin($mthd) {
 									/* If a page number isn't explicitly passed, assume page 1 */
 									$page = $page ?? 1;
 									foreach ($ads as $ad) {
-										if (strlen($page['code']) > 72) {
+										if (mb_strlen($page['code']) > 72) {
 											$page['code'] = substr($page['code'], 0, 72) . '...';
 										} ?>
 										<tr class="odd gradeA">

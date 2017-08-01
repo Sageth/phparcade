@@ -25,8 +25,8 @@ $i = 0; ?>
 				default:
 			}*/
 			foreach ($games as $game) {
-                $game['desc'] = strlen($game['desc']) > 150 ? substr($game['desc'], 0, 150) . '...' : $game['desc'];
-                $game['name'] = strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];
+                $game['desc'] = mb_strlen($game['desc']) > 150 ? substr($game['desc'], 0, 150) . '...' : $game['desc'];
+                $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];
 				$link = Core::getLinkGame($game['id']); ?>
 				<div class="col-md-4 col-md-4">
 					<div class="thumbnail">

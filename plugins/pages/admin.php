@@ -161,7 +161,7 @@ function pages_admin($mthd) {
 								</thead>
 								<tbody><?php
 									foreach ($pages as $page) {
-										if (strlen($page['content']) > 72) {
+										if (mb_strlen($page['content']) > 72) {
 											$page['content'] = substr($page['content'], 0, 72) . '...';
 										} ?>
 										<tr class="odd gradeA">

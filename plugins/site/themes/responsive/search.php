@@ -13,8 +13,8 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
             $i = 0;
             foreach ($games as $game) {
                 $link = Core::getLinkGame($game['id']);
-                $game['desc'] = strlen($game['desc']) > 120 ? substr($game['desc'], 0, 120) . '...' : $game['desc'];
-                $game['name'] = strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];?>
+                $game['desc'] = mb_strlen($game['desc']) > 120 ? substr($game['desc'], 0, 120) . '...' : $game['desc'];
+                $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];?>
                 <div class="col-md-4 col-md-4">
                     <div class="thumbnail">
                         <a href="<?php echo $link; ?>"><?php
