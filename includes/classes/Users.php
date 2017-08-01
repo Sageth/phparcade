@@ -110,8 +110,8 @@ class Users {
             if ($count == 1) {
                 $mail = new PHPMailer();
                 $body = file_get_contents(INST_DIR . 'includes/messages/forgottenmessage.txt');
-                $body = nl2br(str_replace('[username]', $username, $body));
-                $body = nl2br(str_replace('[password]', $clearpass, $body));
+                $body = nl2br(str_replace('%username%', $username, $body));
+                $body = nl2br(str_replace('%password%', $clearpass, $body));
                 $mail->isSMTP(); // telling the class to use SMTP
                 $mail->SMTPDebug = $dbconfig['emaildebug']; //Ask for HTML-friendly debug output
                 $mail->Debugoutput = 'html';
@@ -231,8 +231,9 @@ class Users {
                     $password = self::userPasswordHash($password);
                     $mail = new PHPMailer();
                     $body = file_get_contents(INST_DIR . 'includes/messages/registering.txt');
-                    $body = nl2br(str_replace('[username]', $username, $body));
-                    $body = nl2br(str_replace('[password]', $clearpass, $body));
+                    $body = nl2br(str_replace('%siteurl%', SITE_URL, $body));
+                    $body = nl2br(str_replace('%username%', $username, $body));
+                    $body = nl2br(str_replace('%password%', $clearpass, $body));
                     $mail->isSMTP(); // telling the class to use SMTP
                     $mail->SMTPDebug = $dbconfig['emaildebug'];
                     $mail->SMTPAuth = true;                    // enable SMTP authentication
