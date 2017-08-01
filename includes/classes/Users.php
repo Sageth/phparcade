@@ -6,10 +6,10 @@ class Users {
     protected $params;
     protected $status;
     protected $user;
-    private function __construct() {}
+    private function __construct() {
+    }
     public static function UpdateProfile() {
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-
         try {
             $stmt =
                 mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :email, :github, :facebook, :msn, :twitter, :id);');
@@ -30,70 +30,36 @@ class Users {
             }
             Core::showError($e->getMessage());
         }
-
-
     }
     public static function userPasswordUpdateByID($id, $password) {
-        try {
-            $password = Users::userPasswordHash($password);
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberPassword(:password, :memberid);');
-            $stmt->bindParam(':password', $password);
-            $stmt->bindParam(':memberid', $id);
-            $stmt->execute();
-            Core::showSuccess(gettext('updatesuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
-    }
-    public static function userPasswordUpdatebyEmail($password, $username, $email){
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePasswordbyUserEmail(:password, :username, :useremail);');
-            $stmt->bindParam(':password', $password);
-            $stmt->bindParam(':username', $username);
-            $stmt->bindParam(':useremail', $email);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+        $password = Users::userPasswordHash($password);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberPassword(:password, :memberid);');
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':memberid', $id);
+        $stmt->execute();
+        Core::showSuccess(gettext('updatesuccess'));
     }
     public static function userPasswordHash($password) {
         return password_hash($password, PASSWORD_DEFAULT);
     }
     public static function getUserbyID($id) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetMemberbyID(:memberid);');
-            $stmt->bindParam(':memberid', $id);
-            $stmt->execute();
-            $user = $stmt->fetch();
-            if ($stmt->rowCount() != 1) {
-                return false;
-            }
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetMemberbyID(:memberid);');
+        $stmt->bindParam(':memberid', $id);
+        $stmt->execute();
+        if ($stmt->rowCount() != 1) {
+            return false;
         }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $user;
+        return $stmt->fetch();
     }
     public static function getUsersAll() {
         /* Only used by admin on the get users page */
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetAllMembers();');
-            $stmt->execute();
-            $user = $stmt->fetchAll();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $user;
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetAllMembers();');
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
     public static function getUsersCount() {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetAllIDs();');
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetAllIDs();');
+        $stmt->execute();
         return $stmt->rowCount();
     }
     public static function isUserLoggedIn() {
@@ -127,7 +93,6 @@ class Users {
             $password = self::passwordGenerate();
             $clearpass = $password;
             $password = self::userPasswordHash($password);
-
             /* Only sends email if the user actually exists */
             $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetUsernameAndEmail(:username, :useremail);');
             $stmt->bindParam(':username', $username);
@@ -156,16 +121,13 @@ class Users {
                 $mail->msgHTML($body);
                 $address = $email;
                 $mail->addAddress($address, $dbconfig['emaildomain']);
-
                 /* This allows the next stored procedure in userPasswordUpdatebyEmail() to run simultaneously */
                 $stmt->nextRowset();
-
                 /* Do the actual update of the password in the database */
                 self::userPasswordUpdatebyEmail($password, $username, $email);
-
                 if (!$mail->send()) { ?>
                     <p class="bg-danger">
-                        <?php echo gettext('emailfail'); ?>
+                    <?php echo gettext('emailfail'); ?>
                     </p><?php
                     if ($dbconfig['emaildebug'] > 0) {
                         $status = 'emailfail';
@@ -194,6 +156,14 @@ class Users {
         }
         return $pw;
     }
+    public static function userPasswordUpdatebyEmail($password, $username, $email) {
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_Members_UpdatePasswordbyUserEmail(:password, :username, :useremail);');
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':useremail', $email);
+        $stmt->execute();
+    }
     public static function updateUserPlaycount() {
         if (!isset($_SESSION)) {
             session_start();
@@ -210,37 +180,29 @@ class Users {
     public static function uploadAvatar($id, $path, $filename) {
         /* Comes from the Profile page.  Take the ID in so you can do database work.
           Then concat the path and filename from profile.php and upload. */
-        $avatarpath = $path.$filename;
-
+        $avatarpath = $path . $filename;
         /* Needs to be 10MB and either png, jpg, or gif MIME Type */
         $validator = new FileUpload\Validator\Simple(1024 * 1024 * 10, ['image/png']);
-
         /* Upload path */
         $pathresolver = new FileUpload\PathResolver\Simple($path);
-
         /* The machine's filesystem */
         $filesystem = new FileUpload\FileSystem\Simple();
-
         /* File Uploader itself */
         $fileupload = new FileUpload\FileUpload($_FILES['uploadavatar'], $_SERVER);
         $filenamegenerator = new FileUpload\FileNameGenerator\Custom($filename);
-
         /* Adding it all together.  Note: can always add multiple validators, or use none */
         $fileupload->setPathResolver($pathresolver);
         $fileupload->setFileSystem($filesystem);
         $fileupload->setFileNameGenerator($filenamegenerator);
         $fileupload->addValidator($validator);
-
         /* Uploading */
         /** @noinspection PhpUnusedLocalVariableInspection */
         list($files, $headers) = $fileupload->processAll();
-
         /* Now update the database */
         $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateAvatar(:id, :avatarurl);');
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':avatarurl', $avatarpath);
         $stmt->execute();
-
         return;
     }
     public static function userAdd($username, $email, $status = "") {
@@ -252,7 +214,6 @@ class Users {
             $stmt->bindParam(':useremail', $email);
             $stmt->execute();
             $rowcount = $stmt->rowCount();
-
             if ($rowcount > 0) {
                 $status = 'usertaken';
             } else {
@@ -290,7 +251,8 @@ class Users {
                         $no = 'No';
                         $stmt->nextRowset();
                         try {
-                            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
+                            $stmt =
+                                mySQL::getConnection()->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
                             $stmt->bindParam(':memberid', $null);
                             $stmt->bindParam(':memberusername', $username);
                             $stmt->bindParam(':memberpassword', $password);
@@ -327,22 +289,18 @@ class Users {
     }
     public static function userEdit($id) {
         /* Used in admin to edit users. Be careful of the "isadmin" when using it elsewhere */
-        try {
-            $stmt =
-                mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :aim, :msn, :isadmin, :memberid);');
-            $stmt->bindParam(':memberid', $id);
-            $stmt->bindParam(':username', $_POST['username']);
-            $stmt->bindParam(':email', $_POST['email']);
-            $stmt->bindParam(':active', $_POST['active']);
-            $stmt->bindParam(':twitter', $_POST['twitter_id']);
-            $stmt->bindParam(':aim', $_POST['aim']);
-            $stmt->bindParam(':msn', $_POST['msn']);
-            $stmt->bindParam(':isadmin', $_POST['isadmin']);
-            $stmt->execute();
-            Core::showSuccess(gettext('updatesuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :aim, :msn, :isadmin, :memberid);');
+        $stmt->bindParam(':memberid', $id);
+        $stmt->bindParam(':username', $_POST['username']);
+        $stmt->bindParam(':email', $_POST['email']);
+        $stmt->bindParam(':active', $_POST['active']);
+        $stmt->bindParam(':twitter', $_POST['twitter_id']);
+        $stmt->bindParam(':aim', $_POST['aim']);
+        $stmt->bindParam(':msn', $_POST['msn']);
+        $stmt->bindParam(':isadmin', $_POST['isadmin']);
+        $stmt->execute();
+        Core::showSuccess(gettext('updatesuccess'));
     }
     public static function userVerifyPassword($username, $password) {
         /* Check if you're still using MD5. If you are, regenerate it as PHP Default's password algorithm */
@@ -350,9 +308,9 @@ class Users {
             self::userGeneratePassword($username, $password);
         }
         $hash = self::userGetPassword($username);
-        if (password_verify($password, $hash)) {
+        if (password_verify($password, self::userGetPassword($username))) {
             // Login successful.
-            if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
+            if (password_needs_rehash(self::userGetPassword($username), PASSWORD_DEFAULT)) {
                 $hash = self::userGeneratePassword($username, $password);
             }
             Users::userSessionStart($username);
@@ -363,16 +321,10 @@ class Users {
         return $hash;
     }
     public static function userGetPassword($username) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetPassword(:username);');
-            $stmt->bindParam(':username', $username);
-            $stmt->execute();
-            $password = $stmt->fetchColumn();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $password;
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetPassword(:username);');
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        return $stmt->fetchColumn();
     }
     public static function userPasswordMD5($password) {
         /* This method is only used for legacy accounts. It generally won't be used, as
@@ -383,14 +335,10 @@ class Users {
     }
     public static function userGeneratePassword($username, $password) {
         $hashandsalt = password_hash($password, PASSWORD_DEFAULT);
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GeneratePassword(:username, :hashandsalt);');
-            $stmt->bindParam(':username', $username);
-            $stmt->bindParam(':hashandsalt', $hashandsalt);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GeneratePassword(:username, :hashandsalt);');
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':hashandsalt', $hashandsalt);
+        $stmt->execute();
         return $hashandsalt;
     }
     public static function userSessionStart($username) {
@@ -398,27 +346,26 @@ class Users {
             session_start();
         }
         session_regenerate_id();
-        /* Uses reference lookup */
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetSession(:username);');
-            $stmt->bindParam(':username', $username);
-            $stmt->execute();
-            $user = $stmt->fetch();
-            $_SESSION['user'] =
-                array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
-                      'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'aim' => $user['aim'],
-                      'facebook' => $user['facebook_id'], 'github' => $user['github_id'], 'msn' => $user['msn'],
-                      'twitter' => $user['twitter_id'], 'avatar' => $user['avatarurl'], 'admin' => $user['admin'],
-                      'ip' => $user['ip'], 'birth_date' => $user['birth_date'], 'last_login' => $user['last_login']);
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetSession(:username);');
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $user = $stmt->fetch();
+        $_SESSION['user'] =
+            array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
+                  'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'aim' => $user['aim'],
+                  'facebook' => $user['facebook_id'], 'github' => $user['github_id'], 'msn' => $user['msn'],
+                  'twitter' => $user['twitter_id'], 'avatar' => $user['avatarurl'], 'admin' => $user['admin'],
+                  'ip' => $user['ip'], 'birth_date' => $user['birth_date'], 'last_login' => $user['last_login']);
     }
     public static function userSessionEnd() {
         /* Resume sesion, then destroy it */
-        if (!isset($_SESSION)) {session_start();}
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         unset($_SESSION['user']);
-        if (isset($_SESSION['user'])){session_destroy();}
+        if (isset($_SESSION['user'])) {
+            session_destroy();
+        }
         header('Location: index.php');
     }
     private function __clone() {

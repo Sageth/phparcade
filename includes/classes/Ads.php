@@ -19,75 +19,51 @@ class Ads {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_GetAdbyID(:adid);');
         $stmt->bindParam(':adid', $id);
         $stmt->execute();
-        $ad = $stmt->fetch();
-        return $ad;
+        return $stmt->fetch();
     }
     public static function getAds() {
         /* Used in admin to show the list of ads in a table */
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_GetAllbyName();');
-            $stmt->execute();
-            $ads = $stmt->fetchAll();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-            die();
-        }
-        return $ads;
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_GetAllbyName();');
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
     public static function deleteAd($id) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_Delete_ID(:adid);');
-            $stmt->bindParam(':adid', $id);
-            $stmt->execute();
-            Core::showSuccess(gettext('deletesuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-            die();
-        }
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_Delete_ID(:adid);');
+        $stmt->bindParam(':adid', $id);
+        $stmt->execute();
+        Core::showSuccess(gettext('deletesuccess'));
     }
     public static function insertAd($id = null, $name, $code, $location, $advertisername, $comment) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_Insert(:adid, :adname, :adcode, :adlocation, :advertiser, :adcomments)');
-            $stmt->bindParam(':adid', $id);
-            $stmt->bindParam(':adname', $name);
-            $stmt->bindParam(':adcode', $code);
-            $stmt->bindParam(':adlocation', $location);
-            $stmt->bindParam(':advertiser', $advertisername);
-            $stmt->bindParam(':adcomments', $comment);
-            $stmt->execute();
-            Core::showSuccess(gettext('addsuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_Ads_Insert(:adid, :adname, :adcode, :adlocation, :advertiser, :adcomments)');
+        $stmt->bindParam(':adid', $id);
+        $stmt->bindParam(':adname', $name);
+        $stmt->bindParam(':adcode', $code);
+        $stmt->bindParam(':adlocation', $location);
+        $stmt->bindParam(':advertiser', $advertisername);
+        $stmt->bindParam(':adcomments', $comment);
+        $stmt->execute();
+        Core::showSuccess(gettext('addsuccess'));
     }
     public static function showAds($location) {
         /* Displays ad on the front-end webpage */
         /* TODO: Add location to stored procedure */
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_GetAll_Random();');
-            $stmt->execute();
-            $ad = $stmt->fetch();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_GetAll_Random();');
+        $stmt->execute();
+        $ad = $stmt->fetch();
         return $ad['code'];
     }
     public static function updateAd($id, $name, $code, $location, $advertisername, $comment) {
-        try {
-            $stmt =
-                mySQL::getConnection()->prepare('CALL sp_Ads_Update(:adid, :adname, :adcode, :adlocation, :advertiser, :adcomments)');
-            $stmt->bindParam(':adid', $id);
-            $stmt->bindParam(':adname', $name);
-            $stmt->bindParam(':adcode', $code);
-            $stmt->bindParam(':adlocation', $location);
-            $stmt->bindParam(':advertiser', $advertisername);
-            $stmt->bindParam(':adcomments', $comment);
-            $stmt->execute();
-            Core::showSuccess(gettext('updatesuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_Ads_Update(:adid, :adname, :adcode, :adlocation, :advertiser, :adcomments)');
+        $stmt->bindParam(':adid', $id);
+        $stmt->bindParam(':adname', $name);
+        $stmt->bindParam(':adcode', $code);
+        $stmt->bindParam(':adlocation', $location);
+        $stmt->bindParam(':advertiser', $advertisername);
+        $stmt->bindParam(':adcomments', $comment);
+        $stmt->execute();
+        Core::showSuccess(gettext('updatesuccess'));
     }
     private function __clone() {
     }

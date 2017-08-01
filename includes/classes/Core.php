@@ -10,30 +10,7 @@ class Core {
     protected      $line;
     protected      $links_arr;
     protected      $string;
-
-    public static function getInstance() {
-        /* Singleton use */
-        if (!self::$instance instanceof self) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
     private function __construct() {
-    }
-    public static function getDBConfig() {
-        if (null !== self::$dbconfig) {
-            return self::$dbconfig;
-        } else {
-            try {
-                $stmt = mySQL::getConnection()->prepare("CALL sp_Config_Get();");
-                $stmt->execute();
-                $rows = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
-            } catch (PDOException $e) {
-                echo gettext('Error: ') . ' ' . $e->getMessage() . "\n";
-            }
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $rows;
     }
     public static function addAction($action, $event) {
         global $actions_array;
@@ -55,22 +32,9 @@ class Core {
         return html_entity_decode($string, $params);
     }
     public static function getAdminGamePageCount() {
-        try {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();');
             $stmt->execute();
-            $get_total_rows = $stmt->rowCount(); //Total Records
-            $pages = ceil($get_total_rows / 50);
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $pages;
-    }
-    public static function getCleanURL($string) {
-        $string = preg_replace("/\W/", '-', $string); //Non-word characters, including spaces
-        $string = preg_replace("/\-$/", "", $string); //Dashes at end of name (e.g. test-.html)
-        $string = preg_replace('/-{2,}/', '-', $string); //Double dashes at end of name (e.g. test--.html)
-        return $string;
+            return ceil($stmt->rowCount() / 50);
     }
     public static function getCurrentDate() {
         return time();
@@ -115,25 +79,56 @@ class Core {
                 </div>
             </div><?php
         }
+	public static function getLinkPage($id = 0) {
+        global $links_arr;
+        return str_replace('%id%', $id, $links_arr['page']);
+    }
 	public static function getINIConfig() {
         return parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/../phpArcade.ini', true);
-    }
-	public static function getLinkCategory($name = 'all', $page = 1) {
-        global $links_arr;
-        return str_replace('%page%', $page, str_replace('%name%', $name, $links_arr['category']));
     }
 	public static function getLinkGame($id = 0) {
         global $gamelist;
         $links_arr = self::loadLinks();
         return str_replace('%name%', $gamelist[$id], str_replace('%id%', $id, $links_arr['game']));
     }
+	public static function loadLinks() {
+        /* TODO: Need to clean this up somehow. Change to query string and let mod_rewrite do its thing? */
+
+        global $links_arr, $append, $gamelist;
+        /** @noinspection OnlyWritesOnParameterInspection */
+        $append = '.html';
+        $games = Games::getGamesAllIDsNames();
+        $links_arr['game'] = 'game/%id%/%name%';
+        foreach ($games as $game) {
+            $gamelist[$game['id']] = self::getCleanURL($game['name']);
+        }
+        // Link data
+        $links_arr['category'] = 'category/%name%/%page%';
+        $links_arr['confirm'] = 'register/confirm/%code%';
+        $links_arr['editprofile'] = 'profile/edit';
+        $links_arr['gamescore'] = 'score/%id%/%page%';
+        $links_arr['logout'] = 'login/logout';
+        $links_arr['page'] = 'page/%id%';
+        $links_arr['passwordchange'] = 'login/recover/change/%code%/%username%';
+        $links_arr['play'] = 'play/%id%';
+        $links_arr['profile'] = 'profile/view/%id%/%username%';
+        $links_arr['pwrecover'] = 'login/recover';
+        $links_arr['register'] = 'register/register';
+        $links_arr['reportgame'] = 'report/%id%';
+        $links_arr['rss'] = 'rss/%type%';
+        $links_arr['users'] = 'users/%order%/%page%';
+        $links_arr = array_map('preappbase', $links_arr);
+        return $links_arr;
+    }
+    public static function getCleanURL($string) {
+        $string = preg_replace("/\W/", '-', $string); //Non-word characters, including spaces
+        $string = preg_replace("/\-$/", "", $string); //Dashes at end of name (e.g. test-.html)
+        $string = preg_replace('/-{2,}/', '-', $string); //Double dashes at end of name (e.g. test--.html)
+        return $string;
+    }
 	public static function getLinkLogout() {
         global $links_arr;
         return $links_arr['logout'];
-    }
-	public static function getLinkPage($id = 0) {
-        global $links_arr;
-        return str_replace('%id%', $id, $links_arr['page']);
     }
 	public static function getLinkRegister() {
         global $links_arr;
@@ -205,58 +200,35 @@ class Core {
         }
         return $metadata;
     }
+    public static function getDBConfig() {
+        if (null !== self::$dbconfig) {
+            return self::$dbconfig;
+        } else {
+                $stmt = mySQL::getConnection()->prepare("CALL sp_Config_Get();");
+                $stmt->execute();
+                }
+        /** @noinspection PhpUndefinedVariableInspection */
+        return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+    }
+    public static function getInstance() {
+        /* Singleton use */
+        if (!self::$instance instanceof self) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
 	public static function getPages($category = '') {
         $dbconfig = Core::getInstance()->getDBConfig();
-        try {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetNameidByCategory(:catname);');
             $stmt->bindParam(':catname', $category);
             $stmt->execute();
-            $pages = ceil($stmt->rowCount() / $dbconfig['gamesperpage']);
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $pages;
+            return ceil($stmt->rowCount() / $dbconfig['gamesperpage']);
     }
 	public static function getPlayCountTotal() {
-        try {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetPlaycount_Total();');
             $stmt->execute();
             $line = $stmt->fetch();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
         return $line['playcount'];
-    }
-	public static function loadLinks() {
-        /* TODO: Need to clean this up somehow. Change to query string and let mod_rewrite do its thing? */
-
-        global $links_arr, $append, $gamelist;
-        /** @noinspection OnlyWritesOnParameterInspection */
-        $append = '.html';
-        $games = Games::getGamesAllIDsNames();
-        $links_arr['game'] = 'game/%id%/%name%';
-        foreach ($games as $game) {
-            $gamelist[$game['id']] = self::getCleanURL($game['name']);
-        }
-        // Link data
-        $links_arr['category'] = 'category/%name%/%page%';
-        $links_arr['confirm'] = 'register/confirm/%code%';
-        $links_arr['editprofile'] = 'profile/edit';
-        $links_arr['gamescore'] = 'score/%id%/%page%';
-        $links_arr['logout'] = 'login/logout';
-        $links_arr['page'] = 'page/%id%';
-        $links_arr['passwordchange'] = 'login/recover/change/%code%/%username%';
-        $links_arr['play'] = 'play/%id%';
-        $links_arr['profile'] = 'profile/view/%id%/%username%';
-        $links_arr['pwrecover'] = 'login/recover';
-        $links_arr['register'] = 'register/register';
-        $links_arr['reportgame'] = 'report/%id%';
-        $links_arr['rss'] = 'rss/%type%';
-        $links_arr['users'] = 'users/%order%/%page%';
-        $links_arr = array_map('preappbase', $links_arr);
-        return $links_arr;
     }
 	public static function loadRedirect($message, $url = 'refurl') {
         $dbconfig = Core::getInstance()->getDBConfig();
@@ -309,6 +281,10 @@ class Core {
                 </a>
             </li><?php
         }
+    }
+	public static function getLinkCategory($name = 'all', $page = 1) {
+        global $links_arr;
+        return str_replace('%page%', $page, str_replace('%name%', $name, $links_arr['category']));
     }
 	public static function showError($text, $glyph = 'ambulance') {
         ?>

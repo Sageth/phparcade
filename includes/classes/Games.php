@@ -10,69 +10,53 @@ class Games {
     protected $select;
     private function __construct() {
     }
-	public static function addGame($id, $nameid, $gameorder, $gwidth, $gheight, $type, $playcount, $release_date) {
-        try {
-            $time = Core::getCurrentDate();
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_AddGames(:gameid, :gamenameid, :gamename, :gamedesc, :gameinstructions, :gamecat, :gameorder, :gamewidth, :gameheight, :gametype, :gameplaycount, :gameflags, :gamekeywords, :gametime, :gamereleasedate, :gamecustomcode);');
-            $stmt->bindParam(':gameid', $id);
-            $stmt->bindParam(':gamenameid', $nameid);
-            $stmt->bindParam(':gamename', $_POST['name']);
-            $stmt->bindParam(':gamedesc', $_POST['desc']);
-            $stmt->bindParam(':gameinstructions', $_POST['instructions']);
-            $stmt->bindParam(':gamecat', $_POST['cat']);
-            $stmt->bindParam(':gameorder', $gameorder);
-            $stmt->bindParam(':gamewidth', $gwidth);
-            $stmt->bindParam(':gameheight', $gheight);
-            $stmt->bindParam(':gametype', $type);
-            $stmt->bindParam(':gameplaycount', $playcount);
-            $stmt->bindParam(':gameflags', $_POST['flags']);
-            $stmt->bindParam(':gamekeywords', $_POST['keywords']);
-            $stmt->bindParam(':gametime', $time);
-            $stmt->bindParam(':gamereleasedate', $release_date);
-            $stmt->bindParam(':gamecustomcode', $_POST['customcode']);
-            $stmt->execute();
-            Core::showSuccess(gettext('addsuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+    public static function addGame($id, $nameid, $gameorder, $gwidth, $gheight, $type, $playcount, $release_date) {
+        $time = Core::getCurrentDate();
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_Games_AddGames(:gameid, :gamenameid, :gamename, :gamedesc, :gameinstructions, :gamecat, :gameorder, :gamewidth, :gameheight, :gametype, :gameplaycount, :gameflags, :gamekeywords, :gametime, :gamereleasedate, :gamecustomcode);');
+        $stmt->bindParam(':gameid', $id);
+        $stmt->bindParam(':gamenameid', $nameid);
+        $stmt->bindParam(':gamename', $_POST['name']);
+        $stmt->bindParam(':gamedesc', $_POST['desc']);
+        $stmt->bindParam(':gameinstructions', $_POST['instructions']);
+        $stmt->bindParam(':gamecat', $_POST['cat']);
+        $stmt->bindParam(':gameorder', $gameorder);
+        $stmt->bindParam(':gamewidth', $gwidth);
+        $stmt->bindParam(':gameheight', $gheight);
+        $stmt->bindParam(':gametype', $type);
+        $stmt->bindParam(':gameplaycount', $playcount);
+        $stmt->bindParam(':gameflags', $_POST['flags']);
+        $stmt->bindParam(':gamekeywords', $_POST['keywords']);
+        $stmt->bindParam(':gametime', $time);
+        $stmt->bindParam(':gamereleasedate', $release_date);
+        $stmt->bindParam(':gamecustomcode', $_POST['customcode']);
+        $stmt->execute();
+        Core::showSuccess(gettext('addsuccess'));
     }
-	public static function deleteCategory($id) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_DeleteCategorybyID(:catid);');
-            $stmt->bindParam(':catid', $id);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+    public static function deleteCategory($id) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_DeleteCategorybyID(:catid);');
+        $stmt->bindParam(':catid', $id);
+        $stmt->execute();
     }
-	public static function deleteGame($id) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_DeleteGamebyID(:gameid);');
-            $stmt->bindParam(':gameid', $id);
-            $stmt->execute();
-            Games::updateGameOrder();
-            Core::showSuccess(gettext('deletesuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+    public static function deleteGame($id) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_DeleteGamebyID(:gameid);');
+        $stmt->bindParam(':gameid', $id);
+        $stmt->execute();
+        Games::updateGameOrder();
+        Core::showSuccess(gettext('deletesuccess'));
     }
-	public static function updateGameOrder() {
+    public static function updateGameOrder() {
         $games = self::getGames('all', 0, 10000, '-all', -1);
         $i = 1;
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGameOrder(:gameorder, :gameid);');
         foreach ($games as $game) {
-            try {
-                $stmt->bindParam(':gameorder', $i);
-                $stmt->bindParam(':gameid', $game['id']);
-                $stmt->execute();
-                return;
-            } catch (PDOException $e) {
-                Core::showError($e->getMessage());
-            }
+            $stmt->bindParam(':gameorder', $i);
+            $stmt->bindParam(':gameid', $game['id']);
+            $stmt->execute();
             ++$i;
         }
     }
-	public static function getGames($category, $limitstart, $limitend, $page = '-all-', $gamesperpage) {
+    public static function getGames($category, $limitstart, $limitend, $page = '-all-', $gamesperpage) {
         /* Typical values are:
             Category = "all"
             Limit Start = 0
@@ -97,68 +81,47 @@ class Games {
                 /* TODO: Break this out into separate functions */
                 $sql =
                     Administrations::isAdminArea() ? 'CALL sp_Games_GetGamesByReleasedate_ASC(:release_date, :limitstart, :limitend);' : 'CALL sp_Games_GetGamesByReleasedate_DESC(:release_date, :limitstart, :limitend);';
-                try {
-                    $stmt = mySQL::getConnection()->prepare($sql);
-                    $stmt->bindParam(':release_date', $time);
-                    $stmt->bindParam(':limitstart', $limitstart);
-                    $stmt->bindParam(':limitend', $limitend);
-                    $stmt->execute();
-                    $games = $stmt->fetchAll();
-                } catch (PDOException $e) {
-                    echo gettext('error') . ' ' . $e->getMessage() . "\n";
-                }
+                $stmt = mySQL::getConnection()->prepare($sql);
+                $stmt->bindParam(':release_date', $time);
+                $stmt->bindParam(':limitstart', $limitstart);
+                $stmt->bindParam(':limitend', $limitend);
+                $stmt->execute();
+                $games = $stmt->fetchAll();
                 break;
             default:
                 /* Category page */
-                try {
-                    $stmt =
-                        mySQL::getConnection()->prepare('CALL sp_Games_GetGamesByCategory_ASC(:category, :release_date, :limitstart, :limitend);');
-                    $stmt->bindParam(':category', $category);
-                    $stmt->bindParam(':release_date', $time);
-                    $stmt->bindParam(':limitstart', $limitstart);
-                    $stmt->bindParam(':limitend', $limitend);
-                    $stmt->execute();
-                    $games = $stmt->fetchAll();
-                } catch (PDOException $e) {
-                    echo gettext('error') . ' ' . $e->getMessage() . "\n";
-                }
+                $stmt =
+                    mySQL::getConnection()->prepare('CALL sp_Games_GetGamesByCategory_ASC(:category, :release_date, :limitstart, :limitend);');
+                $stmt->bindParam(':category', $category);
+                $stmt->bindParam(':release_date', $time);
+                $stmt->bindParam(':limitstart', $limitstart);
+                $stmt->bindParam(':limitend', $limitend);
+                $stmt->execute();
+                $games = $stmt->fetchAll();
                 break;
         }
         return $games;
     }
-	public static function getCategory($name) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryByName(:categoryname);');
-            $stmt->bindParam(':categoryname', $name);
-            $stmt->execute();
-            $category = $stmt->fetch();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $category;
+    public static function getCategory($name) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryByName(:categoryname);');
+        $stmt->bindParam(':categoryname', $name);
+        $stmt->execute();
+        return $stmt->fetch();
     }
-	public static function getCategoryID($id) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryByID(:categoryid);');
-            $stmt->bindParam(':categoryid', $id);
-            $stmt->execute();
-            $category = $stmt->fetch();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $category;
+    public static function getCategoryID($id) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryByID(:categoryid);');
+        $stmt->bindParam(':categoryid', $id);
+        $stmt->execute();
+        return $stmt->fetch();
     }
-	public static function getCategoryIDMax() {
+    public static function getCategoryIDMax() {
         /* Gets max order and sets the new category to be max(order)+1 */
         $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryMaxID();');
         $stmt->execute();
         $order = $stmt->fetch();
-        $order = $order['maxOrder'] + 1;
-        return $order;
+        return $order['maxOrder'] + 1;
     }
-	public static function getCategorySelect($name, $prev = null) {
+    public static function getCategorySelect($name, $prev = null) {
         $categories = self::getCategories('ASC');
         $select = "<select class='form-control' name='" . $name . "'>";
         if ($prev != '-nocat-') {
@@ -170,7 +133,7 @@ class Games {
         $select .= '</select>';
         return $select;
     }
-	public static function getCategories($sort) {
+    public static function getCategories($sort) {
         switch ($sort) {
             case 'DESC':
                 $sql = 'CALL sp_Categories_GetCategoriesByOrder_DESC();';
@@ -184,30 +147,25 @@ class Games {
         $stmt = mySQL::getConnection()->prepare($sql);
         $stmt->bindParam(':parentcat', $parent);
         $stmt->execute();
-        $category = $stmt->fetchAll();
-        return $category;
+        return $stmt->fetchAll();
     }
-	public static function getGame($id) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGameByID(:gameid);');
-            $stmt->bindParam(':gameid', $id);
-            $stmt->execute();
-            $game = $stmt->fetch();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
+    public static function getGame($id) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGameByID(:gameid);');
+        $stmt->bindParam(':gameid', $id);
+        $stmt->execute();
+        $game = $stmt->fetch();
         if (isset($game['nameid'])) {
             // Changes to type 'CustomCode' if there is any text in the customcode field
             if (!empty($game['customcode'])) {
                 $game['type'] = 'CustomCode';
             }
-            if ($game['active'] == 'No' && !Administrations::isAdminArea()
-            ) { /*// If you're in the admin area, don't return an error status */
+            if ($game['active'] === 'No' &&
+                !Administrations::isAdminArea()) { /*// If you're in the admin area, don't return an error status */
                 Core::returnStatusCode(503); ?>
                 <h1><?php echo gettext('503status'); ?></h1>
                 <h2><?php echo gettext('503desc'); ?></h2><?php
                 die();
-            } elseif ($game['active'] == 'Yes') {
+            } elseif ($game['active'] === 'Yes') {
                 switch ($game['type']) {
                     case 'SWF':
                         $game['filename'] = $game['nameid'] . '.swf';
@@ -241,224 +199,148 @@ class Games {
         }
         return $game;
     }
-	public static function getGameByNameID($nameid) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid(:gamenameid);');
-            $stmt->bindParam(':gamenameid', $nameid);
-            $stmt->execute();
-            $game = $stmt->fetch();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $game;
-    }
-	public static function getGameCountByNameID($nameid) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid(:gamenameid);');
-            $stmt->bindParam(':gamenameid', $nameid);
-            $stmt->execute();
-            $rowcount = $stmt->rowCount();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $rowcount;
-    }
-	public static function getGamesAllIDsNames() {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetIDandName();');
-            $stmt->execute();
-            $games = $stmt->fetchAll();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $games;
-    }
-	public static function getGamesChamp($playerid) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetPlayerNameID(:playerid);');
-            $stmt->bindParam(':playerid', $playerid);
-            $stmt->execute();
-            $games = $stmt->fetchAll();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $games;
-    }
-	public static function getGamesCount($category) {
-        $time = Core::getCurrentDate();
-        if ($category == 'all') {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_ActivebyReleaseDate(:releasedate);');
-            $stmt->bindParam(':releasedate', $time);
-        } else {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_ActivebyCategory(:releasedate, :category');
-            $stmt->bindParam(':category', $category);
-            $stmt->bindParam(':releasedate', $time);
-        }
+    public static function getGameByNameID($nameid) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid(:gamenameid);');
+        $stmt->bindParam(':gamenameid', $nameid);
         $stmt->execute();
-        $rowcount = $stmt->rowCount();
-        return $rowcount;
+        return $stmt->fetch();
     }
-	public static function getGamesHomePage() {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetRandom8();');
-            $stmt->execute();
-            $games = $stmt->fetchAll();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $games;
-    }
-	public static function getGamesInactive($active = 'No') {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Active(:active);');
-            $stmt->bindParam(':active', $active);
-            $stmt->execute();
-            $games = $stmt->fetchAll();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $games;
-    }
-	public static function getGamesInactiveCount($active = 'No') {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Active(:active);');
-            $stmt->bindParam(':active', $active);
-            $stmt->execute();
-            $rowcount = $stmt->rowCount();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $rowcount;
-    }
-	public static function getGamesBroken() {
-        $yes = 'Yes';
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Broken(:broken);');
-            $stmt->bindParam(':broken', $yes);
-            $stmt->execute();
-            $games = $stmt->fetchAll();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $games;
-    }
-	public static function getGamesBrokenCount() {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetBrokenByID();');
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
+    public static function getGameCountByNameID($nameid) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid(:gamenameid);');
+        $stmt->bindParam(':gamenameid', $nameid);
+        $stmt->execute();
         return $stmt->rowCount();
     }
-	public static function getGamesLikeThis() {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetRandom4();');
-            $stmt->execute();
-            $games = $stmt->fetchAll();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
-        /** @noinspection PhpUndefinedVariableInspection */
-        return $games;
+    public static function getGamesAllIDsNames() {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetIDandName();');
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
-	public static function insertCategory($id = null, $name, $description, $keywords, $order, $type) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_InsertCategory(:catid, :catname, :catdesc, :catkeywords, :catorder, :cattype);');
-            $stmt->bindParam(':catid', $id);
-            $stmt->bindParam(':catname', $name);
-            $stmt->bindParam(':catdesc', $description);
-            $stmt->bindParam(':catkeywords', $keywords);
-            $stmt->bindParam(':catorder', $order);
-            $stmt->bindParam(':cattype', $type);
-            $stmt->execute();
-            Core::showSuccess(gettext('addsuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+    public static function getGamesChamp($playerid) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetPlayerNameID(:playerid);');
+        $stmt->bindParam(':playerid', $playerid);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
-	public static function updateCategory($id, $name, $type, $description, $keywords) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_UpdateCategory(:catid, :catname, :catdesc, :catkeywords, :cattype);');
-            $stmt->bindParam(':catid', $id);
-            $stmt->bindParam(':catname', $name);
-            $stmt->bindParam(':catdesc', $description);
-            $stmt->bindParam(':catkeywords', $keywords);
-            $stmt->bindParam(':cattype', $type);
-            $stmt->execute();
-            Core::showSuccess(gettext('updatesuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
+    public static function getGamesCount($category) {
+        $time = Core::getCurrentDate();
+        switch ($category) {
+            case 'all':
+                $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_ActivebyReleaseDate(:releasedate);');
+                $stmt->bindParam(':releasedate', $time);
+                break;
+            default:
+                $stmt =
+                    mySQL::getConnection()->prepare('CALL sp_Games_GetGames_ActivebyCategory(:releasedate, :category');
+                $stmt->bindParam(':category', $category);
+                $stmt->bindParam(':releasedate', $time);
+                break;
         }
+        $stmt->execute();
+        return $stmt->rowCount();
     }
-	public static function updateCategoryOrder($categories, $i = 1) {
+    public static function getGamesHomePage() {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetRandom8();');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    public static function getGamesInactive($active = 'No') {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Active(:active);');
+        $stmt->bindParam(':active', $active);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    public static function getGamesInactiveCount($active = 'No') {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Active(:active);');
+        $stmt->bindParam(':active', $active);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+    public static function getGamesBroken() {
+        $yes = 'Yes';
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Broken(:broken);');
+        $stmt->bindParam(':broken', $yes);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    public static function getGamesBrokenCount() {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetBrokenByID();');
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+    public static function getGamesLikeThis() {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetRandom4();');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    public static function insertCategory($id = null, $name, $description, $keywords, $order, $type) {
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_Categories_InsertCategory(:catid, :catname, :catdesc, :catkeywords, :catorder, :cattype);');
+        $stmt->bindParam(':catid', $id);
+        $stmt->bindParam(':catname', $name);
+        $stmt->bindParam(':catdesc', $description);
+        $stmt->bindParam(':catkeywords', $keywords);
+        $stmt->bindParam(':catorder', $order);
+        $stmt->bindParam(':cattype', $type);
+        $stmt->execute();
+        Core::showSuccess(gettext('addsuccess'));
+    }
+    public static function updateCategory($id, $name, $type, $description, $keywords) {
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_Categories_UpdateCategory(:catid, :catname, :catdesc, :catkeywords, :cattype);');
+        $stmt->bindParam(':catid', $id);
+        $stmt->bindParam(':catname', $name);
+        $stmt->bindParam(':catdesc', $description);
+        $stmt->bindParam(':catkeywords', $keywords);
+        $stmt->bindParam(':cattype', $type);
+        $stmt->execute();
+        Core::showSuccess(gettext('updatesuccess'));
+    }
+    public static function updateCategoryOrder($categories, $i = 1) {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_UpdateOrder(:catorder, :catid);');
         foreach ($categories as $category) {
             $category['order'] = $i;
-            try {
-                $stmt->bindParam(':catid', $category['id']);
-                $stmt->bindParam(':catorder', $category['order']);
-                $stmt->execute();
-                ++$i;
-            } catch (PDOException $e) {
-                Core::showError($e->getMessage());
-            }
+            $stmt->bindParam(':catid', $category['id']);
+            $stmt->bindParam(':catorder', $category['order']);
+            $stmt->execute();
+            ++$i;
         }
     }
-	public static function updateGame($id) {
-        try {
-            $_POST['active'] = array_key_exists('active', $_POST) ? 'Yes' : 'No';
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGame(:gamename, :gamenameid, :gamedesc, :gamecat, :gamekeywords, :gameflags, :gameinstructions, :gamecustomcode, :gamewidth, :gameheight, :gameactive, :gamerelease, :gameid);');
-            $stmt->bindParam(':gamename', $_POST['name']);
-            $stmt->bindParam(':gamenameid', $_POST['nameid']);
-            $stmt->bindParam(':gamedesc', $_POST['desc']);
-            $stmt->bindParam(':gamecat', $_POST['cat']);
-            $stmt->bindParam(':gamekeywords', $_POST['keywords']);
-            $stmt->bindParam(':gameflags', $_POST['flags']);
-            $stmt->bindParam(':gameinstructions', $_POST['instructions']);
-            $stmt->bindParam(':gamecustomcode', $_POST['customcode']);
-            $stmt->bindParam(':gamewidth', $_POST['width']);
-            $stmt->bindParam(':gameheight', $_POST['height']);
-            $stmt->bindParam(':gameactive', $_POST['active']);
-            $stmt->bindParam(':gamerelease', $_POST['release_date']);
-            $stmt->bindParam(':gameid', $id);
-            $stmt->execute();
-            Core::showSuccess(gettext('updatesuccess'));
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+    public static function updateGame($id) {
+        $_POST['active'] = array_key_exists('active', $_POST) ? 'Yes' : 'No';
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_Games_UpdateGame(:gamename, :gamenameid, :gamedesc, :gamecat, :gamekeywords, :gameflags, :gameinstructions, :gamecustomcode, :gamewidth, :gameheight, :gameactive, :gamerelease, :gameid);');
+        $stmt->bindParam(':gamename', $_POST['name']);
+        $stmt->bindParam(':gamenameid', $_POST['nameid']);
+        $stmt->bindParam(':gamedesc', $_POST['desc']);
+        $stmt->bindParam(':gamecat', $_POST['cat']);
+        $stmt->bindParam(':gamekeywords', $_POST['keywords']);
+        $stmt->bindParam(':gameflags', $_POST['flags']);
+        $stmt->bindParam(':gameinstructions', $_POST['instructions']);
+        $stmt->bindParam(':gamecustomcode', $_POST['customcode']);
+        $stmt->bindParam(':gamewidth', $_POST['width']);
+        $stmt->bindParam(':gameheight', $_POST['height']);
+        $stmt->bindParam(':gameactive', $_POST['active']);
+        $stmt->bindParam(':gamerelease', $_POST['release_date']);
+        $stmt->bindParam(':gameid', $id);
+        $stmt->execute();
+        Core::showSuccess(gettext('updatesuccess'));
     }
-	public static function updateGameChamp($tplayerid, $tplayername, $tscore, $time, $gameid) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GameChamps_UpdateChamp(:top_nameid, :top_user, :top_score, :curr_time, :game_id);');
-            $stmt->bindParam(':top_nameid', $tplayerid);
-            $stmt->bindParam(':top_user', $tplayername);
-            $stmt->bindParam(':top_score', $tscore);
-            $stmt->bindParam(':curr_time', $time);
-            $stmt->bindParam(':game_id', $gameid);
-            $stmt->execute();
-            return;
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
+    public static function updateGameChamp($tplayerid, $tplayername, $tscore, $time, $gameid) {
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_GameChamps_UpdateChamp(:top_nameid, :top_user, :top_score, :curr_time, :game_id);');
+        $stmt->bindParam(':top_nameid', $tplayerid);
+        $stmt->bindParam(':top_user', $tplayername);
+        $stmt->bindParam(':top_score', $tscore);
+        $stmt->bindParam(':curr_time', $time);
+        $stmt->bindParam(':game_id', $gameid);
+        $stmt->execute();
+        return;
     }
-	public static function updateGamePlaycount($gameid) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGamePlaycountbyID(:gameid);');
-            $stmt->bindParam(':gameid', $gameid);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            echo gettext('error') . ' ' . $e->getMessage() . "\n";
-        }
+    public static function updateGamePlaycount($gameid) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGamePlaycountbyID(:gameid);');
+        $stmt->bindParam(':gameid', $gameid);
+        $stmt->execute();
         return;
     }
     private function __clone() {

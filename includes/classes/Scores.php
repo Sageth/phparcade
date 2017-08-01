@@ -40,8 +40,7 @@ class Scores {
         $stmt->bindParam(':gamenameid', $nameid);
         $stmt->bindParam(':limitnum', $limitnum, PDO::PARAM_INT);
         $stmt->execute();
-        $scores = $stmt->fetchAll();
-        return $scores;
+        return $stmt->fetchAll();
     }
     public static function getScoreType($string, $ostring) {
         return stristr($ostring, $string) ? true : false;
@@ -52,10 +51,9 @@ class Scores {
         self::updateGameScore($gameid, $player, $score, $ip, $time, $sort, $link);
         return;
     }
-    public static function updateGameChamp($nameid, $player, $score, $sort, $time){
+    public static function updateGameChamp($nameid, $player, $score, $sort, $time) {
         /* Figure out who the champion is and their highest score in the GamesChamp table */
         $gamechamp = self::GetGameChampsbyGameNameID($nameid);
-
         if (self::GetGameChampbyGameNameID_RowCount($nameid) === 0) {
             /* If there is no champion, then INSERT the score into the game champs table */
             self::InsertScoreIntoGameChamps($nameid, $_SESSION['user']['id'], $score, $time);
@@ -79,54 +77,37 @@ class Scores {
     }
     public static function GetGameChampsbyGameNameID($nameid) {
         /* Gets all of the champions (highest score for an individual player) for a particular game */
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
-            $stmt->bindParam(':nameid', $nameid);
-            $stmt->execute();
-            $champions = $stmt->fetch();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
-        return $champions;
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
+        $stmt->bindParam(':nameid', $nameid);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
     public static function GetGameChampbyGameNameID_RowCount($nameid) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
-            $stmt->bindParam(':nameid', $nameid);
-            $stmt->execute();
-            $rowcount = $stmt->rowCount();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
-        return $rowcount;
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
+        $stmt->bindParam(':nameid', $nameid);
+        $stmt->execute();
+        return $stmt->rowCount();
     }
     public static function InsertScoreIntoGameChamps($gamenameid, $player, $score, $time) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_InsertScoresbyGame(:currenttime, :nameid, :score, :player);');
-            $stmt->bindParam(':currenttime', $time);
-            $stmt->bindParam(':nameid', $gamenameid);
-            $stmt->bindParam(':score', $score);
-            $stmt->bindParam(':player', $player);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_GamesChamps_InsertScoresbyGame(:currenttime, :nameid, :score, :player);');
+        $stmt->bindParam(':currenttime', $time);
+        $stmt->bindParam(':nameid', $gamenameid);
+        $stmt->bindParam(':score', $score);
+        $stmt->bindParam(':player', $player);
+        $stmt->execute();
     }
     public static function UpdatePlayerScoreInGameChamps($gamenameid, $player, $score, $time) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_UpdateScoresbyGame(:currenttime, :gamenameid, :gamescore, :player);');
-            $stmt->bindParam(':currenttime', $time);
-            $stmt->bindParam(':gamenameid', $gamenameid);
-            $stmt->bindParam(':gamescore', $score);
-            $stmt->bindParam(':player', $player);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_GamesChamps_UpdateScoresbyGame(:currenttime, :gamenameid, :gamescore, :player);');
+        $stmt->bindParam(':currenttime', $time);
+        $stmt->bindParam(':gamenameid', $gamenameid);
+        $stmt->bindParam(':gamescore', $score);
+        $stmt->bindParam(':player', $player);
+        $stmt->execute();
     }
-    public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link){
+    public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link) {
         /* Update games_score table */
-
         /* $gamescore[]:
             [id]
                 [0] = Score ID (PK)
@@ -140,7 +121,6 @@ class Scores {
                 [4] = Current player's IP address
             [date]
                 [5] = Current epoch time */
-
         if (self::GetGameScorebyNameIDRowCount($nameid, $player) === 0) {
             self::InsertScoreIntoGameScore($nameid, $_SESSION['user']['id'], $score, $ip, $time);
             Core::loadRedirect(gettext('scoresaved'), $link);
@@ -166,55 +146,39 @@ class Scores {
             }
         }
     }
-    public static function GetGameScorebyNameID($nameid, $player) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
-            $stmt->bindParam(':nameid', $nameid);
-            $stmt->bindParam(':player', $player);
-            $stmt->execute();
-            $gamesscore = $stmt->fetch();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
-        return $gamesscore;
-    }
     public static function GetGameScorebyNameIDRowCount($nameid, $player) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
-            $stmt->bindParam(':nameid', $nameid);
-            $stmt->bindParam(':player', $player);
-            $stmt->execute();
-            $rowcount = $stmt->rowCount();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
-        return $rowcount;
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
+        $stmt->bindParam(':nameid', $nameid);
+        $stmt->bindParam(':player', $player);
+        $stmt->execute();
+        return $stmt->rowCount();
     }
     public static function InsertScoreIntoGameScore($gameid, $player, $score, $ip, $time) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_InsertNewGamesScore(:ip, :date, :gamenameid, :gamescore, :gameplayer);');
-            $stmt->bindParam(':ip', $ip);
-            $stmt->bindParam(':date', $time);
-            $stmt->bindParam(':gameid', $gameid);
-            $stmt->bindParam(':gamescore', $score);
-            $stmt->bindParam(':gameplayer', $player);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_GamesScore_InsertNewGamesScore(:ip, :date, :gamenameid, :gamescore, :gameplayer);');
+        $stmt->bindParam(':ip', $ip);
+        $stmt->bindParam(':date', $time);
+        $stmt->bindParam(':gameid', $gameid);
+        $stmt->bindParam(':gamescore', $score);
+        $stmt->bindParam(':gameplayer', $player);
+        $stmt->execute();
+    }
+    public static function GetGameScorebyNameID($nameid, $player) {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
+        $stmt->bindParam(':nameid', $nameid);
+        $stmt->bindParam(':player', $player);
+        $stmt->execute();
+        return $stmt->fetch();
     }
     public static function UpdateScoreIntoGameScore($gamenameid, $player, $score, $ip, $time) {
-        try {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_UpdateGamesScore(:ip, :currenttime, :gamenameid, :gamescore, :player);');
-            $stmt->bindParam(':ip', $ip);
-            $stmt->bindParam(':currenttime', $time);
-            $stmt->bindParam(':gamenameid', $gamenameid);
-            $stmt->bindParam(':gamescore', $score);
-            $stmt->bindParam(':player', $player);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            Core::showError($e->getMessage());
-        }
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_GamesScore_UpdateGamesScore(:ip, :currenttime, :gamenameid, :gamescore, :player);');
+        $stmt->bindParam(':ip', $ip);
+        $stmt->bindParam(':currenttime', $time);
+        $stmt->bindParam(':gamenameid', $gamenameid);
+        $stmt->bindParam(':gamescore', $score);
+        $stmt->bindParam(':player', $player);
+        $stmt->execute();
     }
     private function __clone() {
     }
