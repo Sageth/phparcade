@@ -847,9 +847,9 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_UpdateChamp`(
   END ;;
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS `sp_GamesChamps_ScoresbyGame`;
+DROP PROCEDURE IF EXISTS `sp_GamesChamps_UpdateScoresbyGame`;
 DELIMITER ;;
-CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_ScoresbyGame`(
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_UpdateScoresbyGame`(
   IN gc_date INT(10),
   IN gc_nameid INT(11),
   IN gc_score FLOAT,

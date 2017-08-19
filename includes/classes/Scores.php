@@ -51,25 +51,25 @@ class Scores {
         self::updateGameScore($gameid, $player, $score, $ip, $time, $sort, $link);
         return;
     }
-    public static function updateGameChamp($nameid, $player, $score, $sort, $time) {
+    public static function updateGameChamp($gameid, $player, $score, $sort, $time) {
         /* Figure out who the champion is and their highest score in the GamesChamp table */
-        $gamechamp = self::GetGameChampsbyGameNameID($nameid);
-        if (self::GetGameChampbyGameNameID_RowCount($nameid) === 0) {
+        $gamechamp = self::GetGameChampsbyGameNameID($gameid);
+        if (self::GetGameChampbyGameNameID_RowCount($gameid) === 0) {
             /* If there is no champion, then INSERT the score into the game champs table */
-            self::InsertScoreIntoGameChamps($nameid, $_SESSION['user']['id'], $score, $time);
+            self::InsertScoreIntoGameChamps($gameid, $_SESSION['user']['id'], $score, $time);
         } else {
             /* If there is a champion, figure out who it is */
             switch ($sort) {
                 /* If the game is a low-score-wins game (e.g. Golf), then update the score */
                 case 'ASC':
                     if ($score <= $gamechamp['score']) {
-                        self::UpdatePlayerScoreInGameChamps($gamechamp['nameid'], $player, $score, $time);
+                        self::UpdatePlayerScoreInGameChamps($gameid, $player, $score, $time);
                     }
                     break;
                 default:
                     /* Otherwise, just make sure you have a higher score and then update */
                     if ($score >= $gamechamp['score']) {
-                        self::UpdatePlayerScoreInGameChamps($gamechamp['nameid'], $player, $score, $time);
+                        self::UpdatePlayerScoreInGameChamps($gameid, $player, $score, $time);
                     }
                     break;
             }
@@ -80,7 +80,7 @@ class Scores {
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
         $stmt->bindParam(':nameid', $nameid);
         $stmt->execute();
-        return $stmt->fetchAll();
+        return $stmt->fetch();
     }
     public static function GetGameChampbyGameNameID_RowCount($nameid) {
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
@@ -158,7 +158,7 @@ class Scores {
             mySQL::getConnection()->prepare('CALL sp_GamesScore_InsertNewGamesScore(:ip, :date, :gamenameid, :gamescore, :gameplayer);');
         $stmt->bindParam(':ip', $ip);
         $stmt->bindParam(':date', $time);
-        $stmt->bindParam(':gameid', $gameid);
+        $stmt->bindParam(':gamenameid', $gameid);
         $stmt->bindParam(':gamescore', $score);
         $stmt->bindParam(':gameplayer', $player);
         $stmt->execute();
