@@ -9,6 +9,7 @@
 # OS generated files #
 ######################
 *.lock
+*.cache
 # Common files #
 ##################
 arcade/
@@ -16,6 +17,7 @@ BingSiteAuth.xml
 config.xml
 phpinfo.php
 sitemap.htm
+sitemap.rss
 sitemap.xml
 sitemap.*.gz
 sitemapindex.xml
