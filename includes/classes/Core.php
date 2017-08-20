@@ -264,10 +264,10 @@ class Core
             <meta charset="<?php echo CHARSET; ?>">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title><?php echo gettext('redirection'); ?></title>
-            <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
-            <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>"/>
+            <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"/>
+            <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>" integrity="<?php echo CSS_BOOTSTRAP_THEME_SRI;?>" crossorigin="anonymous"/>
             <link rel="stylesheet" href="<?php echo SITE_THEME_DIR; ?>"/>
-            <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
+            <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
             <meta name="robots" content="noindex,nofollow"/>
             <meta http-equiv="refresh" content="1;URL=<?php echo $url; ?>"/>
         </head>

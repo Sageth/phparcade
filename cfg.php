@@ -56,35 +56,53 @@ define('TOP_SCORE_COUNT', 10);
 
 /* CDNJS - v3.3.7 - BOOTSTRAP */
 define('CSS_BOOTSTRAP', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css');
+define('CSS_BOOTSTRAP_SRI', 'sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=');
+
 define('CSS_BOOTSTRAP_THEME', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css');
+define('CSS_BOOTSTRAP_THEME_SRI', 'sha256-ZT4HPpdCOt2lvDkXokHuhJfdOKSPFLzeAJik5U/Q+l4=');
+
 define('JS_BOOTSTRAP', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js');
+define('JS_BOOTSTRAP_SRI', 'sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=');
 
 /* CDNJS - v2.2.2 - BOOTSTRAP TOGGLE */
 define('CSS_BOOTSTRAP_TOGGLE', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css');
+define('CSS_BOOTSTRAP_TOGGLE_SRI', 'sha256-rDWX6XrmRttWyVBePhmrpHnnZ1EPmM6WQRQl6h0h7J8=');
+
 define('JS_BOOTSTRAP_TOGGLE', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js');
+define('JS_BOOTSTRAP_TOGGLE_SRI', 'sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKdoDOmo=');
 
 /* CDNJS - v4.7.0 - FONT AWESOME */
 define('CSS_FONTAWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+define('CSS_FONTAWESOME_SRI', 'sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=');
 
 /* GOOGLE RECAPTCHA */
 define('JS_GOOGLE_RECAPTCHA', 'https://www.google.com/recaptcha/api.js');
 
 /* CDNJS - v3.2.1 - JQUERY */
 define('JS_JQUERY', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js');
+define('JS_JQUERY_SRI', 'sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=');
 
 /* CDNJS - v1.12.1 - JQUERY UI */
 define('JS_JQUERY_UI', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js');
+define('JS_JQUERY_UI_SRI', 'sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=');
 
 /* CDNJS - v2.7.0 - JQUERY METISMENU */
 define('CSS_METISMENU', 'https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.css');
+define('CSS_METISMENU_SRI', 'sha256-OufFdETrXbY5YtILsSTzlY+4Ttmq+hUfR1mMYLmKlWo=');
+
 define('JS_METISMENU', 'https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.js');
+define('JS_METISMENU_SRI', 'sha256-EdeVuolWxmuLTapvaUaXTYIYKTIlhc0nUEGPEMn8MhQ=');
 
 /* CDNJS - v3.3.7+1 SB ADMIN 2 THEME */
 define('CSS_SB_ADMIN_2', 'https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/css/sb-admin-2.min.css');
+define('CSS_SB_ADMIN_2_SRI', 'sha256-WeMGw+d+qR+l2h9TzmC+jTME4zy5zYzG8E6FbPikzeM=');
+
 define('JS_SB_ADMIN_2', 'https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/js/sb-admin-2.min.js');
+define('JS_SB_ADMIN_2_SRI', 'sha256-Y0Z5pT4qPGaoUSHoxW+J8fIWjQnjc7v03WBEUnt9SQ0=');
 
 /* CDNJS - v2.2.0 - SWFOBJECT */
 define('JS_SWFOBJECT', 'https://cdnjs.cloudflare.com/ajax/libs/swfobject/2.2/swfobject.min.js');
+define('JS_SWFOBJECT_SRI', 'sha256-oYy9uw+7cz1/TLpdKv1rJwbj8UHHQ/SRBX5YADaM2OU=');
 
 /* CUSTOM - TABLESORT */
 define('JS_TABLESORT', SITE_URL . 'plugins/site/themes/admin/assets/js/tablesort.min.js');

@@ -2,7 +2,6 @@
 /* Fixes errors on score submission because the autoloader isn't found */
 require_once $_SERVER['DOCUMENT_ROOT'] . '/cfg.php';
 
-
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -50,9 +49,7 @@ include_once __DIR__ . '/scoresys.php';
         } ?>
 
         <!-- Load everything else -->
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
-        <link rel="preload" href="<?php echo CSS_BOOTSTRAP_THEME; ?>" as="style" onload="this.rel='stylesheet'"/>
-        <link rel="preload" href="<?php echo CSS_FONTAWESOME; ?>" as="style" onload="this.rel='stylesheet'"/>
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"/>
 
         <link rel="alternate" type="application/rss+xml" href="<?php echo SITE_URL; ?>" title="<?php echo $dbconfig['sitetitle']; ?>"/>
         <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
@@ -109,13 +106,13 @@ include_once __DIR__ . '/scoresys.php';
             </div>
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
-        <script src="<?php echo JS_JQUERY; ?>" defer></script>
-        <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
+        <script src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous" defer></script>
+        <script src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" defer></script>
         <?php if (true == is('game')) {
-                    ?>
+            ?>
             <!--suppress JSUnresolvedLibraryURL -->
-            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" defer></script><?php
-                } ?>
+            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" integrity="<?php echo JS_SWFOBJECT_SRI;?>" crossorigin="anonymous" defer></script><?php
+        } ?>
         <script type="application/ld+json" defer>
         {
             "@context":"http://schema.org",

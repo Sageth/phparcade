@@ -17,12 +17,11 @@ $content = $content ?? ''; ?>
             echo gettext('logo');
             echo gettext('admin'); ?>
         </title>
-        <link rel="stylesheet" href="<?php echo JS_JQUERY_UI; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_METISMENU; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_SB_ADMIN_2; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo CSS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="<?php echo CSS_METISMENU; ?>" integrity="<?php echo CSS_METISMENU_SRI;?>" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="<?php echo CSS_SB_ADMIN_2; ?>" integrity="<?php echo CSS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
     </head>
     <body>
         <div class="container-fluid">
@@ -91,24 +90,23 @@ $content = $content ?? ''; ?>
                                     $jstext = 'media';
                                 } ?>
                                 <li>
-                                <a href="#">
-                                    <?php echo Core::showGlyph('wrench'); ?>
-                                    &nbsp;
-                                    <?php echo $link; ?>
-                                    <span class="fa arrow"></span>
-                                </a>
-                                <ul class="nav nav-second-level"><?php
-                                    $snum = count($sublinks[$jstext]);
-                                for ($b = 0; $b < $snum; ++$b) {
-                                    $link = $sublinks[$jstext][$b];
-                                    $href = $sublinkshref[$jstext][$b]; ?>
-                                        <li>
-                                        <a href="<?php echo $href; ?>">
-                                            <?php echo $link; ?>
-                                        </a>
-                                        </li><?php
-                                } ?>
-                                </ul>
+                                    <a href="#">
+                                        <?php echo Core::showGlyph('wrench'); ?>
+                                        <?php echo $link; ?>
+                                        <span class="fa arrow"></span>
+                                    </a>
+                                    <ul class="nav nav-second-level"><?php
+                                        $snum = count($sublinks[$jstext]);
+                                        for ($b = 0; $b < $snum; ++$b) {
+                                            $link = $sublinks[$jstext][$b];
+                                            $href = $sublinkshref[$jstext][$b]; ?>
+                                                <li>
+                                                    <a href="<?php echo $href; ?>">
+                                                        <?php echo $link; ?>
+                                                    </a>
+                                                </li><?php
+                                        } ?>
+                                    </ul>
                                 </li><?php
                             } ?>
                         </ul>
@@ -126,12 +124,12 @@ $content = $content ?? ''; ?>
                 </div>
             </div><!-- /#page-wrapper -->
         </div><!-- /#wrapper -->
-        <script src="<?php echo JS_JQUERY; ?>" defer></script>
-        <script src="<?php echo JS_JQUERY_UI; ?>" defer></script>
+        <script src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous" defer></script>
+        <script src="<?php echo JS_JQUERY_UI; ?>" integrity="<?php echo JS_JQUERY_UI_SRI;?>" crossorigin="anonymous" defer></script>
         <script src="<?php echo JS_TABLESORT; ?>" defer></script>
-        <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
-        <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" defer></script>
-        <script src="<?php echo JS_METISMENU; ?>" defer></script>
-        <script src="<?php echo JS_SB_ADMIN_2; ?>" defer></script>
+        <script src="<?php echo JS_BOOTSTRAP; ?>"  integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" defer></script>
+        <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous" defer></script>
+        <script src="<?php echo JS_METISMENU; ?>" integrity="<?php echo JS_METISMENU_SRI;?>" crossorigin="anonymous" defer></script>
+        <script src="<?php echo JS_SB_ADMIN_2; ?>" integrity="<?php echo JS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous" defer></script>
     </body>
 </html>
