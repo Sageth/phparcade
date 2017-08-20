@@ -2,13 +2,16 @@
 declare(strict_types=1);
 Core::stopDirectAccess();
 
-class Users {
+class Users
+{
     protected $params;
     protected $status;
     protected $user;
-    private function __construct() {
+    private function __construct()
+    {
     }
-    public static function UpdateProfile() {
+    public static function UpdateProfile()
+    {
         /* Sanitization */
         $aim = filter_var($_POST['aim'], FILTER_SANITIZE_STRING);
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
@@ -39,7 +42,8 @@ class Users {
             Core::showError($e->getMessage());
         }
     }
-    public static function userPasswordUpdateByID($id, $password) {
+    public static function userPasswordUpdateByID($id, $password)
+    {
         $password = Users::userPasswordHash($password);
         $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberPassword(:password, :memberid);');
         $stmt->bindParam(':password', $password);
@@ -47,10 +51,12 @@ class Users {
         $stmt->execute();
         Core::showSuccess(gettext('updatesuccess'));
     }
-    public static function userPasswordHash($password) {
+    public static function userPasswordHash($password)
+    {
         return password_hash($password, PASSWORD_DEFAULT);
     }
-    public static function getUserbyID($id) {
+    public static function getUserbyID($id)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetMemberbyID(:memberid);');
         $stmt->bindParam(':memberid', $id);
         $stmt->execute();
@@ -59,23 +65,28 @@ class Users {
         }
         return $stmt->fetch();
     }
-    public static function getUsersAll() {
+    public static function getUsersAll()
+    {
         /* Only used by admin on the get users page */
         $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetAllMembers();');
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function getUsersCount() {
+    public static function getUsersCount()
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetAllIDs();');
         $stmt->execute();
         return $stmt->rowCount();
     }
-    public static function isUserLoggedIn() {
+    public static function isUserLoggedIn()
+    {
         return isset($_SESSION['user']) ? true : false;
     }
-    public static function passwordRecoveryForm() {
+    public static function passwordRecoveryForm()
+    {
         $dbconfig = Core::getInstance()->getDBConfig();
-        if ($dbconfig['passwordrecovery'] === 'on') { ?>
+        if ($dbconfig['passwordrecovery'] === 'on') {
+            ?>
         <form action='<?php echo SITE_URL; ?>' method='post'><br/>
             <?php echo gettext('username'); ?>:<br/>
             <label>
@@ -90,7 +101,8 @@ class Users {
             </form><?php
         }
     }
-    public static function passwordRecovery() {
+    public static function passwordRecovery()
+    {
         $dbconfig = Core::getInstance()->getDBConfig();
         $inicfg = Core::getInstance()->getINIConfig();
         $status = '';
@@ -133,7 +145,8 @@ class Users {
                 $stmt->nextRowset();
                 /* Do the actual update of the password in the database */
                 self::userPasswordUpdatebyEmail($password, $username, $email);
-                if (!$mail->send()) { ?>
+                if (!$mail->send()) {
+                    ?>
                     <p class="bg-danger">
                     <?php echo gettext('emailfail'); ?>
                     </p><?php
@@ -153,7 +166,8 @@ class Users {
         unset($mail);
         return $status;
     }
-    public static function passwordGenerate($pw = "", $length = 8, $i = 0) {
+    public static function passwordGenerate($pw = "", $length = 8, $i = 0)
+    {
         $possible = '!@#$%^&*0123456789bcdfghjkmnpqrstvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
         while ($i < $length) {
             $char = $possible[random_int(0, mb_strlen($possible) - 1)];
@@ -164,7 +178,8 @@ class Users {
         }
         return $pw;
     }
-    public static function userPasswordUpdatebyEmail($password, $username, $email) {
+    public static function userPasswordUpdatebyEmail($password, $username, $email)
+    {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_Members_UpdatePasswordbyUserEmail(:password, :username, :useremail);');
         $stmt->bindParam(':password', $password);
@@ -172,7 +187,8 @@ class Users {
         $stmt->bindParam(':useremail', $email);
         $stmt->execute();
     }
-    public static function updateUserPlaycount() {
+    public static function updateUserPlaycount()
+    {
         if (!isset($_SESSION)) {
             session_start();
         }
@@ -185,7 +201,8 @@ class Users {
             $stmt->execute();
         }
     }
-    public static function uploadAvatar($id, $path, $filename) {
+    public static function uploadAvatar($id, $path, $filename)
+    {
         /* Comes from the Profile page.  Take the ID in so you can do database work.
           Then concat the path and filename from profile.php and upload. */
         $avatarpath = $path . $filename;
@@ -213,7 +230,8 @@ class Users {
         $stmt->execute();
         return;
     }
-    public static function userAdd($username, $email, $status = "") {
+    public static function userAdd($username, $email, $status = "")
+    {
         $dbconfig = Core::getInstance()->getDBConfig();
         $inicfg = Core::getInstance()->getINIConfig();
         if (!empty($username) || !empty($email)) {
@@ -283,7 +301,8 @@ class Users {
         unset($mail);
         return $status;
     }
-    public static function userDelete($id, $admin = 'No') {
+    public static function userDelete($id, $admin = 'No')
+    {
         /* Delete users, unless they're an admin.  Don't delete admins. Bad idea. */
         try {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Members_DeleteMember(:memberid, :admin);');
@@ -296,7 +315,8 @@ class Users {
             Core::showError($e->getMessage());
         }
     }
-    public static function userEdit($id) {
+    public static function userEdit($id)
+    {
         /* Used in admin to edit users. Be careful of the "isadmin" when using it elsewhere */
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :aim, :msn, :isadmin, :memberid);');
@@ -311,7 +331,8 @@ class Users {
         $stmt->execute();
         Core::showSuccess(gettext('updatesuccess'));
     }
-    public static function userVerifyPassword($username, $password) {
+    public static function userVerifyPassword($username, $password)
+    {
         /* Check if you're still using MD5. If you are, regenerate it as PHP Default's password algorithm */
         if (self::userGetPassword($username) === self::userPasswordMD5($password)) {
             self::userGeneratePassword($username, $password);
@@ -329,20 +350,23 @@ class Users {
         }
         return $hash;
     }
-    public static function userGetPassword($username) {
+    public static function userGetPassword($username)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetPassword(:username);');
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-    public static function userPasswordMD5($password) {
+    public static function userPasswordMD5($password)
+    {
         /* This method is only used for legacy accounts. It generally won't be used, as
            all accounts which are logged into or set up after December 2016 use the PHP
            password_hash() and password_verify() functions.  The initial admin password
            also requires this function, as the hash is predictable. */
         return md5($password);
     }
-    public static function userGeneratePassword($username, $password) {
+    public static function userGeneratePassword($username, $password)
+    {
         $hashandsalt = password_hash($password, PASSWORD_DEFAULT);
         $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GeneratePassword(:username, :hashandsalt);');
         $stmt->bindParam(':username', $username);
@@ -350,7 +374,8 @@ class Users {
         $stmt->execute();
         return $hashandsalt;
     }
-    public static function userSessionStart($username) {
+    public static function userSessionStart($username)
+    {
         /* Sanitization */
         $username = filter_var($username, FILTER_SANITIZE_STRING);
 
@@ -370,7 +395,8 @@ class Users {
                   'twitter' => $user['twitter_id'], 'avatar' => $user['avatarurl'], 'admin' => $user['admin'],
                   'ip' => $user['ip'], 'birth_date' => $user['birth_date'], 'last_login' => $user['last_login']);
     }
-    public static function userSessionEnd() {
+    public static function userSessionEnd()
+    {
         /* Resume sesion, then destroy it */
         if (!isset($_SESSION)) {
             session_start();
@@ -381,6 +407,7 @@ class Users {
         }
         header('Location: index.php');
     }
-    private function __clone() {
+    private function __clone()
+    {
     }
 }

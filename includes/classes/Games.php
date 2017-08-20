@@ -2,15 +2,18 @@
 declare(strict_types=1);
 Core::stopDirectAccess();
 
-class Games {
+class Games
+{
     protected $category;
     protected $game;
     protected $games;
     protected $rowcount;
     protected $select;
-    private function __construct() {
+    private function __construct()
+    {
     }
-    public static function addGame($id, $nameid, $gameorder, $gwidth, $gheight, $type, $playcount, $release_date) {
+    public static function addGame($id, $nameid, $gameorder, $gwidth, $gheight, $type, $playcount, $release_date)
+    {
         $time = Core::getCurrentDate();
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_Games_AddGames(:gameid, :gamenameid, :gamename, :gamedesc, :gameinstructions, :gamecat, :gameorder, :gamewidth, :gameheight, :gametype, :gameplaycount, :gameflags, :gamekeywords, :gametime, :gamereleasedate, :gamecustomcode);');
@@ -33,19 +36,22 @@ class Games {
         $stmt->execute();
         Core::showSuccess(gettext('addsuccess'));
     }
-    public static function deleteCategory($id) {
+    public static function deleteCategory($id)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_DeleteCategorybyID(:catid);');
         $stmt->bindParam(':catid', $id);
         $stmt->execute();
     }
-    public static function deleteGame($id) {
+    public static function deleteGame($id)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_DeleteGamebyID(:gameid);');
         $stmt->bindParam(':gameid', $id);
         $stmt->execute();
         Games::updateGameOrder();
         Core::showSuccess(gettext('deletesuccess'));
     }
-    public static function updateGameOrder() {
+    public static function updateGameOrder()
+    {
         $games = self::getGames('all', 0, 10000, '-all', -1);
         $i = 1;
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGameOrder(:gameorder, :gameid);');
@@ -56,7 +62,8 @@ class Games {
             ++$i;
         }
     }
-    public static function getGames($category, $limitstart, $limitend, $page = '-all-', $gamesperpage) {
+    public static function getGames($category, $limitstart, $limitend, $page = '-all-', $gamesperpage)
+    {
         /* Typical values are:
             Category = "all"
             Limit Start = 0
@@ -102,26 +109,30 @@ class Games {
         }
         return $games;
     }
-    public static function getCategory($name) {
+    public static function getCategory($name)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryByName(:categoryname);');
         $stmt->bindParam(':categoryname', $name);
         $stmt->execute();
         return $stmt->fetch();
     }
-    public static function getCategoryID($id) {
+    public static function getCategoryID($id)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryByID(:categoryid);');
         $stmt->bindParam(':categoryid', $id);
         $stmt->execute();
         return $stmt->fetch();
     }
-    public static function getCategoryIDMax() {
+    public static function getCategoryIDMax()
+    {
         /* Gets max order and sets the new category to be max(order)+1 */
         $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_GetCategoryMaxID();');
         $stmt->execute();
         $order = $stmt->fetch();
         return $order['maxOrder'] + 1;
     }
-    public static function getCategorySelect($name, $prev = null) {
+    public static function getCategorySelect($name, $prev = null)
+    {
         $categories = self::getCategories('ASC');
         $select = "<select class='form-control' name='" . $name . "'>";
         if ($prev != '-nocat-') {
@@ -133,7 +144,8 @@ class Games {
         $select .= '</select>';
         return $select;
     }
-    public static function getCategories($sort) {
+    public static function getCategories($sort)
+    {
         switch ($sort) {
             case 'DESC':
                 $sql = 'CALL sp_Categories_GetCategoriesByOrder_DESC();';
@@ -149,7 +161,8 @@ class Games {
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function getGame($id) {
+    public static function getGame($id)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGameByID(:gameid);');
         $stmt->bindParam(':gameid', $id);
         $stmt->execute();
@@ -199,30 +212,35 @@ class Games {
         }
         return $game;
     }
-    public static function getGameByNameID($nameid) {
+    public static function getGameByNameID($nameid)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid(:gamenameid);');
         $stmt->bindParam(':gamenameid', $nameid);
         $stmt->execute();
         return $stmt->fetch();
     }
-    public static function getGameCountByNameID($nameid) {
+    public static function getGameCountByNameID($nameid)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid(:gamenameid);');
         $stmt->bindParam(':gamenameid', $nameid);
         $stmt->execute();
         return $stmt->rowCount();
     }
-    public static function getGamesAllIDsNames() {
+    public static function getGamesAllIDsNames()
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetIDandName();');
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function getGamesChamp($playerid) {
+    public static function getGamesChamp($playerid)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetPlayerNameID(:playerid);');
         $stmt->bindParam(':playerid', $playerid);
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function getGamesCount($category) {
+    public static function getGamesCount($category)
+    {
         $time = Core::getCurrentDate();
         switch ($category) {
             case 'all':
@@ -239,41 +257,48 @@ class Games {
         $stmt->execute();
         return $stmt->rowCount();
     }
-    public static function getGamesHomePage() {
+    public static function getGamesHomePage()
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetRandom8();');
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function getGamesInactive($active = 'No') {
+    public static function getGamesInactive($active = 'No')
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Active(:active);');
         $stmt->bindParam(':active', $active);
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function getGamesInactiveCount($active = 'No') {
+    public static function getGamesInactiveCount($active = 'No')
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Active(:active);');
         $stmt->bindParam(':active', $active);
         $stmt->execute();
         return $stmt->rowCount();
     }
-    public static function getGamesBroken() {
+    public static function getGamesBroken()
+    {
         $yes = 'Yes';
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Broken(:broken);');
         $stmt->bindParam(':broken', $yes);
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function getGamesBrokenCount() {
+    public static function getGamesBrokenCount()
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetBrokenByID();');
         $stmt->execute();
         return $stmt->rowCount();
     }
-    public static function getGamesLikeThis() {
+    public static function getGamesLikeThis()
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetRandom4();');
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function insertCategory($id = null, $name, $description, $keywords, $order, $type) {
+    public static function insertCategory($id = null, $name, $description, $keywords, $order, $type)
+    {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_Categories_InsertCategory(:catid, :catname, :catdesc, :catkeywords, :catorder, :cattype);');
         $stmt->bindParam(':catid', $id);
@@ -285,7 +310,8 @@ class Games {
         $stmt->execute();
         Core::showSuccess(gettext('addsuccess'));
     }
-    public static function updateCategory($id, $name, $type, $description, $keywords) {
+    public static function updateCategory($id, $name, $type, $description, $keywords)
+    {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_Categories_UpdateCategory(:catid, :catname, :catdesc, :catkeywords, :cattype);');
         $stmt->bindParam(':catid', $id);
@@ -296,7 +322,8 @@ class Games {
         $stmt->execute();
         Core::showSuccess(gettext('updatesuccess'));
     }
-    public static function updateCategoryOrder($categories, $i = 1) {
+    public static function updateCategoryOrder($categories, $i = 1)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_UpdateOrder(:catorder, :catid);');
         foreach ($categories as $category) {
             $category['order'] = $i;
@@ -306,7 +333,8 @@ class Games {
             ++$i;
         }
     }
-    public static function updateGame($id) {
+    public static function updateGame($id)
+    {
         $_POST['active'] = array_key_exists('active', $_POST) ? 'Yes' : 'No';
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_Games_UpdateGame(:gamename, :gamenameid, :gamedesc, :gamecat, :gamekeywords, :gameflags, :gameinstructions, :gamecustomcode, :gamewidth, :gameheight, :gameactive, :gamerelease, :gameid);');
@@ -326,7 +354,8 @@ class Games {
         $stmt->execute();
         Core::showSuccess(gettext('updatesuccess'));
     }
-    public static function updateGameChamp($tplayerid, $tplayername, $tscore, $time, $gameid) {
+    public static function updateGameChamp($tplayerid, $tplayername, $tscore, $time, $gameid)
+    {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_GameChamps_UpdateChamp(:top_nameid, :top_user, :top_score, :curr_time, :game_id);');
         $stmt->bindParam(':top_nameid', $tplayerid);
@@ -337,12 +366,14 @@ class Games {
         $stmt->execute();
         return;
     }
-    public static function updateGamePlaycount($gameid) {
+    public static function updateGamePlaycount($gameid)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGamePlaycountbyID(:gameid);');
         $stmt->bindParam(':gameid', $gameid);
         $stmt->execute();
         return;
     }
-    private function __clone() {
+    private function __clone()
+    {
     }
 }

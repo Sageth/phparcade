@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 Core::stopDirectAccess();
-class mySQL {
+class mySQL
+{
     protected static $db;
-    private function __construct() {
+    private function __construct()
+    {
         $inicfg = Core::getInstance()->getINIConfig();
         try {
             // assign PDO object to db variable
@@ -23,7 +25,8 @@ class mySQL {
             die(gettext('syserror'));
         }
     }
-    public static function getConnection() {
+    public static function getConnection()
+    {
         if (!self::$db) {  //Guarantees single instance, if no connection object exists then create one.
             new mySQL();
         }

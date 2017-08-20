@@ -1,11 +1,13 @@
 <?php
-if(!isset($_SESSION)){session_start();}
+if (!isset($_SESSION)) {
+    session_start();
+}
 $dbconfig = Core::getInstance()->getDBConfig(); ?>
 <!-- Begin Footer -->
 <div class="footer navbar-static-bottom">
 	<div class="panel-footer container-fluid text-center"><?php
-			// It would be greatly appreciated if you didn't remove the footer link to the project
-			// Please feel free to customize as much as you'd like?>
+            // It would be greatly appreciated if you didn't remove the footer link to the project
+            // Please feel free to customize as much as you'd like?>
 		<a href="<?php echo Core::getLinkPage(4); ?>" title="<?php echo gettext('aboutus'); ?>">
 			<?php echo Core::showGlyph('bullhorn');?> <?php echo gettext('aboutus'); ?>
 		</a> |

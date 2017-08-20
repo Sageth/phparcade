@@ -126,5 +126,6 @@ switch ($act) {
         if ($params[2] === 'editdone') {
             Core::doEvent('profileediting');
         }
+        // no break
     default:
 }

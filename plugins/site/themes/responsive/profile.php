@@ -1,5 +1,7 @@
 <?php
-if (!isset($_SESSION)) {session_start();}
+if (!isset($_SESSION)) {
+    session_start();
+}
 global $params;
 $dbconfig = Core::getInstance()->getDBConfig(); ?>
 <hr>
@@ -57,27 +59,33 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                             <?php echo gettext('socialmedia'); ?>
                         </div>
                         <div class="panel-body"><?php
-                            if ($user['facebook_id'] != "") { ?>
+                            if ($user['facebook_id'] != "") {
+                                ?>
                             <a href="<?php echo URL_FACEBOOK . $user['facebook_id']; ?>" target="_blank">
                                 <?php echo Core::showGlyph('facebook', '2x', 'false'); ?>
                                 </a><?php
-                            } else { ?>
+                            } else {
+                                ?>
                                 <?php echo Core::showGlyph('facebook', '2x', 'false'); ?><?php
                             }
-                            if ($user['github_id'] != "") { ?>
+                if ($user['github_id'] != "") {
+                    ?>
                             <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank">
                                 <?php echo Core::showGlyph('github', '2x', 'false'); ?>
                                 </a><?php
-                            } else { ?>
+                } else {
+                    ?>
                                 <?php echo Core::showGlyph('github', '2x', 'false'); ?><?php
-                            }
-                            if ($user['twitter_id'] != "") { ?>
+                }
+                if ($user['twitter_id'] != "") {
+                    ?>
                             <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank">
                                 <?php echo Core::showGlyph('twitter', '2x', 'false'); ?>
                                 </a><?php
-                            } else { ?>
+                } else {
+                    ?>
                                 <?php echo Core::showGlyph('twitter', '2x', 'false'); ?><?php
-                            } ?>
+                } ?>
                             <?php echo Core::showGlyph('pinterest', '2x', 'false'); ?>
                             <?php echo Core::showGlyph('google-plus', '2x', 'false'); ?>
                         </div>
@@ -90,11 +98,12 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                     <h3><?php echo $user['username'] . ' ' . gettext('bestplayer'); ?> </h3>
                     <div class="panel panel-info">
                         <div class="panel-body"><?php
-                            foreach ($games as $game) { ?>
+                            foreach ($games as $game) {
+                                ?>
                                 <div class="col-md-4 col-md-4">
                                 <div class="thumbnail"><?php
                                     $game = Games::getGame($game['nameid']);
-                                    $link = Core::getLinkGame($game['id']); ?>
+                                $link = Core::getLinkGame($game['id']); ?>
                                     <a href="<?php echo $link; ?>"><?php
                                         $img = $dbconfig['imgurl'] . $game['nameid'] . '.png'; ?>
                                         <img class="img img-responsive img-rounded"
@@ -127,7 +136,8 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                 </div>
                                 </div><?php
                                 ++$i;
-                                if ($i == 3) { ?>
+                                if ($i == 3) {
+                                    ?>
                                     <div class="clearfix invisible"></div><?php
                                     //Resets boxes
                                     $i = 0;
@@ -140,21 +150,30 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                 {
                     "@context": "http://schema.org",
                     "@type": "Person",
-                    "name": "<?php echo $user['username'];?>",
-                    "url": "<?php echo SITE_URL;?>profile/view/<?php echo $user['id'];?>/<?php echo $user['username'];?>.html"
-                    <?php if (!empty($user['facebook_id']) || (!empty($user['github_id'])) || (!empty($user['twitter_id']))) { ?>,
+                    "name": "<?php echo $user['username']; ?>",
+                    "url": "<?php echo SITE_URL; ?>profile/view/<?php echo $user['id']; ?>/<?php echo $user['username']; ?>.html"
+                    <?php if (!empty($user['facebook_id']) || (!empty($user['github_id'])) || (!empty($user['twitter_id']))) {
+                                ?>,
                     "sameAs": [
-                        <?php if (!empty($user['facebook_id'])) { ?>"http://www.facebook.com/<?php echo $user['facebook_id'];?>",<?php } ?>
-                        <?php if (!empty($user['github_id'])) { ?>"http://www.github.com/<?php echo $user['github_id'];?>",<?php } ?>
-                        <?php if (!empty($user['twitter_id'])) { ?>"http://www.twitter.com/<?php echo $user['twitter_id'];?>"<?php } ?>
-                    ]<?php } ?>
+                        <?php if (!empty($user['facebook_id'])) {
+                                    ?>"http://www.facebook.com/<?php echo $user['facebook_id']; ?>",<?php
+                                } ?>
+                        <?php if (!empty($user['github_id'])) {
+                                    ?>"http://www.github.com/<?php echo $user['github_id']; ?>",<?php
+                                } ?>
+                        <?php if (!empty($user['twitter_id'])) {
+                                    ?>"http://www.twitter.com/<?php echo $user['twitter_id']; ?>"<?php
+                                } ?>
+                    ]<?php
+                            } ?>
                 }
                 </script><?php
             }
         } else {
             if ($params[1] === 'edit') {
                 $user = Users::getUserbyID($_SESSION['user']['id']);
-                if ($params[2] == "" || !isset($params[2])) { ?>
+                if ($params[2] == "" || !isset($params[2])) {
+                    ?>
                     <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
                         <div class="col-lg-4">
                             <div class="panel panel-default">
@@ -246,7 +265,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                         </button>
                     </form><?php
                 } else {
-                    if ($params[0] === 'profile' && $params[2] === 'editdone' ) {
+                    if ($params[0] === 'profile' && $params[2] === 'editdone') {
                         /* Update user profile entries */
                         Users::UpdateProfile();
 
@@ -270,7 +289,6 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
 
                         /* Show success on the other stuff that's not an avatar or password */
                         Core::showSuccess(gettext('updatesuccess'));
-
                     } else {
                         Core::showError(gettext('error'));
                     }

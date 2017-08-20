@@ -2,12 +2,15 @@
 declare(strict_types=1);
 Core::stopDirectAccess();
 
-class Scores {
+class Scores
+{
     protected $score;
     protected $scores;
-    private function __construct() {
+    private function __construct()
+    {
     }
-    public static function formatScore($number, $dec = 1) { // cents: 0=never, 1=if needed, 2=always
+    public static function formatScore($number, $dec = 1)
+    { // cents: 0=never, 1=if needed, 2=always
         if (is_numeric($number)) {
             if (!$number) {
                 $score['score'] = ($dec == 3 ? '0.00' : '0');
@@ -23,7 +26,8 @@ class Scores {
         }
         return $score['score'];
     }
-    public static function getGameScore($nameid, $sort, $limitnum) {
+    public static function getGameScore($nameid, $sort, $limitnum)
+    {
         /* Strips "-score" from game to be compatible with v2 Arcade Games */
         $nameid = str_replace('-score', "", $nameid);
         switch ($sort) {
@@ -42,16 +46,19 @@ class Scores {
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function getScoreType($string, $ostring) {
+    public static function getScoreType($string, $ostring)
+    {
         return stristr($ostring, $string) ? true : false;
     }
-    public static function submitGameScore($gameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link, $sort = 'DESC') {
+    public static function submitGameScore($gameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link, $sort = 'DESC')
+    {
         $time = Core::getCurrentDate();
         self::updateGameChamp($gameid, $player, $score, $sort, $time);
         self::updateGameScore($gameid, $player, $score, $ip, $time, $sort, $link);
         return;
     }
-    public static function updateGameChamp($gameid, $player, $score, $sort, $time) {
+    public static function updateGameChamp($gameid, $player, $score, $sort, $time)
+    {
         /* Figure out who the champion is and their highest score in the GamesChamp table */
         $gamechamp = self::GetGameChampsbyGameNameID($gameid);
         if (self::GetGameChampbyGameNameID_RowCount($gameid) === 0) {
@@ -75,20 +82,23 @@ class Scores {
             }
         }
     }
-    public static function GetGameChampsbyGameNameID($nameid) {
+    public static function GetGameChampsbyGameNameID($nameid)
+    {
         /* Gets all of the champions (highest score for an individual player) for a particular game */
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
         $stmt->bindParam(':nameid', $nameid);
         $stmt->execute();
         return $stmt->fetch();
     }
-    public static function GetGameChampbyGameNameID_RowCount($nameid) {
+    public static function GetGameChampbyGameNameID_RowCount($nameid)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
         $stmt->bindParam(':nameid', $nameid);
         $stmt->execute();
         return $stmt->rowCount();
     }
-    public static function InsertScoreIntoGameChamps($gamenameid, $player, $score, $time) {
+    public static function InsertScoreIntoGameChamps($gamenameid, $player, $score, $time)
+    {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_GamesChamps_InsertScoresbyGame(:currenttime, :nameid, :score, :player);');
         $stmt->bindParam(':currenttime', $time);
@@ -97,7 +107,8 @@ class Scores {
         $stmt->bindParam(':player', $player);
         $stmt->execute();
     }
-    public static function UpdatePlayerScoreInGameChamps($gamenameid, $player, $score, $time) {
+    public static function UpdatePlayerScoreInGameChamps($gamenameid, $player, $score, $time)
+    {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_GamesChamps_UpdateScoresbyGame(:currenttime, :gamenameid, :gamescore, :player);');
         $stmt->bindParam(':currenttime', $time);
@@ -106,7 +117,8 @@ class Scores {
         $stmt->bindParam(':player', $player);
         $stmt->execute();
     }
-    public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link) {
+    public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link)
+    {
         /* Update games_score table */
         /* $gamescore[]:
             [id]
@@ -146,14 +158,16 @@ class Scores {
             }
         }
     }
-    public static function GetGameScorebyNameIDRowCount($nameid, $player) {
+    public static function GetGameScorebyNameIDRowCount($nameid, $player)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
         $stmt->bindParam(':nameid', $nameid);
         $stmt->bindParam(':player', $player);
         $stmt->execute();
         return $stmt->rowCount();
     }
-    public static function InsertScoreIntoGameScore($gameid, $player, $score, $ip, $time) {
+    public static function InsertScoreIntoGameScore($gameid, $player, $score, $ip, $time)
+    {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_GamesScore_InsertNewGamesScore(:ip, :date, :gamenameid, :gamescore, :gameplayer);');
         $stmt->bindParam(':ip', $ip);
@@ -163,14 +177,16 @@ class Scores {
         $stmt->bindParam(':gameplayer', $player);
         $stmt->execute();
     }
-    public static function GetGameScorebyNameID($nameid, $player) {
+    public static function GetGameScorebyNameID($nameid, $player)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
         $stmt->bindParam(':nameid', $nameid);
         $stmt->bindParam(':player', $player);
         $stmt->execute();
         return $stmt->fetch();
     }
-    public static function UpdateScoreIntoGameScore($gamenameid, $player, $score, $ip, $time) {
+    public static function UpdateScoreIntoGameScore($gamenameid, $player, $score, $ip, $time)
+    {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_GamesScore_UpdateGamesScore(:ip, :currenttime, :gamenameid, :gamescore, :player);');
         $stmt->bindParam(':ip', $ip);
@@ -180,6 +196,7 @@ class Scores {
         $stmt->bindParam(':player', $player);
         $stmt->execute();
     }
-    private function __clone() {
+    private function __clone()
+    {
     }
 }

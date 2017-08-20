@@ -2,21 +2,25 @@
 declare(strict_types=1);
 Core::stopDirectAccess();
 
-class Core {
+class Core
+{
     private static $dbconfig;
     private static $instance;
-    protected      $act;
-    protected      $config;
-    protected      $line;
-    protected      $links_arr;
-    protected      $string;
-    private function __construct() {
+    protected $act;
+    protected $config;
+    protected $line;
+    protected $links_arr;
+    protected $string;
+    private function __construct()
+    {
     }
-    public static function addAction($action, $event) {
+    public static function addAction($action, $event)
+    {
         global $actions_array;
         $actions_array[$event][] = $action;
     }
-    public static function doEvent($event) {
+    public static function doEvent($event)
+    {
         global $actions_array;
         $actions = [];
         if (isset($actions_array[$event])) {
@@ -28,18 +32,23 @@ class Core {
             }
         }
     }
-    public static function encodeHTMLEntity($string, $params = null) {
+    public static function encodeHTMLEntity($string, $params = null)
+    {
         return html_entity_decode($string, $params);
     }
-    public static function getAdminGamePageCount() {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();');
-            $stmt->execute();
-            return ceil($stmt->rowCount() / 50);
+    public static function getAdminGamePageCount()
+    {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();');
+        $stmt->execute();
+        return ceil($stmt->rowCount() / 50);
     }
-    public static function getCurrentDate() {
+    public static function getCurrentDate()
+    {
         return time();
     }
-    public static function getFlashModal(){ ?>
+    public static function getFlashModal()
+    {
+        ?>
         <div id="myModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -53,8 +62,8 @@ class Core {
                            enable Flash to have the best experience while we add more mobile-friendly games and apps.
                         </p>
                         <p class="text-danger">
-                            Please note: We <strong>ONLY</strong> serve flash games from <?php echo SITE_URL;?>.  The
-                            settings below will only allow flash for <?php echo SITE_URL;?>, which will help ensure your
+                            Please note: We <strong>ONLY</strong> serve flash games from <?php echo SITE_URL; ?>.  The
+                            settings below will only allow flash for <?php echo SITE_URL; ?>, which will help ensure your
                             security.
                         </p>
                         <p class="text-default">
@@ -70,7 +79,7 @@ class Core {
                         </div>
                         <div class="pull-right">
                             <a class="btn btn-md btn-info"
-                               href="<?php echo Core::getLinkPage(6);?>"
+                               href="<?php echo Core::getLinkPage(6); ?>"
                                target="_blank">
                                Enable Flash - <i class="fa fa-chrome" aria-hidden="true"></i> Chrome
                             </a>
@@ -78,20 +87,24 @@ class Core {
                     </div>
                 </div>
             </div><?php
-        }
-	public static function getLinkPage($id = 0) {
+    }
+    public static function getLinkPage($id = 0)
+    {
         global $links_arr;
         return str_replace('%id%', $id, $links_arr['page']);
     }
-	public static function getINIConfig() {
+    public static function getINIConfig()
+    {
         return parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/../phpArcade.ini', true);
     }
-	public static function getLinkGame($id = 0) {
+    public static function getLinkGame($id = 0)
+    {
         global $gamelist;
         $links_arr = self::loadLinks();
         return str_replace('%name%', $gamelist[$id], str_replace('%id%', $id, $links_arr['game']));
     }
-	public static function loadLinks() {
+    public static function loadLinks()
+    {
         /* TODO: Need to clean this up somehow. Change to query string and let mod_rewrite do its thing? */
 
         global $links_arr, $append, $gamelist;
@@ -120,21 +133,25 @@ class Core {
         $links_arr = array_map('preappbase', $links_arr);
         return $links_arr;
     }
-    public static function getCleanURL($string) {
+    public static function getCleanURL($string)
+    {
         $string = preg_replace("/\W/", '-', $string); //Non-word characters, including spaces
         $string = preg_replace("/\-$/", "", $string); //Dashes at end of name (e.g. test-.html)
         $string = preg_replace('/-{2,}/', '-', $string); //Double dashes at end of name (e.g. test--.html)
         return $string;
     }
-	public static function getLinkLogout() {
+    public static function getLinkLogout()
+    {
         global $links_arr;
         return $links_arr['logout'];
     }
-	public static function getLinkRegister() {
+    public static function getLinkRegister()
+    {
         global $links_arr;
         return $links_arr['register'];
     }
-	public static function getLinkProfile($userid) {
+    public static function getLinkProfile($userid)
+    {
         global $links_arr;
         if ($userid != 0) {
             $find = $replace = [];
@@ -149,11 +166,13 @@ class Core {
             return 0;
         }
     }
-	public static function getLinkProfileEdit() {
+    public static function getLinkProfileEdit()
+    {
         global $links_arr;
         return $links_arr['editprofile'];
     }
-	public static function getPageMetaData() {
+    public static function getPageMetaData()
+    {
         $dbconfig = Core::getInstance()->getDBConfig();
         global $params;
         switch (true) {
@@ -200,37 +219,42 @@ class Core {
         }
         return $metadata;
     }
-    public static function getDBConfig() {
+    public static function getDBConfig()
+    {
         if (null !== self::$dbconfig) {
             return self::$dbconfig;
         } else {
-                $stmt = mySQL::getConnection()->prepare("CALL sp_Config_Get();");
-                $stmt->execute();
-                }
+            $stmt = mySQL::getConnection()->prepare("CALL sp_Config_Get();");
+            $stmt->execute();
+        }
         /** @noinspection PhpUndefinedVariableInspection */
         return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
     }
-    public static function getInstance() {
+    public static function getInstance()
+    {
         /* Singleton use */
         if (!self::$instance instanceof self) {
             self::$instance = new self();
         }
         return self::$instance;
     }
-	public static function getPages($category = '') {
+    public static function getPages($category = '')
+    {
         $dbconfig = Core::getInstance()->getDBConfig();
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetNameidByCategory(:catname);');
-            $stmt->bindParam(':catname', $category);
-            $stmt->execute();
-            return ceil($stmt->rowCount() / $dbconfig['gamesperpage']);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetNameidByCategory(:catname);');
+        $stmt->bindParam(':catname', $category);
+        $stmt->execute();
+        return ceil($stmt->rowCount() / $dbconfig['gamesperpage']);
     }
-	public static function getPlayCountTotal() {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetPlaycount_Total();');
-            $stmt->execute();
-            $line = $stmt->fetch();
+    public static function getPlayCountTotal()
+    {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetPlaycount_Total();');
+        $stmt->execute();
+        $line = $stmt->fetch();
         return $line['playcount'];
     }
-	public static function loadRedirect($message, $url = 'refurl') {
+    public static function loadRedirect($message, $url = 'refurl')
+    {
         $dbconfig = Core::getInstance()->getDBConfig();
         if ($url == 'refurl') {
             $url = $_SERVER['HTTP_REFERER'];
@@ -261,16 +285,19 @@ class Core {
         </html><?php
         die();
     }
-	public static function stopDirectAccess(){
+    public static function stopDirectAccess()
+    {
         if (count(get_included_files()) === 1) {
             return http_response_code(403) . die('Direct access not permitted.');
         }
         return true;
     }
-	public static function returnStatusCode($statuscode) {
+    public static function returnStatusCode($statuscode)
+    {
         return http_response_code($statuscode);
     }
-	public static function showCategoryList($categories) {
+    public static function showCategoryList($categories)
+    {
         $i = 0;
         foreach ($categories as $category) {
             ++$i;
@@ -282,11 +309,13 @@ class Core {
             </li><?php
         }
     }
-	public static function getLinkCategory($name = 'all', $page = 1) {
+    public static function getLinkCategory($name = 'all', $page = 1)
+    {
         global $links_arr;
         return str_replace('%page%', $page, str_replace('%name%', $name, $links_arr['category']));
     }
-	public static function showError($text, $glyph = 'ambulance') {
+    public static function showError($text, $glyph = 'ambulance')
+    {
         ?>
         <div class="alert alert-danger" role="alert">
             <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
@@ -294,17 +323,21 @@ class Core {
             <?php echo $text; ?>
         </div><?php
     }
-	public static function showGlyph($glyph, $size = '1x', $hidden = 'true') {
+    public static function showGlyph($glyph, $size = '1x', $hidden = 'true')
+    {
         return "<i class='fa fa-$glyph fa-$size' aria-hidden='$hidden'></i>";
     }
-	public static function showInfo($text, $glyph = 'info') { ?>
+    public static function showInfo($text, $glyph = 'info')
+    {
+        ?>
         <div class="alert alert-info" role="alert">
             <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
             <strong><?php echo gettext('info') ?></strong>
             <?php echo $text; ?>
         </div><?php
     }
-	public static function showSuccess($text, $glyph = 'check') {
+    public static function showSuccess($text, $glyph = 'check')
+    {
         ?>
         <div class="alert alert-success" role="alert">
             <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
@@ -312,34 +345,41 @@ class Core {
             <?php echo $text; ?>
         </div><?php
     }
-	public static function showWarning($text, $glyph = 'warning') { ?>
+    public static function showWarning($text, $glyph = 'warning')
+    {
+        ?>
         <div class="alert alert-warning" role="alert">
             <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
             <strong><?php echo gettext('warning') ?></strong>
             <?php echo $text; ?>
         </div><?php
     }
-    private function __clone() {
+    private function __clone()
+    {
     }
 }
-function load_theme() {
+function load_theme()
+{
     global $config;
     $dbconfig = Core::getInstance()->getDBConfig();
     $config['themeinc'] = INST_DIR . 'plugins/site/themes/' . $dbconfig['theme'] . '/index.php';
 }
-function load_admin_theme() {
+function load_admin_theme()
+{
     global $config;
     define('SITE_URL_ADMIN_THEME', SITE_URL . 'plugins/site/themes/admin/');
     $config['themeinc'] = INST_DIR . 'plugins/site/themes/admin/index.php';
 }
-function is($location) {
+function is($location)
+{
     global $act;
     if ($act == "" || !isset($act)) {
         $act = 'home';
     }
     return $act == $location;
 }
-function preappbase($string) {
+function preappbase($string)
+{
     global $prepend, $append;
     return $string != SITE_URL_ADMIN ? SITE_URL . $prepend . $string . $append : $string;
 }

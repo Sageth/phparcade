@@ -45,6 +45,7 @@ include_once __DIR__ . '/scoresys.php';
                 break;
             case is('register'): ?>
                 <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>" defer></script><?php
+            // no break
             default:
         } ?>
 
@@ -110,10 +111,11 @@ include_once __DIR__ . '/scoresys.php';
         <?php require_once __DIR__ . '/footer.php'; ?>
         <script src="<?php echo JS_JQUERY; ?>" defer></script>
         <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
-        <?php if (true == is('game')) { ?>
+        <?php if (true == is('game')) {
+                    ?>
             <!--suppress JSUnresolvedLibraryURL -->
             <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" defer></script><?php
-        } ?>
+                } ?>
         <script type="application/ld+json" defer>
         {
             "@context":"http://schema.org",

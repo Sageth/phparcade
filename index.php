@@ -3,7 +3,7 @@ require_once __DIR__ . '/cfg.php';
 
 /* Enable debug logging in non-prod */
 $inicfg = Core::getInstance()->getINIConfig();
-if ($inicfg['environment']['state'] === "dev"){
+if ($inicfg['environment']['state'] === "dev") {
     error_reporting(-1);
     ini_set('display_errors', 'On');
 }

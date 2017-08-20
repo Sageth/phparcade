@@ -1,5 +1,6 @@
 <?php
-function pages_links() {
+function pages_links()
+{
     Administrations::addLink(gettext('pages'), 'index.php?act=pages');
 }
 
@@ -8,9 +9,10 @@ Administrations::addSubLink(gettext('manage'), 'index.php?act=pages&mthd=manage'
 /**
  * @param $mthd
  */
-function pages_admin($mthd) {
-	switch ($mthd) {
-		case 'addpage-form': ?>
+function pages_admin($mthd)
+{
+    switch ($mthd) {
+        case 'addpage-form': ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -52,22 +54,23 @@ function pages_admin($mthd) {
 				<input type='hidden' name='mthd' value='addpage-do'/>
 				<?php Pages::getSubmitButton();?>
 			</form><?php
-			break;
-		case 'addpage-do':
-			if (html_entity_decode($_POST['title']) == "" || html_entity_decode($_POST['content']) == "") {
-				Core::showWarning(gettext('allfieldserror'));
-			} else {
-                Pages::pageAdd( null,
-								html_entity_decode($_POST['title']),
-								html_entity_decode($_POST['content']),
-								html_entity_decode($_POST['keywords']),
-								html_entity_decode($_POST['description'])
-				);
-			}
-			break;
-		case 'editpage-form':
-			$page = Pages::getPage($_REQUEST['id']);
-			$code = htmlentities('<?php echo Core::getLinkPage(' . $page['id'] . ');?>', ENT_QUOTES); ?>
+            break;
+        case 'addpage-do':
+            if (html_entity_decode($_POST['title']) == "" || html_entity_decode($_POST['content']) == "") {
+                Core::showWarning(gettext('allfieldserror'));
+            } else {
+                Pages::pageAdd(
+                    null,
+                                html_entity_decode($_POST['title']),
+                                html_entity_decode($_POST['content']),
+                                html_entity_decode($_POST['keywords']),
+                                html_entity_decode($_POST['description'])
+                );
+            }
+            break;
+        case 'editpage-form':
+            $page = Pages::getPage($_REQUEST['id']);
+            $code = htmlentities('<?php echo Core::getLinkPage(' . $page['id'] . ');?>', ENT_QUOTES); ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -129,21 +132,21 @@ function pages_admin($mthd) {
 				<input type='hidden' name='id' value='<?php echo $page['id']; ?>'/>
 				<?php Pages::getSubmitButton();?>
 			</form><?php
-			break;
-		case 'editpage-do':
-			if ($_POST['title'] == "" || $_POST['content'] == "") {
-				Core::showWarning(gettext('allfieldserror'));
-			} else {
-				Pages::pageUpdate($_POST['id'], $_POST['title'], $_POST['content'],$_POST['description'],$_POST['keywords']);
-				Core::showSuccess(gettext('updatesuccess'));
-			}
-			break;
-		case 'delete-do':
-			Pages::pageDelete($_REQUEST['id']);
-			break;
-		default:
-			// case "": and case "manage":
-			$pages = Pages::getPages(); ?>
+            break;
+        case 'editpage-do':
+            if ($_POST['title'] == "" || $_POST['content'] == "") {
+                Core::showWarning(gettext('allfieldserror'));
+            } else {
+                Pages::pageUpdate($_POST['id'], $_POST['title'], $_POST['content'], $_POST['description'], $_POST['keywords']);
+                Core::showSuccess(gettext('updatesuccess'));
+            }
+            break;
+        case 'delete-do':
+            Pages::pageDelete($_REQUEST['id']);
+            break;
+        default:
+            // case "": and case "manage":
+            $pages = Pages::getPages(); ?>
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -160,27 +163,27 @@ function pages_admin($mthd) {
 								</tr>
 								</thead>
 								<tbody><?php
-									foreach ($pages as $page) {
-										if (mb_strlen($page['content']) > 72) {
-											$page['content'] = substr($page['content'], 0, 72) . '...';
-										} ?>
+                                    foreach ($pages as $page) {
+                                        if (mb_strlen($page['content']) > 72) {
+                                            $page['content'] = substr($page['content'], 0, 72) . '...';
+                                        } ?>
 										<tr class="odd gradeA">
 										<td><?php echo $page['title']; ?></td>
 										<td><?php echo $page['content']; ?></td>
 										<td>
-											<?php Pages::getEditButton($page['id'], 'pages', 'editpage-form', gettext('edit'));?>
+											<?php Pages::getEditButton($page['id'], 'pages', 'editpage-form', gettext('edit')); ?>
 											&nbsp;
-											<?php Pages::getDeleteButton($page['id'], 'pages');?>
+											<?php Pages::getDeleteButton($page['id'], 'pages'); ?>
 										</td>
 										</tr><?php
-									} ?>
+                                    } ?>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div><?php
-			break;
+            break;
 
-	}
+    }
 }

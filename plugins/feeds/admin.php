@@ -1,5 +1,6 @@
 <?php
-function feeds_links() {
+function feeds_links()
+{
     Administrations::addLink('Feeds', 'index.php?act=feeds');
 }
 
@@ -7,12 +8,13 @@ Administrations::addSubLink(gettext('configuration'), 'index.php?act=feeds&mthd=
 /**
  * @param $mthd
  */
-function feeds_admin($mthd) {
-	$dbconfig = Core::getInstance()->getDBConfig();
-	switch($mthd){
-		case "":
-		case 'config':
-			$checked = ($dbconfig['rssenabled'] === 'on') ? 'checked' : "";?>
+function feeds_admin($mthd)
+{
+    $dbconfig = Core::getInstance()->getDBConfig();
+    switch ($mthd) {
+        case "":
+        case 'config':
+            $checked = ($dbconfig['rssenabled'] === 'on') ? 'checked' : "";?>
 			<!--suppress HtmlFormInputWithoutLabel -->
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
@@ -60,15 +62,15 @@ function feeds_admin($mthd) {
 				</div>
 				<input type='hidden' name='act' value='feeds'/>
 				<input type='hidden' name='mthd' value='config-do'/><?php
-				Pages::getSubmitButton(); ?>
+                Pages::getSubmitButton(); ?>
 			</form><?php
-			break;
-		case 'config-do':
-			Administrations::updateConfig('rssnumlatest', $_POST['rssnumlatest']);
-			Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');
-			Administrations::updateConfig('rssfeed', $_POST['rssfeed']);
-			Core::showSuccess(gettext('updatesuccess'));
-			break;
-		default:
-	}
+            break;
+        case 'config-do':
+            Administrations::updateConfig('rssnumlatest', $_POST['rssnumlatest']);
+            Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('rssfeed', $_POST['rssfeed']);
+            Core::showSuccess(gettext('updatesuccess'));
+            break;
+        default:
+    }
 }

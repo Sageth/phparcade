@@ -1,10 +1,14 @@
 <?php
 /* Prevent direct access */
-if (count(get_included_files()) === 1) {http_response_code(403);die('Direct access not permitted.');}
+if (count(get_included_files()) === 1) {
+    http_response_code(403);
+    die('Direct access not permitted.');
+}
 
 /* Load Classes before setting the constants */
 spl_autoload_register('phpArcadeClasses');
-function phpArcadeClasses($class_name) {
+function phpArcadeClasses($class_name)
+{
     /** @noinspection PhpIncludeInspection */
     include $_SERVER['DOCUMENT_ROOT'] . '/includes/classes/' . $class_name . '.php';
 }
@@ -27,7 +31,7 @@ date_default_timezone_set('America/New_York');
 
 /* Enable debug logging in non-prod */
 $inicfg = Core::getInstance()->getINIConfig();
-if ($inicfg['environment']['state'] === "dev"){
+if ($inicfg['environment']['state'] === "dev") {
     error_reporting(-1);
     ini_set('display_errors', 'On');
 }

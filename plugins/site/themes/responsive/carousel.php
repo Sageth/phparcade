@@ -1,6 +1,8 @@
 <?php
-if(!isset($_SESSION)){session_start();}
-$games = Games::getGames('all',0,3, '-all-',-1);
+if (!isset($_SESSION)) {
+    session_start();
+}
+$games = Games::getGames('all', 0, 3, '-all-', -1);
 $i = 0; ?>
 <!-- Carousel Section -->
 <div id="main-Carousel" class="carousel slide">
@@ -13,30 +15,32 @@ $i = 0; ?>
 
 	<!-- Wrapper for slides -->
 	<div class="carousel-inner"><?php
-		foreach ($games as $game){
-			++$i;
-			$link = Core::getLinkGame($game['id']);
-			if ($i === 1){ ?>
+        foreach ($games as $game) {
+            ++$i;
+            $link = Core::getLinkGame($game['id']);
+            if ($i === 1) {
+                ?>
 				<div class="item active"><?php
-			} else { ?>
+            } else {
+                ?>
 				<div class="item"><?php
-			}?>
+            } ?>
 			<div class="fill"></div>
 				<div class="carousel-caption">
 					<div class="thumbnail">
 						<div class="caption">
-							<h2><?php echo $game['name'];?></h2>
-							<p><?php echo $game['desc'];?></p>
+							<h2><?php echo $game['name']; ?></h2>
+							<p><?php echo $game['desc']; ?></p>
 							<p>
-								<a href="<?php echo $link;?>" class="btn btn-danger" role="button">
-									<?php echo gettext('playnow');?>
+								<a href="<?php echo $link; ?>" class="btn btn-danger" role="button">
+									<?php echo gettext('playnow'); ?>
 								</a>
 							</p>
 						</div>
 					</div>
 				</div>
 			</div><?php
-		} ?>
+        } ?>
 	</div>
 	<!-- Controls -->
 	<a class="left carousel-control" href="#main-Carousel" data-slide="prev">

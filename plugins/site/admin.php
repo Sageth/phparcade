@@ -1,18 +1,20 @@
 <?php
-function site_links() {
+function site_links()
+{
     Administrations::addLink(gettext('site'), 'index.php?act=site');
 }
 
 Administrations::addSubLink(gettext('mainconfig'), 'index.php?act=site&mthd=site-config', 'site');
 Administrations::addSubLink(gettext('theme'), 'index.php?act=site&mthd=theme-config', 'site');
 Administrations::addSubLink(gettext('socialconfig'), 'index.php?act=site&mthd=social-config', 'site');
-function site_admin($mthd) {
-	$dbconfig = Core::getInstance()->getDBConfig();
-	$prerequisites = Administrations::getPreReqs();
-	$processUser = Administrations::getProcessUser();
-	switch ($mthd) {
-		case "":
-		case 'home': ?>
+function site_admin($mthd)
+{
+    $dbconfig = Core::getInstance()->getDBConfig();
+    $prerequisites = Administrations::getPreReqs();
+    $processUser = Administrations::getProcessUser();
+    switch ($mthd) {
+        case "":
+        case 'home': ?>
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="container-fluid">
@@ -34,14 +36,15 @@ function site_admin($mthd) {
 				</div>
 			</div>
 			<div class="clearfix invisible"></div><?php
-			/* Broken Block */
-			if (Games::getGamesBrokenCount() > 0) { ?>
+            /* Broken Block */
+            if (Games::getGamesBrokenCount() > 0) {
+                ?>
 				<div class="col-lg-2 col-md-6">
 					<div class="panel panel-<?php echo $prerequisites['broken_games'][0]; ?>">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<?php echo Core::showGlyph($prerequisites['broken_games'][1], '5x');?>
+									<?php echo Core::showGlyph($prerequisites['broken_games'][1], '5x'); ?>
 								</div>
 								<div class="col-xs-9 text-right">
 									<div class="huge"><?php echo Games::getGamesBrokenCount(); ?></div>
@@ -52,22 +55,23 @@ function site_admin($mthd) {
 						<a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=viewbroken">
 							<div class="panel-footer">
 								<span class="pull-left"><?php echo gettext('viewdetails'); ?>></span>
-								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right');?></span>
+								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right'); ?></span>
 								<div class="clearfix"></div>
 							</div>
 						</a>
 					</div>
 				</div><?php
-			}
+            }
 
-			/* Inactive Block */
-			if (Games::getGamesInactiveCount() > 0) { ?>
+            /* Inactive Block */
+            if (Games::getGamesInactiveCount() > 0) {
+                ?>
 				<div class="col-lg-2 col-md-6">
 					<div class="panel panel-<?php echo $prerequisites['inactive_games'][0]; ?>">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<?php echo Core::showGlyph($prerequisites['inactive_games'][1], '5x');?>
+									<?php echo Core::showGlyph($prerequisites['inactive_games'][1], '5x'); ?>
 								</div>
 								<div class="col-xs-9 text-right">
 									<div class="huge"><?php echo Games::getGamesInactiveCount(); ?></div>
@@ -78,68 +82,70 @@ function site_admin($mthd) {
 						<a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=inactive">
 							<div class="panel-footer">
 								<span class="pull-left"><?php echo gettext('viewdetails'); ?></span>
-								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right');?></i></span>
+								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right'); ?></i></span>
 								<div class="clearfix"></div>
 							</div>
 						</a>
 					</div>
 				</div><?php
-			}
+            }
 
-			/* SSL Block */
-			if (Administrations::getScheme() === 'http://') { ?>
+            /* SSL Block */
+            if (Administrations::getScheme() === 'http://') {
+                ?>
 				<div class="col-lg-2 col-md-6">
 					<div class="panel panel-<?php echo $prerequisites['ssl'][0]; ?>">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<?php echo Core::showGlyph($prerequisites['ssl'][1], '5x');?>
+									<?php echo Core::showGlyph($prerequisites['ssl'][1], '5x'); ?>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo gettext('ssl');?></div>
+									<div class="huge"><?php echo gettext('ssl'); ?></div>
 								</div>
 							</div>
 						</div>
 						<a href="https://www.cloudflare.com/plans" target="_blank">
 							<div class="panel-footer">
 								<span class="pull-left"><?php echo gettext('viewdetails'); ?></span>
-								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right');?></span>
+								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right'); ?></span>
 								<div class="clearfix"></div>
 							</div>
 						</a>
 					</div>
 				</div><?php
-			}
+            }
 
-			/* Session Block */
-			if ($prerequisites['folder_session'][0] === 'red') { ?>
+            /* Session Block */
+            if ($prerequisites['folder_session'][0] === 'red') {
+                ?>
 				<div class="col-lg-2 col-md-6">
 					<div class="panel panel-<?php echo $prerequisites['folder_session'][0]; ?>">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<?php echo Core::showGlyph($prerequisites['folder_session'][1], '5x');?>
+									<?php echo Core::showGlyph($prerequisites['folder_session'][1], '5x'); ?>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo gettext('sessions');?></div>
+									<div class="huge"><?php echo gettext('sessions'); ?></div>
 									<div><?php echo session_save_path() . ' ' . gettext('unwritable'); ?> </div>
 								</div>
 							</div>
 						</div>
 						<div class="panel-footer">
-							<p><?php echo gettext('solutionchown');?>:</p>
+							<p><?php echo gettext('solutionchown'); ?>:</p>
 							<p>
 								<code>
 									$(which chown) -R <?php echo get_current_user(); ?>:<?php echo $processUser['name'] .
                                                                                                    ' ' . session_save_path(); ?>
 								</code>
 							</p>
-							<p><?php echo gettext('solutionchownwarning');?></p>
+							<p><?php echo gettext('solutionchownwarning'); ?></p>
 						</div>
 						<div class="clearfix"></div>
 					</div>
 				</div><?php
-			} ?>
+            } ?>
 			<div class="col-lg-2">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -158,12 +164,12 @@ function site_admin($mthd) {
 					</div>
 				</div>
 			</div><?php
-			break;
-		case 'logout':
-			Users::userSessionEnd();
-			break;
-		case 'site-config':
-			$checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : ""; ?>
+            break;
+        case 'logout':
+            Users::userSessionEnd();
+            break;
+        case 'site-config':
+            $checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : ""; ?>
 			<form role="form" action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -219,28 +225,28 @@ function site_admin($mthd) {
 							<div class="form-group">
 								<label><?php echo gettext('emaildebug'); ?></label>
 								<select class="form-control" title="Email Debug" name="emaildebug"><?php
-									switch ($dbconfig['emaildebug']) {
-										case 0:?>
+                                    switch ($dbconfig['emaildebug']) {
+                                        case 0:?>
 											<option value='0' selected>0</option>
 											<option value='1'>1</option>
 											<option value='2'>2</option><?php
-											break;
-										case 1:?>
+                                            break;
+                                        case 1:?>
 											<option value='0'>0</option>
 											<option value='1' selected>1</option>
 											<option value='2'>2</option><?php
-											break;
-										case 2:?>
+                                            break;
+                                        case 2:?>
 											<option value='0'>0</option>
 											<option value='1'>1</option>
 											<option value='2' selected>2</option><?php
-											break;
-										default:?>
+                                            break;
+                                        default:?>
 											<option value='ERR' selected>ERROR</option>
 											<option value='0'>0</option>
 											<option value='1'>1</option>
 											<option value='2'>2</option><?php
-									} ?>
+                                    } ?>
 								</select>
 								<p class="help-block"><?php echo gettext('emaildebugexample'); ?></p>
 							</div>
@@ -281,20 +287,20 @@ function site_admin($mthd) {
 				<input type='hidden' name='mthd' value='site-config-do'/>
 				<?php Pages::getSubmitButton(); ?>
 			</form><?php
-			break;
-		case 'site-config-do':
-			Administrations::updateConfig('emaildomain', $_POST['emaildomain']);
-			Administrations::updateConfig('emailhost', $_POST['emailhost']);
-			Administrations::updateConfig('emaildebug', $_POST['emaildebug']);
-			Administrations::updateConfig('emailport', $_POST['emailport']);
-			Administrations::updateConfig('ga_enabled', array_key_exists('ga_enabled', $_POST) ? 'on' : 'off');
-			Administrations::updateConfig('ga_id', $_POST['ga_id']);
-			Administrations::updateConfig('imgurl', $_POST['imgurl']);
-			Administrations::updateConfig('metadesc', $_POST['metadesc']);
-			Administrations::updateConfig('sitetitle', $_POST['sitetitle']);
-			Core::showSuccess(gettext('updatesuccess'));
-			break;
-		case 'theme-config': ?>
+            break;
+        case 'site-config-do':
+            Administrations::updateConfig('emaildomain', $_POST['emaildomain']);
+            Administrations::updateConfig('emailhost', $_POST['emailhost']);
+            Administrations::updateConfig('emaildebug', $_POST['emaildebug']);
+            Administrations::updateConfig('emailport', $_POST['emailport']);
+            Administrations::updateConfig('ga_enabled', array_key_exists('ga_enabled', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('ga_id', $_POST['ga_id']);
+            Administrations::updateConfig('imgurl', $_POST['imgurl']);
+            Administrations::updateConfig('metadesc', $_POST['metadesc']);
+            Administrations::updateConfig('sitetitle', $_POST['sitetitle']);
+            Core::showSuccess(gettext('updatesuccess'));
+            break;
+        case 'theme-config': ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -308,24 +314,24 @@ function site_admin($mthd) {
 									<?php $currenttheme = $dbconfig['theme']; ?>
 									<option value='<?php echo $currenttheme; ?>'><?php echo $currenttheme; ?></option>
 									<?php $dh = opendir(INST_DIR . 'plugins/site/themes/');
-									while (($filename = readdir($dh)) !== false) {
-										if (is_dir(INST_DIR . 'plugins/site/themes/' . $filename)) {
-											$files[] = $filename;
-										}
-									}
-									sort($files);
-									$arr = [];
-									foreach ($files as $file) {
-										if ($file == '.' || $file == '..' || $file == 'admin') {
-										    continue;
+                                    while (($filename = readdir($dh)) !== false) {
+                                        if (is_dir(INST_DIR . 'plugins/site/themes/' . $filename)) {
+                                            $files[] = $filename;
                                         }
-										if ($file[0] != '~') {
-											$arr[] = $file;
-										}
-									}
-									foreach ($arr as $opt) {
-										echo "<option value='" . $opt . "'>" . $opt . '</option>';
-									} ?>
+                                    }
+                                    sort($files);
+                                    $arr = [];
+                                    foreach ($files as $file) {
+                                        if ($file == '.' || $file == '..' || $file == 'admin') {
+                                            continue;
+                                        }
+                                        if ($file[0] != '~') {
+                                            $arr[] = $file;
+                                        }
+                                    }
+                                    foreach ($arr as $opt) {
+                                        echo "<option value='" . $opt . "'>" . $opt . '</option>';
+                                    } ?>
 								</select>
 								<p class="help-block"><?php echo gettext('uploadthemesto');?> <?php echo gettext('themehelp');?></p>
 							</div>
@@ -337,15 +343,15 @@ function site_admin($mthd) {
 					<?php Pages::getSubmitButton(); ?>
 				</div>
 			</form><?php
-			break;
-		case 'theme-config-do':
-			Administrations::updateConfig('themename', $_POST['themename']);
-			Core::showSuccess(gettext('updatesuccess'));
-			break;
-		case 'social-config':
-			$checkeddisqus = ($dbconfig['disqus_on'] === 'on') ? 'checked' : "";
-			$checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
-			$checkedtwittr = ($dbconfig['twitter_on'] === 'on') ? 'checked' : ""; ?>
+            break;
+        case 'theme-config-do':
+            Administrations::updateConfig('themename', $_POST['themename']);
+            Core::showSuccess(gettext('updatesuccess'));
+            break;
+        case 'social-config':
+            $checkeddisqus = ($dbconfig['disqus_on'] === 'on') ? 'checked' : "";
+            $checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
+            $checkedtwittr = ($dbconfig['twitter_on'] === 'on') ? 'checked' : ""; ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -475,20 +481,20 @@ function site_admin($mthd) {
 				<input type='hidden' name='mthd' value='social-config-do' />
 				<?php Pages::getSubmitButton(); ?>
 			</form><?php
-			break;
-		case 'social-config-do':
-			Administrations::updateConfig('disqus_on', array_key_exists('disqus_on', $_POST) ? 'on' : 'off');
-			Administrations::updateConfig('disqus_user', $_POST['disqus_user']);
-			Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
+            break;
+        case 'social-config-do':
+            Administrations::updateConfig('disqus_on', array_key_exists('disqus_on', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('disqus_user', $_POST['disqus_user']);
+            Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
             Administrations::updateConfig('facebook_pageurl', $_POST['facebook_pageurl']);
-			Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
-			Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
-			Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
-			Administrations::updateConfig('twitter_on', array_key_exists('twitter_on', $_POST) ? 'on' : 'off');
-			Administrations::updateConfig('twitter_username', $_POST['twitter_username']);
-			Core::showSuccess(gettext('updatesuccess'));
-			break;
-		default:
-	}
-	unset($prerequisites);
+            Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
+            Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
+            Administrations::updateConfig('twitter_on', array_key_exists('twitter_on', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('twitter_username', $_POST['twitter_username']);
+            Core::showSuccess(gettext('updatesuccess'));
+            break;
+        default:
+    }
+    unset($prerequisites);
 } ?>

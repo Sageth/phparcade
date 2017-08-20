@@ -1,5 +1,7 @@
 <?php
-if(!isset($_SESSION)){session_start();}
+if (!isset($_SESSION)) {
+    session_start();
+}
 $dbconfig = Core::getInstance()->getDBConfig(); ?>
 <div class="col-lg-12">
     <div class="panel panel-info">
@@ -14,7 +16,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
             foreach ($games as $game) {
                 $link = Core::getLinkGame($game['id']);
                 $game['desc'] = mb_strlen($game['desc']) > 120 ? substr($game['desc'], 0, 120) . '...' : $game['desc'];
-                $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];?>
+                $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name']; ?>
                 <div class="col-md-4 col-md-4">
                     <div class="thumbnail">
                         <a href="<?php echo $link; ?>"><?php
@@ -39,7 +41,8 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                     </div>
                 </div><?php
                 ++$i;
-                if ($i == 3) { ?>
+                if ($i == 3) {
+                    ?>
                     <div class="clearfix invisible"></div><?php //Resets boxes
                     $i = 0;
                 }

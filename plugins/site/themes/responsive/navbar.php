@@ -1,4 +1,6 @@
-<?php if(!isset($_SESSION)){session_start();} ?>
+<?php if (!isset($_SESSION)) {
+    session_start();
+} ?>
 <!-- Nav Section -->
 <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 	<div class="container-fluid">
@@ -17,7 +19,8 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right"><?php
-				if (!Users::isUserLoggedIn()) { ?>
+                if (!Users::isUserLoggedIn()) {
+                    ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<?php echo gettext('gamecategories'); ?> <span class="caret"></span>
@@ -28,13 +31,13 @@
 					</li>
 					<li class="active">
 						<a href="<?php
-							echo Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
+                            echo Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
 							<?php echo gettext('login'); ?>
 						</a>
 					</li><?php
-				} else {
-					include_once __DIR__ . '/navbar-dropdown.php';
-				} ?>
+                } else {
+                    include_once __DIR__ . '/navbar-dropdown.php';
+                } ?>
 			</ul>
 			<div class="col-lg-4 navbar-right">
 				<?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
@@ -43,7 +46,7 @@
 				<div class="form-group">
 					<input type="text" name="q" id="q" class="form-control" placeholder="Search">
 				</div>
-				<button type="submit" name="params" value="search" class="btn btn-default"><?php //echo gettext("submit"); ?></button>
+				<button type="submit" name="params" value="search" class="btn btn-default"><?php //echo gettext("submit");?></button>
 			</form>-->
 		</div>
 		<!-- /.navbar-collapse -->

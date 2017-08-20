@@ -80,7 +80,7 @@ global $params; ?>
                     <?php echo Ads::getInstance()->showAds('Responsive'); ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
                     $game['type'] = $game['type'] ?? '';
-                    switch ($game['customcode']) {
+        switch ($game['customcode']) {
                         case null:
                         case '':
                             /** @noinspection MissingOrEmptyGroupStatementInspection */
@@ -153,7 +153,8 @@ global $params; ?>
             </div>
             <!-- End Game Code --><?php
         }
-        if ($dbconfig['disqus_on'] === 'on') { ?>
+        if ($dbconfig['disqus_on'] === 'on') {
+            ?>
             <div class="clearfix invisible"></div>
             <div class="col-lg-12">
                 <div class="panel panel-info">
@@ -166,7 +167,8 @@ global $params; ?>
                 </div>
             </div><?php
         }
-    } else { ?>
+    } else {
+        ?>
         <h1><?php echo gettext('404status'); ?></h1>
         <h2><?php echo gettext('404page'); ?></h2><?php
         Core::returnStatusCode(404);

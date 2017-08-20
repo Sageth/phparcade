@@ -1,6 +1,7 @@
 <?php
-function ads_links() {
-	Administrations::addLink(gettext('ads'), 'index.php?act=ads');
+function ads_links()
+{
+    Administrations::addLink(gettext('ads'), 'index.php?act=ads');
 }
 
 Administrations::addSubLink(gettext('add'), 'index.php?act=ads&mthd=addad-form', 'ads');
@@ -10,9 +11,10 @@ Administrations::addSubLink(gettext('ads-manage'), 'index.php?act=ads&mthd=manag
 /**
  * @param $mthd
  */
-function ads_admin($mthd) {
-	switch($mthd) {
-		case 'addad-form': ?>
+function ads_admin($mthd)
+{
+    switch ($mthd) {
+        case 'addad-form': ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -58,19 +60,19 @@ function ads_admin($mthd) {
 				<input type='hidden' name='mthd' value='addad-do'/>
 				<?php Pages::getSubmitButton(); ?>
 			</form><?php
-			break;
-		case 'addad-do':
-			if ($_POST['name'] == "" || $_POST['code'] == "") {
-				Core::showWarning(gettext('fillallerror'));
-			} else {
-				Ads::insertAd(null,$_POST['name'], $_POST['code'], $_POST['location'],$_POST['advertisername'],$_POST['adcomment']);
-			}
-			break;
-		case 'delete-do':
-			Ads::deleteAd($_REQUEST['id']);
-			break;
-		case 'editad-form':
-			$ad = Ads::getInstance()->getAd($_REQUEST['id']); ?>
+            break;
+        case 'addad-do':
+            if ($_POST['name'] == "" || $_POST['code'] == "") {
+                Core::showWarning(gettext('fillallerror'));
+            } else {
+                Ads::insertAd(null, $_POST['name'], $_POST['code'], $_POST['location'], $_POST['advertisername'], $_POST['adcomment']);
+            }
+            break;
+        case 'delete-do':
+            Ads::deleteAd($_REQUEST['id']);
+            break;
+        case 'editad-form':
+            $ad = Ads::getInstance()->getAd($_REQUEST['id']); ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -121,15 +123,15 @@ function ads_admin($mthd) {
 				<input type='hidden' name='id' value='<?php echo $ad['id']; ?>'/>
 				<?php Pages::getSubmitButton(); ?>
 			</form><?php
-			break;
-		case 'editad-do':
-			if ($_POST['name'] == "" || $_POST['code'] == "") {
-				Core::showWarning(gettext('fillallerror'));
-			} else {
-				Ads::updateAd($_POST['id'],$_POST['name'],$_POST['code'],$_POST['location'],$_POST['advertisername'],$_POST['adcomment']);
-			}
-			break;
-		case 'getcode': ?>
+            break;
+        case 'editad-do':
+            if ($_POST['name'] == "" || $_POST['code'] == "") {
+                Core::showWarning(gettext('fillallerror'));
+            } else {
+                Ads::updateAd($_POST['id'], $_POST['name'], $_POST['code'], $_POST['location'], $_POST['advertisername'], $_POST['adcomment']);
+            }
+            break;
+        case 'getcode': ?>
 			<div class="col-lg-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -137,9 +139,9 @@ function ads_admin($mthd) {
 					</div>
 					<div class="panel-body">
 						<div class="form-group"><?php
-							$ad = Ads::getInstance()->getAd($_REQUEST['id']);
-							$ad['code'] = '<?php echo Ads::getInstance()->showAds("' . $ad['id'] . '");?>';
-							$ad['lcode'] = '<?php echo Ads::getInstance()->showAds("' . $ad['location'] . '");?>'; ?>
+                            $ad = Ads::getInstance()->getAd($_REQUEST['id']);
+                            $ad['code'] = '<?php echo Ads::getInstance()->showAds("' . $ad['id'] . '");?>';
+                            $ad['lcode'] = '<?php echo Ads::getInstance()->showAds("' . $ad['location'] . '");?>'; ?>
 							<label><?php echo gettext('individualadcode'); ?></label>
 							<textarea class="form-control" title="Ad Code" rows="3"><?php echo $ad['code']; ?></textarea>
 							<br/>
@@ -150,10 +152,10 @@ function ads_admin($mthd) {
 					<div class="panel-footer">&nbsp;</div>
 				</div>
 			</div><?php
-			break;
-		case "":
-		case 'manage':
-			$ads = Ads::getInstance()->getAds() ?>
+            break;
+        case "":
+        case 'manage':
+            $ads = Ads::getInstance()->getAds() ?>
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -170,24 +172,24 @@ function ads_admin($mthd) {
 									</tr>
 								</thead>
 								<tbody><?php
-									/* If a page number isn't explicitly passed, assume page 1 */
-									$page = $page ?? 1;
-									foreach ($ads as $ad) {
-										if (mb_strlen($page['code']) > 72) {
-											$page['code'] = substr($page['code'], 0, 72) . '...';
-										} ?>
+                                    /* If a page number isn't explicitly passed, assume page 1 */
+                                    $page = $page ?? 1;
+                                    foreach ($ads as $ad) {
+                                        if (mb_strlen($page['code']) > 72) {
+                                            $page['code'] = substr($page['code'], 0, 72) . '...';
+                                        } ?>
 										<tr class="odd gradeA">
 											<td><?php echo $ad['name']; ?></td>
 											<td><?php echo $ad['location']; ?></td>
 											<td>
-												<?php Pages::getEditButton($ad['id'], 'ads', 'getcode', gettext('getcode'), 'info');?>
+												<?php Pages::getEditButton($ad['id'], 'ads', 'getcode', gettext('getcode'), 'info'); ?>
 												&nbsp;
-												<?php Pages::getEditButton($ad['id'], 'ads', 'editad-form', gettext('edit'));?>
+												<?php Pages::getEditButton($ad['id'], 'ads', 'editad-form', gettext('edit')); ?>
 												&nbsp;
-												<?php Pages::getDeleteButton($ad['id'], 'ads');?>
+												<?php Pages::getDeleteButton($ad['id'], 'ads'); ?>
 											</td>
 										</tr><?php
-									} ?>
+                                    } ?>
 								</tbody>
 							</table>
 						</div>
@@ -195,7 +197,7 @@ function ads_admin($mthd) {
 					<div class="panel-footer">&nbsp;</div>
 				</div>
 			</div><?php
-			break;
-		default:
-	}
+            break;
+        default:
+    }
 } ?>

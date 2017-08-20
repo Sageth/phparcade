@@ -77,41 +77,41 @@
 						<div class="text-uppercase help-block">
 							<?php echo gettext('validemail'); ?>
 						</div><?php
-						$execstatus = $execstatus ?? '';
-						if ($execstatus == 'success') {
+                        $execstatus = $execstatus ?? '';
+                        if ($execstatus == 'success') {
                             /** @noinspection PhpUndefinedVariableInspection */
                             switch ($status) {
-								case '':
-									echo 'eek';
-									break;
-								case 'confirmed':
-									Core::doEvent('register_confirm');
-									Core::showSuccess(gettext('registerconfirm'));
-									break;
-								case 'emailconf':
-									Core::showSuccess(gettext('emailconf'));
-									break;
-								case 'passwordchangedsent':
-									Core::showSuccess(gettext('passwordchangedsent'));
-									break;
-								case 'recoveryemailsent':
-									Core::showSuccess(gettext('recoveryemailsent'));
-									break;
-								case 'emailinvalid':
-									Core::showError(gettext('emailinvaliderror'));
-									break;
-								case 'generic':
-									Core::showError(gettext('genericerror'));
-									break;
-								case 'notallfields':
-									Core::showWarning(gettext('allfieldserror'));
-									break;
-								case 'usertaken':
-									Core::showWarning(gettext('usertaken'));
-									break;
-								default:
-							}
-						} ?>
+                                case '':
+                                    echo 'eek';
+                                    break;
+                                case 'confirmed':
+                                    Core::doEvent('register_confirm');
+                                    Core::showSuccess(gettext('registerconfirm'));
+                                    break;
+                                case 'emailconf':
+                                    Core::showSuccess(gettext('emailconf'));
+                                    break;
+                                case 'passwordchangedsent':
+                                    Core::showSuccess(gettext('passwordchangedsent'));
+                                    break;
+                                case 'recoveryemailsent':
+                                    Core::showSuccess(gettext('recoveryemailsent'));
+                                    break;
+                                case 'emailinvalid':
+                                    Core::showError(gettext('emailinvaliderror'));
+                                    break;
+                                case 'generic':
+                                    Core::showError(gettext('genericerror'));
+                                    break;
+                                case 'notallfields':
+                                    Core::showWarning(gettext('allfieldserror'));
+                                    break;
+                                case 'usertaken':
+                                    Core::showWarning(gettext('usertaken'));
+                                    break;
+                                default:
+                            }
+                        } ?>
 						<div class="input-group">
 							<span class="input-group-addon"><?php echo Core::showGlyph('user', '1x', 'false');?></span>
 							<input type="text" class="form-control" id="username" name="username" placeholder="User name">

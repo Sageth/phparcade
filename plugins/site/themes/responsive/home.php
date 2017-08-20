@@ -1,5 +1,7 @@
 <!--Begin Content Below Carousel --><?php
-if(!isset($_SESSION)){session_start();}
+if (!isset($_SESSION)) {
+    session_start();
+}
 $dbconfig = Core::getInstance()->getDBConfig();
 $i = 0;
 $games = Games::getGamesHomePage();
@@ -31,7 +33,8 @@ foreach ($games as $game) {
         </div>
     </div><?php
     ++$i;
-    if ($i == 4) { ?>
+    if ($i == 4) {
+        ?>
         <div class="clearfix invisible"></div><?php //Resets boxes
         $i = 0;
     }

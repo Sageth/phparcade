@@ -1,5 +1,6 @@
 <?php
-function media_links() {
+function media_links()
+{
     Administrations::addLink(gettext('gamesmedia'), 'index.php?act=media');
 }
 
@@ -12,7 +13,8 @@ Administrations::addSubLink(gettext('managemedia'), 'index.php?act=media&amp;mth
 /**
  * @param $mthd
  */
-function media_admin($mthd) {
+function media_admin($mthd)
+{
     $dbconfig = Core::getInstance()->getDBConfig();
     switch ($mthd) {
         case 'addcat-do':
@@ -108,12 +110,13 @@ function media_admin($mthd) {
                     // TODO: Set up so that json output goes to screen for accurate error message
                     //$json = json_encode(['files' => $files]);
                     //var_dump(json_decode($json,true));
-                    if ($type == 'SWF' && $_FILES['swffile']['error'] == 0) { // 0 Means uploaded without error ?>
+                    if ($type == 'SWF' && $_FILES['swffile']['error'] == 0) { // 0 Means uploaded without error?>
                         <div class="col-md-6 text-left"><?php
                             Core::showSuccess(gettext('uploadsuccess') . ': ' . $swffile); ?>
                         </div>
                         <div class="clearfix invisible"></div><?php
-                    } else { ?>
+                    } else {
+                        ?>
                         <div class="col-md-6 text-left"><?php
                             Core::showError(gettext('uploadfailed') . ': ' . $swffile); ?>
                         </div>
@@ -128,7 +131,7 @@ function media_admin($mthd) {
                     $dimensions = getimagesize($realswf) ?? 0;
                     $gwidth = isset($gwidth) ? $dimensions[0] : $dbconfig['defgwidth'];
                     $gheight = isset($gheight) ? $dimensions[1] : $dbconfig['defgheight'];
-                } else { // If no file was uploaded ?>
+                } else { // If no file was uploaded?>
                     <div class="col-md-6 text-left"><?php
                         Core::showWarning(gettext('noswffile')); ?>
                     </div>
@@ -141,8 +144,12 @@ function media_admin($mthd) {
                 // Image file processing
                 if (!empty($_FILES['imgfile']['name'])) {
                     $realimage = IMG_DIR . $_FILES['imgfile']['name'];
-                    $validator = new FileUpload\Validator\Simple(1024 * 1024 * 10,
-                        ['image/png'], ['image/jpg'], ['image/gif']);  // File upload validations
+                    $validator = new FileUpload\Validator\Simple(
+                        1024 * 1024 * 10,
+                        ['image/png'],
+                        ['image/jpg'],
+                        ['image/gif']
+                    );  // File upload validations
                     $pathresolver = new FileUpload\PathResolver\Simple(IMG_DIR_NOSLASH);     // Upload path
                     $filesystem = new FileUpload\FileSystem\Simple();               // The machine's filesystem
                     $fileupload = new FileUpload\FileUpload($_FILES['imgfile'], $_SERVER);   // FileUploader itself
@@ -181,21 +188,23 @@ function media_admin($mthd) {
                         /* Now we should reorder them all, just to be sure. */
                         Games::updateGameOrder();
                         return;
-                    } catch (Exception $e) { ?>
+                    } catch (Exception $e) {
+                        ?>
                         <div class="col-md-6 text-left"><?php
                             Core::showError(gettext('error') . ' ' . $e->getMessage()); ?>
                         </div>
                         <div class="clearfix invisible"></div><?php
                     }
                     return;
-                } else { //Images are required ?>
+                } else { //Images are required?>
                     <div class="col-md-6 text-left"><?php
                         Core::showError(gettext('selectafileerror')); ?>
                     </div>
                     <div class="clearfix invisible"></div><?php
                     return;
                 }
-            } else { ?>
+            } else {
+                ?>
                 <div class="col-md-6 text-left"><?php
                     Core::showError(gettext('nameiderror')); ?>
                 </div>
@@ -602,7 +611,8 @@ function media_admin($mthd) {
                                 <tr>&nbsp;</tr>
                             </thead>
                             <tbody><?php
-                                foreach ($games as $game) { ?>
+                                foreach ($games as $game) {
+                                    ?>
                                     <tr class="odd gradeA">
                                     <td><?php echo $game['name']; ?></td>
                                     <td>
@@ -643,13 +653,17 @@ function media_admin($mthd) {
                                 </tr>
                             </thead>
                             <tbody><?php
-                                foreach ($games as $game) { ?>
+                                foreach ($games as $game) {
+                                    ?>
                                     <tr class="odd gradeA"><?php
-                                    if ($game['active'] == 'No') { ?>
+                                    if ($game['active'] == 'No') {
+                                        ?>
                                         <td class="warning"><?php echo $game['name']; ?></td><?php
-                                    } elseif ($game['active'] == 'Yes') { ?>
+                                    } elseif ($game['active'] == 'Yes') {
+                                        ?>
                                         <td><?php echo $game['name']; ?></td><?php
-                                    } else { ?>
+                                    } else {
+                                        ?>
                                         <td class="danger"><?php echo $game['name']; ?></td><?php
                                     } ?>
                                     <td><?php echo $game['cat']; ?></td>
@@ -675,7 +689,8 @@ function media_admin($mthd) {
                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example-paginate">
                                     <p><?php echo gettext('pages'); ?></p>
                                     <ul class="pagination"><?php
-                                        for ($i = 0; $i < $pages; ++$i) { ?>
+                                        for ($i = 0; $i < $pages; ++$i) {
+                                            ?>
                                             <li>
                                             <a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&amp;mthd=manage&amp;order=name&amp;cat=<?php echo $cat; ?>&amp;page=<?php echo $i +
                                                                                                                                                                                      1; ?>"
@@ -713,10 +728,11 @@ function media_admin($mthd) {
                                     </tr>
                                 </thead>
                                 <tbody id="sortable"><?php
-                                    foreach ($categories as $category) {?>
-                                        <tr class="odd gradeA" id="rowsort-<?php echo $category['id'];?>">
+                                    foreach ($categories as $category) {
+                                        ?>
+                                        <tr class="odd gradeA" id="rowsort-<?php echo $category['id']; ?>">
                                             <td class="index">
-                                                <?php echo $category['order'];?>
+                                                <?php echo $category['order']; ?>
                                             </td>
                                             <td>
                                                 <a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&amp;mthd=manage&amp;order=name&amp;cat=<?php echo $category['name']; ?>">

@@ -1,24 +1,26 @@
 <?php
-function users_links() {
+function users_links()
+{
     Administrations::addLink(gettext('users'), 'index.php?act=users');
 }
 
 Administrations::addSubLink(gettext('manage'), 'index.php?act=users&mthd=manage', 'users');
 Administrations::addSubLink(gettext('configuration'), 'index.php?act=users&mthd=config-form', 'users');
-function users_admin($mthd) {
-	$dbconfig = Core::getInstance()->getDBConfig();
-	switch($mthd) {
-		case 'config-do':
-			Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');
-			Administrations::updateConfig('emailfrom', $_POST['emailfrom']);
-			Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
-			Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
-			Core::showSuccess(gettext('updatesuccess'));
-			break;
-		case 'config-form':
-			$checkedemailact = ($dbconfig['emailactivation'] === 'on') ? 'checked' : "";
-			$checkedpassrecovery = ($dbconfig['passwordrecovery'] === 'on') ? 'checked' : "";
-			$checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : ""; ?>
+function users_admin($mthd)
+{
+    $dbconfig = Core::getInstance()->getDBConfig();
+    switch ($mthd) {
+        case 'config-do':
+            Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('emailfrom', $_POST['emailfrom']);
+            Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
+            Core::showSuccess(gettext('updatesuccess'));
+            break;
+        case 'config-form':
+            $checkedemailact = ($dbconfig['emailactivation'] === 'on') ? 'checked' : "";
+            $checkedpassrecovery = ($dbconfig['passwordrecovery'] === 'on') ? 'checked' : "";
+            $checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : ""; ?>
 			<form action="<?php echo SITE_URL_ADMIN;?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -88,22 +90,22 @@ function users_admin($mthd) {
 				<input type='hidden' name='mthd' value='config-do'/>
 				<?php Pages::getSubmitButton(); ?>
 			</form><?php
-			break;
-		case 'delete-do':
-			Users::userDelete($_REQUEST['id']);
-			break;
-		case 'edituser-do':
-			$_POST['isadmin'] = array_key_exists('isadmin', $_POST) ? 'on' : 'off';
-			$_POST['active'] = array_key_exists('active', $_POST) ? 'on' : 'off';
-			Users::userEdit($_POST['id']);
-			if ($_POST['password'] != '') {
-				Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
-			}
-			break;
-		case 'edituser-form':
-			$user = Users::getUserbyID($_REQUEST['id']);
-			$useractive = ($user['active'] === 'on' || $user['active'] === 'Yes') ? 'checked' : "";
-			$useradmin = ($user['admin'] === 'on' || $user['admin'] === 'Yes') ? 'checked' : "";?>
+            break;
+        case 'delete-do':
+            Users::userDelete($_REQUEST['id']);
+            break;
+        case 'edituser-do':
+            $_POST['isadmin'] = array_key_exists('isadmin', $_POST) ? 'on' : 'off';
+            $_POST['active'] = array_key_exists('active', $_POST) ? 'on' : 'off';
+            Users::userEdit($_POST['id']);
+            if ($_POST['password'] != '') {
+                Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
+            }
+            break;
+        case 'edituser-form':
+            $user = Users::getUserbyID($_REQUEST['id']);
+            $useractive = ($user['active'] === 'on' || $user['active'] === 'Yes') ? 'checked' : "";
+            $useradmin = ($user['admin'] === 'on' || $user['admin'] === 'Yes') ? 'checked' : "";?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -193,10 +195,10 @@ function users_admin($mthd) {
 				<input type='hidden' name='mthd' value='edituser-do'/>
 				<?php Pages::getSubmitButton(); ?>
 			</form><?php
-			break;
-		case "":
-		case 'manage':
-			$users = Users::getUsersAll(); ?>
+            break;
+        case "":
+        case 'manage':
+            $users = Users::getUsersAll(); ?>
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -212,7 +214,8 @@ function users_admin($mthd) {
 									<th>&nbsp;</th>
 								</thead>
 								<tbody><?php
-									foreach ($users as $user) { ?>
+                                    foreach ($users as $user) {
+                                        ?>
 										<tr class="odd gradeA">
 											<td><?php echo $user['username']; ?></td>
 											<td><?php echo $user['totalgames']; ?></td>
@@ -223,14 +226,14 @@ function users_admin($mthd) {
 												<?php Pages::getDeleteButton($user['id'], 'users'); ?>
 											</td>
 										</tr><?php
-									} ?>
+                                    } ?>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div><?php
-			break;
-		default:
-	}
+            break;
+        default:
+    }
 } ?>

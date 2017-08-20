@@ -1,6 +1,11 @@
 <?php
-if(!isset($_SESSION)){session_start();} else {$user = $_SESSION['user'];}
-if (Users::isUserLoggedIn()) { ?>
+if (!isset($_SESSION)) {
+    session_start();
+} else {
+    $user = $_SESSION['user'];
+}
+if (Users::isUserLoggedIn()) {
+    ?>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <?php echo gettext('gamecategories'); ?> <span class="caret"></span>
@@ -19,7 +24,8 @@ if (Users::isUserLoggedIn()) { ?>
                 <?php /** @noinspection PhpUndefinedVariableInspection */
                 echo $user['name']; ?>
             </li><?php
-            if ($user['admin'] === 'Yes') { ?>
+            if ($user['admin'] === 'Yes') {
+                ?>
                 <li class="divider"></li>
                 <li>
                     <a href="<?php echo SITE_URL_ADMIN; ?>">
