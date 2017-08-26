@@ -109,10 +109,10 @@ include_once __DIR__ . '/scoresys.php';
         <script src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous" defer></script>
         <script src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" defer></script>
         <?php if (true == is('game')) {
-            ?>
+                    ?>
             <!--suppress JSUnresolvedLibraryURL -->
-            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" integrity="<?php echo JS_SWFOBJECT_SRI;?>" crossorigin="anonymous" defer></script><?php
-        } ?>
+            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" integrity="<?php echo JS_SWFOBJECT_SRI; ?>" crossorigin="anonymous" defer></script><?php
+                } ?>
         <script type="application/ld+json" defer>
         {
             "@context":"http://schema.org",
