@@ -38,9 +38,8 @@ class Core
     }
     public static function getAdminGamePageCount()
     {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();');
-        $stmt->execute();
-        return ceil($stmt->rowCount() / 50);
+        mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();')->execute();
+        return ceil(mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();')->rowCount() / 50);
     }
     public static function getCurrentDate()
     {
@@ -364,7 +363,7 @@ class Core
 function load_admin_theme()
 {
     global $config;
-    $config['themeinc'] = INST_DIR . 'plugins/site/themes/admin/index.php';
+    $config['themeinc'] = ADMIN_SITE_THEME_PATH;
 }
 function is($location)
 {
