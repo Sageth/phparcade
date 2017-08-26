@@ -30,7 +30,7 @@ include_once __DIR__ . '/scoresys.php';
         <!-- Run this first so you get your local CSS loaded before external JS -->
         <?php switch (true) {
             case is('home'): ?>
-                <link rel="stylesheet" href="<?php echo SITE_THEME_DIR; ?>css/style.css" /><?php
+                <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>css/style.css" /><?php
                 break;
             case is('game'):
                 /** @noinspection PhpUndefinedVariableInspection */

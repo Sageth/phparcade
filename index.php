@@ -15,4 +15,4 @@ Core::doEvent('theme_display');
 
 /** @noinspection PhpUndefinedVariableInspection */
 /** @noinspection PhpIncludeInspection */
-include $config['themeinc'];
+include SITE_THEME_PATH;

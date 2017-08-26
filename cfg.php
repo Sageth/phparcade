@@ -45,10 +45,12 @@ define('IMG_DIR', INST_DIR . 'img/');
 define('IMG_DIR_NOSLASH', INST_DIR . 'img');
 define('SITE_URL', sprintf('%s://%s/', isset($_SERVER['HTTPS']) &&
                                        $_SERVER['HTTPS'] != 'off' ? 'https' : 'http', $_SERVER['SERVER_NAME']));
+define('ADMIN_THEME_PATH', INST_DIR . 'Zdmin/index.php');
 define('SITE_URL_ADMIN', SITE_URL . 'Zdmin/');
 define('SWF_DIR', INST_DIR . 'swf/');
 define('SWF_URL', SITE_URL . 'swf/');
-define('SITE_THEME_DIR', SITE_URL . 'plugins/site/themes/' . $dbconfig['theme'] . '/');
+define('SITE_THEME_URL', SITE_URL . 'plugins/site/themes/' . $dbconfig['theme'] . '/');
+define('SITE_THEME_PATH', INST_DIR . 'plugins/site/themes/' . $dbconfig['theme'] . '/index.php');
 define('CHARSET', 'UTF-8');
 define('TOP_SCORE_COUNT', 10);
 

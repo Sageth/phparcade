@@ -269,7 +269,7 @@ class Core
             <title><?php echo gettext('redirection'); ?></title>
             <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI; ?>" crossorigin="anonymous"/>
             <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_THEME; ?>" integrity="<?php echo CSS_BOOTSTRAP_THEME_SRI; ?>" crossorigin="anonymous"/>
-            <link rel="stylesheet" href="<?php echo SITE_THEME_DIR; ?>"/>
+            <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>"/>
             <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI; ?>" crossorigin="anonymous"/>
             <meta name="robots" content="noindex,nofollow"/>
             <meta http-equiv="refresh" content="1;URL=<?php echo $url; ?>"/>
@@ -360,12 +360,6 @@ class Core
     private function __clone()
     {
     }
-}
-function load_theme()
-{
-    global $config;
-    $dbconfig = Core::getInstance()->getDBConfig();
-    $config['themeinc'] = INST_DIR . 'plugins/site/themes/' . $dbconfig['theme'] . '/index.php';
 }
 function load_admin_theme()
 {

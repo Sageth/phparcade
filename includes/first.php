@@ -74,7 +74,6 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
     }
     die();
 }
-Core::addAction('load_theme', 'theme_display');
 Core::addAction('load_admin_theme', 'admin_theme_display');
 if ($dbconfig['membersenabled'] === 'on') {
     Core::addAction('register_user_form', 'register_user_form');
