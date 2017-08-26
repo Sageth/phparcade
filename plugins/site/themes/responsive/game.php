@@ -130,7 +130,7 @@ global $params; ?>
                                             <tr class="odd gradeA">
                                             <td><?php echo $i; ?></td>
                                             <td>
-                                                <img src="<?php echo $avatar; ?>"
+                                                <img data-original="<?php echo $avatar; ?>"
                                                      class="img img-responsive img-circle"
                                                      style="float:left"
                                                      height="30"
@@ -190,7 +190,7 @@ global $params; ?>
                         <a href="<?php echo $link; ?>"><?php
                             $img = $dbconfig['imgurl'] . $gamelikethis['nameid'] . '.png'; ?>
                             <img class="img img-responsive img-rounded"
-                                 src="<?php echo $img; ?>"
+                                 data-original="<?php echo $img; ?>"
                                  alt="Play <?php echo $gamelikethis['name']; ?> online for free!"
                                  title="Play <?php echo $gamelikethis['name']; ?> online for free!"
                                  width="<?php echo $dbconfig['twidth']; ?>"
@@ -241,3 +241,6 @@ global $params; ?>
         }
     </script>
 </div>
+<script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
+        crossorigin="anonymous" defer></script>
+<script>new LazyLoad();</script>

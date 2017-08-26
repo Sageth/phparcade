@@ -96,6 +96,10 @@ define('CSS_METISMENU_SRI', 'sha256-OufFdETrXbY5YtILsSTzlY+4Ttmq+hUfR1mMYLmKlWo=
 define('JS_METISMENU', 'https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.js');
 define('JS_METISMENU_SRI', 'sha256-EdeVuolWxmuLTapvaUaXTYIYKTIlhc0nUEGPEMn8MhQ=');
 
+/* CDNJS - v8.0.3 - VANILLA-LAZYLOAD */
+define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.0.3/lazyload.min.js');
+define('JS_LAZYLOAD_SRI', 'sha256-Vd2fw5d0r2jU7TDWtmhCfzsauG213/Ns3xeVcxQPS1o=');
+
 /* CDNJS - v3.3.7+1 SB ADMIN 2 THEME */
 define('CSS_SB_ADMIN_2', 'https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/css/sb-admin-2.min.css');
 define('CSS_SB_ADMIN_2_SRI', 'sha256-WeMGw+d+qR+l2h9TzmC+jTME4zy5zYzG8E6FbPikzeM=');

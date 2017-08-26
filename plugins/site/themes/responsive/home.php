@@ -12,7 +12,7 @@ foreach ($games as $game) {
         <div class="thumbnail">
             <a href="<?php echo $link; ?>">
                 <img class="img img-responsive img-rounded"
-                     src="<?php echo $img; ?>"
+                     data-original="<?php echo $img;?>"
                      alt="Play <?php echo $game['name']; ?> online for free!"
                      title="Play <?php echo $game['name']; ?> online for free!"
                      width="<?php echo $dbconfig['twidth']; ?>"
@@ -39,4 +39,7 @@ foreach ($games as $game) {
         $i = 0;
     }
 } ?>
+<script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
+        crossorigin="anonymous" defer></script>
+<script>new LazyLoad();</script>
 <!--End Content Section -->

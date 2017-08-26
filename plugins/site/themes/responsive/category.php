@@ -35,7 +35,7 @@ $i = 0; ?>
 						<a href="<?php echo $link; ?>"><?php
                             $img = $dbconfig['imgurl'] . $game['nameid'] . '.png'; ?>
 							<img class="img img-responsive img-rounded"
-								 src="<?php echo $img; ?>"
+								 data-original="<?php echo $img; ?>"
 							     alt="Play <?php echo $game['name']; ?> online for free!"
 							     title="Play <?php echo $game['name']; ?> online for free!"
 							     width="<?php echo $dbconfig['twidth']; ?>"
@@ -78,3 +78,6 @@ $i = 0; ?>
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
+        crossorigin="anonymous" defer></script>
+<script>new LazyLoad();</script>
