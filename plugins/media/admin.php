@@ -74,6 +74,7 @@ function media_admin($mthd)
             </form><?php
             break;
         case 'addgame-do':
+            // TODO: Break this up into smaller functions
             $dbconfig = Core::getInstance()->getDBConfig();
             //Check that the game isn't already added
             $gameid =
@@ -172,36 +173,17 @@ function media_admin($mthd)
                     }
 
                     try {
-                        //Load the file and convert to PNG
-                        $img = new \claviska\SimpleImage();
-                        $img
-                            ->fromFile($realimage)
-                            ->resize($dbconfig['twidth'], $dbconfig['theight'])
-                            ->toFile(IMG_DIR . $nameid, 'image/png'); ?>
-                        <div class="col-md-6 text-left"><?php
-                            Core::showSuccess(gettext('uploadsuccess') . ': ' . $_FILES['imgfile']['name']); ?>
-                        </div>
-                        <div class="clearfix invisible"></div><?php
-                        /* Do the actual upload of the game and insert into the database. */
-                        /** @noinspection PhpUndefinedVariableInspection */
-                        Games::addGame(null, $nameid, $gameorder = -1, $gwidth, $gheight, $type, $playcount =
-                            0, $release_date);
-                        /* Now we should reorder them all, just to be sure. */
+                        Games::convertImage($realimage, $nameid);
+                        Games::addGame(null, $nameid, $gameorder = -1, $gwidth, $gheight, $type, $playcount = 0, $release_date);
                         Games::updateGameOrder();
                         return;
                     } catch (Exception $e) {
-                        ?>
-                        <div class="col-md-6 text-left"><?php
-                            Core::showError(gettext('error') . ' ' . $e->getMessage()); ?>
-                        </div>
-                        <div class="clearfix invisible"></div><?php
+                        Core::showError(gettext('error') . ' ' . $e->getMessage());
                     }
                     return;
-                } else { //Images are required?>
-                    <div class="col-md-6 text-left"><?php
-                        Core::showError(gettext('selectafileerror')); ?>
-                    </div>
-                    <div class="clearfix invisible"></div><?php
+                } else {
+                    //Images are required
+                    Core::showError(gettext('selectafileerror'));
                     return;
                 }
             } else {
