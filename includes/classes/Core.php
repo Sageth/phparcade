@@ -364,7 +364,6 @@ class Core
 function load_admin_theme()
 {
     global $config;
-    define('SITE_URL_ADMIN_THEME', SITE_URL . 'plugins/site/themes/admin/');
     $config['themeinc'] = INST_DIR . 'plugins/site/themes/admin/index.php';
 }
 function is($location)
