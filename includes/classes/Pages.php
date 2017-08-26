@@ -8,6 +8,7 @@ class Pages
     private function __construct()
     {
     }
+    /** @noinspection PhpInconsistentReturnPointsInspection */
     public static function getPage($id)
     {
         /* Used to display on the front-end website */
@@ -15,11 +16,10 @@ class Pages
         $stmt->bindParam(':pageid', $id);
         $stmt->execute();
         if ($stmt->rowCount() === 1) {
-            $page = $stmt->fetch();
+            return $stmt->fetch();
         } elseif ($stmt->rowCount() === 0) {
             die(Core::returnStatusCode(404));
         }
-        return $page;
     }
     public static function getPages()
     {

@@ -146,6 +146,7 @@ function media_admin($mthd)
                 if (!empty($_FILES['imgfile']['name'])) {
                     $_FILES['imgfile']['name'] = strtolower($_FILES['imgfile']['name']);
                     $realimage = IMG_DIR . strtolower($_FILES['imgfile']['name']);
+                    /** @noinspection PhpMethodParametersCountMismatchInspection */
                     $validator = new FileUpload\Validator\Simple(
                         1024 * 1024 * 10,
                         ['image/png'],

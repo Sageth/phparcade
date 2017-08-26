@@ -6,6 +6,9 @@
     "phpmailer/phpmailer": "5.*",
     "roave/security-advisories": "dev-master"
   },
+  "require-dev": {
+    "phpmd/phpmd" : "@stable"
+  },
   "config": {
     "optimize-autoloader": true
   }

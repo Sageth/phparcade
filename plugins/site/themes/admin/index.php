@@ -97,15 +97,15 @@ $content = $content ?? ''; ?>
                                     </a>
                                     <ul class="nav nav-second-level"><?php
                                         $snum = count($sublinks[$jstext]);
-                                for ($b = 0; $b < $snum; ++$b) {
-                                    $link = $sublinks[$jstext][$b];
-                                    $href = $sublinkshref[$jstext][$b]; ?>
+                                        for ($b = 0; $b < $snum; ++$b) {
+                                            $link = $sublinks[$jstext][$b];
+                                            $href = $sublinkshref[$jstext][$b]; ?>
                                                 <li>
                                                     <a href="<?php echo $href; ?>">
                                                         <?php echo $link; ?>
                                                     </a>
                                                 </li><?php
-                                } ?>
+                                        } ?>
                                     </ul>
                                 </li><?php
                             } ?>

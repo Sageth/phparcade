@@ -40,6 +40,7 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
                 $array = Games::getGames('all', 0, $dbconfig['rssnumlatest'], '-all-', -1);
             }
             echo "<?xml version='1.0' encoding='UTF-8' ?>"; ?>
+            <!--suppress HtmlExtraClosingTag -->
             <rss version="2.0" xmlns="http://purl.org/rss/1.0/modules/content/"
                  xmlns:atom="http://www.w3.org/2005/Atom"
             >

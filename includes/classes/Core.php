@@ -49,7 +49,8 @@ class Core
     public static function getFlashModal()
     {
         ?>
-        <div id="myModal" class="modal fade">
+        <!--suppress ALL -->
+<div id="myModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -261,6 +262,7 @@ class Core
         } ?>
         <html lang="en" xmlns="https://www.w3.org/1999/xhtml">
         <head>
+            <!--suppress RequiredAttributes, HtmlUnknownAttribute -->
             <meta charset="<?php echo CHARSET; ?>">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title><?php echo gettext('redirection'); ?></title>
