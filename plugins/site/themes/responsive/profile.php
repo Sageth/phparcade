@@ -128,7 +128,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                         <p>
                                             <a href="<?php echo $link; ?>"
                                                class="btn btn-primary btn-lg btn-block"
-                                               role="button">
+                                            >
                                                 <?php echo gettext('playnow'); ?>
                                             </a>
                                         </p>
@@ -183,11 +183,13 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <label for="id"><?php echo gettext('ID'); ?></label>
-                                        <input class="form-control" type="text" title="id" name="id" value="<?php echo $user['id']; ?>" readonly />
+                                        <input class="form-control"
+                                               title="id" name="id" value="<?php echo $user['id']; ?>" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label for="username"><?php echo gettext('username'); ?></label>
-                                        <input class="form-control" type="text" title="username" name="username" value="<?php echo $user['username']; ?>" readonly />
+                                        <input class="form-control"
+                                               title="username" name="username" value="<?php echo $user['username']; ?>" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label for="email"><?php echo gettext('email'); ?></label>
@@ -195,7 +197,8 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="birth_date"><?php echo gettext('datebirth'); ?></label>
-                                        <input class="form-control" type="text" title="<?php echo gettext('datebirth'); ?>" name="birth_date" placeholder="<?php echo $user['birth_date']; ?>" disabled />
+                                        <input class="form-control"
+                                               title="<?php echo gettext('datebirth'); ?>" name="birth_date" placeholder="<?php echo $user['birth_date']; ?>" disabled />
                                     </div>
                                     <div class="form-group">
                                         <label for="email"><?php echo gettext('password'); ?></label>
@@ -228,31 +231,33 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <label for="aim"><?php echo gettext('aim'); ?></label>
-                                        <input class="form-control" type='text' title="<?php echo gettext('aim'); ?>" name='aim' value='<?php echo $user['aim']; ?>'/>
+                                        <input class="form-control"
+                                               title="<?php echo gettext('aim'); ?>" name='aim' value='<?php echo $user['aim']; ?>'/>
                                     </div>
                                     <div class="form-group">
                                         <label for="msn"><?php echo gettext('msn'); ?></label>
-                                        <input class="form-control" type='text' title="<?php echo gettext('msn'); ?>" name='msn' value='<?php echo $user['msn']; ?>'/>
+                                        <input class="form-control"
+                                               title="<?php echo gettext('msn'); ?>" name='msn' value='<?php echo $user['msn']; ?>'/>
                                     </div>
                                     <div class="form-group">
                                         <label for="facebook_id"><?php echo gettext('facebook'); ?></label>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><?php echo gettext('facebook_link'); ?></span>
-                                            <input type="text" class="form-control" placeholder="Friendly Name" name="facebook_id" value="<?php echo $user['facebook_id']; ?>" />
+                                            <input class="form-control" placeholder="Friendly Name" name="facebook_id" value="<?php echo $user['facebook_id']; ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="github"><?php echo gettext('github_id'); ?></label>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><?php echo gettext('github_link'); ?></span>
-                                            <input type="text" class="form-control" placeholder="Friendly Name" name="github_id" value="<?php echo $user['github_id']; ?>" />
+                                            <input class="form-control" placeholder="Friendly Name" name="github_id" value="<?php echo $user['github_id']; ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="twitter"><?php echo gettext('twitter'); ?></label>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><?php echo gettext('twitter_link'); ?></span>
-                                            <input type="text" class="form-control" placeholder="Friendly Name" name="twitter_id" value="<?php echo $user['twitter_id']; ?>" />
+                                            <input class="form-control" placeholder="Friendly Name" name="twitter_id" value="<?php echo $user['twitter_id']; ?>" />
                                         </div>
                                     </div>
                                 </div>
@@ -260,7 +265,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                             </div>
                         </div>
                         <input type='hidden' name='params' value='profile/edit/editdone'/>
-                        <button type='submit' class='btn btn-primary' value='<?php echo gettext('profileedit'); ?>'>
+                        <button class='btn btn-primary' value='<?php echo gettext('profileedit'); ?>'>
                             <?php echo gettext('submit'); ?>
                         </button>
                     </form><?php

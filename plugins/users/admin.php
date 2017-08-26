@@ -79,7 +79,7 @@ function users_admin($mthd)
 							<div class="form-group">
 								<label>
 									<?php echo gettext('emailaddressfrom'); ?>
-									<input class="form-control" type='text' name='emailfrom' value='<?php echo $dbconfig['emailfrom']; ?>'/>
+									<input class="form-control" name='emailfrom' value='<?php echo $dbconfig['emailfrom']; ?>'/>
 								</label>
 							</div>
 						</div>
@@ -116,19 +116,19 @@ function users_admin($mthd)
 							<div class="form-group">
 								<label>
 									<?php echo gettext('username'); ?>
-									<input class="form-control" type='text' name='username' value='<?php echo $user['username']; ?>'/>
+									<input class="form-control" name='username' value='<?php echo $user['username']; ?>'/>
 								</label>
 							</div>
 							<div class="form-group">
 								<label>
 									<?php echo gettext('email'); ?>
-									<input class="form-control" type='text' name='email' value='<?php echo $user['email']; ?>'/>
+									<input class="form-control" name='email' value='<?php echo $user['email']; ?>'/>
 								</label>
 							</div>
 							<div class="form-group">
 								<label>
 									<?php echo gettext('password'); ?> (<?php echo gettext('blank'); ?>)
-									<input class="form-control" type='text' name='password' value=''/>
+									<input class="form-control" name='password' value=''/>
 								</label>
 							</div>
 							<div class="form-group">
@@ -165,25 +165,26 @@ function users_admin($mthd)
 							<div class="form-group">
 								<label>
 									<?php echo gettext('gamesplayed');?>
-									<input disabled class="form-control" type='text' name='totalgames' value='<?php echo $user['totalgames']; ?>' />
+									<input disabled class="form-control"
+                                           name='totalgames' value='<?php echo $user['totalgames']; ?>' />
 								</label>
 							</div>
 							<div class="form-group">
 								<label>
 									<?php echo gettext('aim');?>
-									<input class="form-control" type='text' name='aim' value='<?php echo $user['aim'];?>'/>
+									<input class="form-control" name='aim' value='<?php echo $user['aim'];?>'/>
 								</label>
 							</div>
 							<div class="form-group">
 								<label>
 									<?php echo gettext('msn');?> <?php echo gettext('messenger');?>
-									<input class="form-control" type='text' name='msn' value='<?php echo $user['msn'];?>'/>
+									<input class="form-control" name='msn' value='<?php echo $user['msn'];?>'/>
 								</label>
 							</div>
 							<div class="form-group">
 								<label>
 									<?php echo gettext('twitter'); ?>
-									<input class="form-control" type='text' name='twitter_id' value='<?php echo $user['twitter_id']; ?>'/>
+									<input class="form-control" name='twitter_id' value='<?php echo $user['twitter_id']; ?>'/>
 								</label>
 							</div>
 						</div>

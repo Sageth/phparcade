@@ -24,7 +24,7 @@ function ads_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<label><?php echo gettext('name'); ?></label>
-								<input class="form-control" title="Name" type="text" name="name"/>
+								<input class="form-control" title="Name" name="name"/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('adcode'); ?></label>
@@ -42,11 +42,11 @@ function ads_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<label><?php echo gettext('location'); ?></label>
-								<input class="form-control" title="Location" type='text' name='location'/>
+								<input class="form-control" title="Location" name='location'/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('advertiser'); ?></label>
-								<input class="form-control" title="Advertiser Name" type='text' name='advertisername'/>
+								<input class="form-control" title="Advertiser Name" name='advertisername'/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('comments'); ?></label>
@@ -82,7 +82,7 @@ function ads_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<label><?php echo gettext('name'); ?></label>
-								<input class="form-control" title="Ad Name" type='text' name='name' value="<?php echo $ad['name']; ?>"/>
+								<input class="form-control" title="Ad Name" name='name' value="<?php echo $ad['name']; ?>"/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('adcode'); ?></label>
@@ -102,12 +102,13 @@ function ads_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<label><?php echo gettext('location'); ?></label>
-								<input class="form-control" title="Location" type='text' name='location' value="<?php echo $ad['location']; ?>"/>
+								<input class="form-control" title="Location"
+                                       name='location' value="<?php echo $ad['location']; ?>"/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('advertiser'); ?></label>
-								<input class="form-control" title="Advertiser" type='text' name='advertisername'
-								       value="<?php echo $ad['advertisername']; ?>"/>
+								<input class="form-control" title="Advertiser" name='advertisername'
+                                       value="<?php echo $ad['advertisername']; ?>"/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('comments'); ?></label>

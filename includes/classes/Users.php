@@ -90,11 +90,11 @@ class Users
         <form action='<?php echo SITE_URL; ?>' method='post'><br/>
             <?php echo gettext('username'); ?>:<br/>
             <label>
-                <input type='text' name='username' id="username"/>
+                <input name='username' id="username"/>
             </label><br/><br/>
             <?php echo gettext('email'); ?><br/>
             <label>
-                <input type='text' name='email' id="email"/><br/>
+                <input name='email' id="email"/><br/>
             </label><br/><br/>
             <input type='submit' value='<?php echo gettext('submit'); ?>' alt='submit'/>
             <input type='hidden' name='params' value='login/recover/do' alt='recover'/>

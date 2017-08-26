@@ -31,8 +31,8 @@
 					      method="post">
 						<div class="input-group">
 							<span class="input-group-addon"><?php echo Core::showGlyph('user', '1x', 'false');?></span>
-							<input type="text" class="form-control" id="username" name="username"
-							       placeholder="User name">
+							<input class="form-control" id="username" name="username"
+                                   placeholder="User name">
 						</div>
 						<span class="help-block"></span>
 						<div class="input-group">
@@ -40,7 +40,7 @@
 							<input type="password" class="form-control" name="password" placeholder="Password">
 						</div>
 						<span class="help-block"></span>
-						<button class="btn btn-lg btn-primary btn-block" name="params" type="submit" value="login/login">
+						<button class="btn btn-lg btn-primary btn-block" name="params" value="login/login">
 							<?php echo gettext('login'); ?>
 						</button>
 					</form>
@@ -55,7 +55,7 @@
 					<form class="omb_loginForm" autocomplete="off" action="<?php echo SITE_URL; ?>" method="post">
 						<div class="input-group">
 							<span class="input-group-addon"><?php echo Core::showGlyph('user', '1x', 'false');?></span>
-							<input type="text" class="form-control" id="username" name="username" placeholder="User name">
+							<input class="form-control" id="username" name="username" placeholder="User name">
 						</div>
 						<span class="help-block"></span>
 						<div class="input-group">
@@ -63,7 +63,7 @@
 							<input type="email" class="form-control" name="email" placeholder="Email Address">
 						</div>
 						<span class="help-block">&nbsp;</span>
-						<button class="btn btn-lg btn-primary btn-block" name="params" type="submit" value="login/recover/do">
+						<button class="btn btn-lg btn-primary btn-block" name="params" value="login/recover/do">
 							<?php echo gettext('recoverpassword'); ?>
 						</button>
 					</form>
@@ -114,7 +114,7 @@
                         } ?>
 						<div class="input-group">
 							<span class="input-group-addon"><?php echo Core::showGlyph('user', '1x', 'false');?></span>
-							<input type="text" class="form-control" id="username" name="username" placeholder="User name">
+							<input class="form-control" id="username" name="username" placeholder="User name">
 						</div>
 						<span class="help-block"></span>
 						<div class="input-group">
@@ -127,7 +127,7 @@
 
                         <!-- CloudFlare Server-side Exclude hides the registration button for suspicious visitors -->
                         <!--sse-->
-						<button class="btn btn-lg btn-primary btn-block" name="params" type="submit" value="register/regdone">
+						<button class="btn btn-lg btn-primary btn-block" name="params" value="register/regdone">
 							<?php echo gettext('register'); ?>
 						</button>
                         <!--/sse-->

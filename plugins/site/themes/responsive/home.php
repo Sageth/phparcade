@@ -25,7 +25,7 @@ foreach ($games as $game) {
                     <?php echo $game['desc']; ?>
                 </p>
                 <p>
-                    <a href="<?php echo $link; ?>" class="btn btn-primary" role="button">
+                    <a href="<?php echo $link; ?>" class="btn btn-primary">
                         <?php echo gettext('playnow'); ?>
                     </a>
                 </p>

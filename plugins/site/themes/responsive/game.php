@@ -202,7 +202,7 @@ global $params; ?>
                                 <h3><?php echo $gamelikethis['name']; ?></h3>
                                 <p><?php echo $gamelikethis['desc']; ?></p>
                                 <p>
-                                    <a href="<?php echo $link; ?>" class="btn btn-primary" role="button">
+                                    <a href="<?php echo $link; ?>" class="btn btn-primary">
                                         <?php echo gettext('playnow'); ?>
                                     </a>
                                 </p>

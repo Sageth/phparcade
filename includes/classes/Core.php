@@ -218,6 +218,7 @@ class Core
                 $metadata['metapagedesc'] = $dbconfig['metadesc'];
                 $metadata['metapagekeywords'] = $dbconfig['metakey'];
         }
+        /** @noinspection PhpUndefinedVariableInspection */
         return $metadata;
     }
     public static function getDBConfig()

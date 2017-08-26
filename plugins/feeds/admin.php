@@ -38,8 +38,8 @@ function feeds_admin($mthd)
 									<div class="form-group form-inline">
 										<?php echo Core::showGlyph('asterisk');?>
 										<label><?php echo gettext('numlatest'); ?></label>
-										<input class="form-control" type='text' name='rssnumlatest'
-										       value='<?php echo $dbconfig['rssnumlatest']; ?>'/>
+										<input class="form-control" name='rssnumlatest'
+                                               value='<?php echo $dbconfig['rssnumlatest']; ?>'/>
 									</div>
 								</div>
 							</div>
@@ -49,8 +49,8 @@ function feeds_admin($mthd)
 									<div class="form-group">
 										<?php echo Core::showGlyph('link');?>
 										<label><?php echo gettext('rssfeedurl'); ?></label>
-										<input class="form-control" type='text' name='rssfeed'
-										       value='<?php echo $dbconfig['rssfeed']; ?>'/>
+										<input class="form-control" name='rssfeed'
+                                               value='<?php echo $dbconfig['rssfeed']; ?>'/>
 										<p class="help-block"><?php echo gettext('rssfeedexample1'); ?></p>
 										<p class="help-block"><?php echo gettext('rssfeedexample2'); ?></p>
 									</div>

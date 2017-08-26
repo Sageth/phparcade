@@ -33,7 +33,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                             <h3><?php echo $game['name']; ?></h3>
                             <p><?php echo $game['desc']; ?></p>
                             <p>
-                                <a href="<?php echo $link; ?>" class="btn btn-primary btn-lg btn-block" role="button">
+                                <a href="<?php echo $link; ?>" class="btn btn-primary btn-lg btn-block">
                                     <?php echo gettext('playnow'); ?>
                                 </a>
                             </p>

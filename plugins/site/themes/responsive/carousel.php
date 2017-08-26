@@ -32,7 +32,7 @@ $i = 0; ?>
 							<h2><?php echo $game['name']; ?></h2>
 							<p><?php echo $game['desc']; ?></p>
 							<p>
-								<a href="<?php echo $link; ?>" class="btn btn-danger" role="button">
+								<a href="<?php echo $link; ?>" class="btn btn-danger">
 									<?php echo gettext('playnow'); ?>
 								</a>
 							</p>

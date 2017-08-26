@@ -35,7 +35,7 @@ function media_admin($mthd)
                         <div class="panel-body">
                             <div class="form-group">
                                 <label><?php echo gettext('name'); ?></label>
-                                <input class="form-control" title='name' type='text' name='name'/>
+                                <input class="form-control" title='name' name='name'/>
                             </div>
                         </div>
                         <div class="panel-footer">&nbsp;</div>
@@ -49,7 +49,7 @@ function media_admin($mthd)
                         <div class="panel-body">
                             <div class="form-group">
                                 <label><?php echo gettext('type'); ?></label>
-                                <input class="form-control" title="type" type='text' name='type' value='Games'/>
+                                <input class="form-control" title="type" name='type' value='Games'/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('description'); ?></label>
@@ -302,12 +302,12 @@ function media_admin($mthd)
                         <div class="panel-body">
                             <div class="form-group">
                                 <label><?php echo gettext('width'); ?></label>
-                                <input class="form-control" title="Thumbnail Width" type='text' name='twidth'
+                                <input class="form-control" title="Thumbnail Width" name='twidth'
                                        value='<?php echo $dbconfig['twidth']; ?>'/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('height'); ?></label>
-                                <input class="form-control" title="Thumbnail Height" type='text' name='theight'
+                                <input class="form-control" title="Thumbnail Height" name='theight'
                                        value='<?php echo $dbconfig['theight']; ?>'/>
                             </div>
                         </div>
@@ -322,12 +322,12 @@ function media_admin($mthd)
                         <div class="panel-body">
                             <div class="form-group">
                                 <label><?php echo gettext('defaultwidth'); ?></label>
-                                <input class="form-control" title="Default Game Width" type='text' name='defgwidth'
+                                <input class="form-control" title="Default Game Width" name='defgwidth'
                                        value='<?php echo $dbconfig['defgwidth']; ?>'/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('defaultheight'); ?></label>
-                                <input class="form-control" title="Default Game Height" type='text' name='defgheight'
+                                <input class="form-control" title="Default Game Height" name='defgheight'
                                        value='<?php echo $dbconfig['defgheight']; ?>'/>
                             </div>
                         </div>
@@ -342,7 +342,7 @@ function media_admin($mthd)
                         <div class="panel-body">
                             <div class="form-group">
                                 <label><?php echo gettext('orderby'); ?></label>
-                                <input class="form-control" title="Order" type='text' name='order'
+                                <input class="form-control" title="Order" name='order'
                                        value='<?php echo $dbconfig['order']; ?>'/>
                             </div>
                             <div class="form-group">
@@ -410,7 +410,7 @@ function media_admin($mthd)
                         <div class="panel-body">
                             <div class="form-group">
                                 <label><?php echo gettext('name'); ?></label>
-                                <input class="form-control" title="Name" type='text' name='name'
+                                <input class="form-control" title="Name" name='name'
                                        value='<?php echo $category['name']; ?>'/>
                             </div>
                         </div>
@@ -423,7 +423,7 @@ function media_admin($mthd)
                         <div class="panel-body">
                             <div class="form-group">
                                 <label><?php echo gettext('type'); ?></label>
-                                <input class="form-control" title="Type" type='text' name='type'
+                                <input class="form-control" title="Type" name='type'
                                        value='<?php echo $category['type']; ?>'/>
                             </div>
                             <div class="form-group">
@@ -467,20 +467,19 @@ function media_admin($mthd)
                         <div class="panel-body">
                             <div class="form-group">
                                 <label><?php echo gettext('nameoffiles'); ?></label>
-                                <input class="form-control" title="Name of Files" type='text' name='nameid'
+                                <input class="form-control" title="Name of Files" name='nameid'
                                        value='<?php echo $game['nameid']; ?>'/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('name'); ?></label>
                                 <input class="form-control"
                                        title="Game Name"
-                                       type='text'
                                        name='name'
                                        value='<?php echo $game['name']; ?>'/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('release_date'); ?></label>
-                                <input class="form-control" title="Release Date" type='text' name='release_date'
+                                <input class="form-control" title="Release Date" name='release_date'
                                        value='<?php echo date('Y-m-d', $game['release_date']); ?>'/>
                                 <p class="help-block"><?php echo gettext('dateformat'); ?></p>
                             </div>
@@ -518,13 +517,12 @@ function media_admin($mthd)
                                 <label><?php echo gettext('width'); ?></label>
                                 <input class="form-control"
                                        title="Width"
-                                       type='text'
                                        name='width'
                                        value='<?php echo $game['width']; ?>'/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('height'); ?></label>
-                                <input class="form-control" title="Height" type='text' name='height'
+                                <input class="form-control" title="Height" name='height'
                                        value='<?php echo $game['height']; ?>'/>
                             </div>
                         </div>
@@ -665,7 +663,7 @@ function media_admin($mthd)
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="dataTables_info" id="dataTables-example_info" role="alert"
-                                     aria-live="polite" aria-relevant="all">
+                                     aria-live="polite">
                                     <p>Showing <?php echo $_GET['page']; ?> of <?php echo $pages; ?> pages</p>
                                 </div>
                             </div>

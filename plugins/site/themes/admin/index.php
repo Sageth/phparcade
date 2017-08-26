@@ -17,16 +17,21 @@ $content = $content ?? ''; ?>
             echo gettext('logo');
             echo gettext('admin'); ?>
         </title>
+        <!--suppress XmlDefaultAttributeValue -->
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"/>
+        <!--suppress XmlDefaultAttributeValue -->
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo CSS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous"/>
+        <!--suppress XmlDefaultAttributeValue -->
         <link rel="stylesheet" href="<?php echo CSS_METISMENU; ?>" integrity="<?php echo CSS_METISMENU_SRI;?>" crossorigin="anonymous"/>
+        <!--suppress XmlDefaultAttributeValue -->
         <link rel="stylesheet" href="<?php echo CSS_SB_ADMIN_2; ?>" integrity="<?php echo CSS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous"/>
+        <!--suppress XmlDefaultAttributeValue -->
         <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
     </head>
     <body>
         <div class="container-fluid">
             <!-- Navigation -->
-            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
+            <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -63,7 +68,7 @@ $content = $content ?? ''; ?>
                             <li class="sidebar-search">
                                 <fieldset disabled>
                                     <div class="input-group custom-search-form">
-                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <input class="form-control" placeholder="Search...">
                                         <span class="input-group-btn">
 											<button class="btn btn-default" type="button">
 												<?php echo Core::showGlyph('search'); ?>
@@ -124,12 +129,18 @@ $content = $content ?? ''; ?>
                 </div>
             </div><!-- /#page-wrapper -->
         </div><!-- /#wrapper -->
+        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous" defer></script>
+        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_JQUERY_UI; ?>" integrity="<?php echo JS_JQUERY_UI_SRI;?>" crossorigin="anonymous" defer></script>
         <script src="<?php echo JS_TABLESORT; ?>" defer></script>
-        <script src="<?php echo JS_BOOTSTRAP; ?>"  integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" defer></script>
+        <!--suppress XmlDefaultAttributeValue -->
+        <script src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" defer></script>
+        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous" defer></script>
+        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_METISMENU; ?>" integrity="<?php echo JS_METISMENU_SRI;?>" crossorigin="anonymous" defer></script>
+        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_SB_ADMIN_2; ?>" integrity="<?php echo JS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous" defer></script>
     </body>
 </html>

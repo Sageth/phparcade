@@ -170,7 +170,7 @@ function site_admin($mthd)
             break;
         case 'site-config':
             $checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : ""; ?>
-			<form role="form" action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
+			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -179,14 +179,14 @@ function site_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<label><?php echo gettext('imgurl'); ?></label>
-								<input class="form-control" title="Image URL" type='text' name='imgurl'
-								       value='<?php echo $dbconfig['imgurl']; ?>'/>
+								<input class="form-control" title="Image URL" name='imgurl'
+                                       value='<?php echo $dbconfig['imgurl']; ?>'/>
 								<p class="help-block"><?php echo gettext('trailingslash') . gettext('imgurlexample'); ?></p>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('sitetitle'); ?></label>
-								<input class="form-control" title="Site Title" type='text' name='sitetitle'
-								       value='<?php echo $dbconfig['sitetitle']; ?>'/>
+								<input class="form-control" title="Site Title" name='sitetitle'
+                                       value='<?php echo $dbconfig['sitetitle']; ?>'/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('metadescription'); ?></label>
@@ -205,20 +205,20 @@ function site_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<label><?php echo gettext('emaildomain'); ?></label>
-								<input class="form-control" title="email domain" type='text' name='emaildomain'
-								       value='<?php echo $dbconfig['emaildomain']; ?>'/>
+								<input class="form-control" title="email domain" name='emaildomain'
+                                       value='<?php echo $dbconfig['emaildomain']; ?>'/>
 								<p class="help-block"><?php echo gettext('domainhelper'); ?></p>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('emailhost'); ?></label>
-								<input class="form-control" title="email host" type='text' name='emailhost'
-								       value='<?php echo $dbconfig['emailhost']; ?>'/>
+								<input class="form-control" title="email host" name='emailhost'
+                                       value='<?php echo $dbconfig['emailhost']; ?>'/>
 								<p class="help-block"><?php echo gettext('emailhostexample'); ?></p>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('emailport'); ?>
-									<input class="form-control" title="email port" type='text' name='emailport'
-									       value='<?php echo $dbconfig['emailport']; ?>'/>
+									<input class="form-control" title="email port" name='emailport'
+                                           value='<?php echo $dbconfig['emailport']; ?>'/>
 								</label>
 								<p class="help-block"><?php echo gettext('emailportexample'); ?></p>
 							</div>
@@ -276,8 +276,8 @@ function site_admin($mthd)
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('ga_id'); ?></label>
-								<input class="form-control" title="Google Analytics Code" type='text' name='ga_id'
-								       value='<?php echo $dbconfig['ga_id']; ?>'/>
+								<input class="form-control" title="Google Analytics Code" name='ga_id'
+                                       value='<?php echo $dbconfig['ga_id']; ?>'/>
 							</div>
 						</div>
 						<div class="panel-footer">&nbsp;</div>
@@ -374,8 +374,8 @@ function site_admin($mthd)
 							<hr/>
 							<div class="form-group">
 								<label><?php echo gettext('disqus_user'); ?></label>
-								<input class="form-control" title="Disqus User" type='text' name='disqus_user'
-								       value='<?php echo $dbconfig['disqus_user']; ?>'/>
+								<input class="form-control" title="Disqus User" name='disqus_user'
+                                       value='<?php echo $dbconfig['disqus_user']; ?>'/>
 							</div>
 						</div>
 						<div class="panel-footer">&nbsp;</div>
@@ -402,15 +402,15 @@ function site_admin($mthd)
 							<hr/>
 							<div class="form-group">
 								<label><?php echo gettext('facebook_appid'); ?></label>
-								<input class="form-control" title="Facebook App ID" type='text' name='facebook_appid'
-								       value='<?php echo $dbconfig['facebook_appid']; ?>'/>
+								<input class="form-control" title="Facebook App ID" name='facebook_appid'
+                                       value='<?php echo $dbconfig['facebook_appid']; ?>'/>
 								<p class="help-block"><?php echo gettext('facebook_developers'); ?></p>
 							</div>
 							<hr/>
 							<div class="form-group">
 								<label><?php echo gettext('facebook_pageurl'); ?></label>
-								<input class="form-control" title="Facebook Page URL" type='text' name="facebook_pageurl"
-								       value="<?php echo $dbconfig['facebook_pageurl']; ?>"/>
+								<input class="form-control" title="Facebook Page URL" name="facebook_pageurl"
+                                       value="<?php echo $dbconfig['facebook_pageurl']; ?>"/>
 							</div>
 						</div>
 						<div class="panel-footer">&nbsp;</div>
@@ -439,8 +439,8 @@ function site_admin($mthd)
 								<label><?php echo gettext('twitter_id'); ?></label>
 								<div class="form-group input-group">
 									<span class="input-group-addon">@</span>
-									<input type="text"
-									       class="form-control"
+									<input
+                                            class="form-control"
 									       placeholder="Username"
 									       name="twitter_username"
 									       value="<?php echo $dbconfig['twitter_username']; ?>"
@@ -462,7 +462,8 @@ function site_admin($mthd)
 									<div class="col-md-12">
 										<?php echo Core::showGlyph('database');?>
 										<label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
-										<input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>" type='text' name='google_recaptcha_sitekey'
+										<input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
+                                               name='google_recaptcha_sitekey'
                                                value='<?php echo $dbconfig['google_recaptcha_sitekey']; ?>'/>
 									</div>
 								</div>
@@ -470,7 +471,8 @@ function site_admin($mthd)
 							<hr/>
 							<div class="form-group">
 								<label><?php echo gettext('google_recaptcha_secretkey'); ?></label>
-								<input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>" type='text' name='google_recaptcha_secretkey'
+								<input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>"
+                                       name='google_recaptcha_secretkey'
                                        value='<?php echo $dbconfig['google_recaptcha_secretkey']; ?>'/>
 							</div>
 						</div>

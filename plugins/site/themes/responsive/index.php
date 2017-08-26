@@ -49,6 +49,7 @@ include_once __DIR__ . '/scoresys.php';
         } ?>
 
         <!-- Load everything else -->
+        <!--suppress XmlDefaultAttributeValue -->
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"/>
 
         <link rel="alternate" type="application/rss+xml" href="<?php echo SITE_URL; ?>" title="<?php echo $dbconfig['sitetitle']; ?>"/>
@@ -106,12 +107,15 @@ include_once __DIR__ . '/scoresys.php';
             </div>
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
+        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous" defer></script>
+        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" defer></script>
         <?php if (true == is('game')) {
             ?>
-            <!--suppress JSUnresolvedLibraryURL -->
-            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" integrity="<?php echo JS_SWFOBJECT_SRI;?>" crossorigin="anonymous" defer></script><?php
+            <!--suppress JSUnresolvedLibraryURL, XmlDefaultAttributeValue -->
+            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" integrity="<?php echo JS_SWFOBJECT_SRI;?>"
+                    crossorigin="anonymous" defer></script><?php
         } ?>
         <script type="application/ld+json" defer>
         {

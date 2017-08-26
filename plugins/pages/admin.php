@@ -22,7 +22,7 @@ function pages_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<label><?php echo gettext('title'); ?></label>
-								<input class="form-control" title="Title" type='text' name='title'/>
+								<input class="form-control" title="Title" name='title'/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('content'); ?></label>
@@ -80,7 +80,7 @@ function pages_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<label><?php echo gettext('followingcode'); ?></label>
-								<input class="form-control" title="Code" type='text' value='<?php echo $code; ?>'/>
+								<input class="form-control" title="Code" value='<?php echo $code; ?>'/>
 							</div>
 						</div>
 						<div class="panel-footer">&nbsp;</div>
@@ -94,8 +94,8 @@ function pages_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<label><?php echo gettext('title'); ?></label>
-								<input class="form-control" title="Title" type='text' name='title'
-								       value="<?php echo $page['title']; ?>"/>
+								<input class="form-control" title="Title" name='title'
+                                       value="<?php echo $page['title']; ?>"/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('content'); ?></label>
