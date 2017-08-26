@@ -177,7 +177,7 @@ function media_admin($mthd)
                         $img
                             ->fromFile($realimage)
                             ->resize($dbconfig['twidth'], $dbconfig['theight'])
-                            ->toFile($nameid, 'image/png'); ?>
+                            ->toFile(IMG_DIR . $nameid, 'image/png'); ?>
                         <div class="col-md-6 text-left"><?php
                             Core::showSuccess(gettext('uploadsuccess') . ': ' . $_FILES['imgfile']['name']); ?>
                         </div>
