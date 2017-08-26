@@ -205,7 +205,7 @@ function media_admin($mthd)
                         <div class="panel-body">
                             <div class="form-group">
                                 <label><?php echo gettext('name'); ?></label>
-                                <input class="form-control" title="name" type="text" name="name"/>
+                                <input class="form-control" title="name" name="name"/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('category'); ?></label>
@@ -213,7 +213,7 @@ function media_admin($mthd)
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('release_date'); ?></label>
-                                <input class="form-control" title="release date" type='text' name='release_date'/>
+                                <input class="form-control" title="release date" name='release_date'/>
                                 <p class="help-block"><?php echo gettext('dateformat'); ?></p>
                             </div>
                             <div class="form-group">
