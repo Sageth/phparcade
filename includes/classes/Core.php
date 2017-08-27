@@ -46,10 +46,9 @@ class Core
         return time();
     }
     public static function getFlashModal()
-    {
-        ?>
+    { ?>
         <!--suppress ALL -->
-<div id="myModal" class="modal fade">
+        <div id="myModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -58,8 +57,8 @@ class Core
                     </div>
                     <div class="modal-body">
                         <p class="text-default">
-                           Notice: All of the major browsers are ending support of Adobe Flash, so you will need to
-                           enable Flash to have the best experience while we add more mobile-friendly games and apps.
+                            Notice: All of the major browsers are ending support of Adobe Flash, so you will need to
+                            enable Flash to have the best experience while we add more mobile-friendly games and apps.
                         </p>
                         <p class="text-danger">
                             Please note: We <strong>ONLY</strong> serve flash games from <?php echo SITE_URL; ?>.  The
@@ -86,7 +85,8 @@ class Core
                         </div>
                     </div>
                 </div>
-            </div><?php
+            </div>
+        </div><?php
     }
     public static function getLinkPage($id = 0)
     {

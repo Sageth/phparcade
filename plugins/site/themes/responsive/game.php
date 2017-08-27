@@ -4,6 +4,7 @@
 }
 Users::updateUserPlaycount();
 global $params; ?>
+<!--suppress Annotator -->
 <div><?php
     $dbconfig = Core::getInstance()->getDBConfig();
     Core::doEvent('gamepage');
@@ -241,6 +242,6 @@ global $params; ?>
         }
     </script>
 </div>
-<script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
-        crossorigin="anonymous" defer></script>
+<!--suppress XmlDefaultAttributeValue -->
+<script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous" defer></script>
 <script>new LazyLoad();</script>

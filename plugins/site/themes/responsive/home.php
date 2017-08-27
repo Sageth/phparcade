@@ -39,7 +39,9 @@ foreach ($games as $game) {
         $i = 0;
     }
 } ?>
+<!--suppress XmlDefaultAttributeValue -->
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
         crossorigin="anonymous" defer></script>
+<!--suppress Annotator -->
 <script>new LazyLoad();</script>
 <!--End Content Section -->

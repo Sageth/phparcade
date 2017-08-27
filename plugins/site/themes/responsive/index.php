@@ -62,7 +62,7 @@ include_once __DIR__ . '/scoresys.php';
         <meta name="robots" content="noarchive"/>
     </head>
     <body>
-        <?php if ($dbconfig['ga_enabled'] === 'on') {
+        <?php if ('on' === $dbconfig['ga_enabled']) {
             include_once INST_DIR . 'includes/js/Google/googletagmanager.php';
         }
         include_once __DIR__ . '/navbar.php';

@@ -4,6 +4,7 @@ if (!isset($_SESSION)) {
 }
 global $params;
 $dbconfig = Core::getInstance()->getDBConfig(); ?>
+<!--suppress ALL -->
 <hr>
 <div class="row">
     <div class="col-lg-12"><?php
@@ -315,4 +316,5 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
 </div>
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
         crossorigin="anonymous" defer></script>
-<script>new LazyLoad();</script>
+<!--suppress Annotator -->
+    <script>new LazyLoad();</script>

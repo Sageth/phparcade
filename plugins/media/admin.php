@@ -145,7 +145,7 @@ function media_admin($mthd)
                 // Image file processing
                 if (!empty($_FILES['imgfile']['name'])) {
                     $_FILES['imgfile']['name'] = strtolower($_FILES['imgfile']['name']);
-                    $realimage = IMG_DIR . strtolower($_FILES['imgfile']['name']);
+                    $realimage = IMG_DIR . $_FILES['imgfile']['name'];
                     /** @noinspection PhpMethodParametersCountMismatchInspection */
                     $validator = new FileUpload\Validator\Simple(
                         1024 * 1024 * 10,
@@ -160,6 +160,7 @@ function media_admin($mthd)
                     $fileupload->setPathResolver($pathresolver);
                     $fileupload->setFileSystem($filesystem);
                     $fileupload->addValidator($validator);
+
                     // Doing the actual upload
                     /** @noinspection PhpUnusedLocalVariableInspection */
                     list($files, $headers) = $fileupload->processAll();
@@ -167,11 +168,7 @@ function media_admin($mthd)
                     /* If there is no swf file (e.g. custom game code), then use the image name as the nameid for
                        the database.  Otherwise, the image should be saved as a .png to the IMG_DIR folder.
                        Files are saved in lowercase. */
-                    if (empty($_FILES['swffile']['name'])) {
-                        $nameid = strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
-                    } else {
-                        $nameid = IMG_DIR . strtolower(pathinfo($_FILES['imgfile']['name'] . EXT_IMG, PATHINFO_FILENAME));
-                    }
+                    $nameid = empty($_FILES['swffile']['name']) ? strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME)) : IMG_DIR . strtolower(pathinfo($_FILES['imgfile']['name'] . EXT_IMG, PATHINFO_FILENAME));
 
                     try {
                         Games::convertImage($realimage, $nameid);
@@ -188,11 +185,7 @@ function media_admin($mthd)
                     return;
                 }
             } else {
-                ?>
-                <div class="col-md-6 text-left"><?php
-                    Core::showError(gettext('nameiderror')); ?>
-                </div>
-                <div class="clearfix invisible"></div><?php
+                Core::showError(gettext('nameiderror'));
             }
             break;
         case "":
