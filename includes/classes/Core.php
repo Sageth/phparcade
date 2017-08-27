@@ -173,26 +173,24 @@ class Core
     }
     public static function getPageMetaData()
     {
-        $dbconfig = Core::getInstance()->getDBConfig();
         global $params;
         switch (true) {
             case (is('game')):
                 $game = Games::getGame($params[1]);
-                $metadata['metapagetitle'] = $dbconfig['sitetitle'] . ' - ' . $game['name'] . ' ' . gettext('Game');
+                $metadata['metapagetitle'] = $game['name'] . ' ' . gettext('Game');
                 $metadata['metapagedesc'] = $game['desc'];
                 $metadata['metapagekeywords'] = $game['keywords'];
                 break;
             case (is('category')):
                 $category = Games::getCategory($params[1]);
-                $metadata['metapagetitle'] =
-                    $dbconfig['sitetitle'] . ' - ' . $category['name'] . ' ' . gettext('games');
+                $metadata['metapagetitle'] = $category['name'] . ' ' . gettext('games');
                 $metadata['metapagedesc'] = $category['desc'];
                 $metadata['metapagekeywords'] = $category['keywords'];
                 break;
             case (is('page')):
                 $params[1] = $params[1] ?? "";
                 $page = Pages::getPage($params[1]);
-                $metadata['metapagetitle'] = $dbconfig['sitetitle'] . ' - ' . $page['title'];
+                $metadata['metapagetitle'] = $page['title'];
                 $metadata['metapagedesc'] = $page['description'];
                 $metadata['metapagekeywords'] = $page['keywords'];
                 break;
@@ -201,8 +199,7 @@ class Core
                     if ($params[2] != 'editdone') {
                         $params[2] = $params[2] ?? "";
                         $user = Users::getUserbyID($params[2]);
-                        $metadata['metapagetitle'] =
-                            $dbconfig['sitetitle'] . ' - ' . $user['username'] . "'s " . gettext('profile');
+                        $metadata['metapagetitle'] = $user['username'] . "'s " . gettext('profile');
                         $metadata['metapagedesc'] = $user['username'] . "'s " . gettext('profile');
                         $metadata['metapagekeywords'] = "";
                     }
@@ -213,9 +210,9 @@ class Core
                 }
                 break;
             default:
-                $metadata['metapagetitle'] = $dbconfig['sitetitle'];
-                $metadata['metapagedesc'] = $dbconfig['metadesc'];
-                $metadata['metapagekeywords'] = $dbconfig['metakey'];
+                $metadata['metapagetitle'] = SITE_META_TITLE;
+                $metadata['metapagedesc'] = SITE_META_DESCRIPTION;
+                $metadata['metapagekeywords'] = SITE_META_KEYWORDS;
         }
         /** @noinspection PhpUndefinedVariableInspection */
         return $metadata;

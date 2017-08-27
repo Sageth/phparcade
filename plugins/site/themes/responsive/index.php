@@ -10,7 +10,6 @@ if ($_SESSION) {
 }
 $dbconfig = Core::getInstance()->getDBConfig();
 $metadata = Core::getPageMetaData();
-/* include_once __DIR__ . '/themeconfig.php'; */
 include_once __DIR__ . '/scoresys.php';
 ?>
 
@@ -51,8 +50,6 @@ include_once __DIR__ . '/scoresys.php';
         <!-- Load everything else -->
         <!--suppress XmlDefaultAttributeValue -->
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"/>
-
-        <link rel="alternate" type="application/rss+xml" href="<?php echo SITE_URL; ?>" title="<?php echo $dbconfig['sitetitle']; ?>"/>
         <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
         <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
 
@@ -134,14 +131,14 @@ include_once __DIR__ . '/scoresys.php';
         {
             "@context":"http://schema.org",
             "@type":"WebSite",
-            "name":"<?php echo $dbconfig['sitetitle'];?>",
+            "name":"<?php echo SITE_META_TITLE;?>",
             "alternateName": "Play fun flash games, html5 games, and mobile games for free.",
             "url":"<?php echo SITE_URL;?>",
             "exampleOfWork":"<?php echo URL_GITHUB_PHPARCADE;?>",
             "sameAs":"<?php echo URL_GITHUB_PHPARCADE;?>",
             "isAccessibleForFree":"true",
-            "keywords":"<?php echo $metadata['metapagekeywords'];?>",
-            "description":"<?php echo strip_tags($metadata['metapagedesc']);?>",
+            "keywords":"<?php echo SITE_META_KEYWORDS;?>",
+            "description":"<?php echo strip_tags(SITE_META_DESCRIPTION);?>",
             "license":"<?php echo SITE_URL;?>LICENSE.md",
             "workExample":"https://www.phparcade.com",
             "potentialAction" : {
