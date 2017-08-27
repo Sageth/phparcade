@@ -13,7 +13,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                 Core::showInfo(gettext('noexist'));
             } else {
                 $i = 0;
-                $avatar = trim($user['avatarurl'] === '') ? SITE_URL . 'includes/images/noav.png' : SITE_URL .
+                $avatar = trim($user['avatarurl'] === '') ? SITE_URL . 'includes/images/noav' . EXT_IMG : SITE_URL .
                     $user['avatarurl'];
                 $games = Games::getGamesChamp($user['id']); ?>
                 <div class="col-sm-10">
@@ -105,7 +105,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                             $game = Games::getGame($game['nameid']);
                                             $link = Core::getLinkGame($game['id']); ?>
                                             <a href="<?php echo $link; ?>"><?php
-                                                $img = $dbconfig['imgurl'] . $game['nameid'] . '.png'; ?>
+                                                $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
                                                 <img class="img img-responsive img-rounded"
                                                      data-original="<?php echo $img; ?>"
                                                      alt="<?php echo gettext('play')
@@ -296,7 +296,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                             /* Send the ID so you know what database entry to update.
                                Then pick the path. And then name all uploads after their respective users.
                                Makes it much easier to find people if you need to delete files or such. */
-                            Users::uploadAvatar($user['id'], 'uploads/', $user['username'] . '.png');
+                            Users::uploadAvatar($user['id'], 'uploads/', $user['username'] . EXT_IMG);
                             Core::showSuccess(gettext('Avatar Uploaded Successfully'));
                         } else {
                             /* And if you didn't select an avatar, be nice and tell them */

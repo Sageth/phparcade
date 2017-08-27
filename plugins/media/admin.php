@@ -170,7 +170,7 @@ function media_admin($mthd)
                     if (empty($_FILES['swffile']['name'])) {
                         $nameid = strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
                     } else {
-                        $nameid = IMG_DIR . strtolower(pathinfo($_FILES['imgfile']['name'] . '.png', PATHINFO_FILENAME));
+                        $nameid = IMG_DIR . strtolower(pathinfo($_FILES['imgfile']['name'] . EXT_IMG, PATHINFO_FILENAME));
                     }
 
                     try {
@@ -376,13 +376,13 @@ function media_admin($mthd)
                         $result = unlink(SWF_DIR . $game['nameid'] . '.swf');
                         break;
                     case 'PNG':
-                        $result = unlink(IMG_DIR . $game['nameid'] . '.png');
+                        $result = unlink(IMG_DIR . $game['nameid'] . EXT_IMG);
                         break;
                     default:
                         $result = "";
                         break;
                 }
-                $result2 = unlink(IMG_DIR . $game['nameid'] . '.png');
+                $result2 = unlink(IMG_DIR . $game['nameid'] . EXT_IMG);
                 if (!$result) {
                     Core::showWarning(gettext('unabledeleteswferror'));
                 }

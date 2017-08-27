@@ -36,7 +36,7 @@ include_once __DIR__ . '/scoresys.php';
                 $game = Games::getGame($params[1]); ?>
                 <meta property="og:type" content="video.movie"/>
                 <meta property="og:title" content="<?php echo $game['name'];?>"/>
-                <meta property="og:image" content="<?php echo $dbconfig['imgurl'] . $game['nameid']; ?>.png"/>
+                <meta property="og:image" content="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"/>
                 <meta property="og:url" content="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
                 <meta property="og:description" content="<?php echo strip_tags($game['desc']); ?>"/>
                 <meta property="fb:app_id" content="<?php echo $dbconfig['facebook_appid']; ?>"/><?php

@@ -7,7 +7,7 @@ $i = 0;
 $games = Games::getGamesHomePage();
 foreach ($games as $game) {
     $link = Core::getLinkGame($game['id']);
-    $img = $dbconfig['imgurl'] . $game['nameid'] . '.png'; ?>
+    $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
     <div class="col-md-3 col-md-4">
         <div class="thumbnail">
             <a href="<?php echo $link; ?>">

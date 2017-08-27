@@ -48,6 +48,7 @@ define('SITE_URL', sprintf('%s://%s/', isset($_SERVER['HTTPS']) &&
 define('ADMIN_THEME_PATH', INST_DIR . 'Zdmin/index.php');
 define('ADMIN_SITE_THEME_PATH', INST_DIR . 'plugins/site/themes/admin/index.php');
 define('CHARSET', 'UTF-8');
+define('EXT_IMG', '.png');
 define('SITE_META_DESCRIPTION', $dbconfig['metadesc']);
 define('SITE_META_KEYWORDS', $dbconfig['metakey']);
 define('SITE_META_TITLE', $dbconfig['sitetitle']);

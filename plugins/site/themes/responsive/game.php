@@ -11,7 +11,7 @@ global $params; ?>
     $game = Games::getGame($params[1]);
     if (isset($game['id'])) {
         $time = Core::getCurrentDate();
-        $img = $dbconfig['imgurl'] . $game['nameid'] . '.png';
+        $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG;
         $thumbnailurl = $img;
         $origgamename = $game['name'];
         $epoch = $game['time'];
@@ -125,7 +125,7 @@ global $params; ?>
                                             $d_score = date('m/d/Y', $score['date']);
                                             $user = Users::getUserbyID($score['player']);
                                             $avatar = $user['avatarurl'] === '' ? SITE_URL .
-                                                                                  'includes/images/noav.png' : SITE_URL .
+                                                                                  'includes/images/noav' . EXT_IMG : SITE_URL .
                                                                                                                $user['avatarurl']; ?>
                                             <tr class="odd gradeA">
                                             <td><?php echo $i; ?></td>
@@ -188,7 +188,7 @@ global $params; ?>
                     <div class="col-md-3 col-md-4">
                     <div class="thumbnail">
                         <a href="<?php echo $link; ?>"><?php
-                            $img = $dbconfig['imgurl'] . $gamelikethis['nameid'] . '.png'; ?>
+                            $img = $dbconfig['imgurl'] . $gamelikethis['nameid'] . EXT_IMG; ?>
                             <img class="img img-responsive img-rounded"
                                  data-original="<?php echo $img; ?>"
                                  alt="Play <?php echo $gamelikethis['name']; ?> online for free!"
@@ -232,8 +232,8 @@ global $params; ?>
             "maxValue":"1"
           },
           "keywords":"<?php echo $game['keywords']; ?>",
-          "image":"<?php echo $dbconfig['imgurl'] . $game['nameid']; ?>.png",
-          "thumbnailUrl":"<?php echo $dbconfig['imgurl'] . $game['nameid']; ?>.png",
+          "image":"<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>",
+          "thumbnailUrl":"<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>,
           "url":"<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>",
           "headline":"<?php echo $game['name']; ?>",
           "name":"<?php echo $game['name']; ?>",
