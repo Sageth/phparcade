@@ -50,17 +50,16 @@ include_once __DIR__ . '/scoresys.php';
         <!-- Load everything else -->
         <!--suppress XmlDefaultAttributeValue -->
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"/>
+        <!--suppress XmlDefaultAttributeValue -->
+        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
         <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
         <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
-
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo SITE_URL; ?>favicon.ico" title="FavIcon"/>
-
         <meta name="description" content="<?php echo $metadata['metapagedesc']; ?>"/>
         <meta name="keywords" content="<?php echo $metadata['metapagekeywords']; ?>"/>
         <meta name="language" content="English"/>
         <meta name="no-email-collection" content="//www.unspam.com/noemailcollection"/>
         <meta name="robots" content="noarchive"/>
-
     </head>
     <body>
         <?php if ($dbconfig['ga_enabled'] === 'on') {
