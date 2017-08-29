@@ -14,7 +14,7 @@ $i = 0; ?>
 	</ol>
 
 	<!-- Wrapper for slides -->
-	<div class="carousel-inner"><?php
+	<div class="carousel-inner" role="listbox"><?php
         foreach ($games as $game) {
             ++$i;
             $link = Core::getLinkGame($game['id']);
@@ -43,11 +43,11 @@ $i = 0; ?>
         } ?>
 	</div>
 	<!-- Controls -->
-	<a class="left carousel-control" href="#main-Carousel" data-slide="prev">
+	<a class="left carousel-control" href="#main-Carousel" role="button" data-slide="prev">
 		<span class="icon-prev"></span>
 	</a>
-	<a class="right carousel-control" href="#main-Carousel" data-slide="next">
-		<span class="icon-next"></span>
+	<a class="right carousel-control" href="#main-Carousel" role="button" data-slide="next">
+        <span class="icon-next"></span>
 	</a>
 	<!--End Carousel Section -->
 </div>
