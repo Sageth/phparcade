@@ -17,16 +17,11 @@ $content = $content ?? ''; ?>
             echo gettext('logo');
             echo gettext('admin'); ?>
         </title>
-        <!--suppress XmlDefaultAttributeValue -->
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"/>
-        <!--suppress XmlDefaultAttributeValue -->
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo CSS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous"/>
-        <!--suppress XmlDefaultAttributeValue -->
-        <link rel="stylesheet" href="<?php echo CSS_METISMENU; ?>" integrity="<?php echo CSS_METISMENU_SRI;?>" crossorigin="anonymous"/>
-        <!--suppress XmlDefaultAttributeValue -->
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_SB_ADMIN_2; ?>" integrity="<?php echo CSS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous"/>
-        <!--suppress XmlDefaultAttributeValue -->
-        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="<?php echo CSS_METISMENU; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
     </head>
     <body>
         <div class="container-fluid">
@@ -129,18 +124,12 @@ $content = $content ?? ''; ?>
                 </div>
             </div><!-- /#page-wrapper -->
         </div><!-- /#wrapper -->
-        <!--suppress XmlDefaultAttributeValue -->
-        <script src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous" defer></script>
-        <!--suppress XmlDefaultAttributeValue -->
+        <script src="<?php echo JS_JQUERY; ?>" defer></script>
         <script src="<?php echo JS_JQUERY_UI; ?>" integrity="<?php echo JS_JQUERY_UI_SRI;?>" crossorigin="anonymous" defer></script>
         <script src="<?php echo JS_TABLESORT; ?>" defer></script>
-        <!--suppress XmlDefaultAttributeValue -->
-        <script src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" defer></script>
-        <!--suppress XmlDefaultAttributeValue -->
+        <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
         <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous" defer></script>
-        <!--suppress XmlDefaultAttributeValue -->
-        <script src="<?php echo JS_METISMENU; ?>" integrity="<?php echo JS_METISMENU_SRI;?>" crossorigin="anonymous" defer></script>
-        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_SB_ADMIN_2; ?>" integrity="<?php echo JS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous" defer></script>
+        <script src="<?php echo JS_METISMENU; ?>" defer></script>
     </body>
 </html>

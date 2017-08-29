@@ -62,14 +62,9 @@ define('TOP_SCORE_COUNT', 10);
 /* ===== LIBRARIES USED THROUGHOUT THE SITE */
 
 /* CDNJS - v3.3.7 - BOOTSTRAP */
-define('CSS_BOOTSTRAP', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css');
-define('CSS_BOOTSTRAP_SRI', 'sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=');
-
-define('CSS_BOOTSTRAP_THEME', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css');
-define('CSS_BOOTSTRAP_THEME_SRI', 'sha256-ZT4HPpdCOt2lvDkXokHuhJfdOKSPFLzeAJik5U/Q+l4=');
-
-define('JS_BOOTSTRAP', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js');
-define('JS_BOOTSTRAP_SRI', 'sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=');
+define('CSS_BOOTSTRAP', SITE_URL . 'vendor/twbs/bootstrap/dist/css/bootstrap.min.css');
+define('CSS_BOOTSTRAP_THEME', SITE_URL . 'vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css');
+define('JS_BOOTSTRAP', SITE_URL . 'vendor/twbs/bootstrap/dist/js/bootstrap.min.js');
 
 /* CDNJS - v2.2.2 - BOOTSTRAP TOGGLE */
 define('CSS_BOOTSTRAP_TOGGLE', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css');
@@ -79,26 +74,21 @@ define('JS_BOOTSTRAP_TOGGLE', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-
 define('JS_BOOTSTRAP_TOGGLE_SRI', 'sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKdoDOmo=');
 
 /* CDNJS - v4.7.0 - FONT AWESOME */
-define('CSS_FONTAWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
-define('CSS_FONTAWESOME_SRI', 'sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=');
+define('CSS_FONTAWESOME', SITE_URL . 'vendor/fortawesome/font-awesome/css/font-awesome.min.css');
 
 /* GOOGLE RECAPTCHA */
 define('JS_GOOGLE_RECAPTCHA', 'https://www.google.com/recaptcha/api.js');
 
 /* CDNJS - v3.2.1 - JQUERY */
-define('JS_JQUERY', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js');
-define('JS_JQUERY_SRI', 'sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=');
+define('JS_JQUERY', SITE_URL . 'vendor/components/jquery/jquery.min.js');
 
 /* CDNJS - v1.12.1 - JQUERY UI */
 define('JS_JQUERY_UI', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js');
 define('JS_JQUERY_UI_SRI', 'sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=');
 
 /* CDNJS - v2.7.0 - JQUERY METISMENU */
-define('CSS_METISMENU', 'https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.css');
-define('CSS_METISMENU_SRI', 'sha256-OufFdETrXbY5YtILsSTzlY+4Ttmq+hUfR1mMYLmKlWo=');
-
-define('JS_METISMENU', 'https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.js');
-define('JS_METISMENU_SRI', 'sha256-EdeVuolWxmuLTapvaUaXTYIYKTIlhc0nUEGPEMn8MhQ=');
+define('CSS_METISMENU', SITE_URL . 'vendor/onokumus/metismenu/dist/metisMenu.min.css');
+define('JS_METISMENU', SITE_URL . 'vendor/onokumus/metismenu/dist/metisMenu.min.js');
 
 /* CDNJS - v8.0.3 - VANILLA-LAZYLOAD */
 define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.0.3/lazyload.min.js');
@@ -112,8 +102,7 @@ define('JS_SB_ADMIN_2', 'https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-s
 define('JS_SB_ADMIN_2_SRI', 'sha256-Y0Z5pT4qPGaoUSHoxW+J8fIWjQnjc7v03WBEUnt9SQ0=');
 
 /* CDNJS - v2.2.0 - SWFOBJECT */
-define('JS_SWFOBJECT', 'https://cdnjs.cloudflare.com/ajax/libs/swfobject/2.2/swfobject.min.js');
-define('JS_SWFOBJECT_SRI', 'sha256-oYy9uw+7cz1/TLpdKv1rJwbj8UHHQ/SRBX5YADaM2OU=');
+define('JS_SWFOBJECT', SITE_URL . 'vendor/koala-framework/library-swfobject/swfobject.js');
 
 /* CUSTOM - TABLESORT */
 define('JS_TABLESORT', SITE_URL . 'plugins/site/themes/admin/assets/js/tablesort.min.js');

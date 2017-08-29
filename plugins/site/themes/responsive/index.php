@@ -21,9 +21,6 @@ include_once __DIR__ . '/scoresys.php';
         <title><?php echo $metadata['metapagetitle']; ?></title>
         <!-- Preconnections -->
         <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-        <link rel="preconnect" href="https://cdn.flashtalking.com">
-        <link rel="preconnect" href="https://www.googleapis.com">
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com">
         <!-- End Preconnections -->
 
         <!-- Run this first so you get your local CSS loaded before external JS -->
@@ -48,17 +45,15 @@ include_once __DIR__ . '/scoresys.php';
         } ?>
 
         <!-- Load everything else -->
-        <!--suppress XmlDefaultAttributeValue -->
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"/>
-        <!--suppress XmlDefaultAttributeValue -->
-        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
         <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
         <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo SITE_URL; ?>favicon.ico" title="FavIcon"/>
         <meta name="description" content="<?php echo $metadata['metapagedesc']; ?>"/>
         <meta name="keywords" content="<?php echo $metadata['metapagekeywords']; ?>"/>
         <meta name="language" content="English"/>
-        <meta name="no-email-collection" content="//www.unspam.com/noemailcollection"/>
+        <meta name="no-email-collection" content="https://www.unspam.com/noemailcollection"/>
         <meta name="robots" content="noarchive"/>
     </head>
     <body>
@@ -104,13 +99,13 @@ include_once __DIR__ . '/scoresys.php';
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
         <!--suppress XmlDefaultAttributeValue -->
-        <script src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous" defer></script>
+        <script src="<?php echo JS_JQUERY; ?>" defer></script>
         <!--suppress XmlDefaultAttributeValue -->
-        <script src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" defer></script>
+        <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
         <?php if (true == is('game')) {
             ?>
             <!--suppress JSUnresolvedLibraryURL, XmlDefaultAttributeValue -->
-            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" integrity="<?php echo JS_SWFOBJECT_SRI;?>"
+            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>"
                     crossorigin="anonymous" defer></script><?php
         } ?>
         <script type="application/ld+json" defer>
