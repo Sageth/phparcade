@@ -166,17 +166,9 @@ class Users
         unset($mail);
         return $status;
     }
-    public static function passwordGenerate($pw = "", $length = 8, $i = 0)
+    public static function passwordGenerate()
     {
-        $possible = '!@#$%^&*0123456789bcdfghjkmnpqrstvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-        while ($i < $length) {
-            $char = $possible[random_int(0, mb_strlen($possible) - 1)];
-            if (false === mb_strpos($pw, $char)) {
-                $pw .= $char;
-                ++$i;
-            }
-        }
-        return $pw;
+        return random_bytes(5);
     }
     public static function userPasswordUpdatebyEmail($password, $username, $email)
     {

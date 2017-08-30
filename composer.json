@@ -5,6 +5,7 @@
     "gargron/fileupload": "1.*",
     "components/jquery": "3.*",
     "components/jqueryui": "1.*",
+    "google/recaptcha": "1.*",
     "koala-framework/library-swfobject": "2.*",
     "onokumus/metismenu": "2.*",
     "phpmailer/phpmailer": "5.*",
