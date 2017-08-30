@@ -168,7 +168,7 @@ class Users
     }
     public static function passwordGenerate()
     {
-        return random_bytes(5);
+        return bin2hex(random_bytes(5));
     }
     public static function userPasswordUpdatebyEmail($password, $username, $email)
     {
