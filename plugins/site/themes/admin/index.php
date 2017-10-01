@@ -22,6 +22,7 @@ $content = $content ?? ''; ?>
         <link rel="stylesheet" href="<?php echo CSS_SB_ADMIN_2; ?>" integrity="<?php echo CSS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous"/>
         <link rel="stylesheet" href="<?php echo CSS_METISMENU; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_INPUTCOLORS;?>"/>
     </head>
     <body>
         <div class="container-fluid">
