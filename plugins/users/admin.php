@@ -210,7 +210,15 @@ function users_admin($mthd)
 						<?php echo gettext('manage'); ?>
 					</div>
 					<div class="panel-body">
-						<div class="table-responsive">
+						<div class="table-responsive col-lg-10">
+                            <div class="input-group col-md-6">
+                                <span class="input-group-addon info" id="user-addon">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    <?php echo gettext('search');?>
+                                </span>
+                                <input type="text" class="form-control" id="userList" onkeyup="filterUsers()" placeholder="<?php echo gettext('userfilter');?>" aria-describedby="user-addon">
+                            </div>
+                            <div class="row">&nbsp;</div>
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 								<thead>
 									<th><?php echo gettext('username'); ?></th>
@@ -237,7 +245,9 @@ function users_admin($mthd)
 						</div>
 					</div>
 				</div>
-			</div><?php
+			</div>
+            <script src="<?php echo JS_USERFILTER;?>" defer></script>
+        <?php
             break;
         default:
     }

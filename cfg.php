@@ -76,6 +76,9 @@ define('JS_BOOTSTRAP_TOGGLE_SRI', 'sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKd
 /* CDNJS - v4.7.0 - FONT AWESOME */
 define('CSS_FONTAWESOME', SITE_URL . 'vendor/fortawesome/font-awesome/css/font-awesome.min.css');
 
+/* CUSTOM - INPUT COLORS */
+define('CSS_INPUTCOLORS', SITE_URL . '/plugins/site/themes/admin/assets/css/inputcolors.min.css');
+
 /* GOOGLE RECAPTCHA */
 define('JS_GOOGLE_RECAPTCHA', 'https://www.google.com/recaptcha/api.js');
 
@@ -106,6 +109,9 @@ define('JS_SWFOBJECT', SITE_URL . 'vendor/koala-framework/library-swfobject/swfo
 
 /* CUSTOM - TABLESORT */
 define('JS_TABLESORT', SITE_URL . 'plugins/site/themes/admin/assets/js/tablesort.min.js');
+
+/* CUSTOM - USERFILTER */
+define('JS_USERFILTER', SITE_URL . 'plugins/site/themes/admin/assets/js/userfilter.min.js');
 
 /* STANDARD URLS FOR EXTERNAL SITES */
 define('URL_FACEBOOK', 'https://www.facebook.com/');
