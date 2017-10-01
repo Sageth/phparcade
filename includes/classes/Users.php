@@ -319,7 +319,7 @@ class Users
         $stmt->bindParam(':twitter', $_POST['twitter_id']);
         $stmt->bindParam(':aim', $_POST['aim']);
         $stmt->bindParam(':msn', $_POST['msn']);
-        $stmt->bindParam(':isadmin', $_POST['isadmin']);
+        $stmt->bindParam(':isadmin', $_POST['admin']);
         $stmt->execute();
         Core::showSuccess(gettext('updatesuccess'));
     }

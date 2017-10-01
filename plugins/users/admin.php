@@ -95,8 +95,8 @@ function users_admin($mthd)
             Users::userDelete($_REQUEST['id']);
             break;
         case 'edituser-do':
-            $_POST['isadmin'] = array_key_exists('isadmin', $_POST) ? 'on' : 'off';
-            $_POST['active'] = array_key_exists('active', $_POST) ? 'on' : 'off';
+            $_POST['admin'] = array_key_exists('admin', $_POST) ? 'Yes' : 'No';
+            $_POST['active'] = array_key_exists('active', $_POST) ? 'Yes' : 'No';
             Users::userEdit($_POST['id']);
             if ($_POST['password'] != '') {
                 Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
@@ -132,13 +132,17 @@ function users_admin($mthd)
 								</label>
 							</div>
 							<div class="form-group">
-								<?php echo Core::showGlyph('user');?>
-								<label><?php echo gettext('active'); ?></label>
-								<div class="checkbox-inline pull-right">
-									<label for="useractive"></label>
-									<input type="checkbox" name="useractive" id="useractive" <?php echo $useractive; ?> data-toggle="toggle"/>
-								</div>
-							</div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?php echo Core::showGlyph('user');?>
+								        <label><?php echo gettext('active'); ?></label>
+								        <div class="checkbox-inline pull-right">
+									        <label for="active"></label>
+									        <input type="checkbox" name="active" id="active" <?php echo $useractive; ?> data-toggle="toggle"/>
+								        </div>
+							        </div>
+                                </div>
+                            </div>
 							<hr/>
 							<div class="form-group">
 								<div class="row">
@@ -146,8 +150,8 @@ function users_admin($mthd)
 										<?php echo Core::showGlyph('lock');?>
 										<label><?php echo gettext('siteadmin'); ?></label>
 										<div class="checkbox-inline pull-right">
-											<label for="isadmin"></label>
-											<input type="checkbox" name="isadmin" id="isadmin" <?php echo $useradmin; ?> data-toggle="toggle"/>
+											<label for="admin"></label>
+											<input type="checkbox" name="admin" id="admin" <?php echo $useradmin; ?> data-toggle="toggle"/>
 										</div>
 									</div>
 								</div>
