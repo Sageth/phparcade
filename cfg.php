@@ -86,8 +86,7 @@ define('JS_GOOGLE_RECAPTCHA', 'https://www.google.com/recaptcha/api.js');
 define('JS_JQUERY', SITE_URL . 'vendor/components/jquery/jquery.min.js');
 
 /* CDNJS - v1.12.1 - JQUERY UI */
-define('JS_JQUERY_UI', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js');
-define('JS_JQUERY_UI_SRI', 'sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=');
+define('JS_JQUERY_UI', SITE_URL . 'vendor/components/jquery/jquery-ui.min.js');
 
 /* CDNJS - v2.7.0 - JQUERY METISMENU */
 define('CSS_METISMENU', SITE_URL . 'vendor/onokumus/metismenu/dist/metisMenu.min.css');
