@@ -76,6 +76,9 @@ define('JS_BOOTSTRAP_TOGGLE_SRI', 'sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKd
 /* CDNJS - v4.7.0 - FONT AWESOME */
 define('CSS_FONTAWESOME', SITE_URL . 'vendor/fortawesome/font-awesome/css/font-awesome.min.css');
 
+/* CUSTOM - INPUT COLORS */
+define('CSS_INPUTCOLORS', SITE_URL . '/plugins/site/themes/admin/assets/css/inputcolors.min.css');
+
 /* GOOGLE RECAPTCHA */
 define('JS_GOOGLE_RECAPTCHA', 'https://www.google.com/recaptcha/api.js');
 
@@ -90,9 +93,9 @@ define('JS_JQUERY_UI_SRI', 'sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM='
 define('CSS_METISMENU', SITE_URL . 'vendor/onokumus/metismenu/dist/metisMenu.min.css');
 define('JS_METISMENU', SITE_URL . 'vendor/onokumus/metismenu/dist/metisMenu.min.js');
 
-/* CDNJS - v8.0.3 - VANILLA-LAZYLOAD */
-define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.0.3/lazyload.min.js');
-define('JS_LAZYLOAD_SRI', 'sha256-Vd2fw5d0r2jU7TDWtmhCfzsauG213/Ns3xeVcxQPS1o=');
+/* CDNJS - v8.2.0 - VANILLA-LAZYLOAD */
+define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.2.0/lazyload.min.js');
+define('JS_LAZYLOAD_SRI', 'sha256-k2iTGTLIJtQp6B6GdZeHMvlnx0QWsg3P2UIzL7zPR94=');
 
 /* CDNJS - v3.3.7+1 SB ADMIN 2 THEME */
 define('CSS_SB_ADMIN_2', 'https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/css/sb-admin-2.min.css');
@@ -106,6 +109,9 @@ define('JS_SWFOBJECT', SITE_URL . 'vendor/koala-framework/library-swfobject/swfo
 
 /* CUSTOM - TABLESORT */
 define('JS_TABLESORT', SITE_URL . 'plugins/site/themes/admin/assets/js/tablesort.min.js');
+
+/* CUSTOM - USERFILTER */
+define('JS_TABLEFILTER', SITE_URL . 'plugins/site/themes/admin/assets/js/tablefilter.min.js');
 
 /* STANDARD URLS FOR EXTERNAL SITES */
 define('URL_FACEBOOK', 'https://www.facebook.com/');
