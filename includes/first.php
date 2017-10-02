@@ -99,7 +99,6 @@ switch ($act) {
             $recaptcha = new \ReCaptcha\ReCaptcha($dbconfig['google_recaptcha_secretkey']);
             $resp = $recaptcha->verify($_POST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR']);
             if ($params[1] === 'regdone' && $resp->isSuccess()) {
-                session_start();
                 if (empty($_POST['username']) || empty($_POST['email'])) {
                     return 'notallfields';
                 } else {

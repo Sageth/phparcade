@@ -126,7 +126,7 @@ $content = $content ?? ''; ?>
             </div><!-- /#page-wrapper -->
         </div><!-- /#wrapper -->
         <script src="<?php echo JS_JQUERY; ?>" defer></script>
-        <script src="<?php echo JS_JQUERY_UI; ?>" integrity="<?php echo JS_JQUERY_UI_SRI;?>" crossorigin="anonymous" defer></script>
+        <script src="<?php echo JS_JQUERY_UI; ?>" defer></script>
         <script src="<?php echo JS_TABLESORT; ?>" defer></script>
         <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
         <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous" defer></script>
