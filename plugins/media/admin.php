@@ -606,82 +606,66 @@ function media_admin($mthd)
             </div><?php
             break;
         case 'manage':
-            $cat = 'all';
-            /* If a page number isn't explicitly passed, assume page 1 */
-            $_GET['page'] = $_GET['page'] ?? 1;
-            $games = Games::getGames($cat, 0, 10, $_GET['page'], 50);
-            $pages = Core::getAdminGamePageCount(); ?>
-
-            <div class="col-lg-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <?php echo gettext('manage'); ?>
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                                <tr>
-                                    <th><?php echo gettext('name'); ?></th>
-                                    <th><?php echo gettext('category'); ?></th>
-                                    <th>&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody><?php
-                                foreach ($games as $game) {
-                                    ?>
-                                    <tr class="odd gradeA"><?php
-                                    if ($game['active'] == 'No') {
+            $games = Games::getGames($cat = 'all', 0, 10, 1,5000); ?>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <?php echo gettext('manage'); ?>
+                    </div>
+                    <div class="panel-body">
+                        <div class="input-group col-lg-10">
+                            <span class="input-group-addon info" id="user-addon">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <?php echo gettext('search');?>
+                            </span>
+                            <input type="text" class="form-control" id="userList" onkeyup="filterTable()" placeholder="<?php echo gettext('gamefilter');?>" aria-describedby="user-addon">
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="table-responsive col-lg-10">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th><?php echo gettext('name'); ?></th>
+                                        <th><?php echo gettext('category'); ?></th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody><?php
+                                    foreach ($games as $game) {
                                         ?>
-                                        <td class="warning"><?php echo $game['name']; ?></td><?php
-                                    } elseif ($game['active'] == 'Yes') {
-                                        ?>
-                                        <td><?php echo $game['name']; ?></td><?php
-                                    } else {
-                                        ?>
-                                        <td class="danger"><?php echo $game['name']; ?></td><?php
+                                        <tr class="odd gradeA"><?php
+                                            if ($game['active'] == 'No') {
+                                                ?>
+                                                <td class="warning"><?php echo $game['name']; ?></td><?php
+                                            } elseif ($game['active'] == 'Yes') {
+                                                ?>
+                                                <td><?php echo $game['name']; ?></td><?php
+                                            } else {
+                                                ?>
+                                                <td class="danger"><?php echo $game['name']; ?></td><?php
+                                            } ?>
+                                                <td><?php echo $game['cat']; ?></td>
+                                                <td class="col-lg-8">
+                                                    <?php Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
+                                                    &nbsp;
+                                                    <?php Pages::getDeleteButton($game['id'], 'media'); ?>
+                                                </td>
+                                        </tr><?php
                                     } ?>
-                                    <td><?php echo $game['cat']; ?></td>
-                                    <td>
-                                        <?php Pages::getFeatureGameButton($game['id']); ?>
-                                        &nbsp;
-                                        <?php Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
-                                        &nbsp;
-                                        <?php Pages::getDeleteButton($game['id'], 'media'); ?>
-                                    </td>
-                                    </tr><?php
-                                } ?>
-                            </tbody>
-                        </table>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="dataTables_info" id="dataTables-example_info" role="alert"
-                                     aria-live="polite">
-                                    <p>Showing <?php echo $_GET['page']; ?> of <?php echo $pages; ?> pages</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-11">
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example-paginate">
-                                    <p><?php echo gettext('pages'); ?></p>
-                                    <ul class="pagination"><?php
-                                        for ($i = 0; $i < $pages; ++$i) {
-                                            ?>
-                                            <li>
-                                            <a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&amp;mthd=manage&amp;order=name&amp;cat=<?php echo $cat; ?>&amp;page=<?php echo $i +
-                                                                                                                                                                                     1; ?>"
-                                               class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                                                <?php echo $i + 1; ?>
-                                            </a>
-                                            </li><?php
-                                        } ?>
-                                    </ul>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="dataTables_info" id="dataTables-example_info" role="alert"
+                                         aria-live="polite">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div><?php
+            <script src="<?php echo JS_TABLEFILTER;?>" defer></script><?php
             break;
         case 'manage-cat':
             $categories = Games::getCategories('ASC'); ?>

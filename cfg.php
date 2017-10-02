@@ -111,7 +111,7 @@ define('JS_SWFOBJECT', SITE_URL . 'vendor/koala-framework/library-swfobject/swfo
 define('JS_TABLESORT', SITE_URL . 'plugins/site/themes/admin/assets/js/tablesort.min.js');
 
 /* CUSTOM - USERFILTER */
-define('JS_USERFILTER', SITE_URL . 'plugins/site/themes/admin/assets/js/userfilter.min.js');
+define('JS_TABLEFILTER', SITE_URL . 'plugins/site/themes/admin/assets/js/tablefilter.min.js');
 
 /* STANDARD URLS FOR EXTERNAL SITES */
 define('URL_FACEBOOK', 'https://www.facebook.com/');
