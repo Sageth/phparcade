@@ -8,7 +8,7 @@
     "google/recaptcha": "1.*",
     "koala-framework/library-swfobject": "2.*",
     "onokumus/metismenu": "2.*",
-    "phpmailer/phpmailer": "5.*",
+    "phpmailer/phpmailer": "~6.0",
     "roave/security-advisories": "dev-master",
     "twbs/bootstrap": "3.*"
   },

@@ -120,42 +120,60 @@ class Users
             $stmt->execute();
             $count = $stmt->rowCount();
             if ($count == 1) {
-                $mail = new PHPMailer();
-                $body = file_get_contents(INST_DIR . 'includes/messages/forgottenmessage.txt');
-                $body = nl2br(str_replace('%username%', $username, $body));
-                $body = nl2br(str_replace('%password%', $clearpass, $body));
-                $mail->isSMTP(); // telling the class to use SMTP
-                $mail->SMTPDebug = $dbconfig['emaildebug']; //Ask for HTML-friendly debug output
-                $mail->Debugoutput = 'html';
-                $mail->SMTPAuth = true;                    // enable SMTP authentication
-                $mail->SMTPSecure = 'tls';                    // sets the prefix to the server
-                $mail->Host = $dbconfig['emailhost']; //SMTP over IPv6
-                //$mail->Host = gethostbyname($dbconfig["emailhost"]); //SMTP over IPv4
-                $mail->Port = $dbconfig['emailport'];
-                $mail->Username = $dbconfig['emailfrom'];
-                $mail->Password = $inicfg['mail']['gmailpassword'];
-                $mail->setFrom($dbconfig['emailfrom'], $dbconfig['emaildomain']);
-                $mail->addReplyTo($dbconfig['emailfrom'], $dbconfig['emaildomain']);
-                $mail->Subject = 'Password Reset Request';
-                $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
-                $mail->msgHTML($body);
-                $address = $email;
-                $mail->addAddress($address, $dbconfig['emaildomain']);
-                /* This allows the next stored procedure in userPasswordUpdatebyEmail() to run simultaneously */
-                $stmt->nextRowset();
-                /* Do the actual update of the password in the database */
-                self::userPasswordUpdatebyEmail($password, $username, $email);
-                if (!$mail->send()) {
-                    ?>
+                /** @noinspection PhpUndefinedClassInspection */
+                /** @noinspection PhpUndefinedNamespaceInspection */
+                $mail = new PHPMailer\PHPMailer\PHPMailer();
+                try {
+                    $body = file_get_contents(INST_DIR . 'includes/messages/forgottenmessage.txt');
+                    $body = nl2br(str_replace('%username%', $username, $body));
+                    $body = nl2br(str_replace('%password%', $clearpass, $body));
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $mail->isSMTP(); // telling the class to use SMTP
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->SMTPDebug = $dbconfig['emaildebug']; //Ask for HTML-friendly debug output
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->Debugoutput = 'html';
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->SMTPAuth = true;                    // enable SMTP authentication
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->SMTPSecure = 'tls';                    // sets the prefix to the server
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->Host = $dbconfig['emailhost']; //SMTP over IPv6
+                    //$mail->Host = gethostbyname($dbconfig["emailhost"]); //SMTP over IPv4
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->Port = $dbconfig['emailport'];
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->Username = $dbconfig['emailfrom'];
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->Password = $inicfg['mail']['gmailpassword'];
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $mail->setFrom($dbconfig['emailfrom'], $dbconfig['emaildomain']);
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $mail->addReplyTo($dbconfig['emailfrom'], $dbconfig['emaildomain']);
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->Subject = 'Password Reset Request';
+                    /** @noinspection PhpUndefinedFieldInspection */
+                    $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $mail->msgHTML($body);
+                    $address = $email;
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $mail->addAddress($address, $dbconfig['emaildomain']);
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $mail->send();
+                    /* This allows the next stored procedure in userPasswordUpdatebyEmail() to run simultaneously */
+                    $stmt->nextRowset();
+                    /* Do the actual update of the password in the database */
+                    self::userPasswordUpdatebyEmail($password, $username, $email);
+                } catch (Exception $e) {
+                    $status = 'emailfail'; ?>
                     <p class="bg-danger">
-                    <?php echo gettext('emailfail'); ?>
+                        <?php echo gettext('emailfail');
+                        if ($dbconfig['emaildebug'] > 0) {
+                            /** @noinspection PhpUndefinedFieldInspection */
+                            $mail->ErrorInfo;
+                        } ?>
                     </p><?php
-                    if ($dbconfig['emaildebug'] > 0) {
-                        $status = 'emailfail';
-                        $mail->ErrorInfo;
-                    }
-                } else {
-                    $status = 'recoveryemailsent';
                 }
             } else {
                 Core::showError(gettext('passwordrecoverinvalid'));
@@ -236,54 +254,76 @@ class Users
                 $status = 'usertaken';
             } else {
                 if ($rowcount == 0) {
-                    $password = self::passwordGenerate();
-                    $clearpass = $password;
-                    $password = self::userPasswordHash($password);
-                    $mail = new PHPMailer();
-                    $body = file_get_contents(INST_DIR . 'includes/messages/registering.txt');
-                    $body = nl2br(str_replace('%siteurl%', SITE_URL, $body));
-                    $body = nl2br(str_replace('%username%', $username, $body));
-                    $body = nl2br(str_replace('%password%', $clearpass, $body));
-                    $mail->isSMTP(); // telling the class to use SMTP
-                    $mail->SMTPDebug = $dbconfig['emaildebug'];
-                    $mail->SMTPAuth = true;                    // enable SMTP authentication
-                    $mail->SMTPSecure = 'tls';                    // sets the prefix to the server
-                    $mail->Host = $dbconfig['emailhost'];
-                    $mail->Port = $dbconfig['emailport'];
-                    $mail->Username = $dbconfig['emailfrom'];
-                    $mail->Password = $inicfg['mail']['gmailpassword'];
-                    $mail->setFrom($dbconfig['emailfrom'], $dbconfig['emaildomain']);
-                    $mail->addReplyTo($dbconfig['emailfrom'], $dbconfig['emaildomain']);
-                    $mail->Subject = 'Account Creation';
-                    $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
-                    $mail->msgHTML($body);
-                    $address = $email;
-                    $mail->addAddress($address, $dbconfig['emaildomain']);
-                    if (!$mail->send()) {
-                        $status = 'emailfail';
-                        if ($dbconfig['emaildebug'] > 0) {
-                            $mail->ErrorInfo;
-                        }
-                    } else {
+                    try {
+                        /** @noinspection PhpUndefinedClassInspection */
+                        /** @noinspection PhpUndefinedNamespaceInspection */
+                        $mail = new PHPMailer\PHPMailer\PHPMailer();
+                        $password = self::passwordGenerate();
+                        $clearpass = $password;
+                        $password = self::userPasswordHash($password);
+                        $body = file_get_contents(INST_DIR . 'includes/messages/registering.txt');
+                        $body = nl2br(str_replace('%siteurl%', SITE_URL, $body));
+                        $body = nl2br(str_replace('%username%', $username, $body));
+                        $body = nl2br(str_replace('%password%', $clearpass, $body));
+                        /** @noinspection PhpUndefinedMethodInspection */
+                        $mail->isSMTP(); // telling the class to use SMTP
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->SMTPDebug = $dbconfig['emaildebug'];
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->SMTPAuth = true;                    // enable SMTP authentication
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->SMTPSecure = 'tls';                    // sets the prefix to the server
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->Host = $dbconfig['emailhost'];
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->Port = $dbconfig['emailport'];
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->Username = $dbconfig['emailfrom'];
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->Password = $inicfg['mail']['gmailpassword'];
+                        /** @noinspection PhpUndefinedMethodInspection */
+                        $mail->setFrom($dbconfig['emailfrom'], $dbconfig['emaildomain']);
+                        /** @noinspection PhpUndefinedMethodInspection */
+                        $mail->addReplyTo($dbconfig['emailfrom'], $dbconfig['emaildomain']);
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->Subject = 'Account Creation';
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
+                        /** @noinspection PhpUndefinedMethodInspection */
+                        $mail->msgHTML($body);
+                        $address = $email;
+                        /** @noinspection PhpUndefinedMethodInspection */
+                        $mail->addAddress($address, $dbconfig['emaildomain']);
+                        /** @noinspection PhpUndefinedMethodInspection */
+                        $mail->send();
+                        $status = 'confemail';
+                    } catch (Exception $e) {
+                        $status = 'emailfail'; ?>
+                        <p class="bg-danger">
+                            <?php echo gettext('emailfail');
+                            if ($dbconfig['emaildebug'] > 0) {
+                                /** @noinspection PhpUndefinedFieldInspection */
+                                $mail->ErrorInfo;
+                            } ?>
+                        </p><?php
+                    }
+                    $stmt->nextRowset();
+                    try {
                         $null = null;
                         $yes = 'Yes';
                         $no = 'No';
-                        $stmt->nextRowset();
-                        try {
-                            $stmt =
-                                mySQL::getConnection()->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
-                            $stmt->bindParam(':memberid', $null);
-                            $stmt->bindParam(':memberusername', $username);
-                            $stmt->bindParam(':memberpassword', $password);
-                            $stmt->bindParam(':memberemail', $email);
-                            $stmt->bindParam(':memberactive', $yes);
-                            $stmt->bindParam(':memberadmin', $no);
-                            $stmt->bindParam(':memberip', $_SERVER['REMOTE_ADDR']);
-                            $stmt->execute();
-                        } catch (PDOException $e) {
-                            Core::showError($e->getMessage());
-                        }
-                        $status = 'confemail';
+                        $stmt =
+                            mySQL::getConnection()->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
+                        $stmt->bindParam(':memberid', $null);
+                        $stmt->bindParam(':memberusername', $username);
+                        $stmt->bindParam(':memberpassword', $password);
+                        $stmt->bindParam(':memberemail', $email);
+                        $stmt->bindParam(':memberactive', $yes);
+                        $stmt->bindParam(':memberadmin', $no);
+                        $stmt->bindParam(':memberip', $_SERVER['REMOTE_ADDR']);
+                        $stmt->execute();
+                    } catch (PDOException $e) {
+                        Core::showError($e->getMessage());
                     }
                 }
             }
