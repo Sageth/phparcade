@@ -177,7 +177,7 @@ class Core
         switch (true) {
             case (is('game')):
                 $game = Games::getGame($params[1]);
-                $metadata['metapagetitle'] = $game['name'] . ' ' . gettext('Game');
+                $metadata['metapagetitle'] = $game['name'] . ' ' . gettext('game');
                 $metadata['metapagedesc'] = $game['desc'];
                 $metadata['metapagekeywords'] = $game['keywords'];
                 break;
