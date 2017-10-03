@@ -494,7 +494,7 @@ function site_admin($mthd)
                                         <?php echo Core::showGlyph('rss');?>
                                         <label><?php echo gettext('enablerss'); ?></label>
                                         <div class="checkbox-inline pull-right">
-                                            <input type="checkbox" name="rssenabled" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                            <input type="checkbox" name="rssenabled" title="rssenabled" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                         </div>
                                     </div>
                                 </div>
@@ -505,7 +505,7 @@ function site_admin($mthd)
                                     <div class="col-md-8">
                                         <?php echo Core::showGlyph('asterisk');?>
                                         <label><?php echo gettext('numlatest'); ?></label>
-                                        <input class="form-control" name='rssnumlatest'
+                                        <input class="form-control" name='rssnumlatest' title="rssnumlatest"
                                                value='<?php echo $dbconfig['rssnumlatest']; ?>'/>
                                     </div>
                                 </div>
@@ -516,7 +516,7 @@ function site_admin($mthd)
                                     <div class="col-md-8">
                                         <?php echo Core::showGlyph('link');?>
                                         <label><?php echo gettext('rssfeedurl'); ?></label>
-                                        <input class="form-control" name='rssfeed'
+                                        <input class="form-control" name='rssfeed' title="rssfeed"
                                                value='<?php echo $dbconfig['rssfeed']; ?>'/>
                                         <p class="help-block"><?php echo gettext('rssfeedexample1'); ?></p>
                                         <p class="help-block"><?php echo gettext('rssfeedexample2'); ?></p>

@@ -19,10 +19,10 @@ class Pages
         $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_GetPagesbyPageID(:pageid);');
         $stmt->bindParam(':pageid', $id);
         $stmt->execute();
-        if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
-        } elseif ($stmt->rowCount() === 0) {
+        if ($stmt->rowCount() !== 1) {
             die(Core::returnStatusCode(404));
+        } else {
+            return $stmt->fetch();
         }
     }
     public static function getPages()
