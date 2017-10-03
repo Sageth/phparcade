@@ -84,7 +84,6 @@ INSERT INTO `phparcade`.`config` SET `key`='google_recaptcha_sitekey', `value` =
 INSERT INTO `phparcade`.`config` SET `key`='google_search_ID',`value`='8727545858461215:8837170480';
 INSERT INTO `phparcade`.`config` SET `key`='highscoresenabled',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='imgurl',`value`='http://localhost/img/';
-INSERT INTO `phparcade`.`config` SET `key`='loginrequired',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='memberlanguage',`value`='0';
 INSERT INTO `phparcade`.`config` SET `key`='membersenabled',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='metadesc',`value`='PHPArcade is a free, open source (FOSS), online flash game arcade script. Download the GitHub script now to set up your own HTML5 and Flash game website for free!';
