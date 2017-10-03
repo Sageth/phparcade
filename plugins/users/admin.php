@@ -35,60 +35,48 @@ function users_admin($mthd)
 										<label><?php echo gettext('usersenabled'); ?></label>
 										<div class="checkbox-inline pull-right">
 											<label for="membersenabled"></label>
-											<input type="checkbox" name="membersenabled" id="membersenabled" <?php echo $checkeduserson; ?> data-toggle="toggle"/>
+											<input type="checkbox" name="membersenabled" id="membersenabled" <?php echo $checkeduserson; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
 										</div>
-									</div>
-								</div>
-							</div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?php echo Core::showGlyph('list');?>
+                                        <label><?php echo gettext('emailactivation'); ?></label>
+                                        <div class="checkbox-inline pull-right">
+                                            <label for="emailactivation"></label>
+                                            <input type="checkbox" name="emailactivation" id="emailactivation" <?php echo $checkedemailact; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?php echo Core::showGlyph('list');?>
+                                        <label><?php echo gettext('allowpasswordrecovery'); ?></label>
+                                        <div class="checkbox-inline pull-right">
+                                            <label for="passwordrecovery"></label>
+                                            <input type="checkbox" name="passwordrecovery" id="passwordrecovery" <?php echo $checkedpassrecovery; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                                <label>
+                                    <?php echo gettext('emailaddressfrom'); ?>
+                                    <input class="form-control" name='emailfrom' value='<?php echo $dbconfig['emailfrom']; ?>'/>
+                                </label>
+                            </div>
 						</div>
-						<div class="panel-footer">&nbsp;</div>
+						<div class="panel-footer">
+                            <input type='hidden' name='act' value='users'/>
+                            <input type='hidden' name='mthd' value='config-do'/>
+                            <?php Pages::getSubmitButton(); ?>
+                        </div>
 					</div>
 				</div>
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<?php echo gettext('activation'); ?>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('list');?>
-										<label><?php echo gettext('emailactivation'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="emailactivation"></label>
-											<input type="checkbox" name="emailactivation" id="emailactivation" <?php echo $checkedemailact; ?> data-toggle="toggle"/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr/>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('list');?>
-										<label><?php echo gettext('allowpasswordrecovery'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="passwordrecovery"></label>
-											<input type="checkbox" name="passwordrecovery" id="passwordrecovery" <?php echo $checkedpassrecovery; ?> data-toggle="toggle"/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr/>
-							<div class="form-group">
-								<label>
-									<?php echo gettext('emailaddressfrom'); ?>
-									<input class="form-control" name='emailfrom' value='<?php echo $dbconfig['emailfrom']; ?>'/>
-								</label>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-				</div>
-				<input type='hidden' name='act' value='users'/>
-				<input type='hidden' name='mthd' value='config-do'/>
-				<?php Pages::getSubmitButton(); ?>
 			</form><?php
             break;
         case 'delete-do':
