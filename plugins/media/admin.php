@@ -6,7 +6,6 @@ function media_links()
 
 Administrations::addSubLink(gettext('addcategory'), 'index.php?act=media&amp;mthd=addcat-form', 'media');
 Administrations::addSubLink(gettext('addmedia'), 'index.php?act=media&amp;mthd=addgame-form', 'media');
-Administrations::addSubLink(gettext('configuration'), 'index.php?act=media&amp;mthd=config-form', 'media');
 Administrations::addSubLink(gettext('inactivegames'), 'index.php?act=media&amp;mthd=inactive', 'media');
 Administrations::addSubLink(gettext('managecat'), 'index.php?act=media&amp;mthd=manage-cat', 'media');
 Administrations::addSubLink(gettext('managemedia'), 'index.php?act=media&amp;mthd=manage', 'media');
@@ -15,7 +14,6 @@ Administrations::addSubLink(gettext('managemedia'), 'index.php?act=media&amp;mth
  */
 function media_admin($mthd)
 {
-    $dbconfig = Core::getInstance()->getDBConfig();
     switch ($mthd) {
         case 'addcat-do':
             $order = Games::getCategoryIDMax();
@@ -272,88 +270,6 @@ function media_admin($mthd)
                 </div>
                 <input type='hidden' name='act' value='media'/>
                 <input type='hidden' name='mthd' value='addgame-do'/>
-                <?php Pages::getSubmitButton(); ?>
-            </form><?php
-            break;
-        case 'config-do':
-            Administrations::updateConfig('twidth', $_POST['twidth']);
-            Administrations::updateConfig('theight', $_POST['theight']);
-            Administrations::updateConfig('defgwidth', $_POST['defgwidth']);
-            Administrations::updateConfig('defgheight', $_POST['defgheight']);
-            Administrations::updateConfig('order', $_POST['order']);
-            Administrations::updateConfig('displaycattype', array_key_exists('displaycattype', $_POST) ? 'on' : 'off');
-            Core::showSuccess(gettext('updatesuccess'));
-            break;
-        case 'config-form':
-            /* TODO: Move this into main configuration */
-            $cattypechecked = ($dbconfig['displaycattype'] === 'on') ? 'checked' : ""; ?>
-            <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <?php echo gettext('thumbnails'); ?>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label><?php echo gettext('width'); ?></label>
-                                <input class="form-control" title="Thumbnail Width" name='twidth'
-                                       value='<?php echo $dbconfig['twidth']; ?>'/>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('height'); ?></label>
-                                <input class="form-control" title="Thumbnail Height" name='theight'
-                                       value='<?php echo $dbconfig['theight']; ?>'/>
-                            </div>
-                        </div>
-                        <div class="panel-footer">&nbsp;</div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <?php echo gettext('mediafiles'); ?>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label><?php echo gettext('defaultwidth'); ?></label>
-                                <input class="form-control" title="Default Game Width" name='defgwidth'
-                                       value='<?php echo $dbconfig['defgwidth']; ?>'/>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('defaultheight'); ?></label>
-                                <input class="form-control" title="Default Game Height" name='defgheight'
-                                       value='<?php echo $dbconfig['defgheight']; ?>'/>
-                            </div>
-                        </div>
-                        <div class="panel-footer">&nbsp;</div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <?php echo gettext('other'); ?>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label><?php echo gettext('orderby'); ?></label>
-                                <input class="form-control" title="Order" name='order'
-                                       value='<?php echo $dbconfig['order']; ?>'/>
-                            </div>
-                            <div class="form-group">
-                                <label for="displaycattype"><?php echo gettext('displaycattype'); ?></label>
-                                <input type="checkbox"
-                                       name="displaycattype"
-                                       id="displaycattype" <?php echo $cattypechecked; ?>
-                                       data-toggle="toggle"
-                                       data-onstyle="success"
-                                       data-offstyle="danger"/>
-                            </div>
-                        </div>
-                        <div class="panel-footer">&nbsp;</div>
-                    </div>
-                </div>
-                <input type='hidden' name='act' value='media'/>
-                <input type='hidden' name='mthd' value='config-do'/>
                 <?php Pages::getSubmitButton(); ?>
             </form><?php
             break;

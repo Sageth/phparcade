@@ -267,9 +267,6 @@ function site_admin($mthd)
             Administrations::updateConfig('emailhost', $_POST['emailhost']);
             Administrations::updateConfig('emaildebug', $_POST['emaildebug']);
             Administrations::updateConfig('emailport', $_POST['emailport']);
-            Administrations::updateConfig('ga_enabled', array_key_exists('ga_enabled', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('ga_id', $_POST['ga_id']);
-            Administrations::updateConfig('highscoresenabled', array_key_exists('highscoresenabled', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('imgurl', $_POST['imgurl']);
             Administrations::updateConfig('metadesc', $_POST['metadesc']);
             Administrations::updateConfig('sitetitle', $_POST['sitetitle']);
@@ -326,11 +323,12 @@ function site_admin($mthd)
         case 'feature-config':
             $checkeddisqus = ($dbconfig['disqus_on'] === 'on') ? 'checked' : "";
             $checkedemailact = ($dbconfig['emailactivation'] === 'on') ? 'checked' : "";
+            $checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
             $checkedfeed = ($dbconfig['rssenabled'] === 'on') ? 'checked' : "";
             $checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : "";
             $checkedhsenable = ($dbconfig['highscoresenabled'] === 'on') ? 'checked' : "";
             $checkedpassrecovery = ($dbconfig['passwordrecovery'] === 'on') ? 'checked' : "";
-            $checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : "";$checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
+            $checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : "";
             ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-md-7">
@@ -485,6 +483,60 @@ function site_admin($mthd)
                 <div class="col-md-7">
                     <div class="panel panel-default">
                         <div class="panel-heading">
+                            <?php echo gettext('thumbnails'); ?>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('width'); ?></label>
+                                        <input class="form-control" title="Thumbnail Width" name='twidth'
+                                               value='<?php echo $dbconfig['twidth']; ?>'/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('height'); ?></label>
+                                        <input class="form-control" title="Thumbnail Height" name='theight'
+                                               value='<?php echo $dbconfig['theight']; ?>'/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">&nbsp;</div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <?php echo gettext('mediafiles'); ?>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('defaultwidth'); ?></label>
+                                        <input class="form-control" title="Default Game Width" name='defgwidth'
+                                               value='<?php echo $dbconfig['defgwidth']; ?>'/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('defaultheight'); ?></label>
+                                        <input class="form-control" title="Default Game Height" name='defgheight'
+                                               value='<?php echo $dbconfig['defgheight']; ?>'/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">&nbsp;</div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
                             <?php echo gettext('rssfeeds'); ?>
                         </div>
                         <div class="panel-body">
@@ -593,6 +645,8 @@ function site_admin($mthd)
 			</form><?php
             break;
         case 'feature-config-do':
+            Administrations::updateConfig('defgwidth', $_POST['defgwidth']);
+            Administrations::updateConfig('defgheight', $_POST['defgheight']);
             Administrations::updateConfig('disqus_on', array_key_exists('disqus_on', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('disqus_user', $_POST['disqus_user']);
             Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');
@@ -600,13 +654,18 @@ function site_admin($mthd)
             Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
             Administrations::updateConfig('facebook_pageurl', $_POST['facebook_pageurl']);
             Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('ga_enabled', array_key_exists('ga_enabled', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('ga_id', $_POST['ga_id']);
             Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
             Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
+            Administrations::updateConfig('highscoresenabled', array_key_exists('highscoresenabled', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('rssfeed', $_POST['rssfeed']);
             Administrations::updateConfig('rssnumlatest', $_POST['rssnumlatest']);
+            Administrations::updateConfig('twidth', $_POST['twidth']);
+            Administrations::updateConfig('theight', $_POST['theight']);
             Core::showSuccess(gettext('updatesuccess'));
             break;
         default:
