@@ -344,7 +344,9 @@ function media_admin($mthd)
                                 <input type="checkbox"
                                        name="displaycattype"
                                        id="displaycattype" <?php echo $cattypechecked; ?>
-                                       data-toggle="toggle"/>
+                                       data-toggle="toggle"
+                                       data-onstyle="success"
+                                       data-offstyle="danger"/>
                             </div>
                         </div>
                         <div class="panel-footer">&nbsp;</div>
@@ -501,11 +503,13 @@ function media_admin($mthd)
                             <div class="form-group">
                                 <label><?php echo gettext('active'); ?></label>
                                     <input class="form-control"
-                                       title="Active"
-                                       type="checkbox"
-                                       name="active"
-                                       id="active" <?php echo $activechecked; ?>
-                                       data-toggle="toggle"/>
+                                           title="Active"
+                                           type="checkbox"
+                                           name="active"
+                                           id="active" <?php echo $activechecked; ?>
+                                           data-toggle="toggle"
+                                           data-onstyle="success"
+                                           data-offstyle="danger"/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('width'); ?></label>

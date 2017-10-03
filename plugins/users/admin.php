@@ -55,7 +55,7 @@ function users_admin($mthd)
 								        <label><?php echo gettext('active'); ?></label>
 								        <div class="checkbox-inline pull-right">
 									        <label for="active"></label>
-									        <input type="checkbox" name="active" id="active" <?php echo $useractive; ?> data-toggle="toggle"/>
+									        <input type="checkbox" name="active" id="active" <?php echo $useractive; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
 								        </div>
 							        </div>
                                 </div>
@@ -68,7 +68,8 @@ function users_admin($mthd)
 										<label><?php echo gettext('siteadmin'); ?></label>
 										<div class="checkbox-inline pull-right">
 											<label for="admin"></label>
-											<input type="checkbox" name="admin" id="admin" <?php echo $useradmin; ?> data-toggle="toggle"/>
+                                            <?php /* The toggle colors are purporsely backward so if you see something red, you know it's not normal */ ?>
+											<input type="checkbox" name="admin" id="admin" <?php echo $useradmin; ?> data-toggle="toggle" data-onstyle="danger" data-offstyle="success"/>
 										</div>
 									</div>
 								</div>
