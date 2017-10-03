@@ -63,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `config` (
 
 INSERT INTO `phparcade`.`config` SET `key`='defgheight',`value`='600';
 INSERT INTO `phparcade`.`config` SET `key`='defgwidth',`value`='800';
-INSERT INTO `phparcade`.`config` SET `key`='displaycattype',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='displaygamenum',`value`='off';
 INSERT INTO `phparcade`.`config` SET `key`='dispuserlist',`value`='off';
 INSERT INTO `phparcade`.`config` SET `key`='disqus_on',`value`='off';
@@ -84,11 +83,11 @@ INSERT INTO `phparcade`.`config` SET `key`='google_recaptcha_sitekey', `value` =
 INSERT INTO `phparcade`.`config` SET `key`='google_search_ID',`value`='8727545858461215:8837170480';
 INSERT INTO `phparcade`.`config` SET `key`='highscoresenabled',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='imgurl',`value`='http://localhost/img/';
-INSERT INTO `phparcade`.`config` SET `key`='loginrequired',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='memberlanguage',`value`='0';
 INSERT INTO `phparcade`.`config` SET `key`='membersenabled',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='metadesc',`value`='PHPArcade is a free, open source (FOSS), online flash game arcade script. Download the GitHub script now to set up your own HTML5 and Flash game website for free!';
 INSERT INTO `phparcade`.`config` SET `key`='metakey',`value`='Free,online,game,arcade,action,adventure,arcade,casino,card,driving,flying,shooting, simulation,sports,puzzle,strategy,racing,word';
+-- Order isn't used in the front-end, but is still needed for other functionality.
 INSERT INTO `phparcade`.`config` SET `key`='order',`value`='name';
 INSERT INTO `phparcade`.`config` SET `key`='passwordrecovery',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='rssenabled',`value`='off';
@@ -99,8 +98,6 @@ INSERT INTO `phparcade`.`config` SET `key`='sort',`value`='ASC';
 INSERT INTO `phparcade`.`config` SET `key`='theight',`value`='200';
 INSERT INTO `phparcade`.`config` SET `key`='theme',`value`='responsive';
 INSERT INTO `phparcade`.`config` SET `key`='twidth',`value`='200';
-INSERT INTO `phparcade`.`config` SET `key`='twitter_on',`value`='off';
-INSERT INTO `phparcade`.`config` SET `key`='twitter_username',`value`='';
 
 --
 -- Table structure for table `games`

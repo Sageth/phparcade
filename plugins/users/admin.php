@@ -5,92 +5,9 @@ function users_links()
 }
 
 Administrations::addSubLink(gettext('manage'), 'index.php?act=users&mthd=manage', 'users');
-Administrations::addSubLink(gettext('configuration'), 'index.php?act=users&mthd=config-form', 'users');
 function users_admin($mthd)
 {
-    $dbconfig = Core::getInstance()->getDBConfig();
     switch ($mthd) {
-        case 'config-do':
-            Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('emailfrom', $_POST['emailfrom']);
-            Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
-            Core::showSuccess(gettext('updatesuccess'));
-            break;
-        case 'config-form':
-            $checkedemailact = ($dbconfig['emailactivation'] === 'on') ? 'checked' : "";
-            $checkedpassrecovery = ($dbconfig['passwordrecovery'] === 'on') ? 'checked' : "";
-            $checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : ""; ?>
-			<form action="<?php echo SITE_URL_ADMIN;?>index.php" method="POST" enctype="multipart/form-data">
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<?php echo gettext('general'); ?>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('users');?>
-										<label><?php echo gettext('usersenabled'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="membersenabled"></label>
-											<input type="checkbox" name="membersenabled" id="membersenabled" <?php echo $checkeduserson; ?> data-toggle="toggle"/>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<?php echo gettext('activation'); ?>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('list');?>
-										<label><?php echo gettext('emailactivation'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="emailactivation"></label>
-											<input type="checkbox" name="emailactivation" id="emailactivation" <?php echo $checkedemailact; ?> data-toggle="toggle"/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr/>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('list');?>
-										<label><?php echo gettext('allowpasswordrecovery'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="passwordrecovery"></label>
-											<input type="checkbox" name="passwordrecovery" id="passwordrecovery" <?php echo $checkedpassrecovery; ?> data-toggle="toggle"/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr/>
-							<div class="form-group">
-								<label>
-									<?php echo gettext('emailaddressfrom'); ?>
-									<input class="form-control" name='emailfrom' value='<?php echo $dbconfig['emailfrom']; ?>'/>
-								</label>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-				</div>
-				<input type='hidden' name='act' value='users'/>
-				<input type='hidden' name='mthd' value='config-do'/>
-				<?php Pages::getSubmitButton(); ?>
-			</form><?php
-            break;
         case 'delete-do':
             Users::userDelete($_REQUEST['id']);
             break;
@@ -138,7 +55,7 @@ function users_admin($mthd)
 								        <label><?php echo gettext('active'); ?></label>
 								        <div class="checkbox-inline pull-right">
 									        <label for="active"></label>
-									        <input type="checkbox" name="active" id="active" <?php echo $useractive; ?> data-toggle="toggle"/>
+									        <input type="checkbox" name="active" id="active" <?php echo $useractive; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
 								        </div>
 							        </div>
                                 </div>
@@ -151,7 +68,8 @@ function users_admin($mthd)
 										<label><?php echo gettext('siteadmin'); ?></label>
 										<div class="checkbox-inline pull-right">
 											<label for="admin"></label>
-											<input type="checkbox" name="admin" id="admin" <?php echo $useradmin; ?> data-toggle="toggle"/>
+                                            <?php /* The toggle colors are purporsely backward so if you see something red, you know it's not normal */ ?>
+											<input type="checkbox" name="admin" id="admin" <?php echo $useradmin; ?> data-toggle="toggle" data-onstyle="danger" data-offstyle="success"/>
 										</div>
 									</div>
 								</div>
