@@ -326,6 +326,7 @@ function site_admin($mthd)
         case 'feature-config':
             $checkeddisqus = ($dbconfig['disqus_on'] === 'on') ? 'checked' : "";
             $checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
+            $checkedfeed = ($dbconfig['rssenabled'] === 'on') ? 'checked' : "";
             $checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : "";
             $checkedhsenable = ($dbconfig['highscoresenabled'] === 'on') ? 'checked' : "";?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
@@ -469,8 +470,52 @@ function site_admin($mthd)
                         </div>
 						<div class="panel-footer">&nbsp;</div>
 					</div>
-				<input type='hidden' name='act' value='site' />
-				<input type='hidden' name='mthd' value='social-config-do' />
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <?php echo gettext('rssfeeds'); ?>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <?php echo Core::showGlyph('rss');?>
+                                    <label><?php echo gettext('enablerss'); ?></label>
+                                    <div class="checkbox-inline pull-right">
+                                        <input type="checkbox" name="rssenabled" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group form-inline">
+                                        <?php echo Core::showGlyph('asterisk');?>
+                                        <label><?php echo gettext('numlatest'); ?></label>
+                                        <input class="form-control" name='rssnumlatest'
+                                               value='<?php echo $dbconfig['rssnumlatest']; ?>'/>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <?php echo Core::showGlyph('link');?>
+                                        <label><?php echo gettext('rssfeedurl'); ?></label>
+                                        <input class="form-control" name='rssfeed'
+                                               value='<?php echo $dbconfig['rssfeed']; ?>'/>
+                                        <p class="help-block"><?php echo gettext('rssfeedexample1'); ?></p>
+                                        <p class="help-block"><?php echo gettext('rssfeedexample2'); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">&nbsp;</div>
+                    </div>
+                </div>
+                <input type='hidden' name='act' value='site' />
+				<input type='hidden' name='mthd' value='feature-config-do' />
 				<?php Pages::getSubmitButton(); ?>
 			</form><?php
             break;
@@ -482,8 +527,9 @@ function site_admin($mthd)
             Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
             Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
-            Administrations::updateConfig('twitter_on', array_key_exists('twitter_on', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('twitter_username', $_POST['twitter_username']);
+            Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('rssfeed', $_POST['rssfeed']);
+            Administrations::updateConfig('rssnumlatest', $_POST['rssnumlatest']);
             Core::showSuccess(gettext('updatesuccess'));
             break;
         default:
