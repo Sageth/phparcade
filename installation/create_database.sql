@@ -98,8 +98,6 @@ INSERT INTO `phparcade`.`config` SET `key`='sort',`value`='ASC';
 INSERT INTO `phparcade`.`config` SET `key`='theight',`value`='200';
 INSERT INTO `phparcade`.`config` SET `key`='theme',`value`='responsive';
 INSERT INTO `phparcade`.`config` SET `key`='twidth',`value`='200';
-INSERT INTO `phparcade`.`config` SET `key`='twitter_on',`value`='off';
-INSERT INTO `phparcade`.`config` SET `key`='twitter_username',`value`='';
 
 --
 -- Table structure for table `games`

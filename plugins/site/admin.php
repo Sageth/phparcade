@@ -6,7 +6,7 @@ function site_links()
 
 Administrations::addSubLink(gettext('mainconfig'), 'index.php?act=site&mthd=site-config', 'site');
 Administrations::addSubLink(gettext('theme'), 'index.php?act=site&mthd=theme-config', 'site');
-Administrations::addSubLink(gettext('socialconfig'), 'index.php?act=site&mthd=social-config', 'site');
+Administrations::addSubLink(gettext('featureconfig'), 'index.php?act=site&mthd=feature-config', 'site');
 function site_admin($mthd)
 {
     $dbconfig = Core::getInstance()->getDBConfig();
@@ -169,144 +169,98 @@ function site_admin($mthd)
             Users::userSessionEnd();
             break;
         case 'site-config':
-            $checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : "";
-            $checkedhsenable = ($dbconfig['highscoresenabled'] === 'on') ? 'checked' : "";?>
+            ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
-            <div class="col-lg-5">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <?php echo gettext('general'); ?>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <?php echo Core::showGlyph('bullseye'); ?>
-                                <label for="highscoresenabled"><?php echo gettext('highscoresenabled'); ?></label>
-                                <div class="pull-right">
-                                    <input type="checkbox" name="highscoresenabled" id="highscoresenabled" <?php echo $checkedhsenable; ?> data-toggle="toggle"/>
-                                </div>
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <?php echo Core::showGlyph('cogs');?>&nbsp;<?php echo gettext('configuration'); ?>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group col-md-10">
+                                <label><?php echo gettext('sitetitle'); ?></label>
+                                <input class="form-control" title="Site Title" name='sitetitle'
+                                       value='<?php echo $dbconfig['sitetitle']; ?>'/>
+                            </div>
+                            <hr/>
+                            <div class="form-group col-md-10">
+                                <label><?php echo gettext('metadescription'); ?></label>
+                                <textarea class="form-control" title="Metadescription" name='metadesc'
+                                          rows='6'><?php echo $dbconfig['metadesc']; ?></textarea>
+                            </div>
+                            <hr/>
+                            <div class="form-group col-md-10">
+                                <label><?php echo gettext('imgurl'); ?></label>
+                                <input class="form-control" title="Image URL" name='imgurl'
+                                       value='<?php echo $dbconfig['imgurl']; ?>'/>
+                                <p class="help-block"><?php echo gettext('trailingslash') . gettext('imgurlexample'); ?></p>
                             </div>
                         </div>
+                        <div class="panel-footer">&nbsp;</div>
                     </div>
-                    <div class="panel-footer">&nbsp;</div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<?php echo Core::showGlyph('cogs');?>&nbsp;<?php echo gettext('configuration'); ?>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<label><?php echo gettext('imgurl'); ?></label>
-								<input class="form-control" title="Image URL" name='imgurl'
-                                       value='<?php echo $dbconfig['imgurl']; ?>'/>
-								<p class="help-block"><?php echo gettext('trailingslash') . gettext('imgurlexample'); ?></p>
-							</div>
-							<div class="form-group">
-								<label><?php echo gettext('sitetitle'); ?></label>
-								<input class="form-control" title="Site Title" name='sitetitle'
-                                       value='<?php echo $dbconfig['sitetitle']; ?>'/>
-							</div>
-							<div class="form-group">
-								<label><?php echo gettext('metadescription'); ?></label>
-								<textarea class="form-control" title="Metadescription" name='metadesc'
-								          rows='6'><?php echo $dbconfig['metadesc']; ?></textarea>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<?php echo Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('email'); ?>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<label><?php echo gettext('emaildomain'); ?></label>
-								<input class="form-control" title="email domain" name='emaildomain'
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <?php echo Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('email'); ?>
+                            <p class="help-block pull-right"><?php echo gettext('google_appsforbusiness');?></p>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label><?php echo gettext('emaildomain'); ?></label>
+                                <input class="form-control" title="email domain" name='emaildomain'
                                        value='<?php echo $dbconfig['emaildomain']; ?>'/>
-								<p class="help-block"><?php echo gettext('domainhelper'); ?></p>
-							</div>
-							<div class="form-group">
-								<label><?php echo gettext('emailhost'); ?></label>
-								<input class="form-control" title="email host" name='emailhost'
+                                <p class="help-block"><?php echo gettext('domainhelper'); ?></p>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo gettext('emailhost'); ?></label>
+                                <input class="form-control" title="email host" name='emailhost'
                                        value='<?php echo $dbconfig['emailhost']; ?>'/>
-								<p class="help-block"><?php echo gettext('emailhostexample'); ?></p>
-							</div>
-							<div class="form-group">
-								<label><?php echo gettext('emailport'); ?>
-									<input class="form-control" title="email port" name='emailport'
+                                <p class="help-block"><?php echo gettext('emailhostexample'); ?></p>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo gettext('emailport'); ?>
+                                    <input class="form-control" title="email port" name='emailport'
                                            value='<?php echo $dbconfig['emailport']; ?>'/>
-								</label>
-								<p class="help-block"><?php echo gettext('emailportexample'); ?></p>
-							</div>
-							<div class="form-group">
-								<label><?php echo gettext('emaildebug'); ?></label>
-								<select class="form-control" title="Email Debug" name="emaildebug"><?php
+                                </label>
+                                <p class="help-block"><?php echo gettext('emailportexample'); ?></p>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo gettext('emaildebug'); ?></label>
+                                <select class="form-control" title="Email Debug" name="emaildebug"><?php
                                     switch ($dbconfig['emaildebug']) {
                                         case 0:?>
-											<option value='0' selected>0</option>
-											<option value='1'>1</option>
-											<option value='2'>2</option><?php
+                                            <option value='0' selected>0</option>
+                                            <option value='1'>1</option>
+                                            <option value='2'>2</option><?php
                                             break;
                                         case 1:?>
-											<option value='0'>0</option>
-											<option value='1' selected>1</option>
-											<option value='2'>2</option><?php
+                                            <option value='0'>0</option>
+                                            <option value='1' selected>1</option>
+                                            <option value='2'>2</option><?php
                                             break;
                                         case 2:?>
-											<option value='0'>0</option>
-											<option value='1'>1</option>
-											<option value='2' selected>2</option><?php
+                                            <option value='0'>0</option>
+                                            <option value='1'>1</option>
+                                            <option value='2' selected>2</option><?php
                                             break;
                                         default:?>
-											<option value='ERR' selected>ERROR</option>
-											<option value='0'>0</option>
-											<option value='1'>1</option>
-											<option value='2'>2</option><?php
+                                            <option value='ERR' selected>ERROR</option>
+                                            <option value='0'>0</option>
+                                            <option value='1'>1</option>
+                                            <option value='2'>2</option><?php
                                     } ?>
-								</select>
-								<p class="help-block"><?php echo gettext('emaildebugexample'); ?></p>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<?php echo Core::showGlyph('google-plus');?>
-                            &nbsp;
-                            <?php echo gettext('ga'); ?>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('google');?>&nbsp;
-										<label><?php echo gettext('ga_enabled'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="ga_enabled"></label>
-											<input type="checkbox" name="ga_enabled" id="ga_enabled" <?php echo $checkedgaon; ?> data-toggle="toggle"/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label><?php echo gettext('ga_id'); ?></label>
-								<input class="form-control" title="Google Analytics Code" name='ga_id'
-                                       value='<?php echo $dbconfig['ga_id']; ?>'/>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-				</div>
-				<input type='hidden' name='act' value='site'/>
-				<input type='hidden' name='mthd' value='site-config-do'/>
-				<?php Pages::getSubmitButton(); ?>
-			</form><?php
+                                </select>
+    							<p class="help-block"><?php echo gettext('emaildebugexample'); ?></p>
+                            </div>
+                        </div>
+                        <div class="panel-footer">&nbsp;</div>
+                    </div>
+                    <input type='hidden' name='act' value='site'/>
+                    <input type='hidden' name='mthd' value='site-config-do'/>
+                    <?php Pages::getSubmitButton(); ?>
+                </div>
+            </form><?php
             break;
         case 'site-config-do':
             Administrations::updateConfig('emaildomain', $_POST['emaildomain']);
@@ -369,21 +323,22 @@ function site_admin($mthd)
             Administrations::updateConfig('themename', $_POST['themename']);
             Core::showSuccess(gettext('updatesuccess'));
             break;
-        case 'social-config':
+        case 'feature-config':
             $checkeddisqus = ($dbconfig['disqus_on'] === 'on') ? 'checked' : "";
             $checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
-            $checkedtwittr = ($dbconfig['twitter_on'] === 'on') ? 'checked' : ""; ?>
+            $checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : "";
+            $checkedhsenable = ($dbconfig['highscoresenabled'] === 'on') ? 'checked' : "";?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
-				<div class="col-lg-4">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<?php echo Core::showGlyph('comment');?>&nbsp;<?php echo gettext('disqus'); ?>
+							<?php echo Core::showGlyph('comments');?>&nbsp;<?php echo gettext('disqus'); ?>
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
 								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('database');?>
+									<div class="col-md-8">
+										<?php echo Core::showGlyph('commenting-o');?>
 										<label><?php echo gettext('disqus_enabled'); ?></label>
 										<div class="checkbox-inline pull-right">
 											<label for="disqus_on"></label>
@@ -394,15 +349,19 @@ function site_admin($mthd)
 							</div>
 							<hr/>
 							<div class="form-group">
-								<label><?php echo gettext('disqus_user'); ?></label>
-								<input class="form-control" title="Disqus User" name='disqus_user'
-                                       value='<?php echo $dbconfig['disqus_user']; ?>'/>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('disqus_user'); ?></label>
+                                        <input class="form-control" title="Disqus User" name='disqus_user'
+                                               value='<?php echo $dbconfig['disqus_user']; ?>'/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">&nbsp;</div>
+                    </div>
+                </div>
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<?php echo Core::showGlyph('facebook');?>&nbsp;<?php echo gettext('facebook'); ?>
@@ -410,7 +369,7 @@ function site_admin($mthd)
 						<div class="panel-body">
 							<div class="form-group">
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-md-8">
 										<?php echo Core::showGlyph('database');?>
 										<label><?php echo gettext('facebook_enabled'); ?></label>
 										<div class="checkbox-inline pull-right">
@@ -422,90 +381,100 @@ function site_admin($mthd)
 							</div>
 							<hr/>
 							<div class="form-group">
-								<label><?php echo gettext('facebook_appid'); ?></label>
-								<input class="form-control" title="Facebook App ID" name='facebook_appid'
-                                       value='<?php echo $dbconfig['facebook_appid']; ?>'/>
-								<p class="help-block"><?php echo gettext('facebook_developers'); ?></p>
-							</div>
-							<hr/>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('facebook_appid'); ?></label>
+                                        <input class="form-control" title="Facebook App ID" name='facebook_appid'
+                                               value='<?php echo $dbconfig['facebook_appid']; ?>'/>
+                                        <p class="help-block"><?php echo gettext('facebook_developers'); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
 							<div class="form-group">
-								<label><?php echo gettext('facebook_pageurl'); ?></label>
-								<input class="form-control" title="Facebook Page URL" name="facebook_pageurl"
-                                       value="<?php echo $dbconfig['facebook_pageurl']; ?>"/>
-							</div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('facebook_pageurl'); ?></label>
+                                        <input class="form-control" title="Facebook Page URL" name="facebook_pageurl"
+                                               value="<?php echo $dbconfig['facebook_pageurl']; ?>"/>
+                                    </div>
+                                </div>
+                            </div>
 						</div>
 						<div class="panel-footer">&nbsp;</div>
 					</div>
 				</div>
-				<div class="col-lg-4">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<?php echo Core::showGlyph('twitter');?>&nbsp;<?php echo gettext('twitter'); ?>
+							<?php echo Core::showGlyph('bullseye');?>&nbsp;<?php echo gettext('highscores'); ?>
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('database');?>
-										<label><?php echo gettext('twitter_on'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="twitter_on"></label>
-											<input type="checkbox" name="twitter_on" id="twitter_on" <?php echo $checkedtwittr; ?> data-toggle="toggle"/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr/>
-							<div class="form-group">
-								<label><?php echo gettext('twitter_id'); ?></label>
-								<div class="form-group input-group">
-									<span class="input-group-addon">@</span>
-									<input
-                                            class="form-control"
-									       placeholder="Username"
-									       name="twitter_username"
-									       value="<?php echo $dbconfig['twitter_username']; ?>"
-									/>
-								</div>
-							</div>
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <?php echo Core::showGlyph('bullseye'); ?>
+                                        <label for="highscoresenabled"><?php echo gettext('highscoresenabled'); ?></label>
+                                        <div class="pull-right">
+                                            <input type="checkbox" name="highscoresenabled" id="highscoresenabled" <?php echo $checkedhsenable; ?> data-toggle="toggle"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 						</div>
 						<div class="panel-footer">&nbsp;</div>
 					</div>
 				</div>
-				<div class="col-lg-4">
+				<div class="col-md-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<?php echo Core::showGlyph('google-plus');?>&nbsp;<?php echo gettext('google'); ?>
+							<?php echo Core::showGlyph('google');?>&nbsp;<?php echo gettext('google'); ?>
 						</div>
 						<div class="panel-body">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-12">
-										<?php echo Core::showGlyph('database');?>
-										<label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
-										<input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
-                                               name='google_recaptcha_sitekey'
-                                               value='<?php echo $dbconfig['google_recaptcha_sitekey']; ?>'/>
-									</div>
-								</div>
-							</div>
-							<hr/>
-							<div class="form-group">
-								<label><?php echo gettext('google_recaptcha_secretkey'); ?></label>
-								<input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>"
-                                       name='google_recaptcha_secretkey'
-                                       value='<?php echo $dbconfig['google_recaptcha_secretkey']; ?>'/>
-							</div>
-						</div>
+                            <div class="row">
+                                <div class="form-group col-md-8">
+                                    <?php echo Core::showGlyph('google');?>&nbsp;
+                                    <label><?php echo gettext('ga_enabled'); ?></label>
+                                    <div class="pull-right">
+                                        <label for="ga_enabled"></label>
+                                        <input type="checkbox" name="ga_enabled" id="ga_enabled" <?php echo $checkedgaon; ?> data-toggle="toggle"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-8">
+                                    <label><?php echo gettext('ga_id'); ?></label>
+                                    <input class="form-control" title="Google Analytics Code" name='ga_id'
+                                           value='<?php echo $dbconfig['ga_id']; ?>'/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="form-group col-md-8">
+                                    <?php echo Core::showGlyph('database');?>
+                                    <label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
+                                    <input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
+                                           name='google_recaptcha_sitekey'
+                                           value='<?php echo $dbconfig['google_recaptcha_sitekey']; ?>'/>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="form-group col-md-8">
+                                    <label><?php echo gettext('google_recaptcha_secretkey'); ?></label>
+                                    <input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>"
+                                           name='google_recaptcha_secretkey'
+                                           value='<?php echo $dbconfig['google_recaptcha_secretkey']; ?>'/>
+                                </div>
+                            </div>
+                        </div>
 						<div class="panel-footer">&nbsp;</div>
 					</div>
-				</div>
 				<input type='hidden' name='act' value='site' />
 				<input type='hidden' name='mthd' value='social-config-do' />
 				<?php Pages::getSubmitButton(); ?>
 			</form><?php
             break;
-        case 'social-config-do':
+        case 'feature-config-do':
             Administrations::updateConfig('disqus_on', array_key_exists('disqus_on', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('disqus_user', $_POST['disqus_user']);
             Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
