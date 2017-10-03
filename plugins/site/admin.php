@@ -325,12 +325,15 @@ function site_admin($mthd)
             break;
         case 'feature-config':
             $checkeddisqus = ($dbconfig['disqus_on'] === 'on') ? 'checked' : "";
-            $checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
+            $checkedemailact = ($dbconfig['emailactivation'] === 'on') ? 'checked' : "";
             $checkedfeed = ($dbconfig['rssenabled'] === 'on') ? 'checked' : "";
             $checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : "";
-            $checkedhsenable = ($dbconfig['highscoresenabled'] === 'on') ? 'checked' : "";?>
+            $checkedhsenable = ($dbconfig['highscoresenabled'] === 'on') ? 'checked' : "";
+            $checkedpassrecovery = ($dbconfig['passwordrecovery'] === 'on') ? 'checked' : "";
+            $checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : "";$checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
+            ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
-				<div class="col-md-6">
+				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<?php echo Core::showGlyph('comments');?>&nbsp;<?php echo gettext('disqus'); ?>
@@ -343,7 +346,7 @@ function site_admin($mthd)
 										<label><?php echo gettext('disqus_enabled'); ?></label>
 										<div class="checkbox-inline pull-right">
 											<label for="disqus_on"></label>
-											<input type="checkbox" name="disqus_on" id="disqus_on" <?php echo $checkeddisqus; ?> data-toggle="toggle"/>
+											<input type="checkbox" name="disqus_on" id="disqus_on" <?php echo $checkeddisqus; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
 										</div>
 									</div>
 								</div>
@@ -362,7 +365,7 @@ function site_admin($mthd)
                         <div class="panel-footer">&nbsp;</div>
                     </div>
                 </div>
-				<div class="col-md-6">
+				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<?php echo Core::showGlyph('facebook');?>&nbsp;<?php echo gettext('facebook'); ?>
@@ -375,7 +378,7 @@ function site_admin($mthd)
 										<label><?php echo gettext('facebook_enabled'); ?></label>
 										<div class="checkbox-inline pull-right">
 											<label for="facebook_on"></label>
-											<input disabled type="checkbox" name="facebook_on" id="facebook_on" <?php echo $checkedfacebk; ?> data-toggle="toggle"/>
+											<input disabled type="checkbox" name="facebook_on" id="facebook_on" <?php echo $checkedfacebk; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
 										</div>
 									</div>
 								</div>
@@ -405,19 +408,19 @@ function site_admin($mthd)
 						<div class="panel-footer">&nbsp;</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<?php echo Core::showGlyph('bullseye');?>&nbsp;<?php echo gettext('highscores'); ?>
 						</div>
 						<div class="panel-body">
-							<div class="form-group">
+                            <div class="form-group">
                                 <div class="row">
-                                    <div class="form-group col-md-8">
+                                    <div class="col-md-8">
                                         <?php echo Core::showGlyph('bullseye'); ?>
                                         <label for="highscoresenabled"><?php echo gettext('highscoresenabled'); ?></label>
                                         <div class="pull-right">
-                                            <input type="checkbox" name="highscoresenabled" id="highscoresenabled" <?php echo $checkedhsenable; ?> data-toggle="toggle"/>
+                                            <input type="checkbox" name="highscoresenabled" id="highscoresenabled" <?php echo $checkedhsenable; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                         </div>
                                     </div>
                                 </div>
@@ -426,70 +429,80 @@ function site_admin($mthd)
 						<div class="panel-footer">&nbsp;</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<?php echo Core::showGlyph('google');?>&nbsp;<?php echo gettext('google'); ?>
 						</div>
 						<div class="panel-body">
-                            <div class="row">
-                                <div class="form-group col-md-8">
-                                    <?php echo Core::showGlyph('google');?>&nbsp;
-                                    <label><?php echo gettext('ga_enabled'); ?></label>
-                                    <div class="pull-right">
-                                        <label for="ga_enabled"></label>
-                                        <input type="checkbox" name="ga_enabled" id="ga_enabled" <?php echo $checkedgaon; ?> data-toggle="toggle"/>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <?php echo Core::showGlyph('google');?>&nbsp;
+                                        <label><?php echo gettext('ga_enabled'); ?></label>
+                                        <div class="pull-right">
+                                            <label for="ga_enabled"></label>
+                                            <input type="checkbox" name="ga_enabled" id="ga_enabled" <?php echo $checkedgaon; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-md-8">
-                                    <label><?php echo gettext('ga_id'); ?></label>
-                                    <input class="form-control" title="Google Analytics Code" name='ga_id'
-                                           value='<?php echo $dbconfig['ga_id']; ?>'/>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('ga_id'); ?></label>
+                                        <input class="form-control" title="Google Analytics Code" name='ga_id'
+                                               value='<?php echo $dbconfig['ga_id']; ?>'/>
+                                    </div>
                                 </div>
                             </div>
                             <hr/>
-                            <div class="row">
-                                <div class="form-group col-md-8">
-                                    <?php echo Core::showGlyph('database');?>
-                                    <label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
-                                    <input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
-                                           name='google_recaptcha_sitekey'
-                                           value='<?php echo $dbconfig['google_recaptcha_sitekey']; ?>'/>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <?php echo Core::showGlyph('database');?>
+                                        <label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
+                                        <input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
+                                               name='google_recaptcha_sitekey'
+                                               value='<?php echo $dbconfig['google_recaptcha_sitekey']; ?>'/>
+                                    </div>
                                 </div>
                             </div>
-							<div class="row">
-                                <div class="form-group col-md-8">
-                                    <label><?php echo gettext('google_recaptcha_secretkey'); ?></label>
-                                    <input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>"
-                                           name='google_recaptcha_secretkey'
-                                           value='<?php echo $dbconfig['google_recaptcha_secretkey']; ?>'/>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('google_recaptcha_secretkey'); ?></label>
+                                        <input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>"
+                                               name='google_recaptcha_secretkey'
+                                               value='<?php echo $dbconfig['google_recaptcha_secretkey']; ?>'/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
+                        <div class="panel-footer">&nbsp;</div>
+                    </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <?php echo gettext('rssfeeds'); ?>
                         </div>
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <?php echo Core::showGlyph('rss');?>
-                                    <label><?php echo gettext('enablerss'); ?></label>
-                                    <div class="checkbox-inline pull-right">
-                                        <input type="checkbox" name="rssenabled" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" />
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <?php echo Core::showGlyph('rss');?>
+                                        <label><?php echo gettext('enablerss'); ?></label>
+                                        <div class="checkbox-inline pull-right">
+                                            <input type="checkbox" name="rssenabled" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <hr />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group form-inline">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
                                         <?php echo Core::showGlyph('asterisk');?>
                                         <label><?php echo gettext('numlatest'); ?></label>
                                         <input class="form-control" name='rssnumlatest'
@@ -498,9 +511,9 @@ function site_admin($mthd)
                                 </div>
                             </div>
                             <hr />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
                                         <?php echo Core::showGlyph('link');?>
                                         <label><?php echo gettext('rssfeedurl'); ?></label>
                                         <input class="form-control" name='rssfeed'
@@ -514,19 +527,83 @@ function site_admin($mthd)
                         <div class="panel-footer">&nbsp;</div>
                     </div>
                 </div>
-                <input type='hidden' name='act' value='site' />
-				<input type='hidden' name='mthd' value='feature-config-do' />
-				<?php Pages::getSubmitButton(); ?>
+                <div class="col-md-7">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <?php echo Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('general'); ?>
+                            <p class="help-block pull-right"><?php echo gettext('google_appsforbusiness');?></p>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <?php echo Core::showGlyph('users');?>
+                                        <label><?php echo gettext('usersenabled'); ?></label>
+                                        <div class="checkbox-inline pull-right">
+                                            <label for="membersenabled"></label>
+                                            <input type="checkbox" name="membersenabled" id="membersenabled" <?php echo $checkeduserson; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <?php echo Core::showGlyph('list');?>
+                                        <label><?php echo gettext('emailactivation'); ?></label>
+                                        <div class="checkbox-inline pull-right">
+                                            <label for="emailactivation"></label>
+                                            <input type="checkbox" name="emailactivation" id="emailactivation" <?php echo $checkedemailact; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <?php echo Core::showGlyph('list');?>
+                                        <label><?php echo gettext('allowpasswordrecovery'); ?></label>
+                                        <div class="checkbox-inline pull-right">
+                                            <label for="passwordrecovery"></label>
+                                            <input type="checkbox" name="passwordrecovery" id="passwordrecovery" <?php echo $checkedpassrecovery; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label>
+                                            <?php echo gettext('emailaddressfrom'); ?>
+                                            <input class="form-control" name='emailfrom' value='<?php echo $dbconfig['emailfrom']; ?>'/>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <input type='hidden' name='act' value='site' />
+                            <input type='hidden' name='mthd' value='feature-config-do' />
+                            <?php Pages::getSubmitButton(); ?>
+                        </div>
+                    </div>
+                </div>
 			</form><?php
             break;
         case 'feature-config-do':
             Administrations::updateConfig('disqus_on', array_key_exists('disqus_on', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('disqus_user', $_POST['disqus_user']);
+            Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('emailfrom', $_POST['emailfrom']);
             Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
             Administrations::updateConfig('facebook_pageurl', $_POST['facebook_pageurl']);
             Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
             Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
+            Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('rssfeed', $_POST['rssfeed']);
             Administrations::updateConfig('rssnumlatest', $_POST['rssnumlatest']);

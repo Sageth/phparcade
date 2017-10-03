@@ -285,6 +285,7 @@ function media_admin($mthd)
             Core::showSuccess(gettext('updatesuccess'));
             break;
         case 'config-form':
+            /* TODO: Move this into main configuration */
             $cattypechecked = ($dbconfig['displaycattype'] === 'on') ? 'checked' : ""; ?>
             <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
                 <div class="col-lg-4">
