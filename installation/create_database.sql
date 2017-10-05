@@ -8,6 +8,8 @@ CREATE SCHEMA IF NOT EXISTS `phparcade`
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
+USE `phparcade`;
+
 --
 -- Table structure for table `ads`
 --
@@ -1001,8 +1003,8 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS `sp_Members_GeneratePassword`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_GeneratePassword`(
-  IN hashedpw VARCHAR(255),
-  IN m_username VARCHAR(16))
+  IN m_username VARCHAR(16),
+  IN hashedpw VARCHAR(255))
   BEGIN
     UPDATE `members`
     SET `password` = hashedpw
@@ -1230,5 +1232,3 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Sessions_GetSessionbyUserid
     WHERE `userid` = s_userid;
   END ;;
 DELIMITER ;
-
-USE `phparcade`;
