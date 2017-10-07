@@ -75,6 +75,7 @@ INSERT INTO `phparcade`.`config` SET `key`='emaildomain',`value`='';
 INSERT INTO `phparcade`.`config` SET `key`='emailfrom',`value`='';
 INSERT INTO `phparcade`.`config` SET `key`='emailhost',`value`='smtp.gmail.com';
 INSERT INTO `phparcade`.`config` SET `key`='emailport',`value`='587';
+INSERT INTO `phparcade`.`config` SET `key`='facebook_appid',`value`='';
 INSERT INTO `phparcade`.`config` SET `key`='facebook_on',`value`='off';
 INSERT INTO `phparcade`.`config` SET `key`='facebook_pageurl',`value`='';
 INSERT INTO `phparcade`.`config` SET `key`='gamesperpage',`value`='18';
