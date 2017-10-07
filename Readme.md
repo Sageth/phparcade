@@ -6,20 +6,19 @@ better adherence to new coding standards.  A production "demo" of the front-end 
 [Facebook](https://www.facebook.com/PHPArcade-271750579558482) for regular updates.
 
 ## Features (screenshots below)
-* Add/edit custom pages via database
-* Add/edit games manually or from feed
-* Advertising Placements
-* Custom languages module
+* Add/edit pages via GUI
+* Add/edit games manually
+* Pre-configured advertising placements
+* Custom languages possible via .PO files, English default
 * Customizable theme modules and uploading
-* Custom pages
-* Database-driven design, including stored procedures
+* Database-driven design, including stored procedures and indexed queries
 * [Disqus](https://disqus.com/) Commenting System (optional)
 * External email support (e.g. [Google Apps for Work](https://goo.gl/S3SgCr), Gmail)
 * HTML5 games and other custom code implementations
 * Internal high score system for some game types, primarily ibPro v2
 * **Responsive design** for front-end and back-end
 * RSS Feeds
-* Supports PHP7 and the latest strict standards of MySQL 5.6+
+* Supports PHP7 and the latest strict standards of MySQL 5.7
 * User administration and profiles
 
 ## Additional Notes
@@ -28,9 +27,10 @@ repositories. This code has not been tested on Apache. It may work with some bas
 * This code can be found on [GitHub](https://github.com/Sageth/phpArcade) and on [GitLab](https://gitlab.com/Sageth/phparcade).
 
 ## Supported/Tested Platforms:
-* PHP 7.1.x
-* MySQL 5.7.x / MariaDB
-* Nginx 1.8+
+* PHP 7.1
+* MariaDB 10.2
+* Nginx 1.8+ (latest recommended)
+* Please note that MySQL is not tested and is not officially supported, however, it _probably_ works with MySQL 5.7+
 
 ## Support Information
 * [Bug Tracker](https://github.com/Sageth/phpArcade/issues)
@@ -39,6 +39,7 @@ repositories. This code has not been tested on Apache. It may work with some bas
 ## We are currently looking for the following contributors:
 * Coders (PHP, AJAX, CSS)
 * Theme Designers
+* Contributers should feel free to offer pull requests for updated features and functionality.
 
 ## Installation
 * See details on the [GitHub Wiki](https://github.com/Sageth/phparcade/wiki) or [GitLab Wiki](https://gitlab.com/Sageth/phparcade/wikis/home)
@@ -60,6 +61,9 @@ continued offering of an [open source license](https://www.jetbrains.com/buy/ope
 
 ## Developers:
 * Sage Russell - Project maintainer, developer. 
+
+## Contributors
+* Thank you to [BennyJake](https://github.com/BennyJake) for your contributions.
 
 ## Screenshots
 ![Admin Dashboard](http://i61.tinypic.com/15zj2g.png "Admin Dashboard")
