@@ -21,7 +21,11 @@ class Administrations
     }
     public static function getProcessUser()
     {
-        return posix_getpwuid(posix_geteuid());
+        //http://php.net/manual/en/function.posix-getpwuid.php#82387
+        if(function_exists('posix_getpwuid') && function_exists('posix_geteuid')){
+            return posix_getpwuid(posix_geteuid());
+        }
+        return getenv('USERNAME');
     }
     public static function isAdminArea()
     {
