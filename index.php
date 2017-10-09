@@ -8,8 +8,8 @@ $router->any(['/game/{id:i}/{passedName:.*}', 'game'], function ($id, $passedNam
     $game = Games::getGame($id);
     $actualName = $game['name'];
     $actualNameWithHtml = $actualName . '.html';
-    if($actualNameWithHtml != $passedName){
-        header('Location: /game/'.$id.'/'.$actualNameWithHtml);
+    if($actualNameWithHtml != urldecode($passedName)){
+        header('Location: /game/'.$id.'/'.urlencode($actualNameWithHtml));
         return false;
     }
     else{
