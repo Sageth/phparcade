@@ -2,7 +2,9 @@
 require_once __DIR__ . '/cfg.php';
 
 $router = new Phroute\Phroute\RouteCollector();
-$router->any(['/game/{id:i}/{passedName:c}', 'game'], function ($id, $passedName) {
+
+// catch http://phparcade.dev/game/2741/Sample.html
+$router->any(['/game/{id:i}/{passedName:c}', 'game'], function ($id, $passedName) use (&$foundMatch) {
     $game = Games::getGame($id);
     $actualName = $game['name'];
     $actualNameWithHtml = $actualName . '.html';
@@ -14,6 +16,10 @@ $router->any(['/game/{id:i}/{passedName:c}', 'game'], function ($id, $passedName
         $_GET['params'] = 'game/'.$id.'/'.$actualName;
 
     }
+});
+
+//catch all routes not caught earlier
+$router->any('{route:.*}', function(){
 });
 
 $response = (new Phroute\Phroute\Dispatcher($router->getData()))->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
