@@ -81,7 +81,7 @@ global $params; ?>
                     <?php echo Ads::getInstance()->showAds('Responsive'); ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
                     $game['type'] = $game['type'] ?? '';
-                    switch ($game['customcode']) {
+        switch ($game['customcode']) {
                         case null:
                         case '':
                             /** @noinspection MissingOrEmptyGroupStatementInspection */

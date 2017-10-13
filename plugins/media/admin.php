@@ -527,7 +527,7 @@ function media_admin($mthd)
             </div><?php
             break;
         case 'manage':
-            $games = Games::getGames($cat = 'all', 0, 10, 1,5000); ?>
+            $games = Games::getGames($cat = 'all', 0, 10, 1, 5000); ?>
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">

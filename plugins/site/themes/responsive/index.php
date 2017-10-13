@@ -103,11 +103,11 @@ include_once __DIR__ . '/scoresys.php';
         <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
         <?php if (true == is('game')) {
-            ?>
+                    ?>
             <!--suppress JSUnresolvedLibraryURL, XmlDefaultAttributeValue -->
             <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>"
                     crossorigin="anonymous" defer></script><?php
-        } ?>
+                } ?>
         <script type="application/ld+json" defer>
         {
             "@context":"http://schema.org",
