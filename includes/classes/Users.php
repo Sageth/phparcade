@@ -169,10 +169,10 @@ class Users
                     $status = 'emailfail'; ?>
                     <p class="bg-danger">
                         <?php echo gettext('emailfail');
-                        if ($dbconfig['emaildebug'] > 0) {
-                            /** @noinspection PhpUndefinedFieldInspection */
-                            $mail->ErrorInfo;
-                        } ?>
+                    if ($dbconfig['emaildebug'] > 0) {
+                        /** @noinspection PhpUndefinedFieldInspection */
+                        $mail->ErrorInfo;
+                    } ?>
                     </p><?php
                 }
             } else {
@@ -301,10 +301,10 @@ class Users
                         $status = 'emailfail'; ?>
                         <p class="bg-danger">
                             <?php echo gettext('emailfail');
-                            if ($dbconfig['emaildebug'] > 0) {
-                                /** @noinspection PhpUndefinedFieldInspection */
-                                $mail->ErrorInfo;
-                            } ?>
+                        if ($dbconfig['emaildebug'] > 0) {
+                            /** @noinspection PhpUndefinedFieldInspection */
+                            $mail->ErrorInfo;
+                        } ?>
                         </p><?php
                     }
                     $stmt->nextRowset();
