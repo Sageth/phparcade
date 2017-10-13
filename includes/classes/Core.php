@@ -46,7 +46,8 @@ class Core
         return time();
     }
     public static function getFlashModal()
-    { ?>
+    {
+        ?>
         <!--suppress ALL -->
         <div id="myModal" class="modal fade">
             <div class="modal-dialog">
