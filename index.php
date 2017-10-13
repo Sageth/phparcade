@@ -4,12 +4,12 @@ require_once __DIR__ . '/cfg.php';
 $router = new Phroute\Phroute\RouteCollector();
 
 // catch http://phparcade.dev/game/2741/Sample.html
-$router->any(['/game/{id:i}/{passedName:c}', 'game'], function ($id, $passedName) use (&$foundMatch) {
+$router->any(['/game/{id:i}/{passedName:.*}', 'game'], function ($id, $passedName) use (&$foundMatch) {
     $game = Games::getGame($id);
     $actualName = $game['name'];
     $actualNameWithHtml = $actualName . '.html';
-    if($actualNameWithHtml != $passedName){
-        header('Location: /game/'.$id.'/'.$actualNameWithHtml);
+    if($actualNameWithHtml != urldecode($passedName)){
+        header('Location: /game/'.$id.'/'.urlencode($actualNameWithHtml));
         return false;
     }
     else{
