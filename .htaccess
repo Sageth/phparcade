@@ -1,0 +1,8 @@
+RewriteEngine on
+RewriteBase /
+RewriteRule ^/game/(.*)/(.*)\.php$ /index.php?act=Arcade&do=newscore
+RewriteRule ^play/index.php$ index.php?act=Arcade&do=newscore
+RewriteRule ^game/([0-9]+)/arcade/gamedata/(.*)$ arcade/gamedata/$2
+RewriteRule ^play/arcade/(.*)$ arcade/$1
+RewriteRule ^(.*).html$ index.php?params=$1
+RewriteRule ^robots.txt$ robots.php
