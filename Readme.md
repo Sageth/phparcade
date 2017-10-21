@@ -5,6 +5,10 @@ better adherence to new coding standards.  A production "demo" of the front-end 
 [Free Online Flash Games](https://www.phparcade.com).  Follow our [Twitter](https://twitter.com/phparcade) or
 [Facebook](https://www.facebook.com/PHPArcade-271750579558482) for regular updates.
 
+## Group Discussions
+If you are interested in fixing issues, or would like to help make this application better, please join
+our [Slack workspace](https://phparcade.slack.com/admin/shared_invites).
+
 ## Features (screenshots below)
 * Add/edit pages via GUI
 * Add/edit games manually
