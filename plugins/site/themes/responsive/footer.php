@@ -20,9 +20,6 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
 		<a href="<?php echo Core::getLinkPage(2); ?>" title="<?php echo gettext('pp'); ?>">
 			<?php echo Core::showGlyph('user-secret');?> <?php echo gettext('pp'); ?>
 		</a> |
-		<a href="<?php echo Core::getLinkPage(3); ?>" title="<?php echo gettext('partnersites'); ?>">
-			<?php echo Core::showGlyph('heart-o');?> <?php echo gettext('partnersites'); ?>
-		</a> |
 		<a href="<?php echo $dbconfig['rssfeed']; ?>" title="<?php echo gettext('rssfeeds'); ?>">
 			<?php echo Core::showGlyph('rss');?> <?php echo gettext('rssfeeds'); ?>
 		</a> |

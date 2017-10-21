@@ -92,7 +92,12 @@ class Core
     public static function getLinkPage($id = 0)
     {
         global $links_arr;
-        return str_replace('%id%', $id, $links_arr['page']);
+        $page = Pages::getPage($id);
+        return str_replace(
+                array('%id%', '%name%'),
+                array($id, Core::getCleanURL($page['title'])),
+                $links_arr['page']
+               );
     }
     public static function getINIConfig()
     {
@@ -117,20 +122,15 @@ class Core
             $gamelist[$game['id']] = self::getCleanURL($game['name']);
         }
         // Link data
-        $links_arr['category'] = 'category/%name%/%page%';
-        $links_arr['confirm'] = 'register/confirm/%code%';
+        $links_arr['category'] = 'category/%name%/page-%page%';
         $links_arr['editprofile'] = 'profile/edit';
-        $links_arr['gamescore'] = 'score/%id%/%page%';
         $links_arr['logout'] = 'login/logout';
-        $links_arr['page'] = 'page/%id%';
+        $links_arr['page'] = 'page/%id%/%name%';
         $links_arr['passwordchange'] = 'login/recover/change/%code%/%username%';
-        $links_arr['play'] = 'play/%id%';
         $links_arr['profile'] = 'profile/view/%id%/%username%';
         $links_arr['pwrecover'] = 'login/recover';
         $links_arr['register'] = 'register/register';
-        $links_arr['reportgame'] = 'report/%id%';
         $links_arr['rss'] = 'rss/%type%';
-        $links_arr['users'] = 'users/%order%/%page%';
         $links_arr = array_map('preappbase', $links_arr);
         return $links_arr;
     }
