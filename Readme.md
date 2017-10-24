@@ -7,7 +7,7 @@ better adherence to new coding standards.  A production "demo" of the front-end 
 
 ## Group Discussions
 If you are interested in fixing issues, or would like to help make this application better, please join
-our [Slack workspace](https://phparcade.slack.com/admin/shared_invites).
+our [Slack workspace](https://join.slack.com/t/phparcade/shared_invite/enQtMjYwNDY5Njk2NTE1LWZiYzllYzg4MDIxZTkyYjhlMGMyYmI4NDVmMDQwMjdkZmRmYjk2Mzg5ZWZmNjc1Y2ZkN2FiOTI0ZDI0ZDJmZDc).
 
 ## Features (screenshots below)
 * Add/edit custom pages via database
