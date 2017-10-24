@@ -10,7 +10,9 @@ spl_autoload_register('phpArcadeClasses');
 function phpArcadeClasses($class_name)
 {
     /** @noinspection PhpIncludeInspection */
-    include $_SERVER['DOCUMENT_ROOT'] . '/includes/classes/' . $class_name . '.php';
+    if(file_exists($_SERVER['DOCUMENT_ROOT'] . '/includes/classes/' . $class_name . '.php')) {
+        include $_SERVER['DOCUMENT_ROOT'] . '/includes/classes/' . $class_name . '.php';
+    }
 }
 
 /* ******* START INI SETTINGS ******* */

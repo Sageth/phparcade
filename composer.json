@@ -11,9 +11,16 @@
     "phpmailer/phpmailer": "5.*",
     "roave/security-advisories": "dev-master",
     "twbs/bootstrap": "3.*",
-    "phroute/phroute": "^2.1"
+    "phroute/phroute": "^2.1",
+    "php-di/php-di": "^5.4",
+    "league/plates": "^3.3"
   },
   "config": {
     "optimize-autoloader": true
+  },
+  "autoload": {
+    "psr-0": {
+      "PhpArcade":        "src/"
+    }
   }
 }

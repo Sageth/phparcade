@@ -1,15 +1,18 @@
-<?php if (!isset($_SESSION)) {
+<?php
+$this->layout('layout', ['page' => $this->e('page')]);
+
+if (!isset($_SESSION)) {
     session_start();
     $user = $_SESSION['user'];
 }
 Users::updateUserPlaycount();
-global $params; ?>
+?>
 <!--suppress Annotator -->
 <div><?php
     $dbconfig = Core::getInstance()->getDBConfig();
     Core::doEvent('gamepage');
     $metadata = Core::getPageMetaData();
-    $game = Games::getGame($params[1]);
+    $game = Games::getGame($this->e($params[1]));
     if (isset($game['id'])) {
         $time = Core::getCurrentDate();
         $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG;
@@ -18,7 +21,10 @@ global $params; ?>
         $epoch = $game['time'];
         $dt = new DateTime("@$epoch");
         $game['time'] = date('M d, Y', $game['time']);
-        Games::updateGamePlaycount($game['id']); ?>
+        Games::updateGamePlaycount($game['id']);
+
+
+        ?>
         <div class="col-lg-12">
             <h1 class="page-header" itemprop="headline"><?php echo $game['name']; ?></h1>
         </div>
