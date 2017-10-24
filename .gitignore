@@ -22,3 +22,5 @@ sitemap.xml
 sitemap.*.gz
 sitemapindex.xml
 vendor/
+.idea
+composer.phar
