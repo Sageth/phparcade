@@ -122,7 +122,7 @@ class Core
             $gamelist[$game['id']] = self::getCleanURL($game['name']);
         }
         // Link data
-        $links_arr['category'] = 'category/%name%/page-%page%';
+        $links_arr['category'] = 'category/%name%/%page%';
         $links_arr['editprofile'] = 'profile/edit';
         $links_arr['logout'] = 'login/logout';
         $links_arr['page'] = 'page/%id%/%name%';
