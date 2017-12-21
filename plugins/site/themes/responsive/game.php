@@ -244,7 +244,7 @@ global $params; ?>
     </script>
     <script>
         mixpanel.track(
-            "Loaded Page",
+            "Loaded Game",
             {
                 "GameName": "<?php echo $game['name'];?>"
             }

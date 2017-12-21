@@ -18,9 +18,6 @@ global $params; ?>
 </div>
 <script type="application/ld+json" defer>
     mixpanel.track(
-        "Loaded Page",
-        {
-            "GameName": "404 - Game Not Found"
-        }
+        "Error Page"
     );
 </script>
