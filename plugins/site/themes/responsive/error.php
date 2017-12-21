@@ -1,6 +1,7 @@
 <?php
 if (!isset($_SESSION)) {
     session_start();
+    $user = $_SESSION['user'];
 }
 $dbconfig = Core::getInstance()->getDBConfig();
 global $params; ?>
@@ -15,3 +16,12 @@ global $params; ?>
 		</div>
 	</div>
 </div>
+<script type="application/ld+json" defer>
+    mixpanel.track(
+        "Loaded Page",
+        {
+            "Username": "<?php echo $user['username'];?>",
+            "Game Name": "404 - Game Not Found"
+        }
+    );
+</script>

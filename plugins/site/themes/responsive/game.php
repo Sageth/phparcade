@@ -241,6 +241,15 @@ global $params; ?>
           "datePublished":"<?php echo $dt->format('Y-m-d H:i:s'); ?>"
         }
     </script>
+    <script type="application/ld+json" defer>
+        mixpanel.track(
+            "Loaded Page",
+            {
+                "Username": "<?php echo $user['username'];?>",
+                "Game Name": "<?php echo $game['name'];?>"
+            }
+        );
+    </script>
 </div>
 <!--suppress XmlDefaultAttributeValue -->
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous" defer></script>

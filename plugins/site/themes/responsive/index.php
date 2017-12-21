@@ -55,6 +55,7 @@ include_once __DIR__ . '/scoresys.php';
         <meta name="language" content="English"/>
         <meta name="no-email-collection" content="https://www.unspam.com/noemailcollection"/>
         <meta name="robots" content="noarchive"/>
+        <?php include (INST_DIR . 'includes/js/MixPanel/mixpanel.php'); ?>
     </head>
     <body>
         <?php if ('on' === $dbconfig['ga_enabled']) {
