@@ -242,7 +242,7 @@ global $params; ?>
           "datePublished":"<?php echo $dt->format('Y-m-d H:i:s'); ?>"
         }
     </script>
-    <script type="application/ld+json" defer>
+    <script>
         mixpanel.track(
             "Loaded Page",
             {
