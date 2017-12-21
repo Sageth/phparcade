@@ -148,8 +148,9 @@ include_once __DIR__ . '/scoresys.php';
                 mixpanel.identify('<?php echo $user['id'];?>');
                 mixpanel.people.set({
                     "$email": "<?php echo $user['email'];?>",
-                    "$created": <?php echo date('Y-m-d', $user['regtime']);?>,
-                    "$last_login": <?php echo $user['last_login'];?>
+                    "$created": "<?php echo date('Y-m-d', $user['regtime']);?>",
+                    "$last_login": "<?php echo $user['last_login'];?>",
+                    "$username": "<?php echo $user['name'];?>"
                 });<?php
             } else { ?>
                 mixpanel.identify("<?php echo session_id();?>");<?php
