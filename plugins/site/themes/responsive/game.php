@@ -1,7 +1,10 @@
 <?php if (!isset($_SESSION)) {
     session_start();
     $user = $_SESSION['user'];
+} else {
+    $user['name'] = 'Not Logged In';
 }
+
 Users::updateUserPlaycount();
 global $params; ?>
 <!--suppress Annotator -->
@@ -243,7 +246,7 @@ global $params; ?>
         mixpanel.track(
             "Loaded Page",
             {
-                "Username": "<?php echo isset($user['username']) ? $user['username'] : 'Not Logged In';?>",
+                "Username": "<?php echo $user['name'];?>",
                 "Game Name": "<?php echo $game['name'];?>"
             }
         );
