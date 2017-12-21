@@ -20,7 +20,7 @@ global $params; ?>
     mixpanel.track(
         "Loaded Page",
         {
-            "Game Name": "404 - Game Not Found"
+            "GameName": "404 - Game Not Found"
         }
     );
 </script>
