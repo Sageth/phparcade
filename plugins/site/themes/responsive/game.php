@@ -124,10 +124,8 @@ global $params; ?>
                                         foreach ($scores as $score) {
                                             ++$i;
                                             $d_score = date('m/d/Y', $score['date']);
-                                            $user = Users::getUserbyID($score['player']);
-                                            $avatar = $user['avatarurl'] === '' ? SITE_URL .
-                                                                                  'includes/images/noav' . EXT_IMG : SITE_URL .
-                                                                                                               $user['avatarurl']; ?>
+                                            $champ = Users::getUserbyID($score['player']);
+                                            $avatar = $champ['avatarurl'] === '' ? SITE_URL . 'includes/images/noav' . EXT_IMG : SITE_URL . $champ['avatarurl']; ?>
                                             <tr class="odd gradeA">
                                             <td><?php echo $i; ?></td>
                                             <td>
@@ -137,8 +135,8 @@ global $params; ?>
                                                      height="30"
                                                      width="30"/>
                                                 &nbsp;
-                                                <a href="<?php echo Core::getLinkProfile($user['id']); ?>">
-                                                    <?php echo $user['username']; ?>
+                                                <a href="<?php echo Core::getLinkProfile($champ['id']); ?>">
+                                                    <?php echo $champ['username']; ?>
                                                 </a>
                                             </td>
                                             <td><?php echo Scores::formatScore($score['score']); ?></td>
@@ -245,7 +243,7 @@ global $params; ?>
         mixpanel.track(
             "Loaded Page",
             {
-                "Username": "<?php echo $user['username'];?>",
+                "Username": "<?php echo isset($user['username']) ? $user['username'] : 'Not Logged In';?>",
                 "Game Name": "<?php echo $game['name'];?>"
             }
         );
