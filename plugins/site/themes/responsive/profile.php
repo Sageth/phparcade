@@ -47,7 +47,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                         <ul class="list-group">
                             <li class="list-group-item text-muted">
                                 <?php echo gettext('activity');
-                echo Core::showGlyph('dashboard'); ?>
+                                echo Core::showGlyph('dashboard'); ?>
                             </li>
                             <li class="list-group-item text-right">
                                 <span class="pull-left">
@@ -70,25 +70,22 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                     ?>
                                     <?php echo Core::showGlyph('facebook', '2x', 'false'); ?><?php
                                 }
-                if ($user['github_id'] != "") {
-                    ?>
-                                <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank">
-                                    <?php echo Core::showGlyph('github', '2x', 'false'); ?>
+                                if ($user['github_id'] != "") { ?>
+                                    <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank">
+                                        <?php echo Core::showGlyph('github', '2x', 'false'); ?>
                                     </a><?php
-                } else {
-                    echo Core::showGlyph('github', '2x', 'false');
-                }
-                if ($user['twitter_id'] != "") {
-                    ?>
+                                } else {
+                                    echo Core::showGlyph('github', '2x', 'false');
+                                }
+                                if ($user['twitter_id'] != "") { ?>
                                     <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank">
                                         <?php echo Core::showGlyph('twitter', '2x', 'false'); ?>
                                     </a><?php
-                } else {
-                    ?>
-                                    <?php echo Core::showGlyph('twitter', '2x', 'false'); ?><?php
-                } ?>
-                                <?php echo Core::showGlyph('pinterest', '2x', 'false'); ?>
-                                <?php echo Core::showGlyph('google-plus', '2x', 'false'); ?>
+                                } else {
+                                    echo Core::showGlyph('twitter', '2x', 'false');
+                                }
+                                echo Core::showGlyph('pinterest', '2x', 'false');
+                                echo Core::showGlyph('google-plus', '2x', 'false'); ?>
                             </div>
                         </div>
                         <?php echo Ads::getInstance()->showAds('Responsive'); ?>
@@ -104,7 +101,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                     <div class="col-md-4 col-md-4">
                                         <div class="thumbnail"><?php
                                             $game = Games::getGame($game['nameid']);
-                                    $link = Core::getLinkGame($game['id']); ?>
+                                            $link = Core::getLinkGame($game['id']); ?>
                                             <a href="<?php echo $link; ?>"><?php
                                                 $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
                                                 <img class="img img-responsive img-rounded"

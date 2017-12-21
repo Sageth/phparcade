@@ -143,5 +143,18 @@ include_once __DIR__ . '/scoresys.php';
             }
         }
         </script>
+        <script>
+            <?php if (Users::isUserLoggedIn() === true) { ?>
+                mixpanel.identify('<?php echo $user['id'];?>');
+                mixpanel.people.set({
+                    "$email": "<?php echo $user['email'];?>",
+                    "$created": <?php echo date('Y-m-d', $user['regtime']);?>,
+                    "$last_login": <?php echo $user['last_login'];?>
+                });<?php
+            } else { ?>
+                mixpanel.identify("<?php echo session_id();?>");<?php
+            } ?>
+
+        </script>
     </body>
 </html>
