@@ -20,7 +20,6 @@ global $params; ?>
     mixpanel.track(
         "Loaded Page",
         {
-            "Username": "<?php echo $user['username'];?>",
             "Game Name": "404 - Game Not Found"
         }
     );

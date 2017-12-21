@@ -246,7 +246,6 @@ global $params; ?>
         mixpanel.track(
             "Loaded Page",
             {
-                "Username": "<?php echo $user['name'];?>",
                 "Game Name": "<?php echo $game['name'];?>"
             }
         );
