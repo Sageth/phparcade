@@ -82,7 +82,7 @@ global $params; ?>
                     <?php echo Ads::getInstance()->showAds('Responsive'); ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
                     $game['type'] = $game['type'] ?? '';
-        switch ($game['customcode']) {
+                    switch ($game['customcode']) {
                         case null:
                         case '':
                             /** @noinspection MissingOrEmptyGroupStatementInspection */
@@ -125,16 +125,14 @@ global $params; ?>
                                         foreach ($scores as $score) {
                                             ++$i;
                                             $d_score = date('m/d/Y', $score['date']);
-                                            $champ = Users::getUserbyID($score['player']);
-                                            $avatar = $champ['avatarurl'] === '' ? SITE_URL . 'includes/images/noav' . EXT_IMG : SITE_URL . $champ['avatarurl']; ?>
+                                            $champ = Users::getUserbyID($score['player']); ?>
                                             <tr class="odd gradeA">
                                             <td><?php echo $i; ?></td>
                                             <td>
-                                                <img data-original="<?php echo $avatar; ?>"
+                                                <img data-original="<?php echo Users::userGetGravatar($champ['username'],40); ?>"
                                                      class="img img-responsive img-circle"
                                                      style="float:left"
-                                                     height="30"
-                                                     width="30"/>
+                                                />
                                                 &nbsp;
                                                 <a href="<?php echo Core::getLinkProfile($champ['id']); ?>">
                                                     <?php echo $champ['username']; ?>

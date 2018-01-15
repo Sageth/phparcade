@@ -195,35 +195,6 @@ class Users
         $stmt->bindParam(':useremail', $email);
         $stmt->execute();
     }
-    public static function uploadAvatar($id, $path, $filename)
-    {
-        /* Comes from the Profile page.  Take the ID in so you can do database work.
-          Then concat the path and filename from profile.php and upload. */
-        $avatarpath = $path . $filename;
-        /* Needs to be 10MB and either png, jpg, or gif MIME Type */
-        $validator = new FileUpload\Validator\Simple(1024 * 1024 * 10, ['image/png']);
-        /* Upload path */
-        $pathresolver = new FileUpload\PathResolver\Simple($path);
-        /* The machine's filesystem */
-        $filesystem = new FileUpload\FileSystem\Simple();
-        /* File Uploader itself */
-        $fileupload = new FileUpload\FileUpload($_FILES['uploadavatar'], $_SERVER);
-        $filenamegenerator = new FileUpload\FileNameGenerator\Custom($filename);
-        /* Adding it all together.  Note: can always add multiple validators, or use none */
-        $fileupload->setPathResolver($pathresolver);
-        $fileupload->setFileSystem($filesystem);
-        $fileupload->setFileNameGenerator($filenamegenerator);
-        $fileupload->addValidator($validator);
-        /* Uploading */
-        /** @noinspection PhpUnusedLocalVariableInspection */
-        list($files, $headers) = $fileupload->processAll();
-        /* Now update the database */
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateAvatar(:id, :avatarurl);');
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':avatarurl', $avatarpath);
-        $stmt->execute();
-        return;
-    }
     public static function userAdd($username, $email, $status = "")
     {
         $dbconfig = Core::getInstance()->getDBConfig();
@@ -372,6 +343,14 @@ class Users
         $stmt->execute();
         return $stmt->fetchColumn();
     }
+    public static function userGetGravatar($username, $size=80, $default='retro', $rating='pg')
+    {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_getUserEmail(:username);');
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $email = $stmt->fetchColumn();
+        return GRAVATAR_URL . md5(strtolower(trim($email))) . "?default=" . $default . "&size=" . $size . "&rating=" . $rating;
+    }
     public static function userPasswordMD5($password)
     {
         /* This method is only used for legacy accounts. It generally won't be used, as
@@ -407,8 +386,8 @@ class Users
             array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
                   'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'facebook' => $user['facebook_id'],
                   'github' => $user['github_id'], 'msn' => $user['msn'], 'twitter' => $user['twitter_id'],
-                  'avatar' => $user['avatarurl'], 'admin' => $user['admin'], 'ip' => $user['ip'],
-                  'birth_date' => $user['birth_date'], 'last_login' => $user['last_login']);
+                  'admin' => $user['admin'], 'ip' => $user['ip'], 'birth_date' => $user['birth_date'],
+                  'last_login' => $user['last_login']);
     }
     public static function userSessionEnd()
     {
