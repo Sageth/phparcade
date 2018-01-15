@@ -86,6 +86,7 @@ switch ($act) {
         if ($dbconfig['membersenabled'] === 'on') {
             if ($params[1] === 'login') {
                 Users::userVerifyPassword($_POST['username'], $_POST['password']);
+                Users::userUpdateLastLogin();
             } else {
                 if ($params[1] === 'logout') {
                     Users::userSessionEnd();

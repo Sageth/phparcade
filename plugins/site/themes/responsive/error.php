@@ -16,8 +16,12 @@ global $params; ?>
 		</div>
 	</div>
 </div>
-<script type="application/ld+json" defer>
-    mixpanel.track(
-        "Error Page"
-    );
-</script>
+<?php if (!empty($dbconfig['mixpanel_id']))
+{ ?>
+    <script type="application/ld+json" defer>
+        mixpanel.track(
+            "Error Page"
+        );
+    </script><?php
+}
+?>

@@ -16,7 +16,6 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                     header('Location: //' . $_SERVER['SERVER_NAME']);
                     Core::loadRedirect(gettext('loggedin'));
                 } elseif ($params[2] === 'wrongup') {
-                    //Core::loadRedirect(gettext("loginerror"));
                     header('Location: ' . SITE_URL . '/register/register.html');
                 } else {
                     header('Location: //' . $_SERVER['SERVER_NAME']);

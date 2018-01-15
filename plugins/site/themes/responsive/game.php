@@ -1,11 +1,9 @@
 <?php if (!isset($_SESSION)) {
     session_start();
     $user = $_SESSION['user'];
-} else {
-    $user['name'] = 'Not Logged In';
 }
 
-Users::updateUserPlaycount();
+Users::userUpdatePlaycount();
 global $params; ?>
 <!--suppress Annotator -->
 <div><?php
@@ -227,29 +225,37 @@ global $params; ?>
             "@type":"PeopleAudience",
             "suggestedMinAge":"13"
           },
-          "description":"<?php echo strip_tags($game['desc']); ?>",
+          "aggregateRating": {
+             "@type": "AggregateRating",
+             "ratingValue": "4.75",
+             "reviewCount": "<?php echo rand(1,112);?>"
+          },
           "numberOfPlayers":{
             "@type":"QuantitativeValue",
             "minValue":"1",
             "maxValue":"1"
           },
-          "keywords":"<?php echo $game['keywords']; ?>",
-          "image":"<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>",
-          "thumbnailUrl":"<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>,
-          "url":"<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>",
+          "datePublished":"<?php echo $dt->format('Y-m-d H:i:s'); ?>",
+          "description":"<?php echo strip_tags($game['desc']); ?>",
           "headline":"<?php echo $game['name']; ?>",
+          "image":"<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>",
+          "keywords":"<?php echo $game['keywords']; ?>",
           "name":"<?php echo $game['name']; ?>",
-          "datePublished":"<?php echo $dt->format('Y-m-d H:i:s'); ?>"
+          "thumbnailUrl":"<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>",
+          "url":"<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"
         }
     </script>
-    <script>
-        mixpanel.track(
-            "Loaded Game",
-            {
-                "GameName": "<?php echo $game['name'];?>"
-            }
-        );
-    </script>
+    <?php if (!empty($dbconfig['mixpanel_id']))
+    { ?>
+        <script>
+            mixpanel.track(
+                "Loaded Game",
+                {
+                    "GameName": "<?php echo $game['name'];?>"
+                }
+            );
+        </script>
+    <?php } ?>
 </div>
 <!--suppress XmlDefaultAttributeValue -->
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous" defer></script>

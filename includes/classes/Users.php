@@ -13,7 +13,6 @@ class Users
     public static function UpdateProfile()
     {
         /* Sanitization */
-        $aim = filter_var($_POST['aim'], FILTER_SANITIZE_STRING);
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $github = filter_var($_POST['github_id'], FILTER_SANITIZE_STRING);
         $facebook = filter_var($_POST['facebook_id'], FILTER_SANITIZE_STRING);
@@ -23,8 +22,7 @@ class Users
 
         try {
             $stmt =
-                mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:aim, :email, :github, :facebook, :msn, :twitter, :id);');
-            $stmt->bindParam(':aim', $aim);
+                mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:email, :github, :facebook, :msn, :twitter, :id);');
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':github', $github);
             $stmt->bindParam(':facebook', $facebook);
@@ -85,19 +83,19 @@ class Users
     public static function passwordRecoveryForm()
     {
         $dbconfig = Core::getInstance()->getDBConfig();
-        if ($dbconfig['passwordrecovery'] === 'on') {
-            ?>
-        <form action='<?php echo SITE_URL; ?>' method='post'><br/>
-            <?php echo gettext('username'); ?>:<br/>
-            <label>
-                <input name='username' id="username"/>
-            </label><br/><br/>
-            <?php echo gettext('email'); ?><br/>
-            <label>
-                <input name='email' id="email"/><br/>
-            </label><br/><br/>
-            <input type='submit' value='<?php echo gettext('submit'); ?>' alt='submit'/>
-            <input type='hidden' name='params' value='login/recover/do' alt='recover'/>
+        if ($dbconfig['passwordrecovery'] === 'on')
+        { ?>
+            <form action='<?php echo SITE_URL; ?>' method='post'><br/>
+                <?php echo gettext('username'); ?>:<br/>
+                <label>
+                    <input name='username' id="username"/>
+                </label><br/><br/>
+                <?php echo gettext('email'); ?><br/>
+                <label>
+                    <input name='email' id="email"/><br/>
+                </label><br/><br/>
+                <input type='submit' value='<?php echo gettext('submit'); ?>' alt='submit'/>
+                <input type='hidden' name='params' value='login/recover/do' alt='recover'/>
             </form><?php
         }
     }
@@ -196,20 +194,6 @@ class Users
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':useremail', $email);
         $stmt->execute();
-    }
-    public static function updateUserPlaycount()
-    {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        /* Null checker to prevent extra log entries when user isn't logged in */
-        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
-        if ($user !== null) {
-            /* Uses index */
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePlaycount(:userid);');
-            $stmt->bindParam(':userid', $user['id']);
-            $stmt->execute();
-        }
     }
     public static function uploadAvatar($id, $path, $filename)
     {
@@ -351,13 +335,12 @@ class Users
     {
         /* Used in admin to edit users. Be careful of the "isadmin" when using it elsewhere */
         $stmt =
-            mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :aim, :msn, :isadmin, :memberid);');
+            mySQL::getConnection()->prepare('CALL sp_Members_EditMember_Admin(:username, :email, :active, :twitter, :msn, :isadmin, :memberid);');
         $stmt->bindParam(':memberid', $id);
         $stmt->bindParam(':username', $_POST['username']);
         $stmt->bindParam(':email', $_POST['email']);
         $stmt->bindParam(':active', $_POST['active']);
         $stmt->bindParam(':twitter', $_POST['twitter_id']);
-        $stmt->bindParam(':aim', $_POST['aim']);
         $stmt->bindParam(':msn', $_POST['msn']);
         $stmt->bindParam(':isadmin', $_POST['admin']);
         $stmt->execute();
@@ -422,10 +405,10 @@ class Users
 
         $_SESSION['user'] =
             array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
-                  'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'aim' => $user['aim'],
-                  'facebook' => $user['facebook_id'], 'github' => $user['github_id'], 'msn' => $user['msn'],
-                  'twitter' => $user['twitter_id'], 'avatar' => $user['avatarurl'], 'admin' => $user['admin'],
-                  'ip' => $user['ip'], 'birth_date' => $user['birth_date'], 'last_login' => $user['last_login']);
+                  'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'facebook' => $user['facebook_id'],
+                  'github' => $user['github_id'], 'msn' => $user['msn'], 'twitter' => $user['twitter_id'],
+                  'avatar' => $user['avatarurl'], 'admin' => $user['admin'], 'ip' => $user['ip'],
+                  'birth_date' => $user['birth_date'], 'last_login' => $user['last_login']);
     }
     public static function userSessionEnd()
     {
@@ -438,6 +421,33 @@ class Users
             session_destroy();
         }
         header('Location: index.php');
+    }
+    public static function userUpdatePlaycount()
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        /* Null checker to prevent extra log entries when user isn't logged in */
+        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+        if ($user !== null) {
+            /* Uses index */
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePlaycount(:userid);');
+            $stmt->bindParam(':userid', $user['id']);
+            $stmt->execute();
+        }
+    }
+    public static function userUpdateLastLogin()
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        /* Null checker to prevent extra log entries when user isn't logged in */
+        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+        if ($user !== null) {
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateLastLogin(:userid);');
+            $stmt->bindParam(':userid', $user['id']);
+            $stmt->execute();
+        }
     }
     private function __clone()
     {

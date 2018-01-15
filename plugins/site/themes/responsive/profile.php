@@ -234,12 +234,6 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <label for="aim"><?php echo gettext('aim'); ?></label>
-                                        <input class="form-control"
-                                               title="<?php echo gettext('aim'); ?>" name='aim'
-                                               value='<?php echo $user['aim']; ?>'/>
-                                    </div>
-                                    <div class="form-group">
                                         <label for="msn"><?php echo gettext('msn'); ?></label>
                                         <input class="form-control"
                                                title="<?php echo gettext('msn'); ?>" name='msn'
