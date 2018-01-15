@@ -3,6 +3,9 @@ require_once __DIR__ . '/cfg.php';
 
 $router = new Phroute\Phroute\RouteCollector();
 
+if(!isset($_COOKIE['SameSite'])) {
+    setcookie("SameSite", 'Strict');
+}
 
 // Game Routing
 // catch http://phparcade.dev/game/2741/Sample.html
