@@ -86,9 +86,6 @@ msgstr "Advertisement"
 msgid "advertiser"
 msgstr "Advertiser"
 
-msgid "aim"
-msgstr "AIM"
-
 msgid "allfieldserror"
 msgstr "You must fill out all fields."
 

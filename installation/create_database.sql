@@ -187,7 +187,6 @@ CREATE TABLE IF NOT EXISTS `members` (
   `active` varchar(10) NOT NULL DEFAULT 'Yes',
   `regtime` int(10) NOT NULL DEFAULT 0,
   `totalgames` int(10) NOT NULL DEFAULT 0,
-  `aim` varchar(255) NOT NULL DEFAULT '',
   `facebook_id` varchar(255) DEFAULT NULL,
   `github_id` varchar(255) DEFAULT NULL,
   `msn` varchar(255) NOT NULL DEFAULT '',
@@ -213,7 +212,6 @@ INSERT INTO `phparcade`.`members` SET
   `active` = 'Yes',
   `regtime` = 1219016824,
   `totalgames` = 0,
-  `aim` = '',
   `msn` = '',
   `twitter_id` = '',
   `github_id` = NULL,
@@ -982,7 +980,6 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_EditMember_Admin`(
   IN m_email VARCHAR(255),
   IN m_active VARCHAR(10),
   IN m_twitter VARCHAR(255),
-  IN m_aim VARCHAR(255),
   IN m_msn VARCHAR(255),
   IN m_isadmin VARCHAR(10),
   IN m_memberid INT(10))
@@ -992,7 +989,6 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_EditMember_Admin`(
       `email` = m_email,
       `active` = m_active,
       `twitter_id` = m_twitter,
-      `aim` = m_aim,
       `msn` = m_msn,
       `admin` = m_isadmin
     WHERE  	`id` = m_memberid;
@@ -1128,10 +1124,10 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdatePasswordbyUse
           AND `email` = m_useremail;
   END ;;
 DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Members_UpdateMemberProfile`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateMemberProfile`(
-  IN m_aim VARCHAR(255),
   IN m_email VARCHAR(255),
   IN m_github VARCHAR(255),
   IN m_facebook VARCHAR(255),
@@ -1140,7 +1136,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateMemberProfile
   IN m_id INT(10))
   BEGIN
     UPDATE `members`
-    SET `aim` = m_aim,
+    SET
       `msn` = m_msn,
       `twitter_id` = m_twitter,
       `facebook_id` = m_facebook,

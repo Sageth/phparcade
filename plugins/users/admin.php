@@ -93,12 +93,6 @@ function users_admin($mthd)
 							</div>
 							<div class="form-group">
 								<label>
-									<?php echo gettext('aim');?>
-									<input class="form-control" name='aim' value='<?php echo $user['aim'];?>'/>
-								</label>
-							</div>
-							<div class="form-group">
-								<label>
 									<?php echo gettext('msn');?> <?php echo gettext('messenger');?>
 									<input class="form-control" name='msn' value='<?php echo $user['msn'];?>'/>
 								</label>
