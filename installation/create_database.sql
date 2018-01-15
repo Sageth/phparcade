@@ -1049,6 +1049,17 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_GetPassword`(
   END ;;
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS `sp_Members_getUserEmail`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_getUserEmail`(
+  IN m_username VARCHAR(16))
+  BEGIN
+    SELECT `email`
+    FROM `members`
+    WHERE `username` = m_username;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Members_GetUsernameAndEmail`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_GetUsernameAndEmail`(
