@@ -191,7 +191,6 @@ CREATE TABLE IF NOT EXISTS `members` (
   `github_id` varchar(255) DEFAULT NULL,
   `msn` varchar(255) NOT NULL DEFAULT '',
   `twitter_id` varchar(255) NOT NULL DEFAULT '',
-  `avatarurl` varchar(255) NOT NULL DEFAULT '',
   `admin` varchar(10) NOT NULL DEFAULT 'No',
   `favorites` varchar(1) NOT NULL DEFAULT '0',
   `ip` varchar(45) NOT NULL,
@@ -216,7 +215,6 @@ INSERT INTO `phparcade`.`members` SET
   `twitter_id` = '',
   `github_id` = NULL,
   `facebook_id` = NULL,
-  `avatarurl` = '',
   `admin` = 'Yes',
   `favorites` = '',
   `ip` = '',
@@ -1095,18 +1093,6 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_GetSession`(
     FROM `members`
     WHERE `username` = m_username
           AND `active` = 'Yes';
-  END ;;
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS `sp_Members_UpdateAvatar`;
-DELIMITER ;;
-CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateAvatar`(
-  IN m_id INT(10),
-  IN m_avatar VARCHAR(255))
-  BEGIN
-    UPDATE `members`
-    SET `avatarurl` = m_avatar
-    WHERE `id` = m_id;
   END ;;
 DELIMITER ;
 

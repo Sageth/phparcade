@@ -17,18 +17,14 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
         $i = 0;
         $games = Games::getGamesChamp($user['id']); ?>
         <div class="col-sm-10">
+            <img class="img img-responsive img-circle"
+                 src="<?php echo Users::userGetGravatar($user['username'], 80); ?>"
+                 alt="<?php echo $user['username']; ?>'s Gravatar"
+                 title="<?php echo $user['username']; ?>'s Gravatar"
+            />
             <h1>
                 <?php echo $user['username']; ?>
             </h1>
-        </div>
-        <div class="col-sm-2 pull-right">
-            <img class="img img-responsive img-circle"
-                 src="<?php echo Users::userGetGravatar($user['username']); ?>"
-                 alt="<?php echo $user['username']; ?>'s Gravatar"
-                 title="<?php echo $user['username']; ?>'s Gravatar"
-                 height="80px"
-                 width="80px"
-            />
         </div>
         <div class="row">
             <!--left col-->

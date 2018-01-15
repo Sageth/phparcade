@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: phparcade\n"
 "POT-Creation-Date: 2015-08-31 23:28-0500\n"
-"PO-Revision-Date: 2017-10-03 00:11-0400\n"
+"PO-Revision-Date: 2018-01-15 17:25-0500\n"
 "Last-Translator: Sage Russell <webmaster@sageth.com>\n"
 "Language-Team: PHPArcade <webmaster@sageth.com>\n"
 "Language: en_US\n"
@@ -106,12 +106,6 @@ msgstr "Also find us on: "
 
 msgid "approve"
 msgstr "Approve"
-
-msgid "avatarsetup"
-msgstr "Avatar Setup"
-
-msgid "avatarurl"
-msgstr "Avatar URL"
 
 msgid "bestplayer"
 msgstr "is the best player in these games:"
@@ -412,6 +406,9 @@ msgstr "Google Recaptcha Site key: "
 
 msgid "google_recaptcha_secretkey"
 msgstr "Google Recaptcha Secret Key"
+
+msgid "gravatar"
+msgstr "Gravatar"
 
 msgid "guest"
 msgstr "Guest"
@@ -1131,9 +1128,6 @@ msgstr "Update was successful."
 
 msgid "upload"
 msgstr "Upload"
-
-msgid "uploadavatar"
-msgstr "Upload Avatar"
 
 msgid "uploadfailed"
 msgstr "Upload failed"

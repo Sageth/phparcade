@@ -36,6 +36,17 @@ function users_admin($mthd)
 									<input class="form-control" name='username' value='<?php echo $user['username']; ?>'/>
 								</label>
 							</div>
+                            <div>
+                                <label>
+                                    <?php echo gettext('gravatar');?> :
+                                    <img src="<?php echo Users::userGetGravatar($user['username']); ?>"
+                                         class="img img-responsive img-circle"
+                                         style="float:right"
+                                         height="80"
+                                         width="80"
+                                    />
+                                </label>
+                            </div>
 							<div class="form-group">
 								<label>
 									<?php echo gettext('email'); ?>

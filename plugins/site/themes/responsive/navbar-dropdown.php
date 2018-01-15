@@ -21,7 +21,12 @@ if (Users::isUserLoggedIn()) {
         </a>
         <ul class="dropdown-menu" role="menu">
             <li class="dropdown-header">
-                <?php /** @noinspection PhpUndefinedVariableInspection */
+                <img data-original="<?php echo Users::userGetGravatar($user['name'], 25); ?>"
+                     class="img img-responsive img-circle"
+                     style="float:left"
+                />&nbsp;
+                <?php
+                /** @noinspection PhpUndefinedVariableInspection */
                 echo $user['name']; ?>
             </li><?php
             if ($user['admin'] === 'Yes') {

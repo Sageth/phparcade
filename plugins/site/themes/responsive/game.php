@@ -129,11 +129,9 @@ global $params; ?>
                                             <tr class="odd gradeA">
                                             <td><?php echo $i; ?></td>
                                             <td>
-                                                <img data-original="<?php echo Users::userGetGravatar($champ['username']); ?>"
+                                                <img data-original="<?php echo Users::userGetGravatar($champ['username'],40); ?>"
                                                      class="img img-responsive img-circle"
                                                      style="float:left"
-                                                     height="40"
-                                                     width="40"
                                                 />
                                                 &nbsp;
                                                 <a href="<?php echo Core::getLinkProfile($champ['id']); ?>">

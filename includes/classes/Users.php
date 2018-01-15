@@ -343,13 +343,13 @@ class Users
         $stmt->execute();
         return $stmt->fetchColumn();
     }
-    public static function userGetGravatar($username)
+    public static function userGetGravatar($username, $size=80, $default='retro', $rating='pg')
     {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Members_getUserEmail(:username);');
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         $email = $stmt->fetchColumn();
-        return GRAVATAR_URL . md5(strtolower(trim($email))) . "?default=retro&rating=pg";
+        return GRAVATAR_URL . md5(strtolower(trim($email))) . "?default=" . $default . "&size=" . $size . "&rating=" . $rating;
     }
     public static function userPasswordMD5($password)
     {
@@ -386,8 +386,8 @@ class Users
             array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
                   'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'facebook' => $user['facebook_id'],
                   'github' => $user['github_id'], 'msn' => $user['msn'], 'twitter' => $user['twitter_id'],
-                  'avatar' => Users::userGetGravatar($user['email']), 'admin' => $user['admin'], 'ip' => $user['ip'],
-                  'birth_date' => $user['birth_date'], 'last_login' => $user['last_login']);
+                  'admin' => $user['admin'], 'ip' => $user['ip'], 'birth_date' => $user['birth_date'],
+                  'last_login' => $user['last_login']);
     }
     public static function userSessionEnd()
     {
