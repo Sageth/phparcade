@@ -409,17 +409,16 @@ function site_admin($mthd)
 				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<?php echo Core::showGlyph('bullseye');?>&nbsp;<?php echo gettext('highscores'); ?>
+							<?php echo Core::showGlyph('bar-chart');?>&nbsp;<?php echo gettext('mixpanel'); ?>
 						</div>
 						<div class="panel-body">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('bullseye'); ?>
-                                        <label for="highscoresenabled"><?php echo gettext('highscoresenabled'); ?></label>
-                                        <div class="pull-right">
-                                            <input type="checkbox" name="highscoresenabled" id="highscoresenabled" <?php echo $checkedhsenable; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                        </div>
+                                        <?php echo Core::showGlyph('table'); ?>
+                                        <label for="highscoresenabled"><?php echo gettext('mixpanel_id'); ?></label>
+                                        <input class="form-control" title="MixPanel ID" name="mixpanel_id"
+                                               value="<?php echo $dbconfig['mixpanel_id']; ?>"/>
                                     </div>
                                 </div>
                             </div>
@@ -658,7 +657,7 @@ function site_admin($mthd)
             Administrations::updateConfig('ga_id', $_POST['ga_id']);
             Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
             Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
-            Administrations::updateConfig('highscoresenabled', array_key_exists('highscoresenabled', $_POST) ? 'on' : 'off');
+            Administrations::updateConfig('mixpanel_id', $_POST['mixpanel_id']);
             Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
             Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');

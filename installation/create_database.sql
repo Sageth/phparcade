@@ -90,8 +90,8 @@ INSERT INTO `phparcade`.`config` SET `key`='memberlanguage',`value`='0';
 INSERT INTO `phparcade`.`config` SET `key`='membersenabled',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='metadesc',`value`='PHPArcade is a free, open source (FOSS), online flash game arcade script. Download the GitHub script now to set up your own HTML5 and Flash game website for free!';
 INSERT INTO `phparcade`.`config` SET `key`='metakey',`value`='Free,online,game,arcade,action,adventure,arcade,casino,card,driving,flying,shooting, simulation,sports,puzzle,strategy,racing,word';
--- Order isn't used in the front-end, but is still needed for other functionality.
 INSERT INTO `phparcade`.`config` SET `key`='mixpanel_id',`value`='';
+-- Order isn't used in the front-end, but is still needed for other functionality.
 INSERT INTO `phparcade`.`config` SET `key`='order',`value`='name';
 INSERT INTO `phparcade`.`config` SET `key`='passwordrecovery',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='rssenabled',`value`='off';
@@ -1157,6 +1157,17 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdatePlaycount`(
   BEGIN
     UPDATE `members`
     SET `totalgames` = `totalgames` + 1
+    WHERE `id` = userid;
+  END ;;
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_Members_UpdateLastLogin`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateLastLogin`(
+  IN userid INT(10))
+  BEGIN
+    UPDATE `members`
+    SET `last_login` = CURRENT_DATE()
     WHERE `id` = userid;
   END ;;
 DELIMITER ;

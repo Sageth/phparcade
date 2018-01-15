@@ -85,19 +85,19 @@ class Users
     public static function passwordRecoveryForm()
     {
         $dbconfig = Core::getInstance()->getDBConfig();
-        if ($dbconfig['passwordrecovery'] === 'on') {
-            ?>
-        <form action='<?php echo SITE_URL; ?>' method='post'><br/>
-            <?php echo gettext('username'); ?>:<br/>
-            <label>
-                <input name='username' id="username"/>
-            </label><br/><br/>
-            <?php echo gettext('email'); ?><br/>
-            <label>
-                <input name='email' id="email"/><br/>
-            </label><br/><br/>
-            <input type='submit' value='<?php echo gettext('submit'); ?>' alt='submit'/>
-            <input type='hidden' name='params' value='login/recover/do' alt='recover'/>
+        if ($dbconfig['passwordrecovery'] === 'on')
+        { ?>
+            <form action='<?php echo SITE_URL; ?>' method='post'><br/>
+                <?php echo gettext('username'); ?>:<br/>
+                <label>
+                    <input name='username' id="username"/>
+                </label><br/><br/>
+                <?php echo gettext('email'); ?><br/>
+                <label>
+                    <input name='email' id="email"/><br/>
+                </label><br/><br/>
+                <input type='submit' value='<?php echo gettext('submit'); ?>' alt='submit'/>
+                <input type='hidden' name='params' value='login/recover/do' alt='recover'/>
             </form><?php
         }
     }
@@ -196,20 +196,6 @@ class Users
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':useremail', $email);
         $stmt->execute();
-    }
-    public static function updateUserPlaycount()
-    {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        /* Null checker to prevent extra log entries when user isn't logged in */
-        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
-        if ($user !== null) {
-            /* Uses index */
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePlaycount(:userid);');
-            $stmt->bindParam(':userid', $user['id']);
-            $stmt->execute();
-        }
     }
     public static function uploadAvatar($id, $path, $filename)
     {
@@ -438,6 +424,33 @@ class Users
             session_destroy();
         }
         header('Location: index.php');
+    }
+    public static function userUpdatePlaycount()
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        /* Null checker to prevent extra log entries when user isn't logged in */
+        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+        if ($user !== null) {
+            /* Uses index */
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePlaycount(:userid);');
+            $stmt->bindParam(':userid', $user['id']);
+            $stmt->execute();
+        }
+    }
+    public static function userUpdateLastLogin()
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        /* Null checker to prevent extra log entries when user isn't logged in */
+        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+        if ($user !== null) {
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateLastLogin(:userid);');
+            $stmt->bindParam(':userid', $user['id']);
+            $stmt->execute();
+        }
     }
     private function __clone()
     {

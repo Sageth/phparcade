@@ -14,6 +14,7 @@ include_once __DIR__ . '/scoresys.php';
 ?>
 
 <!DOCTYPE html>
+<!--suppress JSIgnoredPromiseFromCall -->
 <html lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">
     <head>
         <meta charset="<?php echo CHARSET; ?>">
@@ -55,7 +56,9 @@ include_once __DIR__ . '/scoresys.php';
         <meta name="language" content="English"/>
         <meta name="no-email-collection" content="https://www.unspam.com/noemailcollection"/>
         <meta name="robots" content="noarchive"/>
-        <?php include (INST_DIR . 'includes/js/MixPanel/mixpanel.php'); ?>
+        <?php if (!empty($dbconfig['mixpanel_id'])) {
+            include (INST_DIR . 'includes/js/MixPanel/mixpanel.php');
+        } ?>
     </head>
     <body>
         <?php if ('on' === $dbconfig['ga_enabled']) {
@@ -116,7 +119,6 @@ include_once __DIR__ . '/scoresys.php';
             "name":"<?php echo $dbconfig['sitetitle'];?>",
             "url":"<?php echo SITE_URL;?>",
             "sameAs": [
-                "<?php echo URL_TWITTER . $dbconfig['twitter_username'];?>",
                 "<?php echo $dbconfig['facebook_pageurl'];?>"
             ]
         }
@@ -144,18 +146,19 @@ include_once __DIR__ . '/scoresys.php';
         }
         </script>
         <script>
-            <?php if (Users::isUserLoggedIn() === true) { ?>
-                mixpanel.identify('<?php echo $user['id'];?>');
-                mixpanel.people.set({
-                    "$email": "<?php echo $user['email'];?>",
-                    "$created": "<?php echo date('Y-m-d', $user['regtime']);?>",
-                    "$last_login": "<?php echo $user['last_login'];?>",
-                    "$username": "<?php echo $user['name'];?>"
-                });<?php
-            } else { ?>
-                mixpanel.identify("<?php echo session_id();?>");<?php
+            <?php if (!empty($dbconfig['mixpanel_id'])) {
+                if (Users::isUserLoggedIn() === true) { ?>
+                    mixpanel.register({
+                        "$id": "<?php echo $user['id'];?>",
+                        "$email": "<?php echo $user['email'];?>",
+                        "$created": "<?php echo date('Y-m-d', $user['regtime']);?>",
+                        "$last_login": "<?php echo $user['last_login'];?>",
+                        "$username": "<?php echo $user['name'];?>"
+                    });<?php
+                } else { ?>
+                    mixpanel.register("<?php echo session_id();?>");<?php
+                }
             } ?>
-
         </script>
     </body>
 </html>
