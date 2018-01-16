@@ -59,22 +59,22 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                     <div class="panel-body"><?php
                         if ($user['facebook_id'] != "") {
                             ?>
-                        <a href="<?php echo URL_FACEBOOK . $user['facebook_id']; ?>" target="_blank">
-                            <?php echo Core::showGlyph('facebook', '2x', 'false'); ?>
+                            <a href="<?php echo URL_FACEBOOK . $user['facebook_id']; ?>" target="_blank" rel="noopener">
+                                <?php echo Core::showGlyph('facebook', '2x', 'false'); ?>
                             </a><?php
                         } else {
                             ?>
                             <?php echo Core::showGlyph('facebook', '2x', 'false'); ?><?php
                         }
                         if ($user['github_id'] != "") { ?>
-                        <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank">
+                        <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank" rel="noopener">
                             <?php echo Core::showGlyph('github', '2x', 'false'); ?>
                             </a><?php
                         } else {
                             echo Core::showGlyph('github', '2x', 'false');
                         }
                         if ($user['twitter_id'] != "") { ?>
-                        <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank">
+                        <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank" rel="noopener">
                             <?php echo Core::showGlyph('twitter', '2x', 'false'); ?>
                             </a><?php
                         } else {

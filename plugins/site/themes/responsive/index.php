@@ -20,9 +20,8 @@ include_once __DIR__ . '/scoresys.php';
         <meta charset="<?php echo CHARSET; ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
         <title><?php echo $metadata['metapagetitle']; ?></title>
-        <!-- Preconnections -->
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-        <!-- End Preconnections -->
+        <link rel="manifest" href="<?php echo SITE_URL;?>manifest.json" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
         <!-- Run this first so you get your local CSS loaded before external JS -->
         <?php switch (true) {
@@ -152,26 +151,26 @@ include_once __DIR__ . '/scoresys.php';
                         "$admin": "<?php echo $user['admin'];?>",
                         "$birthdate": "<?php echo $user['birth_date'];?>",
                         "$created": "<?php echo date('Y-m-d', $user['regtime']);?>",
-                        "$facebook_id": "<?php echo $user['facebook_id'];?>",
-                        "$github_id": "<?php echo $user['github_id'];?>",
+                        "$facebook_id": "<?php echo $user['facebook'];?>",
+                        "$github_id": "<?php echo $user['github'];?>",
                         "$id": "<?php echo $user['id'];?>",
                         "$email": "<?php echo $user['email'];?>",
                         "$last_login": "<?php echo $user['last_login'];?>",
                         "$total_games_played": "<?php echo $user['totalgames'];?>",
-                        "$username": "<?php echo $user['username'];?>"
+                        "$username": "<?php echo $user['name'];?>"
                     });
                     mixpanel.identify('<?php echo $user['id'];?>');
                     mixpanel.people.set({
                         "$admin": "<?php echo $user['admin'];?>",
                         "$birthdate": "<?php echo $user['birth_date'];?>",
                         "$created": "<?php echo date('Y-m-d', $user['regtime']);?>",
-                        "$facebook_id": "<?php echo $user['facebook_id'];?>",
-                        "$github_id": "<?php echo $user['github_id'];?>",
+                        "$facebook_id": "<?php echo $user['facebook'];?>",
+                        "$github_id": "<?php echo $user['github'];?>",
                         "$id": "<?php echo $user['id'];?>",
                         "$email": "<?php echo $user['email'];?>",
                         "$last_login": "<?php echo $user['last_login'];?>",
                         "$total_games_played": "<?php echo $user['totalgames'];?>",
-                        "$username": "<?php echo $user['username'];?>"
+                        "$username": "<?php echo $user['name'];?>"
                     })<?php
                 } else { ?>
                     mixpanel.register("<?php echo session_id();?>");<?php

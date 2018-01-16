@@ -15,6 +15,7 @@
 arcade/
 BingSiteAuth.xml
 config.xml
+manifest.json
 phpinfo.php
 sitemap.htm
 sitemap.rss

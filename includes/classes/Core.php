@@ -73,14 +73,16 @@ class Core
                         <div class="pull-left">
                             <a class="btn btn-md btn-info"
                                href="https://helpx.adobe.com/flash-player/kb/enabling-flash-player-firefox.html"
-                               target="_blank">
+                               target="_blank"
+                               rel="noopener">
                                Enable Flash - <i class="fa fa-firefox" aria-hidden="true"></i> Firefox
                             </a>
                         </div>
                         <div class="pull-right">
                             <a class="btn btn-md btn-info"
                                href="<?php echo Core::getLinkPage(6); ?>"
-                               target="_blank">
+                               target="_blank"
+                               rel="noopener">
                                Enable Flash - <i class="fa fa-chrome" aria-hidden="true"></i> Chrome
                             </a>
                         </div>

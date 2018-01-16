@@ -105,7 +105,7 @@ function site_admin($mthd)
 								</div>
 							</div>
 						</div>
-						<a href="https://www.cloudflare.com/plans" target="_blank">
+						<a href="https://www.cloudflare.com/plans" target="_blank" rel="noopener">
 							<div class="panel-footer">
 								<span class="pull-left"><?php echo gettext('viewdetails'); ?></span>
 								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right'); ?></span>
