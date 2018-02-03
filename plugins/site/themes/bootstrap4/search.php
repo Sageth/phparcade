@@ -4,13 +4,13 @@ if (!isset($_SESSION)) {
 }
 $dbconfig = Core::getInstance()->getDBConfig(); ?>
 <div class="col-lg-12">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h1 class="panel-title">
+    <div class="card card text-white bg-info">
+        <div class="card-header">
+            <h1 class="card-title">
                 <?php echo $dbconfig['sitetitle']; ?>
             </h1>
         </div>
-        <div class="panel-body"><?php
+        <div class="card-body"><?php
             $games = Search::searchGames(Core::getCurrentDate(), $_GET['q'], 51);
             $i = 0;
             foreach ($games as $game) {
@@ -18,10 +18,10 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                 $game['desc'] = mb_strlen($game['desc']) > 120 ? substr($game['desc'], 0, 120) . '...' : $game['desc'];
                 $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name']; ?>
                 <div class="col-md-4 col-md-4">
-                    <div class="thumbnail">
+                    <div class="card card-body">
                         <a href="<?php echo $link; ?>"><?php
                             $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
-                            <img class="img img-responsive img-rounded"
+                            <img class="img img-fluid rounded"
                                  src="<?php echo $img; ?>"
                                  alt="Play <?php echo $game['name']; ?> online for free!"
                                  title="Play <?php echo $game['name']; ?> online for free!"

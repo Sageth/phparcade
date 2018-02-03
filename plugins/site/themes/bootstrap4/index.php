@@ -11,6 +11,7 @@ if ($_SESSION) {
 $dbconfig = Core::getInstance()->getDBConfig();
 $metadata = Core::getPageMetaData();
 include_once __DIR__ . '/scoresys.php';
+require_once __DIR__ . '/themeconfig.php';
 ?>
 
 <!DOCTYPE html>

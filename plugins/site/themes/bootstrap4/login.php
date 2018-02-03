@@ -6,11 +6,11 @@ if (!isset($_SESSION)) {
 global $params;
 $dbconfig = Core::getInstance()->getDBConfig(); ?>
 <div class="col-lg-12">
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<h1 class="panel-title"><?php echo $dbconfig['sitetitle']; ?></h1>
+	<div class="card card text-white bg-info">
+		<div class="card-header">
+			<h1 class="card-title"><?php echo $dbconfig['sitetitle']; ?></h1>
 		</div>
-		<div class="panel-body"><?php
+		<div class="card-body"><?php
             if ($params[1] === 'login') {
                 if ($params[2] === 'success') {
                     header('Location: //' . $_SERVER['SERVER_NAME']);

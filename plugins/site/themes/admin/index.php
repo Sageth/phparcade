@@ -17,7 +17,7 @@ $content = $content ?? ''; ?>
             echo gettext('logo');
             echo gettext('admin'); ?>
         </title>
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_ADMIN; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_SB_ADMIN_2; ?>" integrity="<?php echo CSS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous"/>
         <link rel="stylesheet" href="<?php echo CSS_METISMENU; ?>"/>

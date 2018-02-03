@@ -6,11 +6,11 @@ if (!isset($_SESSION)) {
 $dbconfig = Core::getInstance()->getDBConfig();
 global $params; ?>
 <div class="col-lg-12">
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<h1 class="panel-title"><?php echo gettext('Error');?></h1>
+	<div class="card card text-white bg-info">
+		<div class="card-header">
+			<h1 class="card-title"><?php echo gettext('Error');?></h1>
 		</div>
-		<div class="panel-body"><?php
+		<div class="card-body"><?php
             Core::returnStatusCode(404);
             echo gettext('Error'); ?>
 		</div>
