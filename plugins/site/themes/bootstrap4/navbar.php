@@ -2,55 +2,39 @@
     session_start();
 } ?>
 <!-- Nav Section -->
-<nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only"><?php echo gettext('togglenavigation'); ?></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="<?php echo SITE_URL; ?>">
-                <?php echo gettext('logo'); ?>
-            </a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav ml-auto"><?php
-                if (!Users::isUserLoggedIn()) {
-                    ?>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <?php echo gettext('gamecategories'); ?> <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <?php include_once __DIR__ . '/categoriesmenu.php'; ?>
-                        </ul>
-                    </li>
-                    <li class="active">
-                    <a href="<?php
-                    echo Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
-                        <?php echo gettext('login'); ?>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="<?php echo SITE_URL; ?>">
+        <?php echo gettext('logo'); ?>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto"><?php
+            if (!Users::isUserLoggedIn()) { ?>
+                <div class="col-lg-4 ml-auto">
+                    <?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
+                </div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php echo gettext('gamecategories'); ?>
                     </a>
-                    </li><?php
-                } else {
-                    include_once __DIR__ . '/navbar-dropdown.php';
-                } ?>
-            </ul>
-            <div class="col-lg-4 ml-auto">
-                <?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
-            </div>
-            <!--<form class=" ml-auto visible-lg" role="search">
-				<div class="form-group">
-					<input type="text" name="q" id="q" class="form-control" placeholder="Search">
-				</div>
-				<button type="submit" name="params" value="search" class="btn btn-secondary"><?php //echo gettext("submit");?></button>
-			</form>-->
-        </div>
-        <!-- /.navbar-collapse -->
+                    <div class="dropdown-menu" aria-labelledby="navbarCategories">
+                        <?php include_once __DIR__ . '/categoriesmenu.php'; ?>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php
+                        echo Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
+                            <?php echo gettext('login'); ?>
+                    </a>
+                </li><?php
+            } else {
+                include_once __DIR__ . '/navbar-dropdown.php';
+            } ?>
+        </ul>
     </div>
-    <!-- /.container-fluid -->
 </nav>
 <!--End Nav Section -->

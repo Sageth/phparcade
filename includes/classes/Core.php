@@ -304,11 +304,10 @@ class Core
         foreach ($categories as $category) {
             ++$i;
             $link = self::getLinkCategory($category['name'], 1); ?>
-            <li>
-                <a href="<?php echo $link; ?>">
-                    <?php echo $category['name']; ?>
-                </a>
-            </li><?php
+            <a class="dropdown-item" href="<?php echo $link; ?>">
+                <?php echo $category['name']; ?>
+            </a>
+            <?php
         }
     }
     public static function getLinkCategory($name = 'all', $page = 1)
