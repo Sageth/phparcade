@@ -29,35 +29,26 @@ if (Users::isUserLoggedIn()) {
                 /** @noinspection PhpUndefinedVariableInspection */
                 echo $user['name']; ?>
             </li><?php
-            if ($user['admin'] === 'Yes') {
-                ?>
+            if ($user['admin'] === 'Yes') { ?>
                 <li class="dropdown-divider"></li>
-                <li>
-                    <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>">
-                        <?php echo gettext('admin'); ?>
-                    </a>
-                </li><?php
+                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>">
+                    <?php echo gettext('admin'); ?>
+                </a><?php
             } ?>
             <li class="dropdown-divider"></li>
             <li class="dropdown-header">
                 <?php echo gettext('profile'); ?>
             </li>
-            <li>
-                <a class="dropdown-item" href='<?php echo Core::getLinkProfile($user['id']); ?>'>
-                    <?php echo gettext('myprofile'); ?>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href='<?php echo Core::getLinkProfileEdit(); ?>'>
-                    <?php echo gettext('profileedit'); ?>
-                </a>
-            </li>
+            <a class="dropdown-item" href='<?php echo Core::getLinkProfile($user['id']); ?>'>
+                <?php echo gettext('myprofile'); ?>
+            </a>
+            <a class="dropdown-item" href='<?php echo Core::getLinkProfileEdit(); ?>'>
+                <?php echo gettext('profileedit'); ?>
+            </a>
             <li class="dropdown-divider"></li>
-            <li>
-                <a class="dropdown-item" href='<?php echo Core::getLinkLogout(); ?>'>
-                    <?php echo gettext('logout'); ?>
-                </a>
-            </li>
+            <a class="dropdown-item" href='<?php echo Core::getLinkLogout(); ?>'>
+                <?php echo gettext('logout'); ?>
+            </a>
         </ul>
     </li><?php
 }
