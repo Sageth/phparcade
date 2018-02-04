@@ -4,91 +4,108 @@ if (!isset($_SESSION)) {
 }
 global $params;
 $dbconfig = Core::getInstance()->getDBConfig(); ?>
-<!--suppress ALL -->
-<hr>
 <div class="row">
-    <div class="col-lg-12"><?php
+    <div class="col-md-12 mt-4">
+        <?php
+        echo Ads::getInstance()->showAds('Responsive');
         if ($params[1] === 'view' && $params[1] != 'edit') {
-        $user = Users::getUserbyID($params[2]);
-
-        if ($user == false) {
-            Core::showInfo(gettext('noexist'));
-        } else {
-        $i = 0;
-        $games = Games::getGamesChamp($user['id']); ?>
-        <div class="col-sm-10">
-            <img class="img img-responsive img-circle"
-                 src="<?php echo Users::userGetGravatar($user['username'], 80); ?>"
-                 alt="<?php echo $user['username']; ?>'s Gravatar"
-                 title="<?php echo $user['username']; ?>'s Gravatar"
-            />
-            <h1>
-                <?php echo $user['username']; ?>
-            </h1>
-        </div>
-        <div class="row">
-            <!--left col-->
-            <div class="col-sm-3">
-                <ul class="list-group">
-                    <li class="list-group-item text-muted"><?php echo gettext('profile'); ?></li>
-                    <li class="list-group-item text-right">
-                        <span class="pull-left"><?php echo gettext('joindate'); ?></span>
-                        <?php echo date('Y-m-d', $user['regtime']); ?>
-                    </li>
-                    <li class="list-group-item text-right">
-                        <span class="pull-left"><?php echo gettext('lastlogin'); ?></span>
-                        <?php echo $user['last_login']; ?>
-                    </li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item text-muted">
-                        <?php echo gettext('activity');
-                        echo Core::showGlyph('dashboard'); ?>
-                    </li>
-                    <li class="list-group-item text-right">
-                                <span class="pull-left">
-                                    <?php echo gettext('gamesplayed'); ?>
-                                </span><?php
-                        echo $user['totalgames']; ?>
-                    </li>
-                </ul>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <?php echo gettext('socialmedia'); ?>
-                    </div>
-                    <div class="panel-body"><?php
-                        if ($user['facebook_id'] != "") {
-                            ?>
-                            <a href="<?php echo URL_FACEBOOK . $user['facebook_id']; ?>" target="_blank" rel="noopener">
-                                <?php echo Core::showGlyph('facebook', '2x', 'false'); ?>
-                            </a><?php
-                        } else {
-                            ?>
-                            <?php echo Core::showGlyph('facebook', '2x', 'false'); ?><?php
-                        }
-                        if ($user['github_id'] != "") { ?>
-                        <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank" rel="noopener">
-                            <?php echo Core::showGlyph('github', '2x', 'false'); ?>
-                            </a><?php
-                        } else {
-                            echo Core::showGlyph('github', '2x', 'false');
-                        }
-                        if ($user['twitter_id'] != "") { ?>
-                        <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank" rel="noopener">
-                            <?php echo Core::showGlyph('twitter', '2x', 'false'); ?>
-                            </a><?php
-                        } else {
-                            echo Core::showGlyph('twitter', '2x', 'false');
-                        }
-                        echo Core::showGlyph('pinterest', '2x', 'false');
-                        echo Core::showGlyph('google-plus', '2x', 'false'); ?>
-                    </div>
+            $user = Users::getUserbyID($params[2]);
+            if ($user === false) {
+                Core::showInfo(gettext('noexist'));
+            } else {
+                $i = 0;
+                $games = Games::getGamesChamp($user['id']); ?>
+                <div class="col-sm-3">
+                    <img class="img img-responsive img-circle"
+                         src="<?php echo Users::userGetGravatar($user['username'], 80); ?>"
+                         alt="<?php echo $user['username']; ?>'s Gravatar"
+                         title="<?php echo $user['username']; ?>'s Gravatar"
+                    />
+                    <h1>
+                        <?php echo $user['username']; ?>
+                    </h1>
                 </div>
-                <?php echo Ads::getInstance()->showAds('Responsive'); ?>
-            </div>
-            <div class="col-md-9">
-                <?php echo Ads::getInstance()->showAds('Responsive'); ?>
-                <div class="clearfix invisible"></div>
+                <div class="col-sm-3">
+                    <!--left col-->
+                    <div class="card mt-4">
+                        <div class="card-header bg-light">
+                            <p class="card-text">
+                                <?php echo gettext('profile'); ?>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <span class="pull-left">
+                                <?php echo gettext('joindate'); ?>
+                            </span>
+                            <span class="pull-right">
+                                <?php echo date('Y-m-d', $user['regtime']); ?>
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <span class="pull-left">
+                                <?php echo gettext('lastlogin'); ?>
+                            </span>
+                            <span class="pull-right">
+                                <?php echo $user['last_login']; ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-header bg-light">
+                            <p class="card-text">
+                                <?php
+                                echo Core::showGlyph('dashboard');
+                                echo "&nbsp;";
+                                echo gettext('activity');
+                                ?>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <span class="pull-left">
+                                <?php echo gettext('gamesplayed'); ?>
+                            </span>
+                            <span class="pull-right">
+                                <?php echo $user['totalgames']; ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-header bg-light">
+                            <p class="card-text">
+                                <?php echo gettext('socialmedia'); ?>
+                            </p>
+                        </div>
+                        <div class="card-body text-center"><?php
+                            if ($user['facebook_id'] != "") { ?>
+                                <a href="<?php echo URL_FACEBOOK . $user['facebook_id']; ?>" target="_blank" rel="noopener">
+                                    <?php echo Core::showGlyph('facebook', '2x', 'false'); ?>
+                                </a><?php
+                            } else {
+                                echo Core::showGlyph('facebook', '2x', 'false'); ?><?php
+                            }
+
+                            if ($user['github_id'] != "") { ?>
+                                <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank" rel="noopener">
+                                    <?php echo Core::showGlyph('github', '2x', 'false'); ?>
+                                </a><?php
+                            } else {
+                                echo Core::showGlyph('github', '2x', 'false');
+                            }
+
+                            if ($user['twitter_id'] != "") { ?>
+                                <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank" rel="noopener">
+                                    <?php echo Core::showGlyph('twitter', '2x', 'false'); ?>
+                                </a><?php
+                            } else {
+                                echo Core::showGlyph('twitter', '2x', 'false');
+                            } ?>
+                        </div>
+                    </div>
+                </div><?php
+            } ?>
+    </div>
+
+                <div class="col-md-2">
                 <h3><?php echo $user['username'] . ' ' . gettext('bestplayer'); ?> </h3>
                 <div class="panel panel-info">
                     <div class="panel-body"><?php
@@ -162,14 +179,12 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                 } ?>
                     }
                     </script><?php
-            }
             } else {
                 if ($params[1] === 'edit') {
                     $user = Users::getUserbyID($_SESSION['user']['id']);
                     if ($params[2] == "" || !isset($params[2])) {
                         ?>
-                    <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data"
-                          autocomplete="off">
+                    <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
                         <div class="col-lg-4">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
