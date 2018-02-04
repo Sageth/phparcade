@@ -1,1 +1,8 @@
-body{margin-top:0}a:focus,a:hover{color:#FF0047;text-decoration:none;outline:0}.navbar-inverse .navbar-nav>li>a:focus,.navbar-inverse .navbar-nav>li>a:hover{color:#007AFF}.navbar-inverse .navbar-nav>li>a{color:#FFF}.home-game-title{font-family:inherit;font-size:24px;font-weight:500;line-height:1.1;margin:1em 0}
+.card {
+    max-width: 100%;
+}
+.card-text {
+    word-wrap: break-word;
+}.word-wrap {
+    word-wrap: normal;
+}body{margin-top:0}a:focus,a:hover{color:#FF0047;text-decoration:none;outline:0}.navbar-inverse .navbar-nav>li>a:focus,.navbar-inverse .navbar-nav>li>a:hover{color:#007AFF}.navbar-inverse .navbar-nav>li>a{color:#FFF}.home-game-title{font-family:inherit;font-size:24px;font-weight:500;line-height:1.1;margin:1em 0}

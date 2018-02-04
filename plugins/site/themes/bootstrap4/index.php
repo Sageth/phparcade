@@ -106,7 +106,8 @@ require_once __DIR__ . '/themeconfig.php';
         <script src="<?php echo JS_JQUERY; ?>" defer></script>
         <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
-        <?php if (true == is('game')) {
+        <?php
+        if (true == is('game')) {
                     ?>
             <!--suppress JSUnresolvedLibraryURL, XmlDefaultAttributeValue -->
             <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>"
@@ -178,5 +179,6 @@ require_once __DIR__ . '/themeconfig.php';
                 }
             } ?>
         </script>
+
     </body>
 </html>

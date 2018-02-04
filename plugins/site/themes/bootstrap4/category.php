@@ -5,36 +5,20 @@ if (!isset($_SESSION)) {
 global $params;
 $dbconfig = Core::getInstance()->getDBConfig();
 $category = Games::getCategory($params[1]);
-$games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']);
-$i = 0; ?>
-<div class="col-lg-12">
+$games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']); ?>
+<div class="row">
     <?php echo Ads::getInstance()->showAds('Responsive'); ?>
-    <div class="clearfix invisible"></div>
-    <div class="card card-info">
-        <div class="card-header">
-            <h1 class="card-header"><?php echo $category['name'] . ' Games'; ?></h1>
-        </div>
-        <div class="card-block"><?php
-            /*
-            // Advertising for specific categories
-            switch ($category['name']) {
-                case 'Strategy Games':
-                    echo 'For the ultimate traditional game of chance, play <a href="http://www.example.com/" rel="nofollow">Free Games</a> online and enjoy multiplayer action and a variety of game options.';
-                    break;
-                case 'Word Games':
-                    echo 'For the ultimate traditional game of chance, play <a href="http://www.example.com/" rel="nofollow">Free Games</a> online and enjoy multiplayer action and a variety of game options.';
-                    break;
-                default:
-            }*/
-            foreach ($games as $game) {
-                $game['desc'] = mb_strlen($game['desc']) > 150 ? substr($game['desc'], 0, 150) . '...' : $game['desc'];
-                $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];
-                $link = Core::getLinkGame($game['id']); ?>
-                <div class="col-md-4 col-md-4">
-                <div class="card card-body">
+    <h1><?php echo $category['name'] . ' Games'; ?></h1>
+    <div class="row"><?php
+        foreach ($games as $game) {
+            $game['desc'] = mb_strlen($game['desc']) > 150 ? substr($game['desc'], 0, 150) . '...' : $game['desc'];
+            $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];
+            $link = Core::getLinkGame($game['id']);?>
+            <div class="card col-md-4">
+                <div class="card-body">
                     <a href="<?php echo $link; ?>"><?php
                         $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
-                        <img class="img img-fluid rounded"
+                        <img class="img-thumbnail rounded mx-auto d-block"
                              data-original="<?php echo $img; ?>"
                              alt="Play <?php echo $game['name']; ?> online for free!"
                              title="Play <?php echo $game['name']; ?> online for free!"
@@ -42,42 +26,35 @@ $i = 0; ?>
                              height="<?php echo $dbconfig['theight']; ?>"
                         />
                     </a>
-                    <div class="caption">
-                        <h3><?php echo $game['name']; ?></h3>
-                        <p><?php echo strip_tags($game['desc']); ?></p>
-                        <p>
-                            <a href="<?php echo $link; ?>" class="btn btn-primary btn-lg btn-block">
-                                <?php echo gettext('playnow'); ?>
-                            </a>
-                        </p>
-                    </div>
+                    <h3 class="card-title">
+                        <?php echo $game['name']; ?>
+                    </h3>
+                    <p class="card-text">
+                        <?php echo strip_tags($game['desc']);?>
+                    </p>
+                    <p class="card-text text-center">
+                        <a href="<?php echo $link; ?>" class="btn btn-primary">
+                            <?php echo gettext('playnow'); ?>
+                        </a>
+                    </p>
                 </div>
-                </div><?php
-                ++$i;
-                if ($i == 3) {
-                    ?>
-                    <div class="clearfix invisible"></div><?php
-                    //Resets boxes
-                    $i = 0;
-                }
-            } ?>
-        </div>
-        <div class="text-xs-center">
-            <ul class="pagination"><?php
-                $pages = Core::getPages($category['name']);
-                for ($i = 0; $i < $pages; ++$i) {
-                    ?>
-                    <li>
-                    <a href="<?php echo Core::getLinkCategory($category['name'], $i + 1); ?>"
-                       class="paginate_button" aria-controls="dataTables-example" tabindex="0">
-                        <?php echo $i + 1; ?>
-                    </a>
-                    </li><?php
-                }?>
-            </ul>
-        </div>
+            </div><?php
+        } ?>
     </div>
 </div>
+<?php $totalpages = Core::getPages($category['name']);?>
+<nav aria-label="categoryPagination">
+    <ul class="pagination justify-content-center" id="catPagination"><?php
+        for ($i = 0; $i < $totalpages; ++$i) {
+            /* If $i is equal to $params[2] minus 1, then that's the active page */ ?>
+            <li class="page-item <?php if ($i === $params[2]-1) { echo 'active'; };?>">
+                <a class="page-link" href="<?php echo Core::getLinkCategory($category['name'], $i + 1); ?>">
+                    <?php echo $i + 1; ?>
+                </a>
+            </li><?php
+        }?>
+    </ul>
+</nav>
 <!--suppress XmlDefaultAttributeValue -->
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
         crossorigin="anonymous" defer></script>
