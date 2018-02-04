@@ -6,7 +6,7 @@ global $params;
 $dbconfig = Core::getInstance()->getDBConfig();
 $category = Games::getCategory($params[1]);
 $games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']); ?>
-<div class="row">
+<div class="row" id="content">
     <?php echo Ads::getInstance()->showAds('Responsive'); ?>
     <h1><?php echo $category['name'] . ' Games'; ?></h1>
     <div class="row"><?php
@@ -42,10 +42,10 @@ $games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesp
         } ?>
     </div>
 </div>
-<?php $totalpages = Core::getPages($category['name']);?>
-<nav aria-label="categoryPagination">
+<?php $totalPages = Core::getPages($category['name']); ?>
+<nav aria-label="categoryPagination" id="page-selection">
     <ul class="pagination justify-content-center" id="catPagination"><?php
-        for ($i = 0; $i < $totalpages; ++$i) {
+        for ($i = 0; $i < $totalPages; ++$i) {
             /* If $i is equal to $params[2] minus 1, then that's the active page */ ?>
             <li class="page-item <?php if ($i === $params[2]-1) { echo 'active'; };?>">
                 <a class="page-link" href="<?php echo Core::getLinkCategory($category['name'], $i + 1); ?>">
@@ -55,6 +55,7 @@ $games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesp
         }?>
     </ul>
 </nav>
+
 <!--suppress XmlDefaultAttributeValue -->
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
         crossorigin="anonymous" defer></script>
