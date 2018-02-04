@@ -6,7 +6,7 @@ global $params;
 $dbconfig = Core::getInstance()->getDBConfig();
 $category = Games::getCategory($params[1]);
 $games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']); ?>
-<div class="row" id="content">
+<div class="row">
     <?php echo Ads::getInstance()->showAds('Responsive'); ?>
     <h1><?php echo $category['name'] . ' Games'; ?></h1>
     <div class="row"><?php
@@ -14,7 +14,7 @@ $games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesp
             $game['desc'] = mb_strlen($game['desc']) > 150 ? substr($game['desc'], 0, 150) . '...' : $game['desc'];
             $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];
             $link = Core::getLinkGame($game['id']);?>
-            <div class="card col-md-4">
+            <div class="card col-md-4 mt-4">
                 <div class="card-body">
                     <a href="<?php echo $link; ?>"><?php
                         $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>

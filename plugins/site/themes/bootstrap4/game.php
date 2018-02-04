@@ -6,7 +6,7 @@
 Users::userUpdatePlaycount();
 global $params; ?>
 <!--suppress Annotator -->
-<div><?php
+<?php
     $dbconfig = Core::getInstance()->getDBConfig();
     Core::doEvent('gamepage');
     $metadata = Core::getPageMetaData();
@@ -20,28 +20,32 @@ global $params; ?>
         $dt = new DateTime("@$epoch");
         $game['time'] = date('M d, Y', $game['time']);
         Games::updateGamePlaycount($game['id']); ?>
-        <div class="col-lg-12">
-            <h1 class="page-header" itemprop="headline"><?php echo $game['name']; ?></h1>
+        <div class="row">
+            <h1 class="page-header" itemprop="headline">
+                <?php echo $game['name']; ?>
+            </h1>
         </div>
-        <div class="col-lg-6">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h2 class="card-header"><?php echo gettext('description'); ?></h2>
+        <div class="card-deck mt-4">
+            <div class="card">
+                <h3 class="card-header">
+                    <?php echo gettext('description'); ?>
+                </h3>
+                <div class="card-body">
+                    <p class="card-text text-primary">
+                        <?php echo $game['desc']; ?>
+                    </p>
                 </div>
-                <div class="card-block">
-                    <p class="text-info"><?php echo $game['desc']; ?></p>
+            </div>
+            <div class="card">
+                <h3 class="card-header">
+                    <?php echo gettext('instructions'); ?>
+                </h3>
+                <div class="card-body">
+                    <p class="card-text text-primary">
+                        <?php echo $game['instructions']; ?>
+                    </p>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6">
-        <div class="card card-info">
-            <div class="card-header">
-                <h2 class="card-header"><?php echo gettext('instructions'); ?></h2>
-            </div>
-            <div class="card-block">
-                <p class="text-info"><?php echo $game['instructions']; ?></p>
-            </div>
-        </div>
         </div><?php
         // Fix for bad champions
         /* 	This next section corrects the "Games Champs Table.  When you delete the games_champs users that
@@ -72,142 +76,130 @@ global $params; ?>
         }
         /* End Games Champs Fix */ ?>
         <!-- Game Code -->
-        <div class="clearfix invisible"></div>
-        <div class="col-lg-12">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-header"><?php echo $game['name']; ?></h3>
-                </div>
-                <div class="card-block text-xs-center">
+        <div class="card-deck mt-4">
+            <div class="card text-center">
+                <h3 class="card-header">
+                    <?php echo $game['name']; ?>
+                </h3>
+                <div class="card-body">
                     <?php echo Ads::getInstance()->showAds('Responsive'); ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
                     $game['type'] = $game['type'] ?? '';
                     switch ($game['customcode']) {
                         case null:
-                        case '':
-                            /** @noinspection MissingOrEmptyGroupStatementInspection */
-                            if ($game['type'] === 'extlink') {
-                            } else {
-                                echo $game['code'];
-                                Core::doEvent('gameplay');
-                            }
-                            break;
-                        default:
-                            echo $game['customcode'];
+                            case '':
+                                if ($game['type'] !== 'extlink') {
+                                    echo $game['code'];
+                                    Core::doEvent('gameplay');
+                                }
+                                break;
+                                default:
+                                    echo $game['customcode'];
                     } ?>
-                    <div class="clearfix invisible">&nbsp;</div>
-                    <?php echo Ads::getInstance()->showAds('Responsive'); ?>
-                    <div class="clearfix invisible">&nbsp;</div>
+                    <div class="clearfix invisible">&nbsp;</div><?php
+                    echo Ads::getInstance()->showAds('Responsive'); ?>
                 </div>
             </div>
-        </div>
-        <div class="clearfix invisible"></div><?php
+        </div><?php
         if ($game['flags'] <> '') {  /* If there are flags set (i.e. NOT a Mochi game), then show the score table*/
             $i = 0; ?>
-            <div class="col-lg-12">
-                <div class="card ">
-                    <div class="card-header">
-                        <h2 class="card-header"><?php echo gettext('top10score'); ?></h2>
-                    </div>
+            <div class="card-deck mt-4">
+                <div class="card">
+                    <h2 class="card-header">
+                        <?php echo gettext('top10score'); ?>
+                    </h2>
                     <div class="card-block">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover" id="dataTables-example">
+                            <table class="table table-striped table-hover">
                                 <thead>
-                                <tr>
-                                    <th><?php echo gettext('Ranking'); ?></th>
-                                    <th><?php echo gettext('player'); ?></th>
-                                    <th><?php echo gettext('score'); ?></th>
-                                    <th><?php echo gettext('date'); ?></th>
-                                </tr>
+                                    <tr>
+                                        <th><?php echo gettext('Ranking'); ?></th>
+                                        <th><?php echo gettext('player'); ?></th>
+                                        <th><?php echo gettext('score'); ?></th>
+                                        <th><?php echo gettext('date'); ?></th>
+                                    </tr>
                                 </thead>
                                 <tbody><?php
-                                if (count($scores) != 0) {
-                                    foreach ($scores as $score) {
-                                        ++$i;
-                                        $d_score = date('m/d/Y', $score['date']);
-                                        $champ = Users::getUserbyID($score['player']); ?>
-                                        <tr class="odd gradeA">
-                                        <td><?php echo $i; ?></td>
-                                        <td>
-                                            <img data-original="<?php echo Users::userGetGravatar($champ['username'],40); ?>"
-                                                 class="img img-fluid rounded-circle"
-                                                 style="float:left"
-                                            />
-                                            &nbsp;
-                                            <a href="<?php echo Core::getLinkProfile($champ['id']); ?>">
-                                                <?php echo $champ['username']; ?>
-                                            </a>
-                                        </td>
-                                        <td><?php echo Scores::formatScore($score['score']); ?></td>
-                                        <td><?php echo $d_score; ?></td>
-                                        </tr><?php
-                                    }
-                                } ?>
+                                    if (count($scores) != 0) {
+                                        foreach ($scores as $score) {
+                                            ++$i;
+                                            $d_score = date('m/d/Y', $score['date']);
+                                            $champ = Users::getUserbyID($score['player']); ?>
+                                            <tr class="odd gradeA">
+                                                <td><?php echo $i; ?></td>
+                                                <td>
+                                                    <img data-original="<?php echo Users::userGetGravatar($champ['username'],40); ?>"
+                                                         class="img img-fluid rounded-circle"
+                                                         style="float:left"
+                                                    />&nbsp;
+                                                    <a href="<?php echo Core::getLinkProfile($champ['id']); ?>">
+                                                        <?php echo $champ['username']; ?>
+                                                    </a>
+                                                </td>
+                                                <td><?php echo Scores::formatScore($score['score']); ?></td>
+                                                <td><?php echo $d_score; ?></td>
+                                            </tr><?php
+                                        }
+                                    } ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End Game Code --><?php
+            <!-- End Game Code -->
+            <?php
         }
-        if ($dbconfig['disqus_on'] === 'on') {
-            ?>
-            <div class="clearfix invisible"></div>
-            <div class="col-lg-12">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-header"><?php echo gettext('disqus'); ?></h3>
+        if ($dbconfig['disqus_on'] === 'on') { ?>
+            <div class="card-deck mt-4">
+                <div class="card">
+                    <h3 class="card-header">
+                        <?php echo gettext('disqus'); ?>
+                    </h3>
+                    <div class="card-body">
+                        <?php include_once(INST_DIR . 'includes/js/Disqus/disqus.php'); ?>
+                    </div>
                 </div>
-                <div class="card-block">
-                    <?php include_once(INST_DIR . 'includes/js/Disqus/disqus.php'); ?>
-                </div>
-            </div>
             </div><?php
         }
-    } else {
-        ?>
+    } else { ?>
         <h1><?php echo gettext('404status'); ?></h1>
         <h2><?php echo gettext('404page'); ?></h2><?php
         Core::returnStatusCode(404);
         die();
     } ?>
     <!-- Related Items -->
-    <div class="clearfix invisible"></div>
-    <div class="col-lg-12">
-        <div class="card card-info">
-            <div class="card-header">
-                <h3 class="card-header"><?php echo gettext('additionalgames'); ?></h3>
-            </div>
-            <div class="card-block text-xs-center"><?php
+    <div class="card-deck mt-4">
+        <div class="card">
+            <h3 class="card-header">
+                <?php echo gettext('additionalgames'); ?>
+            </h3>
+            <div class="card-deck mt-4"><?php
                 $gameslikethis = Games::getGamesLikeThis();
                 foreach ($gameslikethis as $gamelikethis) {
                     $link = Core::getLinkGame($gamelikethis['id']); ?>
-                    <div class="col-md-3 col-md-4">
-                    <div class="card card-body">
-                        <a href="<?php echo $link; ?>"><?php
-                            $img = $dbconfig['imgurl'] . $gamelikethis['nameid'] . EXT_IMG; ?>
-                            <img class="img img-fluid rounded"
-                                 data-original="<?php echo $img; ?>"
-                                 alt="Play <?php echo $gamelikethis['name']; ?> online for free!"
-                                 title="Play <?php echo $gamelikethis['name']; ?> online for free!"
-                                 width="<?php echo $dbconfig['twidth']; ?>"
-                                 height="<?php echo $dbconfig['theight']; ?>"
-                            />
-                        </a>
-                        <div class="caption">
-                            <div class="caption">
+                        <div class="card text-center border-0">
+                            <a href="<?php echo $link; ?>"><?php
+                                $img = $dbconfig['imgurl'] . $gamelikethis['nameid'] . EXT_IMG; ?>
+                                <img class="img img-fluid rounded"
+                                     data-original="<?php echo $img; ?>"
+                                     alt="Play <?php echo $gamelikethis['name']; ?> online for free!"
+                                     title="Play <?php echo $gamelikethis['name']; ?> online for free!"
+                                     width="<?php echo $dbconfig['twidth']; ?>"
+                                     height="<?php echo $dbconfig['theight']; ?>"
+                                />
+                            </a>
+                            <div class="card-body">
                                 <h3><?php echo $gamelikethis['name']; ?></h3>
-                                <p><?php echo $gamelikethis['desc']; ?></p>
+                                <p class="card-text"><?php echo $gamelikethis['desc']; ?></p>
                                 <p>
-                                    <a href="<?php echo $link; ?>" class="btn btn-primary">
+                                    <a href="<?php echo $link; ?>" class="btn btn-info">
                                         <?php echo gettext('playnow'); ?>
                                     </a>
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    </div><?php
+                    <?php
                 }
                 unset($gameslikethis); ?>
             </div>
@@ -254,7 +246,7 @@ global $params; ?>
             );
         </script>
     <?php } ?>
-</div>
+
 <!--suppress XmlDefaultAttributeValue -->
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous" defer></script>
 <script>new LazyLoad();</script>

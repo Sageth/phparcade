@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
 }
 $dbconfig = Core::getInstance()->getDBConfig(); ?>
 <!-- Begin Footer -->
-<div class="footer navbar-static-bottom">
+<div class="footer navbar-static-bottom mt-4">
 	<div class="card-footer container-fluid text-center"><?php
             // It would be greatly appreciated if you didn't remove the footer link to the project
             // Please feel free to customize as much as you'd like?>

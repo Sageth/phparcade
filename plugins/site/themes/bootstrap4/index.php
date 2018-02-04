@@ -70,7 +70,6 @@ require_once __DIR__ . '/themeconfig.php';
         } ?>
         <!--Content Section -->
         <div class="container">
-            <div class="row">
                 <?php switch (true) {
                     case is('home'):
                         include_once __DIR__ . '/home.php';
@@ -99,7 +98,7 @@ require_once __DIR__ . '/themeconfig.php';
                     default:
                         include_once __DIR__ . '/error.php';
                 } ?>
-            </div>
+
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
         <script src="<?php echo JS_JQUERY; ?>" defer></script>

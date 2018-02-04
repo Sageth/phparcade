@@ -3,8 +3,14 @@ if (!isset($_SESSION)) {
     session_start();
 }
 $dbconfig = Core::getInstance()->getDBConfig();
-foreach (Games::getGamesHomePage() as $game) { ?>
-    <div class="card col-md-3">
+$i = 0;
+foreach (Games::getGamesHomePage() as $game) {
+    switch ($i){
+        case 0:
+            echo '<div class="card-deck mt-4">';
+            break;
+    } ?>
+    <div class="card">
         <div class="card-body">
             <a href="<?php echo Core::getLinkGame($game['id']); ?>">
                 <img class="img-thumbnail rounded mx-auto d-block"
@@ -30,6 +36,14 @@ foreach (Games::getGamesHomePage() as $game) { ?>
             </div>
         </div>
     </div><?php
+    switch ($i) {
+        case 3:
+            echo "</div>";
+            $i = 0;
+            break;
+        default:
+            ++$i;
+    }
 }?>
 <!--suppress XmlDefaultAttributeValue -->
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
