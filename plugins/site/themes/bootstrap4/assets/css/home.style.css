@@ -29,14 +29,10 @@ a:focus {
     word-wrap: break-word;
 }
 
-
 /* ========================================
     CAROUSEL STYLE
     ======================================   */
-.word-wrap{
-    word-wrap: break-word;
-}
-.home-game-title{
+.home-game-title {
     font-family:inherit;
     font-size:24px;
     font-weight:500;

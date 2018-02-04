@@ -27,7 +27,7 @@ require_once __DIR__ . '/themeconfig.php';
         <!-- Run this first so you get your local CSS loaded before external JS -->
         <?php switch (true) {
             case is('home'): ?>
-                <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>css/home.style.min.css" /><?php
+                <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>assets/css/home.style.min.css" /><?php
                 break;
             case is('game'):
                 /** @noinspection PhpUndefinedVariableInspection */
