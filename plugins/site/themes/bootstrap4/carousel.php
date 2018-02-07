@@ -15,36 +15,36 @@ $i = 0; ?>
             } else {
                 echo '<div class="carousel-item">';
             } ?>
-                <div class="card">
-                    <div class="card-header">
-                        <h2>
-                            <?php echo $game['name']; ?>
-                        </h2>
+            <div class="card">
+                <div class="card-header">
+                    <h2>
+                        <?php echo $game['name']; ?>
+                    </h2>
+                </div>
+                <div class="card-body bg-secondary text-center">
+                    <div class="row">
+                        <div class="col">&nbsp;</div>
+                        <div class="col">
+                            <img class="rounded"
+                                 src="<?php echo IMG_URL . $game['nameid'] . EXT_IMG;?>"
+                                 alt="<?php $game['name'];?>"
+                                 width="<?php echo $dbconfig['twidth']; ?>"
+                                 height="<?php echo $dbconfig['theight']; ?>"
+                            />
+                        </div>
+                        <div class="col">&nbsp;</div>
                     </div>
-                    <div class="card-body bg-secondary text-center">
-                        <div class="row">
-                            <div class="col">&nbsp;</div>
-                            <div class="col">
-                                <img class="rounded"
-                                     src="<?php echo IMG_URL . $game['nameid'] . EXT_IMG;?>"
-                                     alt="<?php $game['name'];?>"
-                                     height="200px"
-                                     width="200px"
-                                />
-                            </div>
-                            <div class="col">&nbsp;</div>
+                    <div class="row mt-1">
+                        <div class="col">&nbsp;</div>
+                        <div class="col">
+                            <p class="text-justify text-white">
+                                <?php echo $game['desc'];?>
+                            </p>
                         </div>
-                        <div class="row mt-1">
-                            <div class="col">&nbsp;</div>
-                            <div class="col">
-                                <p class="text-justify text-white">
-                                    <?php echo $game['desc'];?>
-                                </p>
-                            </div>
-                            <div class="col">&nbsp;</div>
-                        </div>
+                        <div class="col">&nbsp;</div>
                     </div>
                 </div>
+            </div>
             </div><?php
         } ?>
     </div>

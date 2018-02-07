@@ -326,7 +326,6 @@ function site_admin($mthd)
             $checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
             $checkedfeed = ($dbconfig['rssenabled'] === 'on') ? 'checked' : "";
             $checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : "";
-            $checkedhsenable = ($dbconfig['highscoresenabled'] === 'on') ? 'checked' : "";
             $checkedpassrecovery = ($dbconfig['passwordrecovery'] === 'on') ? 'checked' : "";
             $checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : "";
             ?>
