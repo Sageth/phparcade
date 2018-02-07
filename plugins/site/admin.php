@@ -285,12 +285,11 @@ function site_admin($mthd)
 								<select class="form-control" title="Theme Name" name="themename">
                                     <?php
                                     foreach(glob(dirname(__FILE__) . '/themes/*') as $filename){
-                                        $filename = basename($filename);
-                                        if ($filename == 'admin') {
+                                        if (basename($filename) == 'admin') {
                                             continue;
                                         }
-                                        $selected = $filename === $dbconfig['theme'] ? 'selected' : '';
-                                        echo "<option value='" . $filename . "' $selected>".$filename."</option>";
+                                        $selected = basename($filename) === $dbconfig['theme'] ? 'selected' : '';
+                                        echo "<option value='" . basename($filename) . "' $selected>". basename($filename) ."</option>";
                                     }
                                     ?>
 								</select>
