@@ -283,41 +283,34 @@ function site_admin($mthd)
 							<div class="form-group">
 								<label><?php echo gettext('theme'); ?>:</label>
 								<select class="form-control" title="Theme Name" name="themename">
-									<?php $currenttheme = $dbconfig['theme']; ?>
-									<option value='<?php echo $currenttheme; ?>'><?php echo $currenttheme; ?></option>
-									<?php $dh = opendir(INST_DIR . 'plugins/site/themes/');
-                                    while (($filename = readdir($dh)) !== false) {
-                                        if (is_dir(INST_DIR . 'plugins/site/themes/' . $filename)) {
-                                            $files[] = $filename;
-                                        }
-                                    }
-                                    sort($files);
-                                    $arr = [];
-                                    foreach ($files as $file) {
-                                        if ($file == '.' || $file == '..' || $file == 'admin') {
+                                    <?php
+                                    foreach(glob(dirname(__FILE__) . '/themes/*') as $filename){
+                                        $filename = basename($filename);
+                                        if ($filename == 'admin') {
                                             continue;
                                         }
-                                        if ($file[0] != '~') {
-                                            $arr[] = $file;
-                                        }
+                                        $selected = $filename === $dbconfig['theme'] ? 'selected' : '';
+                                        echo "<option value='" . $filename . "' $selected>".$filename."</option>";
                                     }
-                                    foreach ($arr as $opt) {
-                                        echo "<option value='" . $opt . "'>" . $opt . '</option>';
-                                    } ?>
+                                    ?>
 								</select>
-								<p class="help-block"><?php echo gettext('uploadthemesto');?> <?php echo gettext('themehelp');?></p>
+								<p class="help-block">
+                                    <?php echo gettext('uploadthemesto');?>
+                                    <?php echo gettext('themehelp');?>
+                                </p>
 							</div>
 						</div>
 						<div class="panel-footer">&nbsp;</div>
 					</div>
-					<input type='hidden' name='act' value='site'/>
+                    <input type='hidden' name='act' value='site'/>
 					<input type='hidden' name='mthd' value='theme-config-do'/>
 					<?php Pages::getSubmitButton(); ?>
 				</div>
 			</form><?php
             break;
         case 'theme-config-do':
-            Administrations::updateConfig('themename', $_POST['themename']);
+            Administrations::updateConfig('theme', $_POST['themename']);
+            echo '<pre>' . print_r(get_defined_vars(), true) . '</pre>';
             Core::showSuccess(gettext('updatesuccess'));
             break;
         case 'feature-config':
