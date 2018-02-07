@@ -189,7 +189,6 @@ CREATE TABLE IF NOT EXISTS `members` (
   `totalgames` int(10) NOT NULL DEFAULT 0,
   `facebook_id` varchar(255) DEFAULT NULL,
   `github_id` varchar(255) DEFAULT NULL,
-  `msn` varchar(255) NOT NULL DEFAULT '',
   `twitter_id` varchar(255) NOT NULL DEFAULT '',
   `admin` varchar(10) NOT NULL DEFAULT 'No',
   `favorites` varchar(1) NOT NULL DEFAULT '0',
@@ -211,7 +210,6 @@ INSERT INTO `phparcade`.`members` SET
   `active` = 'Yes',
   `regtime` = 1219016824,
   `totalgames` = 0,
-  `msn` = '',
   `twitter_id` = '',
   `github_id` = NULL,
   `facebook_id` = NULL,
@@ -978,7 +976,6 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_EditMember_Admin`(
   IN m_email VARCHAR(255),
   IN m_active VARCHAR(10),
   IN m_twitter VARCHAR(255),
-  IN m_msn VARCHAR(255),
   IN m_isadmin VARCHAR(10),
   IN m_memberid INT(10))
   BEGIN
@@ -987,7 +984,6 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_EditMember_Admin`(
       `email` = m_email,
       `active` = m_active,
       `twitter_id` = m_twitter,
-      `msn` = m_msn,
       `admin` = m_isadmin
     WHERE  	`id` = m_memberid;
   END ;;
@@ -1128,13 +1124,11 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateMemberProfile
   IN m_email VARCHAR(255),
   IN m_github VARCHAR(255),
   IN m_facebook VARCHAR(255),
-  IN m_msn VARCHAR(255),
   IN m_twitter VARCHAR(255),
   IN m_id INT(10))
   BEGIN
     UPDATE `members`
     SET
-      `msn` = m_msn,
       `twitter_id` = m_twitter,
       `facebook_id` = m_facebook,
       `github_id` = m_github,

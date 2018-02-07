@@ -14,7 +14,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                 Core::showInfo(gettext('noexist'));
             } else {
                 $games = Games::getGamesChamp($user['id']); ?>
-                <div class="col">
+                <div class="col mt-4">
                     <img class="img img-responsive img-circle"
                          src="<?php echo Users::userGetGravatar($user['username'], 80); ?>"
                          alt="<?php echo $user['username']; ?>'s Gravatar"
@@ -197,11 +197,11 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                 $user = Users::getUserbyID($_SESSION['user']['id']);
                 if ($params[2] == "" || !isset($params[2])) {
                     ?>
-                    <div class="card border-0">
-                        <?php echo Core::showInfo('Change your avatar at Gravatar.com!');?>
+                    <div class="card border-0 mt-4">
+                        <?php echo Core::showInfo('Change your avatar at <a href="https://gravatar.com" target="_blank" rel="noopener">Gravatar.com</a>');?>
                     </div>
                     <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
-                        <div class="card-deck mt-4">
+                        <div class="card-deck">
                             <div class="card">
                                 <div class="card-header">
                                     <h3>
@@ -236,14 +236,12 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                 <div class="form-group row">
                                     <label for="birth_date" class="col-sm-4 col-form-label">
                                         <?php echo gettext('datebirth'); ?>
-                                        <span class="badge badge-danger">
-                                            <a href="https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/childrens-online-privacy-protection-rule"
-                                               target="_blank"
-                                               rel="noopener"
-                                               class="badge badge-danger">
-                                                COPPA requirement
-                                            </a>
-                                        </span>
+                                        <a href="https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/childrens-online-privacy-protection-rule"
+                                           target="_blank"
+                                           rel="noopener"
+                                           class="badge badge-danger">
+                                            COPPA requirement
+                                        </a>
                                     </label>
                                     <div class="col-sm-8">
                                         <input class="form-control"
@@ -281,22 +279,22 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                 </h3>
                             </div>
                             <div class="card-body">
-                                <div class="form-group row">
-                                    <label for="facebook_id" class="col-sm-4 col-form-label">
+                                <div class="form-group row align-items-center">
+                                    <label for="facebook_id" class="col-sm-3 col-form-label">
                                         <?php echo gettext('facebook'); ?>
                                     </label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
+                                    <div class="col">
+                                        <span class="input-group-prepend">
+                                            <div class="input-group-text border-right-0">
                                                 <?php echo gettext('facebook_link'); ?>
                                             </div>
-                                        </div>
-                                        <input class="form-control" placeholder="Friendly Name" name="facebook_id"
-                                               value="<?php echo $user['facebook_id']; ?>"/>
+                                            <input class="form-control" placeholder="Friendly Name" name="facebook_id"
+                                                   value="<?php echo $user['facebook_id']; ?>"/>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="github" class="col-sm-4 col-form-label">
+                                    <label for="github" class="col-sm-3 col-form-label">
                                         <?php echo gettext('github_id'); ?>
                                     </label>
                                     <div class="col-sm-8">
@@ -305,26 +303,33 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="twitter" class="col-sm-4 col-form-label">
+                                    <label for="twitter" class="col-sm-3 col-form-label">
                                         <?php echo gettext('twitter'); ?>
                                     </label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">@</div>
-                                        </div>
-                                        <input type="text" class="form-control" id="twitter" placeholder="Friendly Name" name="twitter_id"
+                                    <div class="col-sm-4">
+                                        <span class="input-group-prepend">
+                                            <div class="input-group-text border-right-0">@</div>
+                                            <input type="text" class="form-control" id="twitter" placeholder="Friendly Name" name="twitter_id"
                                                    value="<?php echo $user['twitter_id']; ?>"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row text-center mt-4">
+                                    <div class="col-sm-8">
+                                        <a href="https://gravatar.com" class="btn btn-primary" target="_blank" rel="noopener">
+                                            Change Gravatar
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer"></div>
                         </div>
                     </div>
+                    <input type='hidden' name='params' value='profile/edit/editdone'/>
+                    <button class='btn btn-primary' value='<?php echo gettext('profileedit'); ?>'>
+                        <?php echo gettext('submit'); ?>
+                    </button>
                 </form>
-                <input type='hidden' name='params' value='profile/edit/editdone'/>
-                <button class='btn btn-primary' value='<?php echo gettext('profileedit'); ?>'>
-                    <?php echo gettext('submit'); ?>
-                </button>
             <?php
                 } else {
                     if ($params[0] === 'profile' && $params[2] === 'editdone') {

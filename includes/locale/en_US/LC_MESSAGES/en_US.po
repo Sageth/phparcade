@@ -593,9 +593,6 @@ msgstr "More"
 msgid "mostpopular"
 msgstr "Most Popular"
 
-msgid "msn"
-msgstr "MSN"
-
 msgid "myaccount"
 msgstr "My Account"
 
