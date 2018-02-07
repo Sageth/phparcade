@@ -50,6 +50,7 @@ define('ADMIN_SITE_THEME_PATH', INST_DIR . 'plugins/site/themes/admin/index.php'
 define('CHARSET', 'UTF-8');
 define('EXT_IMG', '.png');
 define('GRAVATAR_URL', 'https://www.gravatar.com/avatar/');
+define('IMG_URL', SITE_URL . 'img/');
 define('SITE_META_DESCRIPTION', $dbconfig['metadesc']);
 define('SITE_META_KEYWORDS', $dbconfig['metakey']);
 define('SITE_META_TITLE', $dbconfig['sitetitle']);

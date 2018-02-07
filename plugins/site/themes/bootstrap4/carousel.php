@@ -2,52 +2,50 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$games = Games::getGames('all', 0, 3, '-all-', -1);
+$games = Games::getGames('all', 0, 5, '-all-', -1);
 $i = 0; ?>
 <!-- Carousel Section -->
-<div id="main-Carousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#main-Carousel" data-slide-to="0" class="active"></li>
-        <li data-target="#main-Carousel" data-slide-to="1" class=""></li>
-        <li data-target="#main-Carousel" data-slide-to="2" class=""></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox"><?php
+<div id="mainCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner col-lg-8 mx-auto"><?php
         foreach ($games as $game) {
-        ++$i;
-        $link = Core::getLinkGame($game['id']);
-        if ($i === 1) {
-        ?>
-        <div class="carousel-item active"><?php
+            ++$i;
+            $link = Core::getLinkGame($game['id']);
+            if ($i === 1) {
+                echo '<div class="carousel-item active">';
             } else {
-            ?>
-            <div class="carousel-item"><?php
-                } ?>
-                <div class="fill"></div>
-                <div class="carousel-caption">
-                    <div class="card-body">
-                        <div class="caption">
-                            <h2><?php echo $game['name']; ?></h2>
-                            <p><?php echo $game['desc']; ?></p>
-                            <p>
-                                <a href="<?php echo $link; ?>" class="btn btn-danger">
-                                    <?php echo gettext('playnow'); ?>
-                                </a>
-                            </p>
+                echo '<div class="carousel-item">';
+            } ?>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            <?php echo $game['name']; ?>
+                        </h2>
+                    </div>
+                    <div class="card-body bg-secondary text-center">
+                        <div class="row">
+                            <div class="col">&nbsp;</div>
+                            <div class="col">
+                                <img class="rounded"
+                                     src="<?php echo IMG_URL . $game['nameid'] . EXT_IMG;?>"
+                                     alt="<?php $game['name'];?>"
+                                     height="200px"
+                                     width="200px"
+                                />
+                            </div>
+                            <div class="col">&nbsp;</div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col">&nbsp;</div>
+                            <div class="col">
+                                <p class="text-justify text-white">
+                                    <?php echo $game['desc'];?>
+                                </p>
+                            </div>
+                            <div class="col">&nbsp;</div>
                         </div>
                     </div>
                 </div>
             </div><?php
-            } ?>
-        </div>
-        <!-- Controls -->
-        <a class="left carousel-control" href="#main-Carousel" role="button" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#main-Carousel" role="button" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-        <!--End Carousel Section -->
+        } ?>
     </div>
+</div>

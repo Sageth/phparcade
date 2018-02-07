@@ -22,12 +22,7 @@ a:focus {
 /* ========================================
     BOOTSTRAP STYLE CHANGES
     ======================================   */
-.card {
-    max-width: 100%;
-}
-.card-text {
-    word-wrap: break-word;
-}
+
 
 /* ========================================
     CAROUSEL STYLE
