@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 $games = Games::getGames('all', 0, 5, '-all-', -1);
 $i = 0; ?>
 <!-- Carousel Section -->
-<div id="mainCarousel" class="carousel slide" data-ride="carousel">
+<div id="mainCarousel" class="carousel slide d-none d-md-block" data-ride="carousel">
     <div class="carousel-inner col-lg-8 mx-auto"><?php
         foreach ($games as $game) {
             ++$i;
