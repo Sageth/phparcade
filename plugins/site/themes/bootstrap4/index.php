@@ -42,6 +42,7 @@ require_once __DIR__ . '/themeconfig.php';
             case is('register'): ?>
                 <link rel="stylesheet" href="<?php echo SITE_THEME_URL;?>assets/css/login.style.min.css" />
                 <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>" defer></script><?php
+                break;
             default:
         } ?>
 

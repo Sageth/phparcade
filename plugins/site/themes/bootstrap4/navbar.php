@@ -12,11 +12,11 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto"><?php
+        <ul class="navbar-nav ml-auto">
+            <div class="col-lg-4 ml-auto">
+                <?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
+            </div><?php
             if (!Users::isUserLoggedIn()) { ?>
-                <div class="col-lg-4 ml-auto">
-                    <?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
-                </div>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo gettext('gamecategories'); ?>
