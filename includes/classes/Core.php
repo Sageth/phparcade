@@ -111,37 +111,17 @@ class Core
         $links_arr = self::loadLinks();
         return str_replace('%name%', $gamelist[$id], str_replace('%id%', $id, $links_arr['game']));
     }
-    public static function loadLinks()
-    {
-        /* TODO: Need to clean this up somehow. Change to query string and let mod_rewrite do its thing? */
-
-        global $links_arr, $append, $gamelist;
-        /** @noinspection OnlyWritesOnParameterInspection */
-        $append = '.html';
-        $games = Games::getGamesAllIDsNames();
-        $links_arr['game'] = 'game/%id%/%name%';
-        foreach ($games as $game) {
-            $gamelist[$game['id']] = self::getCleanURL($game['name']);
-        }
-        // Link data
-        $links_arr['category'] = 'category/%name%/%page%';
-        $links_arr['editprofile'] = 'profile/edit';
-        $links_arr['logout'] = 'login/logout';
-        $links_arr['page'] = 'page/%id%/%name%';
-        $links_arr['passwordchange'] = 'login/recover/change/%code%/%username%';
-        $links_arr['profile'] = 'profile/view/%id%/%username%';
-        $links_arr['pwrecover'] = 'login/recover';
-        $links_arr['register'] = 'register/register';
-        $links_arr['rss'] = 'rss/%type%';
-        $links_arr = array_map('preappbase', $links_arr);
-        return $links_arr;
-    }
     public static function getCleanURL($string)
     {
         $string = preg_replace("/\W/", '-', $string); //Non-word characters, including spaces
         $string = preg_replace("/\-$/", "", $string); //Dashes at end of name (e.g. test-.html)
         $string = preg_replace('/-{2,}/', '-', $string); //Double dashes at end of name (e.g. test--.html)
         return $string;
+    }
+    public static function getLinkCategory($name = 'all', $page = 1)
+    {
+        global $links_arr;
+        return str_replace('%page%', $page, str_replace('%name%', $name, $links_arr['category']));
     }
     public static function getLinkLogout()
     {
@@ -254,6 +234,31 @@ class Core
         $line = $stmt->fetch();
         return $line['playcount'];
     }
+    public static function loadLinks()
+    {
+        /* TODO: Need to clean this up somehow. Change to query string and let mod_rewrite do its thing? */
+
+        global $links_arr, $append, $gamelist;
+        /** @noinspection OnlyWritesOnParameterInspection */
+        $append = '.html';
+        $games = Games::getGamesAllIDsNames();
+        $links_arr['game'] = 'game/%id%/%name%';
+        foreach ($games as $game) {
+            $gamelist[$game['id']] = self::getCleanURL($game['name']);
+        }
+        // Link data
+        $links_arr['category'] = 'category/%name%/%page%';
+        $links_arr['editprofile'] = 'profile/edit';
+        $links_arr['logout'] = 'login/logout';
+        $links_arr['page'] = 'page/%id%/%name%';
+        $links_arr['passwordchange'] = 'login/recover/change/%code%/%username%';
+        $links_arr['profile'] = 'profile/view/%id%/%username%';
+        $links_arr['pwrecover'] = 'login/recover';
+        $links_arr['register'] = 'register/register';
+        $links_arr['rss'] = 'rss/%type%';
+        $links_arr = array_map('preappbase', $links_arr);
+        return $links_arr;
+    }
     public static function loadRedirect($message, $url = 'refurl')
     {
         $dbconfig = Core::getInstance()->getDBConfig();
@@ -304,22 +309,16 @@ class Core
         foreach ($categories as $category) {
             ++$i;
             $link = self::getLinkCategory($category['name'], 1); ?>
-            <li>
-                <a href="<?php echo $link; ?>">
-                    <?php echo $category['name']; ?>
-                </a>
-            </li><?php
+            <a class="dropdown-item" href="<?php echo $link; ?>">
+                <?php echo $category['name']; ?>
+            </a>
+            <?php
         }
-    }
-    public static function getLinkCategory($name = 'all', $page = 1)
-    {
-        global $links_arr;
-        return str_replace('%page%', $page, str_replace('%name%', $name, $links_arr['category']));
     }
     public static function showError($text, $glyph = 'ambulance')
     {
         ?>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger mt-4" role="alert">
             <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
             <strong><?php echo gettext('error') ?></strong>
             <?php echo $text; ?>
@@ -332,7 +331,7 @@ class Core
     public static function showInfo($text, $glyph = 'info')
     {
         ?>
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-info mt-4" role="alert">
             <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
             <strong><?php echo gettext('info') ?></strong>
             <?php echo $text; ?>
@@ -341,7 +340,7 @@ class Core
     public static function showSuccess($text, $glyph = 'check')
     {
         ?>
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success mt-4" role="alert">
             <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
             <strong><?php echo gettext('success') ?></strong>
             <?php echo $text; ?>
@@ -350,7 +349,7 @@ class Core
     public static function showWarning($text, $glyph = 'warning')
     {
         ?>
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-warning mt-4" role="alert">
             <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
             <strong><?php echo gettext('warning') ?></strong>
             <?php echo $text; ?>

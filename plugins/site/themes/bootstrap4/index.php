@@ -27,7 +27,7 @@ require_once __DIR__ . '/themeconfig.php';
         <!-- Run this first so you get your local CSS loaded before external JS -->
         <?php switch (true) {
             case is('home'): ?>
-                <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>css/home.style.min.css" /><?php
+                <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>assets/css/home.style.min.css" /><?php
                 break;
             case is('game'):
                 /** @noinspection PhpUndefinedVariableInspection */
@@ -40,8 +40,9 @@ require_once __DIR__ . '/themeconfig.php';
                 <meta property="fb:app_id" content="<?php echo $dbconfig['facebook_appid']; ?>"/><?php
                 break;
             case is('register'): ?>
+                <link rel="stylesheet" href="<?php echo SITE_THEME_URL;?>assets/css/login.style.min.css" />
                 <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>" defer></script><?php
-            // no break
+                break;
             default:
         } ?>
 
@@ -70,7 +71,6 @@ require_once __DIR__ . '/themeconfig.php';
         } ?>
         <!--Content Section -->
         <div class="container">
-            <div class="row">
                 <?php switch (true) {
                     case is('home'):
                         include_once __DIR__ . '/home.php';
@@ -99,19 +99,14 @@ require_once __DIR__ . '/themeconfig.php';
                     default:
                         include_once __DIR__ . '/error.php';
                 } ?>
-            </div>
+
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
-        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_JQUERY; ?>" defer></script>
-        <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
-        <?php if (true == is('game')) {
-                    ?>
-            <!--suppress JSUnresolvedLibraryURL, XmlDefaultAttributeValue -->
-            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>"
-                    crossorigin="anonymous" defer></script><?php
-                } ?>
+        <?php if (true == is('game')) { ?>
+            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" crossorigin="anonymous" defer></script><?php
+        } ?>
         <script type="application/ld+json" defer>
         {
             "@context":"http://schema.org",
@@ -123,7 +118,6 @@ require_once __DIR__ . '/themeconfig.php';
             ]
         }
         </script>
-
         <script type="application/ld+json" defer>
         {
             "@context":"http://schema.org",
