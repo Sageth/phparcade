@@ -1,11 +1,13 @@
 <?php
 /** @noinspection PhpUndefinedVariableInspection */
 $page = Pages::getPage($params[1]); ?>
-<div class="row">
+<div class="row mt-4">
     <h1 class="page-header" itemprop="headline">
         <?php echo $page['title']; ?>
     </h1>
-    <div class="card-deck mt-4">
+</div>
+<div class="row mt-4">
+    <div class="card-deck">
         <div class="card">
             <h3 class="card-header">
                 <?php echo $page['title']; ?>
