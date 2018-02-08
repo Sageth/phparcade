@@ -248,7 +248,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                                title="<?php echo gettext('datebirth'); ?>"
                                                name="birth_date"
                                                placeholder="<?php echo $user['birth_date']; ?>"
-                                               disabled/>
+                                        />
                                     </div>
                                 </div>
                                 <div class="form-group row">
