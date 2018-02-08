@@ -198,7 +198,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                 if ($params[2] == "" || !isset($params[2])) {
                     ?>
                     <div class="card border-0 mt-4">
-                        <?php echo Core::showInfo('Change your avatar at <a href="https://gravatar.com" target="_blank" rel="noopener">Gravatar.com</a>');?>
+                        <?php Core::showInfo('Change your avatar at <a href="https://gravatar.com" target="_blank" rel="noopener">Gravatar.com</a>');?>
                     </div>
                     <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
                         <div class="card-deck">
