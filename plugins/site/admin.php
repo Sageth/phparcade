@@ -285,7 +285,7 @@ function site_admin($mthd)
 								<select class="form-control" title="Theme Name" name="themename">
                                     <?php
                                     foreach(glob(dirname(__FILE__) . '/themes/*') as $filename){
-                                        if (basename($filename) == 'admin') {
+                                        if (basename($filename) === 'admin') {
                                             continue;
                                         }
                                         $selected = basename($filename) === $dbconfig['theme'] ? 'selected' : '';
@@ -309,7 +309,6 @@ function site_admin($mthd)
             break;
         case 'theme-config-do':
             Administrations::updateConfig('theme', $_POST['themename']);
-            echo '<pre>' . print_r(get_defined_vars(), true) . '</pre>';
             Core::showSuccess(gettext('updatesuccess'));
             break;
         case 'feature-config':

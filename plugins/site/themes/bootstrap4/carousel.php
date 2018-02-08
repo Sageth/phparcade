@@ -25,12 +25,14 @@ $i = 0; ?>
                     <div class="row">
                         <div class="col">&nbsp;</div>
                         <div class="col">
-                            <img class="rounded"
-                                 src="<?php echo IMG_URL . $game['nameid'] . EXT_IMG;?>"
-                                 alt="<?php $game['name'];?>"
-                                 width="<?php echo $dbconfig['twidth']; ?>"
-                                 height="<?php echo $dbconfig['theight']; ?>"
-                            />
+                            <a href="<?php echo $link;?>">
+                                <img class="rounded"
+                                     src="<?php echo IMG_URL . $game['nameid'] . EXT_IMG;?>"
+                                     alt="<?php $game['name'];?>"
+                                     width="<?php echo $dbconfig['twidth']; ?>"
+                                     height="<?php echo $dbconfig['theight']; ?>"
+                                />
+                            </a>
                         </div>
                         <div class="col">&nbsp;</div>
                     </div>

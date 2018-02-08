@@ -11,7 +11,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
         if ($params[1] === 'view' && $params[1] != 'edit') {
             $user = Users::getUserbyID($params[2]);
             if ($user === false) {
-                Core::showInfo(gettext('noexist'));
+                Core::showError(gettext('noexist'));
             } else {
                 $games = Games::getGamesChamp($user['id']); ?>
                 <div class="col mt-4">
@@ -112,7 +112,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                         foreach ($games as $game) {
                             $game = Games::getGame($game['nameid']);
                             $link = Core::getLinkGame($game['id']);
-                            if ($i == 0) {
+                            if ($i === 0) {
                                 echo '<div class="card-deck mt-4">';
                             } ?>
                             <div class="card">

@@ -204,7 +204,7 @@ global $params; ?>
                 unset($gameslikethis); ?>
             </div>
         </div>
-        <?php Core::getFlashModal();?>
+        <?php Games::getGameModal();?>
     </div>
     <!-- Schema -->
     <script type="application/ld+json" defer>

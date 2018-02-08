@@ -41,7 +41,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                     </div>
                 </div><?php
                 ++$i;
-                if ($i == 3) {
+                if ($i === 3) {
                     ?>
                     <div class="clearfix invisible"></div><?php //Resets boxes
                     $i = 0;

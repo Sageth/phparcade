@@ -11,7 +11,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
         if ($params[1] === 'view' && $params[1] != 'edit') {
         $user = Users::getUserbyID($params[2]);
 
-        if ($user == false) {
+        if ($user === false) {
             Core::showInfo(gettext('noexist'));
         } else {
         $i = 0;

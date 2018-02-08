@@ -170,6 +170,54 @@ class Games
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    public static function getGameModal()
+    {
+        ?>
+        <!--suppress ALL -->
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning">
+                        <h4 class="modal-title">Notice Regarding Flash</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-default">
+                            Notice: All of the major browsers are ending support of Adobe Flash, so you will need to
+                            enable Flash to have the best experience while we add more mobile-friendly games and apps.
+                        </p>
+                        <p class="text-danger">
+                            Please note: We <strong>ONLY</strong> serve flash games from <?php echo SITE_URL; ?>.  The
+                            settings below will only allow flash for <?php echo SITE_URL; ?>, which will help ensure your
+                            security.
+                        </p>
+                        <p class="text-default">
+                            Alternatively, you may play our HTML5 games which do not require Flash and are also able
+                            to be played on mobile.  Unfortunately, Flash is not available on mobile devices.
+                        </p>
+                        <div class="pull-left">
+                            <a class="btn btn-md btn-info"
+                               href="https://helpx.adobe.com/flash-player/kb/enabling-flash-player-firefox.html"
+                               target="_blank"
+                               rel="noopener">
+                                Enable Flash - <i class="fa fa-firefox" aria-hidden="true"></i> Firefox
+                            </a>
+                        </div>
+                        <div class="pull-right">
+                            <a class="btn btn-md btn-info"
+                               href="<?php echo Core::getLinkPage(6); ?>"
+                               target="_blank"
+                               rel="noopener">
+                                Enable Flash - <i class="fa fa-chrome" aria-hidden="true"></i> Chrome
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><?php
+    }
     public static function getGame($id)
     {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGameByID(:gameid);');
