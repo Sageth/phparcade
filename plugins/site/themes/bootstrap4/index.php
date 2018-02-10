@@ -145,12 +145,12 @@ require_once __DIR__ . '/themeconfig.php';
                     mixpanel.register({
                         "$admin": "<?php echo $user['admin'];?>",
                         "$birthdate": "<?php echo $user['birth_date'];?>",
-                        "$created": "<?php echo date('Y-m-d', $user['regtime']);?>",
+                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']);?>",
                         "$facebook_id": "<?php echo $user['facebook'];?>",
                         "$github_id": "<?php echo $user['github'];?>",
                         "$id": "<?php echo $user['id'];?>",
                         "$email": "<?php echo $user['email'];?>",
-                        "$last_login": "<?php echo $user['last_login'];?>",
+                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']);?>",
                         "$total_games_played": "<?php echo $user['totalgames'];?>",
                         "$username": "<?php echo $user['name'];?>"
                     });
@@ -158,12 +158,12 @@ require_once __DIR__ . '/themeconfig.php';
                     mixpanel.people.set({
                         "$admin": "<?php echo $user['admin'];?>",
                         "$birthdate": "<?php echo $user['birth_date'];?>",
-                        "$created": "<?php echo date('Y-m-d', $user['regtime']);?>",
+                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']);?>",
                         "$facebook_id": "<?php echo $user['facebook'];?>",
                         "$github_id": "<?php echo $user['github'];?>",
                         "$id": "<?php echo $user['id'];?>",
                         "$email": "<?php echo $user['email'];?>",
-                        "$last_login": "<?php echo $user['last_login'];?>",
+                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']);?>",
                         "$total_games_played": "<?php echo $user['totalgames'];?>",
                         "$username": "<?php echo $user['name'];?>"
                     })<?php

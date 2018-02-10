@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `favorites` varchar(1) NOT NULL DEFAULT '0',
   `ip` varchar(45) NOT NULL,
   `birth_date` varchar(10) NOT NULL DEFAULT '{null}',
-  `last_login` date NOT NULL DEFAULT '1970-01-01',
+  `last_login` int(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`username`,`email`),
   KEY `members_active-totalgames` (`id`,`active`,`totalgames`),
@@ -217,7 +217,7 @@ INSERT INTO `phparcade`.`members` SET
   `favorites` = '',
   `ip` = '',
   `birth_date` = '',
-  `last_login` = '1970-01-01';
+  `last_login` = time();
 
 --
 -- Table structure for table `pages`
@@ -1154,7 +1154,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateLastLogin`(
   IN userid INT(10))
   BEGIN
     UPDATE `members`
-    SET `last_login` = CURRENT_DATE()
+    SET `last_login` = UNIX_TIMESTAMP()
     WHERE `id` = userid;
   END ;;
 DELIMITER ;
