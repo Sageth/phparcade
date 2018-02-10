@@ -46,7 +46,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                     <?php echo gettext('lastlogin'); ?>
                                 </span>
                                 <span class="pull-right">
-                                    <?php echo $user['last_login']; ?>
+                                    <?php echo date('Y-m-d', $user['last_login']); ?>
                                 </span>
                             </div>
                         </div>
