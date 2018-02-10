@@ -951,9 +951,9 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_AddMember`(
   IN m_ip VARCHAR(45))
   BEGIN
     INSERT INTO `members`
-    (`id`,`username`,`password`,`email`,`active`,`admin`,`ip`)
+    (`id`,`username`,`password`,`email`,`active`,`regtime`, `admin`,`ip`)
     VALUES
-      (m_id, m_username, m_password, m_email, m_active, m_admin, m_ip);
+      (m_id, m_username, m_password, m_email, m_active, UNIX_TIMESTAMP(now()), m_admin, m_ip);
   END ;;
 DELIMITER ;
 

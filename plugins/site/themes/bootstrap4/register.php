@@ -25,18 +25,18 @@
     </div>
     <div class="card">
         <div class="card-header">
-            <h2>Register</h2>
+            <h2><?php echo gettext('passwordrecovery');?></h2>
         </div>
         <?php Core::showWarning(gettext('recoveryinstructions')); ?>
         <div class="card-body">
             <form class="form-signin" autocomplete="off" action="<?php echo SITE_URL; ?>" method="post">
                 <div class="form-label-group">
-                    <input type="text" id="registerUsername" name="username" class="form-control" placeholder="User name">
-                    <label for="registerUsername">Username</label>
+                    <input class="form-control" id="forgotUsername" name="username" placeholder="User name">
+                    <label for="forgotUsername"><?php echo gettext('username');?></label>
                 </div>
                 <div class="form-label-group">
-                    <input type="email" id="registerEmail" name="email" class="form-control" placeholder="Email Address">
-                    <label for="registerEmail">Password</label>
+                    <input class="form-control" id="forgotEmail" name="email" placeholder="Email Address">
+                    <label for="forgotEmail"><?php echo gettext('email');?></label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" name="params" value="login/recover/do">
                     <?php echo gettext('recoverpassword'); ?>
@@ -53,7 +53,7 @@
     <div class="card">
         <div class="card-header">
             <h2>
-                Forgot Password
+                <?php echo gettext('register');?>
             </h2>
         </div>
         <div class="card-body">
@@ -94,12 +94,12 @@
             } ?>
             <form class="form-signin" autocomplete="off" action="<?php echo SITE_URL; ?>" method="post">
                 <div class="form-label-group">
-                    <input class="form-control" id="forgotUsername" name="username" placeholder="User name">
-                    <label for="forgotUsername">Username</label>
+                    <input type="text" id="registerUsername" name="username" class="form-control" placeholder="User name">
+                    <label for="registerUsername"><?php echo gettext('username');?></label>
                 </div>
                 <div class="form-label-group">
-                    <input class="form-control" id="forgotEmail" name="email" placeholder="Email Address">
-                    <label for="forgotEmail">Password</label>
+                    <input type="email" id="registerEmail" name="email" class="form-control" placeholder="Email Address">
+                    <label for="registerEmail"><?php echo gettext('email');?></label>
                 </div>
                 <div class="g-recaptcha form-label-group" data-sitekey="<?php echo $dbconfig['google_recaptcha_sitekey'];?>"></div>
 

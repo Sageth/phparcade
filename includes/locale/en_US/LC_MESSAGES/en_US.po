@@ -1,5 +1,5 @@
 #
-# Sage Russell <webmaster@sageth.com>, 2015.
+# Sage Russell <webmaster@sageth.com>, 2018.
 #
 msgid ""
 msgstr ""
