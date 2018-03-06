@@ -196,6 +196,11 @@ class Scores
         $stmt->bindParam(':player', $player);
         $stmt->execute();
     }
+
+    /* Scores for players which no longer exist
+        SELECT * FROM phparcade.games_score WHERE player NOT IN (SELECT id FROM phparcade.members);
+    */
+
     private function __clone()
     {
     }
