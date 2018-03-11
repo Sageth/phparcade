@@ -19,6 +19,7 @@ final class LanguageTest extends TestCase
     public function testLanguageLoader(): void
     {
         $locale = 'en_US';
+        putenv("LC_MESSAGES=$locale");
         setlocale(LC_MESSAGES, $locale);
         bindtextdomain($locale, $_SERVER['DOCUMENT_ROOT'] . '/includes/locale');
         textdomain($locale);

@@ -2,6 +2,9 @@ language: php
 php:
   - '7.1'
 
+env:
+  - LC_MESSAGES="en_US"
+
 install:
   - composer install
 
