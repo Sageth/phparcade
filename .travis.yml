@@ -2,10 +2,6 @@ language: php
 php:
   - '7.1'
 
-env:
-  - LC_ALL="en_US"
-  - LANG="en_US.UTF-8"
-
 install:
   - composer install
 
