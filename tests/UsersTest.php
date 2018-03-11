@@ -6,9 +6,7 @@ final class UsersTest extends TestCase
 {
     public function setUp()
     {
-        $_SERVER['DOCUMENT_ROOT'] = '/www/phparcade';
-        include_once $_SERVER['DOCUMENT_ROOT'] . '/includes/classes/Core.php';
-        include_once $_SERVER['DOCUMENT_ROOT'] . '/includes/classes/Users.php';
+        $_SERVER['DOCUMENT_ROOT'] = __DIR__;
     }
 
     public function tearDown()
