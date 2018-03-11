@@ -6,6 +6,7 @@ Sitemap: <?php echo SITE_URL; ?>sitemap.xml.gz
 User-agent: *
 Allow:      /includes/images/noav.png
 Disallow:   /\.
+Disallow:   /*.html?PageSpeed=noscript$
 Disallow:   /arcade/
 Disallow:   /cache/
 Disallow:   /category/all/
