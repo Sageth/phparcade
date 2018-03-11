@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/Sageth/phparcade.svg?branch=master)](https://travis-ci.org/Sageth/phparcade)
 
-
 ## Description
 This is a Responsive arcade script written in PHP that is -- in spirit -- based on the old (no longer 
 supported or maintained) version of GameSiteScript 4. Nearly all of the code has been rewritten for 

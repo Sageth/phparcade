@@ -1,8 +1,10 @@
 language: php
+
 php:
   - '7.1'
 
-install:
+before_install:
   - composer install
 
 script: phpunit tests
+
