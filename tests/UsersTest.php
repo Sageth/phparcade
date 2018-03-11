@@ -6,7 +6,9 @@ final class UsersTest extends TestCase
 {
     public function setUp()
     {
-        $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__) . "/../";    }
+        $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__) . "/../";
+        include_once $_SERVER['DOCUMENT_ROOT'] . 'includes/classes/Users.php';
+    }
 
     public function tearDown()
     {
