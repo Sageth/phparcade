@@ -1,11 +1,11 @@
 language: php
+
 php:
   - '7.1'
 
-env:
-  - LC_MESSAGES="en_US"
-
-install:
+before_install:
+  - apt-get update
   - composer install
 
 script: phpunit tests
+
