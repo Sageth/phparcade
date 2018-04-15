@@ -8,8 +8,8 @@ better adherence to new coding standards.  A production "demo" of the front-end 
 [Facebook](https://www.facebook.com/PHPArcade-271750579558482) for regular updates.
 
 ## Group Discussions
-If you are interested in fixing issues, or would like to help make this application better, please join
-our [Slack workspace](https://join.slack.com/t/phparcade/shared_invite/enQtMjYwNDY5Njk2NTE1LWZiYzllYzg4MDIxZTkyYjhlMGMyYmI4NDVmMDQwMjdkZmRmYjk2Mzg5ZWZmNjc1Y2ZkN2FiOTI0ZDI0ZDJmZDc).
+If you are interested in fixing issues, would like to help make this application better, or just want to chat, please join
+our [PHPArcade Discord Server](http://discord.gg/wzr3PCf).
 
 ## Features (screenshots below)
 * Add/edit pages via GUI
@@ -22,7 +22,7 @@ our [Slack workspace](https://join.slack.com/t/phparcade/shared_invite/enQtMjYwN
 * External email support (e.g. [Google Apps for Work](https://goo.gl/S3SgCr), Gmail)
 * HTML5 games and other custom code implementations
 * Internal high score system for some game types, primarily ibPro v2
-* **Responsive design** for front-end and back-end
+* Bootstrap 3 and Bootstrap 4-based themes
 * RSS Feeds
 * Supports PHP7 and the latest strict standards of MySQL 5.7
 * User administration and profiles
@@ -41,6 +41,7 @@ repositories. This code has not been tested on Apache. It may work with some bas
 ## Support Information
 * [Bug Tracker](https://github.com/Sageth/phpArcade/issues)
 * [Wiki](https://github.com/Sageth/phpArcade/wiki)
+* [Discord](http://discord.gg/wzr3PCf)
 
 ## We are currently looking for the following contributors:
 * Coders (PHP, AJAX, CSS)
@@ -54,7 +55,6 @@ repositories. This code has not been tested on Apache. It may work with some bas
 * [Binary Theme](http://www.binarytheme.com/) for use of the Responsive Theme
 * [Bootstrap](https://getbootstrap.com/) for the the framework
 * [CDNJS](https://cdnjs.com/) is used CDN-hosted javascript files.
-* [FileUpload](https://github.com/Gargron/fileupload) for uploading files and images
 * [Google ReCaptcha](https://github.com/google/recaptcha) is used for bot verification
 * [PHP Mailer](https://www.github.com/PHPMailer/PHPMailer) is used for email notifications.
 * [SimpleImage](https://www.github.com/claviska/SimpleImage) library code is used for image uploads and manipulation.
