@@ -21,9 +21,9 @@ $i = 0; ?>
                         <?php echo $game['name']; ?>
                     </h2>
                 </div>
-                <div class="card-body bg-secondary text-center">
+                <div class="card-body alert-dark text-center">
                     <div class="row">
-                        <div class="col">&nbsp;</div>
+                        <div class="col-1">&nbsp;</div>
                         <div class="col">
                             <a href="<?php echo $link;?>">
                                 <img class="rounded"
@@ -34,12 +34,12 @@ $i = 0; ?>
                                 />
                             </a>
                         </div>
-                        <div class="col">&nbsp;</div>
+                        <div class="col-1">&nbsp;</div>
                     </div>
-                    <div class="row mt-1">
+                    <div class="row mt-2">
                         <div class="col">&nbsp;</div>
                         <div class="col">
-                            <p class="text-justify text-white">
+                            <p class="text-justify text-black">
                                 <?php echo $game['desc'];?>
                             </p>
                         </div>
