@@ -271,7 +271,6 @@ class Core
             <meta charset="<?php echo CHARSET; ?>">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title><?php echo gettext('redirection'); ?></title>
-            <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" />
             <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>"/>
             <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
             <meta name="robots" content="noindex,nofollow"/>

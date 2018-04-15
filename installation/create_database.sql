@@ -1160,6 +1160,17 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateLastLogin`(
 DELIMITER ;
 
 -- Pages
+DROP PROCEDURE IF EXISTS `sp_Pages_DeletePagebyID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Pages_DeletePagebyID`(
+  IN p_pageid INT(10))
+  BEGIN
+    DELETE FROM `pages`
+    WHERE `id` = p_pageid
+    LIMIT 1;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_Pages_GetPagesbyPageID`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Pages_GetPagesbyPageID`(
