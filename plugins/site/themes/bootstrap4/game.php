@@ -21,7 +21,7 @@ global $params; ?>
         $game['time'] = date('M d, Y', $game['time']);
         Games::updateGamePlaycount($game['id']); ?>
         <div class="row">
-            <h1 class="page-header" itemprop="headline">
+            <h1 class="page-header mt-3" itemprop="headline">
                 <?php echo $game['name']; ?>
             </h1>
         </div>
