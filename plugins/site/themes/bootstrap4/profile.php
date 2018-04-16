@@ -128,7 +128,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                                         <?php
                                         $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
                                         <img class="mx-auto d-block img-thumbnail img-rounded"
-                                             data-original="<?php echo $img; ?>"
+                                             data-src="<?php echo $img; ?>"
                                              alt="<?php echo gettext('play')
                                                  . ' '
                                                  . $game['name']
@@ -352,4 +352,4 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
 </div>
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous" defer></script>
 <!--suppress Annotator -->
-<script>new LazyLoad();</script>
+<script>var myLazyLoad = new LazyLoad();</script>

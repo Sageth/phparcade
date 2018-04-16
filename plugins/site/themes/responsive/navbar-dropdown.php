@@ -21,7 +21,7 @@ if (Users::isUserLoggedIn()) {
         </a>
         <ul class="dropdown-menu" role="menu">
             <li class="dropdown-header">
-                <img data-original="<?php echo Users::userGetGravatar($user['name'], 25); ?>"
+                <img data-src="<?php echo Users::userGetGravatar($user['name'], 25); ?>"
                      class="img img-responsive img-circle"
                      style="float:left"
                 />&nbsp;

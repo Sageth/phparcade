@@ -94,9 +94,9 @@ define('JS_JQUERY_UI', SITE_URL . 'vendor/components/jqueryui/jquery-ui.min.js')
 define('CSS_METISMENU', SITE_URL . 'vendor/onokumus/metismenu/dist/metisMenu.min.css');
 define('JS_METISMENU', SITE_URL . 'vendor/onokumus/metismenu/dist/metisMenu.min.js');
 
-/* CDNJS - v10.0.0 - VANILLA-LAZYLOAD */
-define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.0.0/lazyload.min.js');
-define('JS_LAZYLOAD_SRI', 'sha256-hx6tw3bHiZdwCs9pywaUydIpOSRJVcpNWdf60rAofUg=');
+/* CDNJS - v10.5.2 - VANILLA-LAZYLOAD */
+define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.5.2/lazyload.min.js');
+define('JS_LAZYLOAD_SRI', 'sha256-l0s3Oq/rsgmMWQx+yA6VOM3YJNNlI0999aEB5HqYADw=');
 
 /* CDNJS - v3.3.7+1 SB ADMIN 2 THEME */
 define('CSS_SB_ADMIN_2', 'https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/css/sb-admin-2.min.css');

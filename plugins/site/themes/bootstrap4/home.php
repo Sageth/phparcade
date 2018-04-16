@@ -14,7 +14,7 @@ foreach (Games::getGamesHomePage() as $game) {
         <div class="card-body">
             <a href="<?php echo Core::getLinkGame($game['id']); ?>">
                 <img class="img-thumbnail rounded mx-auto d-block"
-                     data-original="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"
+                     data-src="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"
                      alt="Play <?php echo $game['name']; ?> online for free!"
                      title="Play <?php echo $game['name']; ?> online for free!"
                      width="<?php echo $dbconfig['twidth']; ?>"
@@ -49,5 +49,5 @@ foreach (Games::getGamesHomePage() as $game) {
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
         crossorigin="anonymous" defer></script>
 <!--suppress Annotator -->
-<script>new LazyLoad();</script>
+<script>var myLazyLoad = new LazyLoad();</script>
 <!--End Content Section -->
