@@ -14,7 +14,7 @@ if (Users::isUserLoggedIn()) {
             <?php include_once __DIR__ . '/categoriesmenu.php'; ?>
         </ul>
     </li>
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown pr-5">
         <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php echo gettext('myaccount'); ?>
             <span class="caret"></span>
