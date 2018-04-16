@@ -17,7 +17,7 @@
                 <?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
             </div><?php
             if (!Users::isUserLoggedIn()) { ?>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown col-6">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo gettext('gamecategories'); ?>
                     </a>

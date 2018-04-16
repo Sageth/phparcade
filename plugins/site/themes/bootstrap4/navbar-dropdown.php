@@ -14,14 +14,14 @@ if (Users::isUserLoggedIn()) {
             <?php include_once __DIR__ . '/categoriesmenu.php'; ?>
         </ul>
     </li>
-    <li class="nav-item dropdown pr-5">
+    <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <?php echo gettext('myaccount'); ?>
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" role="menu">
             <li class="dropdown-header">
-                <img data-original="<?php echo Users::userGetGravatar($user['name'], 25); ?>"
+                <img data-src="<?php echo Users::userGetGravatar($user['name'], 25); ?>"
                      class="img img-fluid rounded-circle"
                      style="float:left"
                 />&nbsp;
