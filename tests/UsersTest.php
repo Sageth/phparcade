@@ -36,6 +36,29 @@ final class UsersTest extends TestCase
         $_SESSION['user'] = array( 'name' => $username );
         $this->assertEquals($username, $_SESSION['user']['name']);
     }
+    public function testUserAdd(): void{
+        $connection_string = "mysql:host=localhost;dbname=phparcade";
+        $db = new PDO($connection_string, 'root', '');
+
+        $useradd = $db->exec("
+          INSERT INTO `phparcade`.`members`
+          SET
+            `id` = 1,
+            `username` = 'admin',
+            `password` = '21232f297a57a5a743894a0e4a801fc3',
+            `email` = 'admin@example.com',
+            `active` = 'Yes',
+            `regtime` = 1219016824,
+            `totalgames` = 0,
+            `twitter_id` = '',
+            `github_id` = NULL,
+            `facebook_id` = NULL,
+            `admin` = 'Yes',
+            `favorites` = '',
+            `ip` = '',
+            `birth_date` = '',
+            `last_login` = NOW();";
+    }
     public function testUserPasswordHash(): void
     {
         $hash = password_hash('password', PASSWORD_DEFAULT);
