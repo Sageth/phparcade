@@ -37,11 +37,12 @@ final class UsersTest extends TestCase
         $this->assertEquals($username, $_SESSION['user']['name']);
     }
     public function testUserAdd(): void{
-        $username = 'test1';
+        $username = 'travis1';
         $password = '6a204bd89f3c8348afd5c77c717a097a';
         $email = 'test1@example.com';
         $yes = 'Yes';
         $no = 'No';
+        $_SERVER['REMOTE_ADDR'] = '192.168.1.1';
 
         $connection_string = "mysql:host=localhost;dbname=phparcade";
         $db = new PDO($connection_string, 'travis', '');
@@ -58,7 +59,7 @@ final class UsersTest extends TestCase
         $stmt->execute();
 
         $rowcount = $stmt->rowCount();
-        $this->assertEquals($rowcount, 2);
+        $this->assertEquals($rowcount, 1);
     }
     public function testUserPasswordHash(): void
     {
