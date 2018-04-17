@@ -37,29 +37,15 @@ final class UsersTest extends TestCase
         $this->assertEquals($username, $_SESSION['user']['name']);
     }
     public function testUserAdd(): void{
-        $memberid = '7';
-        $username = 'travis1';
-        $password = '6a204bd89f3c8348afd5c77c717a097a';
-        $email = 'travis1@example.com';
-        $yes = 'Yes';
-        $no = 'No';
-        $_SERVER['REMOTE_ADDR'] = '192.168.1.1';
-
-        $connection_string = "mysql:host=localhost;dbname=phparcade";
+        $connection_string = "mysql:host=localhost;port=3306;dbname=phparcade";
         $db = new PDO($connection_string, 'root', '');
 
-        $stmt =
-            $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
-        $stmt->bindParam(':memberid', $memberid);
-        $stmt->bindParam(':memberusername', $username);
-        $stmt->bindParam(':memberpassword', $password);
-        $stmt->bindParam(':memberemail', $email);
-        $stmt->bindParam(':memberactive', $yes);
-        $stmt->bindParam(':memberadmin', $no);
-        $stmt->bindParam(':memberip', $_SERVER['REMOTE_ADDR']);
-        $stmt->execute();
+        $count = $db->exec("INSERT INTO `members` 
+                              (`id`,`username`,`password`,`email`,`active`,`regtime`, `admin`,`ip`) 
+                             VALUES 
+                              ('7', 'travis1', '6a204bd89f3c8348afd5c77c717a097a', 'travis1@example.com', 'yes', 1524003311, 'No', '192.168.1.1');";
 
-        $rowcount = $stmt->rowCount();
+        $rowcount = $count->rowCount();
         $this->assertEquals($rowcount, 1);
     }
     public function testUserPasswordHash(): void
