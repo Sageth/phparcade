@@ -78,7 +78,6 @@ function media_admin($mthd)
             //Check that the game isn't already added
             $gameid =
                 (!empty(strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)))) ? strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
-            var_dump($gameid);
             $rowcount1 = Games::getGameCountByNameID($gameid);
             $rowcount2 = Games::getGameCountByNameID(strtolower($_POST['name']));
             if ($rowcount1 == 0 && $rowcount2 == 0) { // If the game SWF hasn't already been added...
