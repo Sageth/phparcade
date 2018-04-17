@@ -37,6 +37,7 @@ final class UsersTest extends TestCase
         $this->assertEquals($username, $_SESSION['user']['name']);
     }
     public function testUserAdd(): void{
+        $memberid = '7';
         $username = 'travis1';
         $password = '6a204bd89f3c8348afd5c77c717a097a';
         $email = 'travis1@example.com';
@@ -49,7 +50,7 @@ final class UsersTest extends TestCase
 
         $stmt =
             $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
-        $stmt->bindParam(':memberid', $null);
+        $stmt->bindParam(':memberid', $memberid);
         $stmt->bindParam(':memberusername', $username);
         $stmt->bindParam(':memberpassword', $password);
         $stmt->bindParam(':memberemail', $email);
