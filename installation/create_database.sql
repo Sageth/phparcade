@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `favorites` varchar(1) NOT NULL DEFAULT '0',
   `ip` varchar(45) NOT NULL,
   `birth_date` varchar(10) NOT NULL DEFAULT '{null}',
-  `last_login` int(10) NOT NULL DEFAULT 0,
+  `last_login` bigint(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`username`,`email`),
   KEY `members_active-totalgames` (`id`,`active`,`totalgames`),
@@ -217,7 +217,7 @@ INSERT INTO `phparcade`.`members` SET
   `favorites` = '',
   `ip` = '',
   `birth_date` = '',
-  `last_login` = time();
+  `last_login` = NOW();
 
 --
 -- Table structure for table `pages`
