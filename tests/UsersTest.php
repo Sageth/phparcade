@@ -39,13 +39,13 @@ final class UsersTest extends TestCase
     public function testUserAdd(): void{
         $username = 'travis1';
         $password = '6a204bd89f3c8348afd5c77c717a097a';
-        $email = 'test1@example.com';
+        $email = 'travis1@example.com';
         $yes = 'Yes';
         $no = 'No';
         $_SERVER['REMOTE_ADDR'] = '192.168.1.1';
 
         $connection_string = "mysql:host=localhost;dbname=phparcade";
-        $db = new PDO($connection_string, 'travis', '');
+        $db = new PDO($connection_string, 'root', '');
 
         $stmt =
             $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
