@@ -25,5 +25,4 @@ Disallow:   /plugins/pages/
 Disallow:   /plugins/scores/
 Disallow:   /plugins/search/
 Disallow:   /plugins/sessions/
-Disallow:   /usercfg.php
 Disallow:   /Zdmin/
