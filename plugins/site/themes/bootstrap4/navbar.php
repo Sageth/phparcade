@@ -26,9 +26,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php
-                        echo Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
-                            <?php echo gettext('login'); ?>
+                    <a class="nav-link" href="<?php echo Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
+                        <?php echo gettext('login'); ?>
                     </a>
                 </li><?php
             } else {
