@@ -37,27 +37,28 @@ final class UsersTest extends TestCase
         $this->assertEquals($username, $_SESSION['user']['name']);
     }
     public function testUserAdd(): void{
-        $connection_string = "mysql:host=localhost;dbname=phparcade";
-        $db = new PDO($connection_string, 'root', '');
+        $username = 'test1';
+        $password = '6a204bd89f3c8348afd5c77c717a097a';
+        $email = 'test1@example.com';
+        $yes = 'Yes';
+        $no = 'No';
 
-        $useradd = $db->exec("
-          INSERT INTO `phparcade`.`members`
-          SET
-            `id` = 1,
-            `username` = 'admin',
-            `password` = '21232f297a57a5a743894a0e4a801fc3',
-            `email` = 'admin@example.com',
-            `active` = 'Yes',
-            `regtime` = 1219016824,
-            `totalgames` = 0,
-            `twitter_id` = '',
-            `github_id` = NULL,
-            `facebook_id` = NULL,
-            `admin` = 'Yes',
-            `favorites` = '',
-            `ip` = '',
-            `birth_date` = '',
-            `last_login` = NOW();";
+        $connection_string = "mysql:host=localhost;dbname=phparcade";
+        $db = new PDO($connection_string, 'travis', '');
+
+        $stmt =
+            $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
+        $stmt->bindParam(':memberid', $null);
+        $stmt->bindParam(':memberusername', $username);
+        $stmt->bindParam(':memberpassword', $password);
+        $stmt->bindParam(':memberemail', $email);
+        $stmt->bindParam(':memberactive', $yes);
+        $stmt->bindParam(':memberadmin', $no);
+        $stmt->bindParam(':memberip', $_SERVER['REMOTE_ADDR']);
+        $stmt->execute();
+
+        $rowcount = $stmt->rowCount();
+        $this->assertEquals($rowcount, 2);
     }
     public function testUserPasswordHash(): void
     {
