@@ -43,7 +43,7 @@ final class UsersTest extends TestCase
         $count = $db->exec("INSERT INTO `members` 
                               (`id`,`username`,`password`,`email`,`active`,`regtime`, `admin`,`ip`) 
                              VALUES 
-                              ('7', 'travis1', '6a204bd89f3c8348afd5c77c717a097a', 'travis1@example.com', 'yes', 1524003311, 'No', '192.168.1.1');";
+                              ('7', 'travis1', '6a204bd89f3c8348afd5c77c717a097a', 'travis1@example.com', 'yes', 1524003311, 'No', '192.168.1.1');");
 
         $rowcount = $count->rowCount();
         $this->assertEquals($rowcount, 1);
