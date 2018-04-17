@@ -2,7 +2,7 @@
     session_start();
 } ?>
 <!-- Nav Section -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark pr-5">
     <a class="navbar-brand" href="<?php echo SITE_URL; ?>">
         <?php echo gettext('logo'); ?>
     </a>
@@ -12,12 +12,12 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav">
             <div class="col-lg-4 ml-auto">
                 <?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
             </div><?php
             if (!Users::isUserLoggedIn()) { ?>
-                <li class="nav-item dropdown col-6">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo gettext('gamecategories'); ?>
                     </a>
@@ -26,9 +26,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php
-                        echo Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
-                            <?php echo gettext('login'); ?>
+                    <a class="nav-link" href="<?php echo Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
+                        <?php echo gettext('login'); ?>
                     </a>
                 </li><?php
             } else {
