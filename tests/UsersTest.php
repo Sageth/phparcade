@@ -57,7 +57,7 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':memberip', $ip);
         $stmt->execute();
 
-        $rowcount = $stmt->rowCount();
+        $rowcount = $db->prepare('SELECT ROW_COUNT();');
         $this->assertEquals(1, $rowcount);
     }
     public function testUserDelete(): void{
