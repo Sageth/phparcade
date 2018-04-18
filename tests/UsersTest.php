@@ -21,15 +21,7 @@ final class UsersTest extends TestCase
         }
 
     }
-    public function testgetUsersCount(): void{
-        $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
-        $stmt = $db->prepare('CALL sp_Members_GetAllIDs();');
-        $stmt->execute();
-
-        $rows = $stmt->query('SELECT FOUND_ROWS();')->fetchColumn();
-        $this->assertEquals('1', $rows);
-    }
     public function testGetGravatar(): void
     {
         $email = 'test@example.com';
