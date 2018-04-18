@@ -34,8 +34,7 @@ final class UsersTest extends TestCase
         $this->assertEquals('testuser', $_SESSION['user']['name']);
     }
     public function testUserAdd(): void{
-        $connection_string = "mysql:host=127.0.0.1;dbname=phparcade";
-        $db = new PDO($connection_string, 'travis', '');
+        $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'travis', '');
 
         $id = 7;
         $username = 'travis1';
@@ -45,19 +44,31 @@ final class UsersTest extends TestCase
         $no = 'no';
         $ip = '192.168.1.1';
 
-        $stmt =
-            $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
-        $stmt->bindParam(':memberid', $id);
-        $stmt->bindParam(':memberusername', $username);
-        $stmt->bindParam(':memberpassword', $password);
-        $stmt->bindParam(':memberemail', $email);
-        $stmt->bindParam(':memberactive', $yes);
-        $stmt->bindParam(':memberadmin', $no);
-        $stmt->bindParam(':memberip', $ip);
-        $stmt->execute();
+        try
+        {
+            $stmt =
+                $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
 
-        $rowcount = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
-        $this->assertEquals(1, $rowcount);
+            $stmt->bindParam(':memberid', $id);
+            $stmt->bindParam(':memberusername', $username);
+            $stmt->bindParam(':memberpassword', $password);
+            $stmt->bindParam(':memberemail', $email);
+            $stmt->bindParam(':memberactive', $yes);
+            $stmt->bindParam(':memberadmin', $no);
+            $stmt->bindParam(':memberip', $ip);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+
+        try
+        {
+            $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+
+        $this->assertEquals(1, $rows);
     }
     public function testUserDelete(): void{
         $connection_string = "mysql:host=127.0.0.1;dbname=phparcade";
