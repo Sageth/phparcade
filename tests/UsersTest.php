@@ -35,7 +35,7 @@ final class UsersTest extends TestCase
         $this->assertEquals($username, $_SESSION['user']['name']);
     }
     public function testUserAdd(): void{
-        $connection_string = "mysql:host=localhost;port=3306;dbname=phparcade";
+        $connection_string = "mysql:host=127.0.0.1;port=3306;dbname=phparcade";
         $db = new PDO($connection_string, 'root', '');
 
         $id = 7;
@@ -61,7 +61,7 @@ final class UsersTest extends TestCase
         $this->assertEquals(1, $rowcount);
     }
     public function testUserDelete(): void{
-        $connection_string = "mysql:host=localhost;port=3306;dbname=phparcade";
+        $connection_string = "mysql:host=127.0.0.1;port=3306;dbname=phparcade";
         $db = new PDO($connection_string, 'root', '');
 
         $id = 7;
