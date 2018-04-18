@@ -4,14 +4,12 @@ use PHPUnit\Framework\TestCase;
 
 final class UsersTest extends TestCase
 {
-
     public function setUp()
     {
         $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__) . "/../";
         include_once $_SERVER['DOCUMENT_ROOT'] . 'includes/classes/Core.php';
         include_once $_SERVER['DOCUMENT_ROOT'] . 'includes/classes/Users.php';
     }
-
     public function tearDown()
     {
         unset($_SERVER['DOCUMENT_ROOT']);
@@ -22,8 +20,16 @@ final class UsersTest extends TestCase
         }
 
     }
+    public function testgetUsersCount(): void{
+        $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
-    public function testGetGravatarHash(): void
+        $stmt = $db->prepare('CALL sp_Members_GetAllIDs();');
+        $stmt->execute();
+
+        $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
+        $this->assertEquals(0, $rows);
+    }
+    public function testGetGravatar(): void
     {
         $email = 'test@example.com';
         $this->assertEquals('55502f40dc8b7c769880b10874abc9d0', md5(strtolower(trim($email))));
@@ -32,20 +38,47 @@ final class UsersTest extends TestCase
     {
         /* Suppress errors with session_start */
         @session_start();
-        $username = 'testuser';
-        $_SESSION['user'] = array( 'name' => $username );
-        $this->assertEquals($username, $_SESSION['user']['name']);
+        $_SESSION['user'] = array( 'name' => 'testuser');
+        $this->assertEquals('testuser', $_SESSION['user']['name']);
     }
     public function testUserAdd(): void{
-        $connection_string = "mysql:host=localhost;port=3306;dbname=phparcade";
-        $db = new PDO($connection_string, 'travis', '');
+        $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
-        $stmt = $db->exec("INSERT INTO `members` 
-                              (`id`,`username`,`password`,`email`,`active`,`regtime`, `admin`,`ip`) 
-                             VALUES 
-                              ('7', 'travis1', '6a204bd89f3c8348afd5c77c717a097a', 'travis1@example.com', 'yes', 1524003311, 'No', '192.168.1.1');");
+        $id = 7;
+        $username = 'travis1';
+        $password = '6a204bd89f3c8348afd5c77c717a097a';
+        $email = 'travis1@example.com';
+        $yes = 'yes';
+        $no = 'no';
+        $ip = '127.0.0.1';
 
-        $this->assertEquals($stmt, 1);
+        $stmt =
+            $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
+        $stmt->bindParam(':memberid', $id);
+        $stmt->bindParam(':memberusername', $username);
+        $stmt->bindParam(':memberpassword', $password);
+        $stmt->bindParam(':memberemail', $email);
+        $stmt->bindParam(':memberactive', $yes);
+        $stmt->bindParam(':memberadmin', $no);
+        $stmt->bindParam(':memberip', $ip);
+        $stmt->execute();
+
+        $rows = $db->query('SELECT * FROM members;')->rowCount();
+        $this->assertEquals('1', $rows);
+    }
+    public function testUserDelete(): void{
+        $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
+
+        $id = 400;
+        $admin = 'no';
+
+        $stmt = $db->prepare('CALL sp_Members_DeleteMember(:memberid, :admin);');
+        $stmt->bindParam(':memberid', $id);
+        $stmt->bindParam(':admin', $admin);
+        $stmt->execute();
+
+        $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
+        $this->assertEquals(0, $rows);
     }
     public function testUserPasswordHash(): void
     {

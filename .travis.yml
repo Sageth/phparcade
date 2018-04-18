@@ -6,10 +6,15 @@ php:
 services:
   - mysql
 
+addons:
+  - mariadb: '10.2'
+
 before_install:
-  - echo $TRAVIS_BUILD_DIR
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS phparcade;'
+  - mysql -u root phparcade < installation/create_database.sql
+
+install:
   - composer install --no-dev
-  - mysql -u root --password="" < installation/create_database.sql
 
 script: phpunit tests
 
