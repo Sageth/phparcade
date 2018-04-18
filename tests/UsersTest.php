@@ -4,7 +4,6 @@ use PHPUnit\Framework\TestCase;
 
 final class UsersTest extends TestCase
 {
-
     public function setUp()
     {
         $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__) . "/../";
