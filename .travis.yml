@@ -10,9 +10,11 @@ addons:
   - mariadb: '10.2'
 
 before_install:
-  - git clone https://github.com/Sageth/phparcade.git
-  - composer install --no-dev
-  - mysql -u root --password="" < installation/create_database.sql
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS phparcade;'
+  - mysql -u root phparcade < installation/create_database.sql
 
-script: phpunit tests
+install:
+  - composer install --no-dev
+
+script: phpunit --configuration phpunit.xml tests
 
