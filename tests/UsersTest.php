@@ -30,9 +30,8 @@ final class UsersTest extends TestCase
     {
         /* Suppress errors with session_start */
         @session_start();
-        $username = 'testuser';
-        $_SESSION['user'] = array( 'name' => $username );
-        $this->assertEquals($username, $_SESSION['user']['name']);
+        $_SESSION['user'] = array( 'name' => 'testuser');
+        $this->assertEquals('testuser', $_SESSION['user']['name']);
     }
     public function testUserAdd(): void{
         $connection_string = "mysql:host=127.0.0.1;dbname=phparcade";
