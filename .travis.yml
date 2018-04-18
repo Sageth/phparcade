@@ -6,10 +6,15 @@ php:
 services:
   - mysql
 
+addons:
+  - mariadb: '10.2'
+
 before_install:
-  - echo $TRAVIS_BUILD_DIR
   - composer install --no-dev
   - mysql -u root --password="" < installation/create_database.sql
+  - mysql -e "use mysql; update user set authentication_string=PASSWORD('new!pasSW04d') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
+  - mysql_upgrade
+  - service mysql restart
 
 script: phpunit tests
 

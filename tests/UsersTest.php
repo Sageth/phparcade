@@ -36,7 +36,7 @@ final class UsersTest extends TestCase
     }
     public function testUserAdd(): void{
         $connection_string = "mysql:host=localhost;port=3306;dbname=phparcade";
-        $db = new PDO($connection_string, 'travis', '');
+        $db = new PDO($connection_string, 'root', 'new!pasSW04d');
 
         $id = 7;
         $username = 'travis1';
@@ -62,7 +62,7 @@ final class UsersTest extends TestCase
     }
     public function testUserDelete(): void{
         $connection_string = "mysql:host=localhost;port=3306;dbname=phparcade";
-        $db = new PDO($connection_string, 'travis', '');
+        $db = new PDO($connection_string, 'root', 'new!pasSW04d');
 
         $id = 7;
         $admin = 'no';
