@@ -16,5 +16,5 @@ before_install:
 install:
   - composer install --no-dev
 
-script: phpunit --configuration phpunit.xml tests
+script: phpunit tests
 
