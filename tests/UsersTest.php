@@ -21,7 +21,16 @@ final class UsersTest extends TestCase
         }
 
     }
-    public function testGetGravatarHash(): void
+    public function testgetUsersCount(): void{
+        $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
+
+        $stmt = $db->prepare('CALL sp_Members_GetAllIDs();');
+        $stmt->execute();
+
+        $rows = $stmt->query('SELECT * FROM members;')->rowCount();
+        $this->assertEquals('1', $rows);
+    }
+    public function testGetGravatar(): void
     {
         $email = 'test@example.com';
         $this->assertEquals('55502f40dc8b7c769880b10874abc9d0', md5(strtolower(trim($email))));
@@ -55,7 +64,7 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':memberip', $ip);
         $stmt->execute();
 
-        $rows = $db->query('SELECT * FROM members;')->rowCount();
+        $rows = $stmt->query('SELECT * FROM members;')->rowCount();
         $this->assertEquals('1', $rows);
     }
     public function testUserDelete(): void{
@@ -69,7 +78,7 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':admin', $admin);
         $stmt->execute();
 
-        $rowcount = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
+        $rowcount = $stmt->query('SELECT FOUND_ROWS();')->fetchColumn();
         $this->assertEquals(0, $rowcount);
     }
     public function testUserPasswordHash(): void
