@@ -33,9 +33,6 @@ final class UsersTest extends TestCase
         $_SESSION['user'] = array( 'name' => 'testuser');
         $this->assertEquals('testuser', $_SESSION['user']['name']);
     }
-    /**
-     * @depends testStartSession
-     */
     public function testUserAdd(): void{
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
@@ -61,14 +58,11 @@ final class UsersTest extends TestCase
         $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
         $this->assertEquals('1', $rows);
     }
-    /**
-     * @depends testUserAdd
-     */
     public function testUserDelete(): void{
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
-        $id = '7';
-        $admin = 'no';
+        $id = '1';
+        $admin = 'Yes';
 
         $stmt = $db->prepare('CALL sp_Members_DeleteMember(:memberid, :admin);');
         $stmt->bindParam(':memberid', $id);
