@@ -44,7 +44,7 @@ final class UsersTest extends TestCase
         $email = 'travis1@example.com';
         $yes = 'yes';
         $no = 'no';
-        $_SERVER['REMOTE_ADDR'] = '192.168.1.1';
+        $ip = '192.168.1.1';
 
         $stmt =
             $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
@@ -54,11 +54,11 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':memberemail', $email);
         $stmt->bindParam(':memberactive', $yes);
         $stmt->bindParam(':memberadmin', $no);
-        $stmt->bindParam(':memberip', $_SERVER['REMOTE_ADDR']);
+        $stmt->bindParam(':memberip', $ip);
         $stmt->execute();
 
         $rowcount = $stmt->rowCount();
-        $this->assertEquals($rowcount, 1);
+        $this->assertEquals(1, $rowcount);
     }
     public function testUserDelete(): void{
         $connection_string = "mysql:host=localhost;port=3306;dbname=phparcade";
@@ -73,7 +73,7 @@ final class UsersTest extends TestCase
         $stmt->execute();
 
         $rowcount = $stmt->rowCount();
-        $this->assertEquals($rowcount, 1);
+        $this->assertEquals(1, $rowcount);
     }
     public function testUserPasswordHash(): void
     {

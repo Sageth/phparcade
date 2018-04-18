@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `password` varchar(255) NOT NULL DEFAULT '',
   `email` varchar(255) NOT NULL DEFAULT '',
   `active` varchar(10) NOT NULL DEFAULT 'Yes',
-  `regtime` int(10) NOT NULL DEFAULT 0,
+  `regtime` bigint(10) NOT NULL DEFAULT 0,
   `totalgames` int(10) NOT NULL DEFAULT 0,
   `facebook_id` varchar(255) DEFAULT NULL,
   `github_id` varchar(255) DEFAULT NULL,
@@ -949,7 +949,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_AddMember`(
     INSERT INTO `members`
     (`id`,`username`,`password`,`email`,`active`,`regtime`, `admin`,`ip`)
     VALUES
-      (m_id, m_username, m_password, m_email, m_active, UNIX_TIMESTAMP(now()), m_admin, m_ip);
+      (m_id, m_username, m_password, m_email, m_active, NOW(), m_admin, m_ip);
   END ;;
 DELIMITER ;
 
