@@ -58,11 +58,14 @@ final class UsersTest extends TestCase
         $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
         $this->assertEquals('1', $rows);
     }
+    /**
+     * @depends testUserAdd
+     */
     public function testUserDelete(): void{
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
-        $id = 1;
-        $admin = 'yes';
+        $id = 7;
+        $admin = 'no';
 
         $stmt = $db->prepare('CALL sp_Members_DeleteMember(:memberid, :admin);');
         $stmt->bindParam(':memberid', $id);
