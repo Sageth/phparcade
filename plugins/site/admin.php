@@ -406,7 +406,7 @@ function site_admin($mthd)
                                 <div class="row">
                                     <div class="col-md-8">
                                         <?php echo Core::showGlyph('table'); ?>
-                                        <label for="highscoresenabled"><?php echo gettext('mixpanel_id'); ?></label>
+                                        <label for="mixpanel_id"><?php echo gettext('mixpanel_id'); ?></label>
                                         <input class="form-control" title="MixPanel ID" name="mixpanel_id"
                                                value="<?php echo $dbconfig['mixpanel_id']; ?>"/>
                                     </div>

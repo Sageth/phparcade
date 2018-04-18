@@ -3,8 +3,13 @@ language: php
 php:
   - '7.1'
 
+services:
+  - mysql
+
 before_install:
-  - composer install
+  - echo $TRAVIS_BUILD_DIR
+  - composer install --no-dev
+  - mysql -u root --password="" < installation/create_database.sql
 
 script: phpunit tests
 

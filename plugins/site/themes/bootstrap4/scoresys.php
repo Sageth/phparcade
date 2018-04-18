@@ -13,9 +13,6 @@ if ($_GET['act'] == 'Arcade' && $_GET['do'] == 'newscore') { //v2 games
 
     /* Get the game link */
     $link = Core::getLinkGame($game['id']);
-    if ($dbconfig['highscoresenabled'] === 'off') {
-        Core::loadRedirect(gettext('highscoresoffline'), $link);
-    }
     if (!$_SESSION) {
         Core::loadRedirect(gettext('logintosubmit'), $link);
     } else {

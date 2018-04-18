@@ -65,8 +65,6 @@ CREATE TABLE IF NOT EXISTS `config` (
 
 INSERT INTO `phparcade`.`config` SET `key`='defgheight',`value`='600';
 INSERT INTO `phparcade`.`config` SET `key`='defgwidth',`value`='800';
-INSERT INTO `phparcade`.`config` SET `key`='displaygamenum',`value`='off';
-INSERT INTO `phparcade`.`config` SET `key`='dispuserlist',`value`='off';
 INSERT INTO `phparcade`.`config` SET `key`='disqus_on',`value`='off';
 INSERT INTO `phparcade`.`config` SET `key`='disqus_user',`value`='';
 INSERT INTO `phparcade`.`config` SET `key`='emailactivation',`value`='off';
@@ -84,9 +82,7 @@ INSERT INTO `phparcade`.`config` SET `key`='ga_id', `value` ='';
 INSERT INTO `phparcade`.`config` SET `key`='google_recaptcha_secretkey', `value` ='';
 INSERT INTO `phparcade`.`config` SET `key`='google_recaptcha_sitekey', `value` ='';
 INSERT INTO `phparcade`.`config` SET `key`='google_search_ID',`value`='8727545858461215:8837170480';
-INSERT INTO `phparcade`.`config` SET `key`='highscoresenabled',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='imgurl',`value`='http://localhost/img/';
-INSERT INTO `phparcade`.`config` SET `key`='memberlanguage',`value`='0';
 INSERT INTO `phparcade`.`config` SET `key`='membersenabled',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='metadesc',`value`='PHPArcade is a free, open source (FOSS), online flash game arcade script. Download the GitHub script now to set up your own HTML5 and Flash game website for free!';
 INSERT INTO `phparcade`.`config` SET `key`='metakey',`value`='Free,online,game,arcade,action,adventure,arcade,casino,card,driving,flying,shooting, simulation,sports,puzzle,strategy,racing,word';
@@ -100,7 +96,7 @@ INSERT INTO `phparcade`.`config` SET `key`='rssnumlatest',`value`='15';
 INSERT INTO `phparcade`.`config` SET `key`='sitetitle',`value`='phpArcade, Free Online Script';
 INSERT INTO `phparcade`.`config` SET `key`='sort',`value`='ASC';
 INSERT INTO `phparcade`.`config` SET `key`='theight',`value`='200';
-INSERT INTO `phparcade`.`config` SET `key`='theme',`value`='responsive';
+INSERT INTO `phparcade`.`config` SET `key`='theme',`value`='bootstrap4';
 INSERT INTO `phparcade`.`config` SET `key`='twidth',`value`='200';
 
 --
@@ -194,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `favorites` varchar(1) NOT NULL DEFAULT '0',
   `ip` varchar(45) NOT NULL,
   `birth_date` varchar(10) NOT NULL DEFAULT '{null}',
-  `last_login` int(10) NOT NULL DEFAULT 0,
+  `last_login` bigint(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`username`,`email`),
   KEY `members_active-totalgames` (`id`,`active`,`totalgames`),
@@ -217,7 +213,7 @@ INSERT INTO `phparcade`.`members` SET
   `favorites` = '',
   `ip` = '',
   `birth_date` = '',
-  `last_login` = time();
+  `last_login` = NOW();
 
 --
 -- Table structure for table `pages`

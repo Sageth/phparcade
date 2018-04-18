@@ -74,6 +74,7 @@ function media_admin($mthd)
         case 'addgame-do':
             // TODO: Break this up into smaller functions
             $dbconfig = Core::getInstance()->getDBConfig();
+
             //Check that the game isn't already added
             $gameid =
                 (!empty(strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)))) ? strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
@@ -167,7 +168,7 @@ function media_admin($mthd)
                     /* If there is no swf file (e.g. custom game code), then use the image name as the nameid for
                        the database.  Otherwise, the image should be saved as a .png to the IMG_DIR folder.
                        Files are saved in lowercase. */
-                    $nameid = empty($_FILES['swffile']['name']) ? strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'] . EXT_IMG, PATHINFO_FILENAME));
+                    $nameid = empty($_FILES['swffile']['name']) ? strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
 
                     try {
                         Games::convertImage($realimage, $nameid);
