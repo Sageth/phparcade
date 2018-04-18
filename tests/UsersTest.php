@@ -34,7 +34,7 @@ final class UsersTest extends TestCase
         $this->assertEquals('testuser', $_SESSION['user']['name']);
     }
     /**
-     * @depends setUp
+     * @depends testStartSession
      */
     public function testUserAdd(): void{
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
