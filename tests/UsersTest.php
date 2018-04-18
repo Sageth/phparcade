@@ -28,7 +28,7 @@ final class UsersTest extends TestCase
         $stmt->execute();
 
         $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
-        $this->assertEquals('1', $rows);
+        $this->assertEquals(0, $rows);
     }
     public function testGetGravatar(): void
     {
