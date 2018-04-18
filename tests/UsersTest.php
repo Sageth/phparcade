@@ -44,30 +44,18 @@ final class UsersTest extends TestCase
         $no = 'no';
         $ip = '192.168.1.1';
 
-        try
-        {
-            $stmt =
-                $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
+        $stmt =
+            $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
+        $stmt->bindParam(':memberid', $id);
+        $stmt->bindParam(':memberusername', $username);
+        $stmt->bindParam(':memberpassword', $password);
+        $stmt->bindParam(':memberemail', $email);
+        $stmt->bindParam(':memberactive', $yes);
+        $stmt->bindParam(':memberadmin', $no);
+        $stmt->bindParam(':memberip', $ip);
+        $stmt->execute();
 
-            $stmt->bindParam(':memberid', $id);
-            $stmt->bindParam(':memberusername', $username);
-            $stmt->bindParam(':memberpassword', $password);
-            $stmt->bindParam(':memberemail', $email);
-            $stmt->bindParam(':memberactive', $yes);
-            $stmt->bindParam(':memberadmin', $no);
-            $stmt->bindParam(':memberip', $ip);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            $e->getMessage();
-        }
-
-        try
-        {
-            $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
-        } catch (PDOException $e) {
-            $e->getMessage();
-        }
-
+        $rows = $db->query('SELECT ROW_COUNT()')->fetchColumn();
         $this->assertEquals(1, $rows);
     }
     public function testUserDelete(): void{
