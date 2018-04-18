@@ -10,6 +10,7 @@ addons:
   - mariadb: '10.2'
 
 before_install:
+  - git clone https://github.com/Sageth/phparcade.git
   - composer install --no-dev
   - mysql -u root --password="" < installation/create_database.sql
 
