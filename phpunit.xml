@@ -10,12 +10,12 @@
          stopOnFailure="true">
     <testsuites>
         <testsuite name="Users">
-            <directory suffix="Users.php">./tests</directory>
+            <directory suffix=".php">includes/classes/</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./app</directory>
+            <directory suffix=".php">includes/classes/</directory>
         </whitelist>
     </filter>
     <php>
