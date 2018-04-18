@@ -70,7 +70,7 @@ final class UsersTest extends TestCase
         $stmt->execute();
 
         $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
-        $this->assertEquals('1', $rows);
+        $this->assertEquals(1, $rows);
     }
     public function testUserPasswordHash(): void
     {
