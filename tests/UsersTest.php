@@ -42,7 +42,7 @@ final class UsersTest extends TestCase
         $email = 'travis1@example.com';
         $yes = 'yes';
         $no = 'no';
-        $ip = '192.168.1.1';
+        $ip = '127.0.0.1';
 
         $stmt =
             $db->prepare('CALL sp_Members_AddMember(:memberid, :memberusername, :memberpassword, :memberemail, :memberactive, :memberadmin, :memberip);');
