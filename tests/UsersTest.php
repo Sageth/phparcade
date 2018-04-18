@@ -55,8 +55,8 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':memberip', $ip);
         $stmt->execute();
 
-        $rows = $db->query('SELECT ROW_COUNT()')->fetchColumn();
-        $this->assertEquals(1, $rows);
+        $rows = $db->query('SELECT * FROM members;')->rowCount();
+        $this->assertEquals(2, $rows);
     }
     public function testUserDelete(): void{
         $connection_string = "mysql:host=127.0.0.1;dbname=phparcade";
