@@ -59,8 +59,7 @@ final class UsersTest extends TestCase
         $this->assertEquals('1', $rows);
     }
     public function testUserDelete(): void{
-        $connection_string = "mysql:host=127.0.0.1;dbname=phparcade";
-        $db = new PDO($connection_string, 'root', '');
+        $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
         $id = 7;
         $admin = 'no';
@@ -70,8 +69,8 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':admin', $admin);
         $stmt->execute();
 
-        $rowcount = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
-        $this->assertEquals(1, $rowcount);
+        $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
+        $this->assertEquals('1', $rows);
     }
     public function testUserPasswordHash(): void
     {
