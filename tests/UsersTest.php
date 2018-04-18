@@ -34,7 +34,7 @@ final class UsersTest extends TestCase
         $this->assertEquals('testuser', $_SESSION['user']['name']);
     }
     public function testUserAdd(): void{
-        $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'travis', '');
+        $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
         $id = 7;
         $username = 'travis1';
@@ -55,12 +55,12 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':memberip', $ip);
         $stmt->execute();
 
-        $rows = $db->query('SELECT * FROM members;')->rowCount();
-        $this->assertEquals(1, $rows);
+        $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
+        $this->assertEquals('1', $rows);
     }
     public function testUserDelete(): void{
         $connection_string = "mysql:host=127.0.0.1;dbname=phparcade";
-        $db = new PDO($connection_string, 'travis', '');
+        $db = new PDO($connection_string, 'root', '');
 
         $id = 7;
         $admin = 'no';
