@@ -57,7 +57,7 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':memberip', $ip);
         $stmt->execute();
 
-        $rowcount = $db->prepare('SELECT ROW_COUNT();');
+        $rowcount = $db->exec('SELECT FOUND_ROWS();');
         $this->assertEquals(1, $rowcount);
     }
     public function testUserDelete(): void{
@@ -72,7 +72,7 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':admin', $admin);
         $stmt->execute();
 
-        $rowcount = $stmt->rowCount();
+        $rowcount = $db->exec('SELECT FOUND_ROWS();');
         $this->assertEquals(1, $rowcount);
     }
     public function testUserPasswordHash(): void
