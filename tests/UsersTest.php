@@ -61,8 +61,8 @@ final class UsersTest extends TestCase
     public function testUserDelete(): void{
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
-        $id = 7;
-        $admin = 'no';
+        $id = 1;
+        $admin = 'yes';
 
         $stmt = $db->prepare('CALL sp_Members_DeleteMember(:memberid, :admin);');
         $stmt->bindParam(':memberid', $id);
