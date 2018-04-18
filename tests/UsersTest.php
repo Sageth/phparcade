@@ -27,7 +27,7 @@ final class UsersTest extends TestCase
         $stmt = $db->prepare('CALL sp_Members_GetAllIDs();');
         $stmt->execute();
 
-        $rows = $stmt->query('SELECT * FROM members;')->rowCount();
+        $rows = $stmt->query('SELECT FOUND_ROWS();')->fetchColumn();
         $this->assertEquals('1', $rows);
     }
     public function testGetGravatar(): void
@@ -78,8 +78,8 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':admin', $admin);
         $stmt->execute();
 
-        $rowcount = $stmt->query('SELECT FOUND_ROWS();')->fetchColumn();
-        $this->assertEquals(0, $rowcount);
+        $rows = $stmt->query('SELECT FOUND_ROWS();')->fetchColumn();
+        $this->assertEquals(0, $rows);
     }
     public function testUserPasswordHash(): void
     {
