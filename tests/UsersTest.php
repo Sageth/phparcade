@@ -36,7 +36,7 @@ final class UsersTest extends TestCase
     public function testUserAdd(): void{
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
-        $id = '7';
+        $id = 7;
         $username = 'travis1';
         $password = '6a204bd89f3c8348afd5c77c717a097a';
         $email = 'travis1@example.com';
@@ -55,22 +55,22 @@ final class UsersTest extends TestCase
         $stmt->bindParam(':memberip', $ip);
         $stmt->execute();
 
-        $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
+        $rows = $db->query('SELECT * FROM members;')->rowCount();
         $this->assertEquals('1', $rows);
     }
     public function testUserDelete(): void{
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
-        $id = '1';
-        $admin = 'Yes';
+        $id = 400;
+        $admin = 'no';
 
         $stmt = $db->prepare('CALL sp_Members_DeleteMember(:memberid, :admin);');
         $stmt->bindParam(':memberid', $id);
         $stmt->bindParam(':admin', $admin);
         $stmt->execute();
 
-        $rows = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
-        $this->assertEquals(1, $rows);
+        $rowcount = $db->query('SELECT FOUND_ROWS();')->fetchColumn();
+        $this->assertEquals(0, $rowcount);
     }
     public function testUserPasswordHash(): void
     {
