@@ -40,7 +40,7 @@ foreach ($arr as $plugin) {
     }
 }
 // Make sure the user is logged in.
-$dbconfig = Core::getInstance()->getDBConfig();
+$dbconfig = PHPArcade\Core::getDBConfig();
 if ($dbconfig['membersenabled'] === 'on') {
     if (!isset($_SESSION)) {
         session_start();
@@ -58,7 +58,7 @@ if (function_exists($func)) {
     $func($mthd);
 }
 ob_end_flush();
-Core::doEvent('admin_theme_display');
+PHPArcade\Core::doEvent('admin_theme_display');
 /** @noinspection PhpIncludeInspection */
 /** @noinspection PhpUndefinedVariableInspection */
 require_once $config['themeinc'];

@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
+
 class Sessions
 {
-    protected $rowcount;
+    protected $stmt;
     private function __construct()
     {
     }

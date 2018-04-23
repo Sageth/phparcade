@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$dbconfig = Core::getInstance()->getDBConfig(); ?>
+$dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <div class="col-lg-12">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -11,10 +11,10 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
             </h1>
         </div>
         <div class="panel-body"><?php
-            $games = Search::searchGames(Core::getCurrentDate(), $_GET['q'], 51);
+            $games = PHPArcade\Search::searchGames(PHPArcade\Core::getCurrentDate(), $_GET['q'], 51);
             $i = 0;
             foreach ($games as $game) {
-                $link = Core::getLinkGame($game['id']);
+                $link = PHPArcade\Core::getLinkGame($game['id']);
                 $game['desc'] = mb_strlen($game['desc']) > 120 ? substr($game['desc'], 0, 120) . '...' : $game['desc'];
                 $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name']; ?>
                 <div class="col-md-4 col-md-4">

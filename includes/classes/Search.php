@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
+use PDO;
 
 class Search
 {
@@ -22,7 +23,7 @@ class Search
     }
     public static function getGoogleSearchID()
     {
-        $dbconfig = Core::getInstance()->getDBConfig();
+        $dbconfig = Core::getDBConfig();
         return $dbconfig['google_search_ID'];
     }
     private function __clone()

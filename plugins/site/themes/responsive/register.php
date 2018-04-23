@@ -1,4 +1,4 @@
-<?php $dbconfig = Core::getInstance()->getDBConfig(); ?>
+<?php $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 
 <div class="omb_login">
 	<h3 class="omb_authTitle">
@@ -30,13 +30,13 @@
 					<form class="omb_loginForm" autocomplete="off" action="<?php echo SITE_URL; ?>"
 					      method="post">
 						<div class="input-group">
-							<span class="input-group-addon"><?php echo Core::showGlyph('user', '1x', 'false');?></span>
+							<span class="input-group-addon"><?php echo PHPArcade\Core::showGlyph('user', '1x', 'false');?></span>
 							<input class="form-control" id="username" name="username"
                                    placeholder="User name">
 						</div>
 						<span class="help-block"></span>
 						<div class="input-group">
-							<span class="input-group-addon"><?php echo Core::showGlyph('lock', '1x', 'false');?></span>
+							<span class="input-group-addon"><?php echo PHPArcade\Core::showGlyph('lock', '1x', 'false');?></span>
 							<input type="password" class="form-control" name="password" placeholder="Password">
 						</div>
 						<span class="help-block"></span>
@@ -51,15 +51,15 @@
 			<p>&nbsp;</p>
 			<div class="row omb_row-sm-offset-3">
 				<div class="col-xs-12 col-md-6">
-					<?php Core::showWarning(gettext('recoveryinstructions')); ?>
+					<?php PHPArcade\Core::showWarning(gettext('recoveryinstructions')); ?>
 					<form class="omb_loginForm" autocomplete="off" action="<?php echo SITE_URL; ?>" method="post">
 						<div class="input-group">
-							<span class="input-group-addon"><?php echo Core::showGlyph('user', '1x', 'false');?></span>
+							<span class="input-group-addon"><?php echo PHPArcade\Core::showGlyph('user', '1x', 'false');?></span>
 							<input class="form-control" id="username" name="username" placeholder="User name">
 						</div>
 						<span class="help-block"></span>
 						<div class="input-group">
-							<span class="input-group-addon"><?php echo Core::showGlyph('envelope', '1x', 'false');?></span>
+							<span class="input-group-addon"><?php echo PHPArcade\Core::showGlyph('envelope', '1x', 'false');?></span>
 							<input type="email" class="form-control" name="email" placeholder="Email Address">
 						</div>
 						<span class="help-block">&nbsp;</span>
@@ -85,40 +85,40 @@
                                     echo 'eek';
                                     break;
                                 case 'confirmed':
-                                    Core::doEvent('register_confirm');
-                                    Core::showSuccess(gettext('registerconfirm'));
+                                    PHPArcade\Core::doEvent('register_confirm');
+                                    PHPArcade\Core::showSuccess(gettext('registerconfirm'));
                                     break;
                                 case 'emailconf':
-                                    Core::showSuccess(gettext('emailconf'));
+                                    PHPArcade\Core::showSuccess(gettext('emailconf'));
                                     break;
                                 case 'passwordchangedsent':
-                                    Core::showSuccess(gettext('passwordchangedsent'));
+                                    PHPArcade\Core::showSuccess(gettext('passwordchangedsent'));
                                     break;
                                 case 'recoveryemailsent':
-                                    Core::showSuccess(gettext('recoveryemailsent'));
+                                    PHPArcade\Core::showSuccess(gettext('recoveryemailsent'));
                                     break;
                                 case 'emailinvalid':
-                                    Core::showError(gettext('emailinvaliderror'));
+                                    PHPArcade\Core::showError(gettext('emailinvaliderror'));
                                     break;
                                 case 'generic':
-                                    Core::showError(gettext('genericerror'));
+                                    PHPArcade\Core::showError(gettext('genericerror'));
                                     break;
                                 case 'notallfields':
-                                    Core::showWarning(gettext('allfieldserror'));
+                                    PHPArcade\Core::showWarning(gettext('allfieldserror'));
                                     break;
                                 case 'usertaken':
-                                    Core::showWarning(gettext('usertaken'));
+                                    PHPArcade\Core::showWarning(gettext('usertaken'));
                                     break;
                                 default:
                             }
                         } ?>
 						<div class="input-group">
-							<span class="input-group-addon"><?php echo Core::showGlyph('user', '1x', 'false');?></span>
+							<span class="input-group-addon"><?php echo PHPArcade\Core::showGlyph('user', '1x', 'false');?></span>
 							<input class="form-control" id="username" name="username" placeholder="User name">
 						</div>
 						<span class="help-block"></span>
 						<div class="input-group">
-							<span class="input-group-addon"><?php echo Core::showGlyph('envelope', '1x', 'false');?></span>
+							<span class="input-group-addon"><?php echo PHPArcade\Core::showGlyph('envelope', '1x', 'false');?></span>
 							<input type="email" class="form-control" name="email" placeholder="Email Address">
 						</div>
 						<span class="help-block"></span>

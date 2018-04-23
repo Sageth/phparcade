@@ -3,17 +3,17 @@ if (!isset($_SESSION)) {
     session_start();
 }
 global $params;
-$dbconfig = Core::getInstance()->getDBConfig();
-$category = Games::getCategory($params[1]);
-$games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']); ?>
+$dbconfig = PHPArcade\Core::getDBConfig();
+$category = PHPArcade\Games::getCategory($params[1]);
+$games = PHPArcade\Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']); ?>
 <div class="row">
-    <?php echo Ads::getInstance()->showAds('Responsive'); ?>
+    <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
     <h1><?php echo $category['name'] . ' Games'; ?></h1>
     <div class="row"><?php
         foreach ($games as $game) {
             $game['desc'] = mb_strlen($game['desc']) > 150 ? substr($game['desc'], 0, 150) . '...' : $game['desc'];
             $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];
-            $link = Core::getLinkGame($game['id']);?>
+            $link = PHPArcade\Core::getLinkGame($game['id']);?>
             <div class="card col-md-4 mt-4">
                 <div class="card-body">
                     <a href="<?php echo $link; ?>"><?php
@@ -46,11 +46,11 @@ $games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesp
         <ul class="pagination pagination-sm justify-content-center flex-wrap mt-4"><?php
 
             /* TODO: Fix this so it doesn't need flex-wrap */
-            $totalPages = Core::getPages($category['name']);
+            $totalPages = PHPArcade\Core::getPages($category['name']);
             for ($i = 0; $i < $totalPages; ++$i) {
                 /* If $i is equal to $params[2] minus 1, then that's the active page */ ?>
                 <li class="page-item <?php if ($i === $params[2]-1) { echo 'active'; };?>">
-                    <a class="page-link" href="<?php echo Core::getLinkCategory($category['name'], $i + 1); ?>">
+                    <a class="page-link" href="<?php echo PHPArcade\Core::getLinkCategory($category['name'], $i + 1); ?>">
                         <?php echo $i + 1; ?>
                     </a>
                 </li><?php

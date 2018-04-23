@@ -1,4 +1,4 @@
-<?php $dbconfig = Core::getInstance()->getDBConfig(); ?>
+<?php $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
     <iframe title="Google Tag Manager" src="https://www.googletagmanager.com/ns.html?id=<?php echo $dbconfig['ga_id'];?>"

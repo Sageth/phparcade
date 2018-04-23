@@ -2,7 +2,7 @@
 /* Loads classes */
 require_once $_SERVER['DOCUMENT_ROOT'] . '/cfg.php';
 try {
-    $stmt = mySQL::getConnection()->prepare('CALL sp_Categories_UpdateOrder(:categoryorder, :categoryid)');
+    $stmt = PHPArcade\mySQL::getConnection()->prepare('CALL sp_Categories_UpdateOrder(:categoryorder, :categoryid)');
 
     /* For each id named rowsort, get the order and ID */
     foreach ($_POST['rowsort'] as $order => $id) {
@@ -11,5 +11,5 @@ try {
         $stmt->execute();
     }
 } catch (PDOException $e) {
-    Core::showError($e->getMessage());
+    PHPArcade\Core::showError($e->getMessage());
 }

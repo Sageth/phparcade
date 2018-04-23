@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
 } else {
     $user = $_SESSION['user'];
 }
-if (Users::isUserLoggedIn()) {
+if (PHPArcade\Users::isUserLoggedIn()) {
     ?>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -21,7 +21,7 @@ if (Users::isUserLoggedIn()) {
         </a>
         <ul class="dropdown-menu" role="menu">
             <li class="dropdown-header">
-                <img data-src="<?php echo Users::userGetGravatar($user['name'], 25); ?>"
+                <img data-src="<?php echo PHPArcade\Users::userGetGravatar($user['name'], 25); ?>"
                      class="img img-responsive img-circle"
                      style="float:left"
                 />&nbsp;
@@ -43,18 +43,18 @@ if (Users::isUserLoggedIn()) {
                 <?php echo gettext('profile'); ?>
             </li>
             <li>
-                <a href='<?php echo Core::getLinkProfile($user['id']); ?>'>
+                <a href='<?php echo PHPArcade\Core::getLinkProfile($user['id']); ?>'>
                     <?php echo gettext('myprofile'); ?>
                 </a>
             </li>
             <li>
-                <a href='<?php echo Core::getLinkProfileEdit(); ?>'>
+                <a href='<?php echo PHPArcade\Core::getLinkProfileEdit(); ?>'>
                     <?php echo gettext('profileedit'); ?>
                 </a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href='<?php echo Core::getLinkLogout(); ?>'>
+                <a href='<?php echo PHPArcade\Core::getLinkLogout(); ?>'>
                     <?php echo gettext('logout'); ?>
                 </a>
             </li>

@@ -1,7 +1,7 @@
 <!--suppress ALL -->
 <script>
   (function() {
-    var cx = 'partner-pub-<?php echo Search::getGoogleSearchID();?>';
+    var cx = 'partner-pub-<?php echo PHPArcade\Search::getGoogleSearchID();?>';
     var gcse = document.createElement('script');
     gcse.type = 'text/javascript';
     gcse.async = true;

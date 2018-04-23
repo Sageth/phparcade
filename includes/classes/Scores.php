@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
+
+use PDO;
 
 class Scores
 {

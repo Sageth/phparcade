@@ -1,50 +1,23 @@
 <?php
-/* Prevent direct access */
-if (count(get_included_files()) === 1) {
-    http_response_code(403);
-    die('Direct access not permitted.');
-}
 
-/* Load Classes before setting the constants */
-spl_autoload_register('phpArcadeClasses');
-function phpArcadeClasses($class_name)
-{
-    /** @noinspection PhpIncludeInspection */
-    include $_SERVER['DOCUMENT_ROOT'] . '/includes/classes/' . $class_name . '.php';
-}
+require_once __DIR__ . '/vendor/autoload.php';
 
-/* ******* START INI SETTINGS ******* */
+/* ******* END INI SETTINGS ******* */
+$dbconfig = PHPArcade\Core::getDBConfig();
 
-/* Session params - keep session data for AT LEAST 1 hour (60s * 60m)*/
-ini_set('session.gc_maxlifetime', 3600);
-
-/* Set Secure cookie if HTTPS */
-if (Administrations::getScheme() === 'https://') {
-    ini_set('session.cookie_secure', 1);
-}
-
-/* Set cookie to http only */
-ini_set('session.cookie_httponly', 1);
-
-/* Set Timezone */
-date_default_timezone_set('America/New_York');
-
-/* Enable debug logging in non-prod */
-$inicfg = Core::getInstance()->getINIConfig();
+$inicfg = PHPArcade\Core::getINIConfig();
 if ($inicfg['environment']['state'] === "dev") {
     error_reporting(-1);
     ini_set('display_errors', 'On');
 }
 
-/* ******* END INI SETTINGS ******* */
-$dbconfig = Core::getInstance()->getDBConfig();
 
 /* Define site constants */
 define('INST_DIR', $_SERVER['DOCUMENT_ROOT'] . '/');
 define('IMG_DIR', INST_DIR . 'img/');
 define('IMG_DIR_NOSLASH', INST_DIR . 'img');
 define('SITE_URL', sprintf('%s://%s/', isset($_SERVER['HTTPS']) &&
-                                       $_SERVER['HTTPS'] != 'off' ? 'https' : 'http', $_SERVER['SERVER_NAME']));
+$_SERVER['HTTPS'] != 'off' ? 'https' : 'http', $_SERVER['SERVER_NAME']));
 define('ADMIN_THEME_PATH', INST_DIR . 'Zdmin/index.php');
 define('ADMIN_SITE_THEME_PATH', INST_DIR . 'plugins/site/themes/admin/index.php');
 define('CHARSET', 'UTF-8');
@@ -121,5 +94,24 @@ define('URL_GITHUB_PHPARCADE', 'https://github.com/Sageth/phpArcade/');
 define('URL_TWITTER', 'https://www.twitter.com/');
 /* ====== END CONSTANTS ===== */
 
-/* Load vendor/composer downloaded functions */
-require_once INST_DIR . 'vendor/autoload.php';
+
+/* ******* START INI SETTINGS ******* */
+
+/* Session params - keep session data for AT LEAST 1 hour (60s * 60m)*/
+ini_set('session.gc_maxlifetime', 3600);
+
+/* Set Secure cookie if HTTPS */
+if (PHPArcade\Administrations::getScheme() === 'https://') {
+    ini_set('session.cookie_secure', 1);
+}
+
+/* Set cookie to http only */
+ini_set('session.cookie_httponly', 1);
+
+/* Set Timezone */
+date_default_timezone_set('America/New_York');
+
+/* Enable debug logging in non-prod */
+
+
+

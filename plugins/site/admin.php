@@ -1,17 +1,17 @@
 <?php
 function site_links()
 {
-    Administrations::addLink(gettext('site'), 'index.php?act=site');
+    PHPArcade\Administrations::addLink(gettext('site'), 'index.php?act=site');
 }
 
-Administrations::addSubLink(gettext('mainconfig'), 'index.php?act=site&mthd=site-config', 'site');
-Administrations::addSubLink(gettext('theme'), 'index.php?act=site&mthd=theme-config', 'site');
-Administrations::addSubLink(gettext('featureconfig'), 'index.php?act=site&mthd=feature-config', 'site');
+PHPArcade\Administrations::addSubLink(gettext('mainconfig'), 'index.php?act=site&mthd=site-config', 'site');
+PHPArcade\Administrations::addSubLink(gettext('theme'), 'index.php?act=site&mthd=theme-config', 'site');
+PHPArcade\Administrations::addSubLink(gettext('featureconfig'), 'index.php?act=site&mthd=feature-config', 'site');
 function site_admin($mthd)
 {
-    $dbconfig = Core::getInstance()->getDBConfig();
-    $prerequisites = Administrations::getPreReqs();
-    $processUser = Administrations::getProcessUser();
+    $dbconfig = PHPArcade\Core::getDBConfig();
+    $prerequisites = PHPArcade\Administrations::getPreReqs();
+    $processUser = PHPArcade\Administrations::getProcessUser();
     switch ($mthd) {
         case "":
         case 'home': ?>
@@ -24,11 +24,11 @@ function site_admin($mthd)
 							<ul>
 								<li>Please file bugs or feature requests at
 									<a href="<?php echo URL_GITHUB_PHPARCADE;?>issues">
-										<?php echo Core::showGlyph('github');?> GitHub
+										<?php echo PHPArcade\Core::showGlyph('github');?> GitHub
 									</a>
 								</li>
 								<li>As of now, there is no direct upgrade path from version to version</li>
-								<li>Help -- in any form -- is <em>always</em> appreciated! <?php echo Core::showGlyph('smile-o');?></i></li>
+								<li>Help -- in any form -- is <em>always</em> appreciated! <?php echo PHPArcade\Core::showGlyph('smile-o');?></i></li>
 							</ul>
 							<!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
 						</div>
@@ -37,17 +37,17 @@ function site_admin($mthd)
 			</div>
 			<div class="clearfix invisible"></div><?php
             /* Broken Block */
-            if (Games::getGamesBrokenCount() > 0) {
+            if (PHPArcade\Games::getGamesBrokenCount() > 0) {
                 ?>
 				<div class="col-lg-2 col-md-6">
 					<div class="panel panel-<?php echo $prerequisites['broken_games'][0]; ?>">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<?php echo Core::showGlyph($prerequisites['broken_games'][1], '5x'); ?>
+									<?php echo PHPArcade\Core::showGlyph($prerequisites['broken_games'][1], '5x'); ?>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo Games::getGamesBrokenCount(); ?></div>
+									<div class="huge"><?php echo PHPArcade\Games::getGamesBrokenCount(); ?></div>
 									<div><?php echo gettext('notworking'); ?></div>
 								</div>
 							</div>
@@ -55,7 +55,7 @@ function site_admin($mthd)
 						<a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=viewbroken">
 							<div class="panel-footer">
 								<span class="pull-left"><?php echo gettext('viewdetails'); ?>></span>
-								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right'); ?></span>
+								<span class="pull-right"><?php echo PHPArcade\Core::showGlyph('arrow-circle-right'); ?></span>
 								<div class="clearfix"></div>
 							</div>
 						</a>
@@ -64,17 +64,17 @@ function site_admin($mthd)
             }
 
             /* Inactive Block */
-            if (Games::getGamesInactiveCount() > 0) {
+            if (PHPArcade\Games::getGamesInactiveCount() > 0) {
                 ?>
 				<div class="col-lg-2 col-md-6">
 					<div class="panel panel-<?php echo $prerequisites['inactive_games'][0]; ?>">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<?php echo Core::showGlyph($prerequisites['inactive_games'][1], '5x'); ?>
+									<?php echo PHPArcade\Core::showGlyph($prerequisites['inactive_games'][1], '5x'); ?>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo Games::getGamesInactiveCount(); ?></div>
+									<div class="huge"><?php echo PHPArcade\Games::getGamesInactiveCount(); ?></div>
 									<div><?php echo gettext('inactivegames'); ?></div>
 								</div>
 							</div>
@@ -82,7 +82,7 @@ function site_admin($mthd)
 						<a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=inactive">
 							<div class="panel-footer">
 								<span class="pull-left"><?php echo gettext('viewdetails'); ?></span>
-								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right'); ?></i></span>
+								<span class="pull-right"><?php echo PHPArcade\Core::showGlyph('arrow-circle-right'); ?></i></span>
 								<div class="clearfix"></div>
 							</div>
 						</a>
@@ -91,14 +91,14 @@ function site_admin($mthd)
             }
 
             /* SSL Block */
-            if (Administrations::getScheme() === 'http://') {
+            if (PHPArcade\Administrations::getScheme() === 'http://') {
                 ?>
 				<div class="col-lg-2 col-md-6">
 					<div class="panel panel-<?php echo $prerequisites['ssl'][0]; ?>">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<?php echo Core::showGlyph($prerequisites['ssl'][1], '5x'); ?>
+									<?php echo PHPArcade\Core::showGlyph($prerequisites['ssl'][1], '5x'); ?>
 								</div>
 								<div class="col-xs-9 text-right">
 									<div class="huge"><?php echo gettext('ssl'); ?></div>
@@ -108,7 +108,7 @@ function site_admin($mthd)
 						<a href="https://www.cloudflare.com/plans" target="_blank" rel="noopener">
 							<div class="panel-footer">
 								<span class="pull-left"><?php echo gettext('viewdetails'); ?></span>
-								<span class="pull-right"><?php echo Core::showGlyph('arrow-circle-right'); ?></span>
+								<span class="pull-right"><?php echo PHPArcade\Core::showGlyph('arrow-circle-right'); ?></span>
 								<div class="clearfix"></div>
 							</div>
 						</a>
@@ -124,7 +124,7 @@ function site_admin($mthd)
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-xs-3">
-									<?php echo Core::showGlyph($prerequisites['folder_session'][1], '5x'); ?>
+									<?php echo PHPArcade\Core::showGlyph($prerequisites['folder_session'][1], '5x'); ?>
 								</div>
 								<div class="col-xs-9 text-right">
 									<div class="huge"><?php echo gettext('sessions'); ?></div>
@@ -153,20 +153,20 @@ function site_admin($mthd)
 					</div>
 					<div class="panel-body">
 						<p class="text-info">
-							<?php echo gettext('tg'); ?>: <?php echo number_format(Games::getGamesCount('all')); ?>
+							<?php echo gettext('tg'); ?>: <?php echo number_format(PHPArcade\Games::getGamesCount('all')); ?>
 						</p>
 						<p class="text-info">
-							<?php echo gettext('totalgameplays'); ?>: <?php echo number_format(Core::getPlayCountTotal()); ?>
+							<?php echo gettext('totalgameplays'); ?>: <?php echo number_format(PHPArcade\Core::getPlayCountTotal()); ?>
 						</p>
 						<p class="text-info">
-							<?php echo gettext('registeredusers'); ?>: <?php echo number_format(Users::getUsersCount()); ?>
+							<?php echo gettext('registeredusers'); ?>: <?php echo number_format(PHPArcade\Users::getUsersCount()); ?>
 						</p>
 					</div>
 				</div>
 			</div><?php
             break;
         case 'logout':
-            Users::userSessionEnd();
+            PHPArcade\Users::userSessionEnd();
             break;
         case 'site-config':
             ?>
@@ -174,7 +174,7 @@ function site_admin($mthd)
                 <div class="col-md-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <?php echo Core::showGlyph('cogs');?>&nbsp;<?php echo gettext('configuration'); ?>
+                            <?php echo PHPArcade\Core::showGlyph('cogs');?>&nbsp;<?php echo gettext('configuration'); ?>
                         </div>
                         <div class="panel-body">
                             <div class="form-group col-md-10">
@@ -202,7 +202,7 @@ function site_admin($mthd)
                 <div class="col-md-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <?php echo Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('email'); ?>
+                            <?php echo PHPArcade\Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('email'); ?>
                             <p class="help-block pull-right"><?php echo gettext('google_appsforbusiness');?></p>
                         </div>
                         <div class="panel-body">
@@ -258,19 +258,19 @@ function site_admin($mthd)
                     </div>
                     <input type='hidden' name='act' value='site'/>
                     <input type='hidden' name='mthd' value='site-config-do'/>
-                    <?php Pages::getSubmitButton(); ?>
+                    <?php PHPArcade\Pages::getSubmitButton(); ?>
                 </div>
             </form><?php
             break;
         case 'site-config-do':
-            Administrations::updateConfig('emaildomain', $_POST['emaildomain']);
-            Administrations::updateConfig('emailhost', $_POST['emailhost']);
-            Administrations::updateConfig('emaildebug', $_POST['emaildebug']);
-            Administrations::updateConfig('emailport', $_POST['emailport']);
-            Administrations::updateConfig('imgurl', $_POST['imgurl']);
-            Administrations::updateConfig('metadesc', $_POST['metadesc']);
-            Administrations::updateConfig('sitetitle', $_POST['sitetitle']);
-            Core::showSuccess(gettext('updatesuccess'));
+            PHPArcade\Administrations::updateConfig('emaildomain', $_POST['emaildomain']);
+            PHPArcade\Administrations::updateConfig('emailhost', $_POST['emailhost']);
+            PHPArcade\Administrations::updateConfig('emaildebug', $_POST['emaildebug']);
+            PHPArcade\Administrations::updateConfig('emailport', $_POST['emailport']);
+            PHPArcade\Administrations::updateConfig('imgurl', $_POST['imgurl']);
+            PHPArcade\Administrations::updateConfig('metadesc', $_POST['metadesc']);
+            PHPArcade\Administrations::updateConfig('sitetitle', $_POST['sitetitle']);
+            PHPArcade\Core::showSuccess(gettext('updatesuccess'));
             break;
         case 'theme-config': ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
@@ -303,13 +303,13 @@ function site_admin($mthd)
 					</div>
                     <input type='hidden' name='act' value='site'/>
 					<input type='hidden' name='mthd' value='theme-config-do'/>
-					<?php Pages::getSubmitButton(); ?>
+					<?php PHPArcade\Pages::getSubmitButton(); ?>
 				</div>
 			</form><?php
             break;
         case 'theme-config-do':
-            Administrations::updateConfig('theme', $_POST['themename']);
-            Core::showSuccess(gettext('updatesuccess'));
+            PHPArcade\Administrations::updateConfig('theme', $_POST['themename']);
+            PHPArcade\Core::showSuccess(gettext('updatesuccess'));
             break;
         case 'feature-config':
             $checkeddisqus = ($dbconfig['disqus_on'] === 'on') ? 'checked' : "";
@@ -324,13 +324,13 @@ function site_admin($mthd)
 				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<?php echo Core::showGlyph('comments');?>&nbsp;<?php echo gettext('disqus'); ?>
+							<?php echo PHPArcade\Core::showGlyph('comments');?>&nbsp;<?php echo gettext('disqus'); ?>
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-8">
-										<?php echo Core::showGlyph('commenting-o');?>
+										<?php echo PHPArcade\Core::showGlyph('commenting-o');?>
 										<label><?php echo gettext('disqus_enabled'); ?></label>
 										<div class="checkbox-inline pull-right">
 											<label for="disqus_on"></label>
@@ -356,13 +356,13 @@ function site_admin($mthd)
 				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<?php echo Core::showGlyph('facebook');?>&nbsp;<?php echo gettext('facebook'); ?>
+							<?php echo PHPArcade\Core::showGlyph('facebook');?>&nbsp;<?php echo gettext('facebook'); ?>
 						</div>
 						<div class="panel-body">
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-8">
-										<?php echo Core::showGlyph('database');?>
+										<?php echo PHPArcade\Core::showGlyph('database');?>
 										<label><?php echo gettext('facebook_enabled'); ?></label>
 										<div class="checkbox-inline pull-right">
 											<label for="facebook_on"></label>
@@ -399,13 +399,13 @@ function site_admin($mthd)
 				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<?php echo Core::showGlyph('bar-chart');?>&nbsp;<?php echo gettext('mixpanel'); ?>
+							<?php echo PHPArcade\Core::showGlyph('bar-chart');?>&nbsp;<?php echo gettext('mixpanel'); ?>
 						</div>
 						<div class="panel-body">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('table'); ?>
+                                        <?php echo PHPArcade\Core::showGlyph('table'); ?>
                                         <label for="mixpanel_id"><?php echo gettext('mixpanel_id'); ?></label>
                                         <input class="form-control" title="MixPanel ID" name="mixpanel_id"
                                                value="<?php echo $dbconfig['mixpanel_id']; ?>"/>
@@ -419,13 +419,13 @@ function site_admin($mthd)
 				<div class="col-md-7">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<?php echo Core::showGlyph('google');?>&nbsp;<?php echo gettext('google'); ?>
+							<?php echo PHPArcade\Core::showGlyph('google');?>&nbsp;<?php echo gettext('google'); ?>
 						</div>
 						<div class="panel-body">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('google');?>&nbsp;
+                                        <?php echo PHPArcade\Core::showGlyph('google');?>&nbsp;
                                         <label><?php echo gettext('ga_enabled'); ?></label>
                                         <div class="pull-right">
                                             <label for="ga_enabled"></label>
@@ -447,7 +447,7 @@ function site_admin($mthd)
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('database');?>
+                                        <?php echo PHPArcade\Core::showGlyph('database');?>
                                         <label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
                                         <input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
                                                name='google_recaptcha_sitekey'
@@ -532,7 +532,7 @@ function site_admin($mthd)
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('rss');?>
+                                        <?php echo PHPArcade\Core::showGlyph('rss');?>
                                         <label><?php echo gettext('enablerss'); ?></label>
                                         <div class="checkbox-inline pull-right">
                                             <input type="checkbox" name="rssenabled" title="rssenabled" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
@@ -544,7 +544,7 @@ function site_admin($mthd)
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('asterisk');?>
+                                        <?php echo PHPArcade\Core::showGlyph('asterisk');?>
                                         <label><?php echo gettext('numlatest'); ?></label>
                                         <input class="form-control" name='rssnumlatest' title="rssnumlatest"
                                                value='<?php echo $dbconfig['rssnumlatest']; ?>'/>
@@ -555,7 +555,7 @@ function site_admin($mthd)
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('link');?>
+                                        <?php echo PHPArcade\Core::showGlyph('link');?>
                                         <label><?php echo gettext('rssfeedurl'); ?></label>
                                         <input class="form-control" name='rssfeed' title="rssfeed"
                                                value='<?php echo $dbconfig['rssfeed']; ?>'/>
@@ -571,14 +571,14 @@ function site_admin($mthd)
                 <div class="col-md-7">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <?php echo Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('general'); ?>
+                            <?php echo PHPArcade\Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('general'); ?>
                             <p class="help-block pull-right"><?php echo gettext('google_appsforbusiness');?></p>
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('users');?>
+                                        <?php echo PHPArcade\Core::showGlyph('users');?>
                                         <label><?php echo gettext('usersenabled'); ?></label>
                                         <div class="checkbox-inline pull-right">
                                             <label for="membersenabled"></label>
@@ -591,7 +591,7 @@ function site_admin($mthd)
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('list');?>
+                                        <?php echo PHPArcade\Core::showGlyph('list');?>
                                         <label><?php echo gettext('emailactivation'); ?></label>
                                         <div class="checkbox-inline pull-right">
                                             <label for="emailactivation"></label>
@@ -604,7 +604,7 @@ function site_admin($mthd)
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <?php echo Core::showGlyph('list');?>
+                                        <?php echo PHPArcade\Core::showGlyph('list');?>
                                         <label><?php echo gettext('allowpasswordrecovery'); ?></label>
                                         <div class="checkbox-inline pull-right">
                                             <label for="passwordrecovery"></label>
@@ -627,35 +627,35 @@ function site_admin($mthd)
                         <div class="panel-footer">
                             <input type='hidden' name='act' value='site' />
                             <input type='hidden' name='mthd' value='feature-config-do' />
-                            <?php Pages::getSubmitButton(); ?>
+                            <?php PHPArcade\Pages::getSubmitButton(); ?>
                         </div>
                     </div>
                 </div>
 			</form><?php
             break;
         case 'feature-config-do':
-            Administrations::updateConfig('defgwidth', $_POST['defgwidth']);
-            Administrations::updateConfig('defgheight', $_POST['defgheight']);
-            Administrations::updateConfig('disqus_on', array_key_exists('disqus_on', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('disqus_user', $_POST['disqus_user']);
-            Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('emailfrom', $_POST['emailfrom']);
-            Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
-            Administrations::updateConfig('facebook_pageurl', $_POST['facebook_pageurl']);
-            Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('ga_enabled', array_key_exists('ga_enabled', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('ga_id', $_POST['ga_id']);
-            Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
-            Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
-            Administrations::updateConfig('mixpanel_id', $_POST['mixpanel_id']);
-            Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');
-            Administrations::updateConfig('rssfeed', $_POST['rssfeed']);
-            Administrations::updateConfig('rssnumlatest', $_POST['rssnumlatest']);
-            Administrations::updateConfig('twidth', $_POST['twidth']);
-            Administrations::updateConfig('theight', $_POST['theight']);
-            Core::showSuccess(gettext('updatesuccess'));
+            PHPArcade\Administrations::updateConfig('defgwidth', $_POST['defgwidth']);
+            PHPArcade\Administrations::updateConfig('defgheight', $_POST['defgheight']);
+            PHPArcade\Administrations::updateConfig('disqus_on', array_key_exists('disqus_on', $_POST) ? 'on' : 'off');
+            PHPArcade\Administrations::updateConfig('disqus_user', $_POST['disqus_user']);
+            PHPArcade\Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');
+            PHPArcade\Administrations::updateConfig('emailfrom', $_POST['emailfrom']);
+            PHPArcade\Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
+            PHPArcade\Administrations::updateConfig('facebook_pageurl', $_POST['facebook_pageurl']);
+            PHPArcade\Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
+            PHPArcade\Administrations::updateConfig('ga_enabled', array_key_exists('ga_enabled', $_POST) ? 'on' : 'off');
+            PHPArcade\Administrations::updateConfig('ga_id', $_POST['ga_id']);
+            PHPArcade\Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
+            PHPArcade\Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
+            PHPArcade\Administrations::updateConfig('mixpanel_id', $_POST['mixpanel_id']);
+            PHPArcade\Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
+            PHPArcade\Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
+            PHPArcade\Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');
+            PHPArcade\Administrations::updateConfig('rssfeed', $_POST['rssfeed']);
+            PHPArcade\Administrations::updateConfig('rssnumlatest', $_POST['rssnumlatest']);
+            PHPArcade\Administrations::updateConfig('twidth', $_POST['twidth']);
+            PHPArcade\Administrations::updateConfig('theight', $_POST['theight']);
+            PHPArcade\Core::showSuccess(gettext('updatesuccess'));
             break;
         default:
     }

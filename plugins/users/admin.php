@@ -1,26 +1,26 @@
 <?php
 function users_links()
 {
-    Administrations::addLink(gettext('users'), 'index.php?act=users');
+    PHPArcade\Administrations::addLink(gettext('users'), 'index.php?act=users');
 }
 
-Administrations::addSubLink(gettext('manage'), 'index.php?act=users&mthd=manage', 'users');
+PHPArcade\Administrations::addSubLink(gettext('manage'), 'index.php?act=users&mthd=manage', 'users');
 function users_admin($mthd)
 {
     switch ($mthd) {
         case 'delete-do':
-            Users::userDelete($_REQUEST['id']);
+            PHPArcade\Users::userDelete($_REQUEST['id']);
             break;
         case 'edituser-do':
             $_POST['admin'] = array_key_exists('admin', $_POST) ? 'Yes' : 'No';
             $_POST['active'] = array_key_exists('active', $_POST) ? 'Yes' : 'No';
-            Users::userEdit($_POST['id']);
+            PHPArcade\Users::userEdit($_POST['id']);
             if ($_POST['password'] != '') {
-                Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
+                PHPArcade\Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
             }
             break;
         case 'edituser-form':
-            $user = Users::getUserbyID($_REQUEST['id']);
+            $user = PHPArcade\Users::getUserbyID($_REQUEST['id']);
             $useractive = ($user['active'] === 'on' || $user['active'] === 'Yes') ? 'checked' : "";
             $useradmin = ($user['admin'] === 'on' || $user['admin'] === 'Yes') ? 'checked' : "";?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
@@ -39,7 +39,7 @@ function users_admin($mthd)
                             <div>
                                 <label>
                                     <?php echo gettext('gravatar');?> :
-                                    <img src="<?php echo Users::userGetGravatar($user['username']); ?>"
+                                    <img src="<?php echo PHPArcade\Users::userGetGravatar($user['username']); ?>"
                                          class="img img-responsive img-circle"
                                          style="float:right"
                                          height="80"
@@ -62,7 +62,7 @@ function users_admin($mthd)
 							<div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <?php echo Core::showGlyph('user');?>
+                                        <?php echo PHPArcade\Core::showGlyph('user');?>
 								        <label><?php echo gettext('active'); ?></label>
 								        <div class="checkbox-inline pull-right">
 									        <label for="active"></label>
@@ -75,7 +75,7 @@ function users_admin($mthd)
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-12">
-										<?php echo Core::showGlyph('lock');?>
+										<?php echo PHPArcade\Core::showGlyph('lock');?>
 										<label><?php echo gettext('siteadmin'); ?></label>
 										<div class="checkbox-inline pull-right">
 											<label for="admin"></label>
@@ -115,12 +115,12 @@ function users_admin($mthd)
 				<input type='hidden' name='id' value='<?php echo $user['id'];?>'/>
 				<input type='hidden' name='act' value='users'/>
 				<input type='hidden' name='mthd' value='edituser-do'/>
-				<?php Pages::getSubmitButton(); ?>
+				<?php PHPArcade\Pages::getSubmitButton(); ?>
 			</form><?php
             break;
         case "":
         case 'manage':
-            $users = Users::getUsersAll(); ?>
+            $users = PHPArcade\Users::getUsersAll(); ?>
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -151,9 +151,9 @@ function users_admin($mthd)
 											<td><?php echo $user['totalgames']; ?></td>
 											<td><?php echo $user['ip']; ?></td>
 											<td>
-												<?php Pages::getEditButton($user['id'], 'users', 'edituser-form', gettext('edit')); ?>
+												<?php PHPArcade\Pages::getEditButton($user['id'], 'users', 'edituser-form', gettext('edit')); ?>
 												&nbsp;
-												<?php Pages::getDeleteButton($user['id'], 'users'); ?>
+												<?php PHPArcade\Pages::getDeleteButton($user['id'], 'users'); ?>
 											</td>
 										</tr><?php
                                     } ?>

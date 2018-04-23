@@ -3,22 +3,22 @@ if (!isset($_SESSION)) {
     session_start();
 }
 global $params;
-$dbconfig = Core::getInstance()->getDBConfig(); ?>
+$dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <!--suppress ALL -->
 <hr>
 <div class="row">
     <div class="col-lg-12"><?php
         if ($params[1] === 'view' && $params[1] != 'edit') {
-        $user = Users::getUserbyID($params[2]);
+        $user = PHPArcade\Users::getUserbyID($params[2]);
 
         if ($user === false) {
-            Core::showInfo(gettext('noexist'));
+            PHPArcade\Core::showInfo(gettext('noexist'));
         } else {
         $i = 0;
-        $games = Games::getGamesChamp($user['id']); ?>
+        $games = PHPArcade\Games::getGamesChamp($user['id']); ?>
         <div class="col-sm-10">
             <img class="img img-responsive img-circle"
-                 src="<?php echo Users::userGetGravatar($user['username'], 80); ?>"
+                 src="<?php echo PHPArcade\Users::userGetGravatar($user['username'], 80); ?>"
                  alt="<?php echo $user['username']; ?>'s Gravatar"
                  title="<?php echo $user['username']; ?>'s Gravatar"
             />
@@ -43,7 +43,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                 <ul class="list-group">
                     <li class="list-group-item text-muted">
                         <?php echo gettext('activity');
-                        echo Core::showGlyph('dashboard'); ?>
+                        echo PHPArcade\Core::showGlyph('dashboard'); ?>
                     </li>
                     <li class="list-group-item text-right">
                                 <span class="pull-left">
@@ -60,34 +60,34 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                         if ($user['facebook_id'] != "") {
                             ?>
                             <a href="<?php echo URL_FACEBOOK . $user['facebook_id']; ?>" target="_blank" rel="noopener">
-                                <?php echo Core::showGlyph('facebook', '2x', 'false'); ?>
+                                <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?>
                             </a><?php
                         } else {
                             ?>
-                            <?php echo Core::showGlyph('facebook', '2x', 'false'); ?><?php
+                            <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?><?php
                         }
                         if ($user['github_id'] != "") { ?>
                         <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank" rel="noopener">
-                            <?php echo Core::showGlyph('github', '2x', 'false'); ?>
+                            <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false'); ?>
                             </a><?php
                         } else {
-                            echo Core::showGlyph('github', '2x', 'false');
+                            echo PHPArcade\Core::showGlyph('github', '2x', 'false');
                         }
                         if ($user['twitter_id'] != "") { ?>
                         <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank" rel="noopener">
-                            <?php echo Core::showGlyph('twitter', '2x', 'false'); ?>
+                            <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false'); ?>
                             </a><?php
                         } else {
-                            echo Core::showGlyph('twitter', '2x', 'false');
+                            echo PHPArcade\Core::showGlyph('twitter', '2x', 'false');
                         }
-                        echo Core::showGlyph('pinterest', '2x', 'false');
-                        echo Core::showGlyph('google-plus', '2x', 'false'); ?>
+                        echo PHPArcade\Core::showGlyph('pinterest', '2x', 'false');
+                        echo PHPArcade\Core::showGlyph('google-plus', '2x', 'false'); ?>
                     </div>
                 </div>
-                <?php echo Ads::getInstance()->showAds('Responsive'); ?>
+                <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
             </div>
             <div class="col-md-9">
-                <?php echo Ads::getInstance()->showAds('Responsive'); ?>
+                <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
                 <div class="clearfix invisible"></div>
                 <h3><?php echo $user['username'] . ' ' . gettext('bestplayer'); ?> </h3>
                 <div class="panel panel-info">
@@ -96,8 +96,8 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                             ?>
                             <div class="col-md-4 col-md-4">
                             <div class="thumbnail"><?php
-                                $game = Games::getGame($game['nameid']);
-                                $link = Core::getLinkGame($game['id']); ?>
+                                $game = PHPArcade\Games::getGame($game['nameid']);
+                                $link = PHPArcade\Core::getLinkGame($game['id']); ?>
                                 <a href="<?php echo $link; ?>"><?php
                                     $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
                                     <img class="img img-responsive img-rounded"
@@ -165,7 +165,7 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
             }
             } else {
                 if ($params[1] === 'edit') {
-                    $user = Users::getUserbyID($_SESSION['user']['id']);
+                    $user = PHPArcade\Users::getUserbyID($_SESSION['user']['id']);
                     if ($params[2] == "" || !isset($params[2])) {
                         ?>
                     <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data"
@@ -251,17 +251,17 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
                     } else {
                         if ($params[0] === 'profile' && $params[2] === 'editdone') {
                             /* Update user profile entries */
-                            Users::UpdateProfile();
+                            PHPArcade\Users::UpdateProfile();
 
                             /* Update Password if necessary */
                             if ($_POST['password'] != '') {
-                                Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
-                                Core::showSuccess(gettext('updatesuccess'));
+                                PHPArcade\Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
+                                PHPArcade\Core::showSuccess(gettext('updatesuccess'));
                             }
 
-                            Core::showSuccess(gettext('updatesuccess'));
+                            PHPArcade\Core::showSuccess(gettext('updatesuccess'));
                         } else {
-                            Core::showError(gettext('error'));
+                            PHPArcade\Core::showError(gettext('error'));
                         }
                     }
                 }

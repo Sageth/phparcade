@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
 
 class Ads
 {
@@ -52,7 +52,7 @@ class Ads
         $stmt->execute();
         Core::showSuccess(gettext('addsuccess'));
     }
-    public static function showAds($location)
+    public static function showAds()
     {
         /* Displays ad on the front-end webpage */
         /* TODO: Add location to stored procedure */

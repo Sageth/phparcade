@@ -2,11 +2,11 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$dbconfig = Core::getInstance()->getDBConfig();
+$dbconfig = PHPArcade\Core::getDBConfig();
 $i = 0;
-$games = Games::getGamesHomePage();
+$games = PHPArcade\Games::getGamesHomePage();
 foreach ($games as $game) {
-    $link = Core::getLinkGame($game['id']);
+    $link = PHPArcade\Core::getLinkGame($game['id']);
     $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
     <div class="col-md-3 col-md-4">
         <div class="thumbnail">

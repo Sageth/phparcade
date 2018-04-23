@@ -3,23 +3,23 @@
     $user = $_SESSION['user'];
 }
 
-Users::userUpdatePlaycount();
+PHPArcade\Users::userUpdatePlaycount();
 global $params; ?>
 <!--suppress Annotator -->
 <div><?php
-    $dbconfig = Core::getInstance()->getDBConfig();
-    Core::doEvent('gamepage');
-    $metadata = Core::getPageMetaData();
-    $game = Games::getGame($params[1]);
+    $dbconfig = PHPArcade\Core::getDBConfig();
+    PHPArcade\Core::doEvent('gamepage');
+    $metadata = PHPArcade\Core::getPageMetaData();
+    $game = PHPArcade\Games::getGame($params[1]);
     if (isset($game['id'])) {
-        $time = Core::getCurrentDate();
+        $time = PHPArcade\Core::getCurrentDate();
         $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG;
         $thumbnailurl = $img;
         $origgamename = $game['name'];
         $epoch = $game['time'];
         $dt = new DateTime("@$epoch");
         $game['time'] = date('M d, Y', $game['time']);
-        Games::updateGamePlaycount($game['id']); ?>
+        PHPArcade\Games::updateGamePlaycount($game['id']); ?>
         <div class="col-lg-12">
             <h1 class="page-header" itemprop="headline"><?php echo $game['name']; ?></h1>
         </div>
@@ -52,12 +52,12 @@ global $params; ?>
             be defined, but I'm not going to change it just yet.
             $info[0] is the score in the games_champs table
             $tscore['x'] is the top player in the games list.*/
-        if (Scores::getScoreType('lowhighscore', $game['flags'])) {
-            $scores = Scores::getGameScore($game['id'], 'ASC', TOP_SCORE_COUNT);
-            $tscores = Scores::getGameScore($game['id'], 'ASC', 1); // Fix scores when users are deleted
+        if (PHPArcade\Scores::getScoreType('lowhighscore', $game['flags'])) {
+            $scores = PHPArcade\Scores::getGameScore($game['id'], 'ASC', TOP_SCORE_COUNT);
+            $tscores = PHPArcade\Scores::getGameScore($game['id'], 'ASC', 1); // Fix scores when users are deleted
         } else {
-            $scores = Scores::getGameScore($game['id'], 'DESC', TOP_SCORE_COUNT);
-            $tscores = Scores::getGameScore($game['id'], 'DESC', 1); //Fix champ scores when users are deleted
+            $scores = PHPArcade\Scores::getGameScore($game['id'], 'DESC', TOP_SCORE_COUNT);
+            $tscores = PHPArcade\Scores::getGameScore($game['id'], 'DESC', 1); //Fix champ scores when users are deleted
         }
         foreach ($tscores as $tscore) { //Get the top score on that game.
             $tnameid = $tscore['nameid'];
@@ -67,7 +67,7 @@ global $params; ?>
             if ($tscore <> $info[0]) {
                 /* Compare the top score to the champ ($info) which is defined in scoreinfo.php
                    If the scores don't match, then correct it. */
-                Games::updateGameChamp($tnameid, $tuser, $tscore, $time, $game['id']);
+                PHPArcade\Games::updateGameChamp($tnameid, $tuser, $tscore, $time, $game['id']);
             }
         }
         /* End Games Champs Fix */ ?>
@@ -79,7 +79,7 @@ global $params; ?>
                     <h3 class="panel-title"><?php echo $game['name']; ?></h3>
                 </div>
                 <div class="panel-body text-center">
-                    <?php echo Ads::getInstance()->showAds('Responsive'); ?>
+                    <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
                     $game['type'] = $game['type'] ?? '';
                     switch ($game['customcode']) {
@@ -89,14 +89,14 @@ global $params; ?>
                             if ($game['type'] === 'extlink') {
                             } else {
                                 echo $game['code'];
-                                Core::doEvent('gameplay');
+                                PHPArcade\Core::doEvent('gameplay');
                             }
                             break;
                         default:
                             echo $game['customcode'];
                     } ?>
                     <div class="clearfix invisible">&nbsp;</div>
-                    <?php echo Ads::getInstance()->showAds('Responsive'); ?>
+                    <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
                     <div class="clearfix invisible">&nbsp;</div>
                 </div>
             </div>
@@ -125,20 +125,20 @@ global $params; ?>
                                         foreach ($scores as $score) {
                                             ++$i;
                                             $d_score = date('m/d/Y', $score['date']);
-                                            $champ = Users::getUserbyID($score['player']); ?>
+                                            $champ = PHPArcade\Users::getUserbyID($score['player']); ?>
                                             <tr class="odd gradeA">
                                             <td><?php echo $i; ?></td>
                                             <td>
-                                                <img data-src="<?php echo Users::userGetGravatar($champ['username'],40); ?>"
+                                                <img data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'],40); ?>"
                                                      class="img img-responsive img-circle"
                                                      style="float:left"
                                                 />
                                                 &nbsp;
-                                                <a href="<?php echo Core::getLinkProfile($champ['id']); ?>">
+                                                <a href="<?php echo PHPArcade\Core::getLinkProfile($champ['id']); ?>">
                                                     <?php echo $champ['username']; ?>
                                                 </a>
                                             </td>
-                                            <td><?php echo Scores::formatScore($score['score']); ?></td>
+                                            <td><?php echo PHPArcade\Scores::formatScore($score['score']); ?></td>
                                             <td><?php echo $d_score; ?></td>
                                             </tr><?php
                                         }
@@ -169,7 +169,7 @@ global $params; ?>
         ?>
         <h1><?php echo gettext('404status'); ?></h1>
         <h2><?php echo gettext('404page'); ?></h2><?php
-        Core::returnStatusCode(404);
+        PHPArcade\Core::returnStatusCode(404);
         die();
     } ?>
     <!-- Related Items -->
@@ -180,9 +180,9 @@ global $params; ?>
                 <h3 class="panel-title"><?php echo gettext('additionalgames'); ?></h3>
             </div>
             <div class="panel-body text-center"><?php
-                $gameslikethis = Games::getGamesLikeThis();
+                $gameslikethis = PHPArcade\Games::getGamesLikeThis();
                 foreach ($gameslikethis as $gamelikethis) {
-                    $link = Core::getLinkGame($gamelikethis['id']); ?>
+                    $link = PHPArcade\Core::getLinkGame($gamelikethis['id']); ?>
                     <div class="col-md-3 col-md-4">
                     <div class="thumbnail">
                         <a href="<?php echo $link; ?>"><?php
@@ -212,7 +212,7 @@ global $params; ?>
                 unset($gameslikethis); ?>
             </div>
         </div>
-        <?php Core::getFlashModal();?>
+        <?php PHPArcade\Core::getFlashModal();?>
     </div>
     <!-- Schema -->
     <script type="application/ld+json" defer>
