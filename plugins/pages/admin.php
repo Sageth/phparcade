@@ -57,7 +57,7 @@ function pages_admin($mthd)
             break;
         case 'addpage-do':
             if (html_entity_decode($_POST['title']) == "" || html_entity_decode($_POST['content']) == "") {
-                \PHPArcade\Core::showWarning(gettext('allfieldserror'));
+                PHPArcade\Core::showWarning(gettext('allfieldserror'));
             } else {
                 PHPArcade\Pages::pageAdd(
                     null,
@@ -70,7 +70,7 @@ function pages_admin($mthd)
             break;
         case 'editpage-form':
             $page = PHPArcade\Pages::getPage($_REQUEST['id']);
-            $code = htmlentities('<?php echo \PHPArcade\Core::getLinkPage(' . $page['id'] . ');?>', ENT_QUOTES); ?>
+            $code = htmlentities('<?php echo PHPArcade\Core::getLinkPage(' . $page['id'] . ');?>', ENT_QUOTES); ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -135,7 +135,7 @@ function pages_admin($mthd)
             break;
         case 'editpage-do':
             if ($_POST['title'] == "" || $_POST['content'] == "") {
-                \PHPArcade\Core::showWarning(gettext('allfieldserror'));
+                PHPArcade\Core::showWarning(gettext('allfieldserror'));
             } else {
                 PHPArcade\Pages::pageUpdate($_POST['id'], $_POST['title'], $_POST['content'], $_POST['description'], $_POST['keywords']);
                 PHPArcade\Core::showSuccess(gettext('updatesuccess'));

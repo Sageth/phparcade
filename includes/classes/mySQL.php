@@ -9,7 +9,7 @@ class mySQL
     protected static $db;
     private function __construct()
     {
-        $inicfg = \PHPArcade\Core::getINIConfig();
+        $inicfg = Core::getINIConfig();
         try {
             // assign PDO object to db variable
             self::$db = new PDO($inicfg['database']['driver'] . ':host=' . $inicfg['database']['host'] . ';port=' .

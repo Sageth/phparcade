@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
     session_start();
     $user = $_SESSION['user'];
 }
-$dbconfig = \PHPArcade\Core::getDBConfig();
+$dbconfig = PHPArcade\Core::getDBConfig();
 global $params; ?>
 <div class="col-lg-12">
 	<div class="card card text-white bg-info">

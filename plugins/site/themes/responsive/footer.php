@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$dbconfig = \PHPArcade\Core::getDBConfig(); ?>
+$dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <!-- Begin Footer -->
 <div class="footer navbar-static-bottom">
 	<div class="panel-footer container-fluid text-center"><?php

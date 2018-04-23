@@ -1,5 +1,5 @@
 <?php $currentlink = SITE_URL . trim($_SERVER['REQUEST_URI'], '/');
-$dbconfig = \PHPArcade\Core::getDBConfig(); ?>
+$dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <!--suppress ALL -->
 <div id="disqus_thread"></div>
 <script data-cfasync="false" defer>

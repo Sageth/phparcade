@@ -7,10 +7,10 @@ PHPArcade\Users::userUpdatePlaycount();
 global $params; ?>
 <!--suppress Annotator -->
 <div><?php
-    $dbconfig = \PHPArcade\Core::getDBConfig();
+    $dbconfig = PHPArcade\Core::getDBConfig();
     PHPArcade\Core::doEvent('gamepage');
     $metadata = PHPArcade\Core::getPageMetaData();
-    $game = \PHPArcade\Games::getGame($params[1]);
+    $game = PHPArcade\Games::getGame($params[1]);
     if (isset($game['id'])) {
         $time = PHPArcade\Core::getCurrentDate();
         $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG;
@@ -180,7 +180,7 @@ global $params; ?>
                 <h3 class="panel-title"><?php echo gettext('additionalgames'); ?></h3>
             </div>
             <div class="panel-body text-center"><?php
-                $gameslikethis = \PHPArcade\Games::getGamesLikeThis();
+                $gameslikethis = PHPArcade\Games::getGamesLikeThis();
                 foreach ($gameslikethis as $gamelikethis) {
                     $link = PHPArcade\Core::getLinkGame($gamelikethis['id']); ?>
                     <div class="col-md-3 col-md-4">

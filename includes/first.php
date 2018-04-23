@@ -24,7 +24,7 @@ if (!isset($_SESSION)) {
 } else {
     $user = $_SESSION['user'];
 }
-$dbconfig = \PHPArcade\Core::getDBConfig();
+$dbconfig = PHPArcade\Core::getDBConfig();
 /** @noinspection PhpUndefinedVariableInspection */
 $params[2] = $params[2] ?? "";
 /* This is the old 'exec.php' from each plugin folder, consolidated and in order */

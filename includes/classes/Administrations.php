@@ -47,15 +47,15 @@ use PDOException;
             } catch (PDOException $e) {
                 $warningtext = '<p>' . gettext('error') . ' ' . $e->getMessage() . '.</p>';
                 $warningtext .= '<p>Update failed on Key = "' . $key . '" and Value = "' . $value . '"</p>';
-                \PHPArcade\Core::showWarning($warningtext);
+                Core::showWarning($warningtext);
                 return false;
             }
         }
         public static function getPreReqs()
         {
             $scheme = self::getScheme();
-            $inactiverowcount = \PHPArcade\Games::getGamesInactiveCount();
-            $brokenrowcount = \PHPArcade\Games::getGamesBrokenCount();
+            $inactiverowcount = Games::getGamesInactiveCount();
+            $brokenrowcount = Games::getGamesBrokenCount();
             $prerequisites =
                 ['broken_games' => $brokenrowcount === 0 ? $broken = ['green', 'check'] : $broken = ['red', 'support'],
                     'inactive_games' => $inactiverowcount === 0 ? $inactive = ['green', 'check'] :

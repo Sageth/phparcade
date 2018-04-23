@@ -2,9 +2,9 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$dbconfig = \PHPArcade\Core::getDBConfig();
+$dbconfig = PHPArcade\Core::getDBConfig();
 $i = 0;
-$games = \PHPArcade\Games::getGamesHomePage();
+$games = PHPArcade\Games::getGamesHomePage();
 foreach ($games as $game) {
     $link = PHPArcade\Core::getLinkGame($game['id']);
     $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>

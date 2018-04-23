@@ -15,7 +15,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
             PHPArcade\Core::showInfo(gettext('noexist'));
         } else {
         $i = 0;
-        $games = \PHPArcade\Games::getGamesChamp($user['id']); ?>
+        $games = PHPArcade\Games::getGamesChamp($user['id']); ?>
         <div class="col-sm-10">
             <img class="img img-responsive img-circle"
                  src="<?php echo PHPArcade\Users::userGetGravatar($user['username'], 80); ?>"

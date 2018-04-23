@@ -1,4 +1,4 @@
-<?php $dbconfig = \PHPArcade\Core::getDBConfig(); ?>
+<?php $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 
 <div class="omb_login">
 	<h3 class="omb_authTitle">

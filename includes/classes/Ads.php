@@ -37,7 +37,7 @@ class Ads
         $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_Delete_ID(:adid);');
         $stmt->bindParam(':adid', $id);
         $stmt->execute();
-        \PHPArcade\Core::showSuccess(gettext('deletesuccess'));
+        Core::showSuccess(gettext('deletesuccess'));
     }
     public static function insertAd($id = null, $name, $code, $location, $advertisername, $comment)
     {
@@ -50,7 +50,7 @@ class Ads
         $stmt->bindParam(':advertiser', $advertisername);
         $stmt->bindParam(':adcomments', $comment);
         $stmt->execute();
-        \PHPArcade\Core::showSuccess(gettext('addsuccess'));
+        Core::showSuccess(gettext('addsuccess'));
     }
     public static function showAds()
     {
@@ -72,7 +72,7 @@ class Ads
         $stmt->bindParam(':advertiser', $advertisername);
         $stmt->bindParam(':adcomments', $comment);
         $stmt->execute();
-        \PHPArcade\Core::showSuccess(gettext('updatesuccess'));
+        Core::showSuccess(gettext('updatesuccess'));
     }
     private function __clone()
     {

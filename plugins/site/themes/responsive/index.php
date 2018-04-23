@@ -8,8 +8,8 @@ if (!isset($_SESSION)) {
 if ($_SESSION) {
     $user = $_SESSION;
 }
-$dbconfig = \PHPArcade\Core::getDBConfig();
-$metadata = \PHPArcade\Core::getPageMetaData();
+$dbconfig = PHPArcade\Core::getDBConfig();
+$metadata = PHPArcade\Core::getPageMetaData();
 include_once __DIR__ . '/scoresys.php';
 require_once __DIR__ . '/themeconfig.php';
 ?>

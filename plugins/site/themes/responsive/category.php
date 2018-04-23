@@ -3,9 +3,9 @@ if (!isset($_SESSION)) {
     session_start();
 }
 global $params;
-$dbconfig = \PHPArcade\Core::getDBConfig();
+$dbconfig = PHPArcade\Core::getDBConfig();
 $category = PHPArcade\Games::getCategory($params[1]);
-$games = \PHPArcade\Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']);
+$games = PHPArcade\Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']);
 $i = 0; ?>
 <div class="col-lg-12">
 	<?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>

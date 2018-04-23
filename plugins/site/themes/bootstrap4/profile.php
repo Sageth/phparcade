@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 global $params;
-$dbconfig = \PHPArcade\Core::getDBConfig(); ?>
+$dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <div class="card-block">
     <div class="col-lg-12 mt-4">
         <?php
@@ -13,7 +13,7 @@ $dbconfig = \PHPArcade\Core::getDBConfig(); ?>
             if ($user === false) {
             PHPArcade\Core::showError(gettext('noexist'));
             } else {
-                $games = \PHPArcade\Games::getGamesChamp($user['id']); ?>
+                $games = PHPArcade\Games::getGamesChamp($user['id']); ?>
                 <div class="col mt-4">
                     <img class="img img-responsive img-circle"
                          src="<?php echo PHPArcade\Users::userGetGravatar($user['username'], 80); ?>"
@@ -110,7 +110,7 @@ $dbconfig = \PHPArcade\Core::getDBConfig(); ?>
                         <?php
                         $i=0;
                         foreach ($games as $game) {
-                            $game = \PHPArcade\Games::getGame($game['nameid']);
+                            $game = PHPArcade\Games::getGame($game['nameid']);
                             $link = PHPArcade\Core::getLinkGame($game['id']);
                             if ($i === 0) {
                                 echo '<div class="card-deck mt-4">';

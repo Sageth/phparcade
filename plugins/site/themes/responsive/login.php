@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
 }
 
 global $params;
-$dbconfig = \PHPArcade\Core::getDBConfig(); ?>
+$dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <div class="col-lg-12">
 	<div class="panel panel-info">
 		<div class="panel-heading">

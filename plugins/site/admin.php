@@ -9,7 +9,7 @@ PHPArcade\Administrations::addSubLink(gettext('theme'), 'index.php?act=site&mthd
 PHPArcade\Administrations::addSubLink(gettext('featureconfig'), 'index.php?act=site&mthd=feature-config', 'site');
 function site_admin($mthd)
 {
-    $dbconfig = \PHPArcade\Core::getDBConfig();
+    $dbconfig = PHPArcade\Core::getDBConfig();
     $prerequisites = PHPArcade\Administrations::getPreReqs();
     $processUser = PHPArcade\Administrations::getProcessUser();
     switch ($mthd) {
@@ -37,7 +37,7 @@ function site_admin($mthd)
 			</div>
 			<div class="clearfix invisible"></div><?php
             /* Broken Block */
-            if (\PHPArcade\Games::getGamesBrokenCount() > 0) {
+            if (PHPArcade\Games::getGamesBrokenCount() > 0) {
                 ?>
 				<div class="col-lg-2 col-md-6">
 					<div class="panel panel-<?php echo $prerequisites['broken_games'][0]; ?>">
@@ -47,7 +47,7 @@ function site_admin($mthd)
 									<?php echo PHPArcade\Core::showGlyph($prerequisites['broken_games'][1], '5x'); ?>
 								</div>
 								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo \PHPArcade\Games::getGamesBrokenCount(); ?></div>
+									<div class="huge"><?php echo PHPArcade\Games::getGamesBrokenCount(); ?></div>
 									<div><?php echo gettext('notworking'); ?></div>
 								</div>
 							</div>
@@ -64,7 +64,7 @@ function site_admin($mthd)
             }
 
             /* Inactive Block */
-            if (\PHPArcade\Games::getGamesInactiveCount() > 0) {
+            if (PHPArcade\Games::getGamesInactiveCount() > 0) {
                 ?>
 				<div class="col-lg-2 col-md-6">
 					<div class="panel panel-<?php echo $prerequisites['inactive_games'][0]; ?>">
@@ -153,7 +153,7 @@ function site_admin($mthd)
 					</div>
 					<div class="panel-body">
 						<p class="text-info">
-							<?php echo gettext('tg'); ?>: <?php echo number_format(\PHPArcade\Games::getGamesCount('all')); ?>
+							<?php echo gettext('tg'); ?>: <?php echo number_format(PHPArcade\Games::getGamesCount('all')); ?>
 						</p>
 						<p class="text-info">
 							<?php echo gettext('totalgameplays'); ?>: <?php echo number_format(PHPArcade\Core::getPlayCountTotal()); ?>

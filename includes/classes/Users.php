@@ -297,10 +297,10 @@ class Users
             $stmt->bindParam(':memberid', $id);
             $stmt->bindParam(':admin', $admin);
             $stmt->execute();
-            \PHPArcade\Core::showSuccess(gettext('deletesuccess'));
+            Core::showSuccess(gettext('deletesuccess'));
         } catch (PDOException $e) {
-            \PHPArcade\Core::showWarning(gettext('deleteadminfailure'));
-            \PHPArcade\Core::showError($e->getMessage());
+            Core::showWarning(gettext('deleteadminfailure'));
+            Core::showError($e->getMessage());
         }
     }
     public static function userEdit($id)
@@ -315,7 +315,7 @@ class Users
         $stmt->bindParam(':twitter', $_POST['twitter_id']);
         $stmt->bindParam(':isadmin', $_POST['admin']);
         $stmt->execute();
-        \PHPArcade\Core::showSuccess(gettext('updatesuccess'));
+        Core::showSuccess(gettext('updatesuccess'));
     }
     public static function userVerifyPassword($username, $password)
     {

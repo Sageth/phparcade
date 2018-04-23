@@ -23,7 +23,7 @@ class Search
     }
     public static function getGoogleSearchID()
     {
-        $dbconfig = \PHPArcade\Core::getDBConfig();
+        $dbconfig = Core::getDBConfig();
         return $dbconfig['google_search_ID'];
     }
     private function __clone()

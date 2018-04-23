@@ -54,7 +54,7 @@ class Scores
     }
     public static function submitGameScore($gameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link, $sort = 'DESC')
     {
-        $time = \PHPArcade\Core::getCurrentDate();
+        $time = Core::getCurrentDate();
         self::updateGameChamp($gameid, $player, $score, $sort, $time);
         self::updateGameScore($gameid, $player, $score, $ip, $time, $sort, $link);
         return;
@@ -137,24 +137,24 @@ class Scores
                 [5] = Current epoch time */
         if (self::GetGameScorebyNameIDRowCount($nameid, $player) === 0) {
             self::InsertScoreIntoGameScore($nameid, $_SESSION['user']['id'], $score, $ip, $time);
-            \PHPArcade\Core::loadRedirect(gettext('scoresaved'), $link);
+            Core::loadRedirect(gettext('scoresaved'), $link);
         } else {
             $gamescore = self::GetGameScorebyNameID($nameid, $player);
             switch ($sort) {
                 case 'ASC':
                     if ($score < $gamescore['score']) {
                         self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
-                        \PHPArcade\Core::loadRedirect(gettext('scoresaved'), $link);
+                        Core::loadRedirect(gettext('scoresaved'), $link);
                     } else {
-                        \PHPArcade\Core::loadRedirect(gettext('scorewontsaved'), $link);
+                        Core::loadRedirect(gettext('scorewontsaved'), $link);
                     }
                     break;
                 case 'DESC':
                     if ($score >= $gamescore['score']) {
                         self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
-                        \PHPArcade\Core::loadRedirect(gettext('scoresaved'), $link);
+                        Core::loadRedirect(gettext('scoresaved'), $link);
                     } else {
-                        \PHPArcade\Core::loadRedirect(gettext('scorewontsaved'), $link);
+                        Core::loadRedirect(gettext('scorewontsaved'), $link);
                     }
                     break;
             }

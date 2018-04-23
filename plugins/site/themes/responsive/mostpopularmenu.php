@@ -2,10 +2,10 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$dbconfig = \PHPArcade\Core::getDBConfig(); ?>
+$dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <div class="mostpop_header_bg">&nbsp;</div>
 <div class="mostpop_content"><?php
-    $games = \PHPArcade\Games::getGames('all', 6, 10, '-all-', 5);
+    $games = PHPArcade\Games::getGames('all', 6, 10, '-all-', 5);
     $games_rand = array_rand($games, 5);
     //$num = count($games_rand);
     $i = 0;

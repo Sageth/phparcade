@@ -282,7 +282,7 @@ function media_admin($mthd)
             PHPArcade\Core::showSuccess(gettext('deletesuccess'));
             break;
         case 'delete-do':
-            $game = \PHPArcade\Games::getGame($_REQUEST['id']);
+            $game = PHPArcade\Games::getGame($_REQUEST['id']);
             if (isset($game['nameid'])) {
                 // Delete files
                 switch ($game['type']) {
@@ -370,7 +370,7 @@ function media_admin($mthd)
             PHPArcade\Games::updateGame($_POST['id']);
             break;
         case 'editgame-form':
-            $game = \PHPArcade\Games::getGame($_REQUEST['id']);
+            $game = PHPArcade\Games::getGame($_REQUEST['id']);
             $activechecked = ($game['active'] === 'Yes' || $game['active'] === 'on') ? 'checked' : ""; ?>
             <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
                 <div class="col-lg-4">
@@ -495,7 +495,7 @@ function media_admin($mthd)
             </form><?php
             break;
         case 'inactive':
-            $games = \PHPArcade\Games::getGamesInactive(); ?>
+            $games = PHPArcade\Games::getGamesInactive(); ?>
             <div class="col-lg-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -529,7 +529,7 @@ function media_admin($mthd)
             </div><?php
             break;
         case 'manage':
-            $games = \PHPArcade\Games::getGames($cat = 'all', 0, 10, 1, 5000); ?>
+            $games = PHPArcade\Games::getGames($cat = 'all', 0, 10, 1, 5000); ?>
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">

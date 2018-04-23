@@ -31,7 +31,7 @@ require_once __DIR__ . '/themeconfig.php';
                 break;
             case PHPArcade\Core::is('game'):
                 /** @noinspection PhpUndefinedVariableInspection */
-                $game = \PHPArcade\Games::getGame($params[1]); ?>
+                $game = PHPArcade\Games::getGame($params[1]); ?>
                 <meta property="og:type" content="video.movie"/>
                 <meta property="og:title" content="<?php echo $game['name'];?>"/>
                 <meta property="og:image" content="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"/>

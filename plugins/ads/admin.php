@@ -63,7 +63,7 @@ function ads_admin($mthd)
             break;
         case 'addad-do':
             if ($_POST['name'] == "" || $_POST['code'] == "") {
-                \PHPArcade\Core::showWarning(gettext('fillallerror'));
+                PHPArcade\Core::showWarning(gettext('fillallerror'));
             } else {
                 PHPArcade\Ads::insertAd(null, $_POST['name'], $_POST['code'], $_POST['location'], $_POST['advertisername'], $_POST['adcomment']);
             }
@@ -127,7 +127,7 @@ function ads_admin($mthd)
             break;
         case 'editad-do':
             if ($_POST['name'] == "" || $_POST['code'] == "") {
-                \PHPArcade\Core::showWarning(gettext('fillallerror'));
+                PHPArcade\Core::showWarning(gettext('fillallerror'));
             } else {
                 PHPArcade\Ads::updateAd($_POST['id'], $_POST['name'], $_POST['code'], $_POST['location'], $_POST['advertisername'], $_POST['adcomment']);
             }

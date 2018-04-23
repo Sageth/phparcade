@@ -1,4 +1,4 @@
-<?php $dbconfig = \PHPArcade\Core::getDBConfig(); ?>
+<?php $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <div class="card-deck mt-4">
     <div class="card">
         <div class="card-header">
@@ -27,7 +27,7 @@
         <div class="card-header">
             <h2><?php echo gettext('passwordrecovery');?></h2>
         </div>
-        <?php \PHPArcade\Core::showWarning(gettext('recoveryinstructions')); ?>
+        <?php PHPArcade\Core::showWarning(gettext('recoveryinstructions')); ?>
         <div class="card-body">
             <form class="form-signin" autocomplete="off" action="<?php echo SITE_URL; ?>" method="post">
                 <div class="form-label-group">
@@ -65,29 +65,29 @@
                         echo 'eek';
                         break;
                     case 'confirmed':
-                        \PHPArcade\Core::doEvent('register_confirm');
-                        \PHPArcade\Core::showSuccess(gettext('registerconfirm'));
+                        PHPArcade\Core::doEvent('register_confirm');
+                        PHPArcade\Core::showSuccess(gettext('registerconfirm'));
                         break;
                     case 'emailconf':
-                        \PHPArcade\Core::showSuccess(gettext('emailconf'));
+                        PHPArcade\Core::showSuccess(gettext('emailconf'));
                         break;
                     case 'passwordchangedsent':
-                        \PHPArcade\Core::showSuccess(gettext('passwordchangedsent'));
+                        PHPArcade\Core::showSuccess(gettext('passwordchangedsent'));
                         break;
                     case 'recoveryemailsent':
-                        \PHPArcade\Core::showSuccess(gettext('recoveryemailsent'));
+                        PHPArcade\Core::showSuccess(gettext('recoveryemailsent'));
                         break;
                     case 'emailinvalid':
-                        \PHPArcade\Core::showError(gettext('emailinvaliderror'));
+                        PHPArcade\Core::showError(gettext('emailinvaliderror'));
                         break;
                     case 'generic':
-                        \PHPArcade\Core::showError(gettext('genericerror'));
+                        PHPArcade\Core::showError(gettext('genericerror'));
                         break;
                     case 'notallfields':
-                        \PHPArcade\Core::showWarning(gettext('allfieldserror'));
+                        PHPArcade\Core::showWarning(gettext('allfieldserror'));
                         break;
                     case 'usertaken':
-                        \PHPArcade\Core::showWarning(gettext('usertaken'));
+                        PHPArcade\Core::showWarning(gettext('usertaken'));
                         break;
                     default:
                 }
