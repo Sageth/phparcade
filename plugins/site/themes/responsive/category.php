@@ -3,12 +3,12 @@ if (!isset($_SESSION)) {
     session_start();
 }
 global $params;
-$dbconfig = Core::getInstance()->getDBConfig();
-$category = Games::getCategory($params[1]);
-$games = Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']);
+$dbconfig = \PHPArcade\Core::getDBConfig();
+$category = PHPArcade\Games::getCategory($params[1]);
+$games = \PHPArcade\Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']);
 $i = 0; ?>
 <div class="col-lg-12">
-	<?php echo Ads::getInstance()->showAds('Responsive'); ?>
+	<?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
 	<div class="clearfix invisible"></div>
 	<div class="panel panel-info">
 		<div class="panel-heading">
@@ -29,7 +29,7 @@ $i = 0; ?>
             foreach ($games as $game) {
                 $game['desc'] = mb_strlen($game['desc']) > 150 ? substr($game['desc'], 0, 150) . '...' : $game['desc'];
                 $game['name'] = mb_strlen($game['name']) > 50 ? substr($game['name'], 0, 50) . '...' : $game['name'];
-                $link = Core::getLinkGame($game['id']); ?>
+                $link = PHPArcade\Core::getLinkGame($game['id']); ?>
 				<div class="col-md-4 col-md-4">
 					<div class="thumbnail">
 						<a href="<?php echo $link; ?>"><?php
@@ -64,11 +64,11 @@ $i = 0; ?>
 		</div>
 		<div class="text-center">
 			<ul class="pagination"><?php
-                $pages = Core::getPages($category['name']);
+                $pages = PHPArcade\Core::getPages($category['name']);
                 for ($i = 0; $i < $pages; ++$i) {
                     ?>
 					<li>
-						<a href="<?php echo Core::getLinkCategory($category['name'], $i + 1); ?>"
+						<a href="<?php echo PHPArcade\Core::getLinkCategory($category['name'], $i + 1); ?>"
 						   class="paginate_button" aria-controls="dataTables-example" tabindex="0">
 							<?php echo $i + 1; ?>
 						</a>

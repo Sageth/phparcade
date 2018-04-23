@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
+
+use PDOException;
 
 class Users
 {
@@ -80,7 +82,7 @@ class Users
     }
     public static function passwordRecoveryForm()
     {
-        $dbconfig = Core::getInstance()->getDBConfig();
+        $dbconfig = Core::getDBConfig();
         if ($dbconfig['passwordrecovery'] === 'on')
         { ?>
             <form action='<?php echo SITE_URL; ?>' method='post'><br/>
@@ -99,8 +101,8 @@ class Users
     }
     public static function passwordRecovery()
     {
-        $dbconfig = Core::getInstance()->getDBConfig();
-        $inicfg = Core::getInstance()->getINIConfig();
+        $dbconfig = Core::getDBConfig();
+        $inicfg = Core::getINIConfig();
         $status = '';
         if ($dbconfig['passwordrecovery'] === 'on') {
             /** @noinspection PhpUndefinedVariableInspection */
@@ -161,7 +163,7 @@ class Users
                     $stmt->nextRowset();
                     /* Do the actual update of the password in the database */
                     self::userPasswordUpdatebyEmail($password, $username, $email);
-                } catch (Exception $e) {
+                } catch (PDOException $e) {
                     $status = 'emailfail'; ?>
                     <p class="bg-danger">
                         <?php echo gettext('emailfail');
@@ -195,8 +197,8 @@ class Users
     }
     public static function userAdd($username, $email, $status = "")
     {
-        $dbconfig = Core::getInstance()->getDBConfig();
-        $inicfg = Core::getInstance()->getINIConfig();
+        $dbconfig = Core::getDBConfig();
+        $inicfg = Core::getINIConfig();
         if (!empty($username) || !empty($email)) {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetUsernameOREmail(:username, :useremail);');
             $stmt->bindParam(':username', $username);
@@ -250,12 +252,13 @@ class Users
                         /** @noinspection PhpUndefinedMethodInspection */
                         $mail->send();
                         $status = 'confemail';
-                    } catch (Exception $e) {
+                    } catch (PDOException $e) {
                         $status = 'emailfail'; ?>
                         <p class="bg-danger">
                             <?php echo gettext('emailfail');
                         if ($dbconfig['emaildebug'] > 0) {
                             /** @noinspection PhpUndefinedFieldInspection */
+                            /** @noinspection PhpUndefinedVariableInspection */
                             $mail->ErrorInfo;
                         } ?>
                         </p><?php
@@ -294,10 +297,10 @@ class Users
             $stmt->bindParam(':memberid', $id);
             $stmt->bindParam(':admin', $admin);
             $stmt->execute();
-            Core::showSuccess(gettext('deletesuccess'));
+            \PHPArcade\Core::showSuccess(gettext('deletesuccess'));
         } catch (PDOException $e) {
-            Core::showWarning(gettext('deleteadminfailure'));
-            Core::showError($e->getMessage());
+            \PHPArcade\Core::showWarning(gettext('deleteadminfailure'));
+            \PHPArcade\Core::showError($e->getMessage());
         }
     }
     public static function userEdit($id)
@@ -312,7 +315,7 @@ class Users
         $stmt->bindParam(':twitter', $_POST['twitter_id']);
         $stmt->bindParam(':isadmin', $_POST['admin']);
         $stmt->execute();
-        Core::showSuccess(gettext('updatesuccess'));
+        \PHPArcade\Core::showSuccess(gettext('updatesuccess'));
     }
     public static function userVerifyPassword($username, $password)
     {

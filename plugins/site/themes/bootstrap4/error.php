@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
     session_start();
     $user = $_SESSION['user'];
 }
-$dbconfig = Core::getInstance()->getDBConfig();
+$dbconfig = \PHPArcade\Core::getDBConfig();
 global $params; ?>
 <div class="col-lg-12">
 	<div class="card card text-white bg-info">
@@ -15,7 +15,7 @@ global $params; ?>
             </h1>
 		</div>
 		<div class="card-body"><?php
-            Core::returnStatusCode(404);
+            PHPArcade\Core::returnStatusCode(404);
             echo gettext('Error'); ?>!
 		</div>
 	</div>

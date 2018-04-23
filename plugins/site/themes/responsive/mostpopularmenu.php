@@ -2,16 +2,16 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$dbconfig = Core::getInstance()->getDBConfig(); ?>
+$dbconfig = \PHPArcade\Core::getDBConfig(); ?>
 <div class="mostpop_header_bg">&nbsp;</div>
 <div class="mostpop_content"><?php
-    $games = Games::getGames('all', 6, 10, '-all-', 5);
+    $games = \PHPArcade\Games::getGames('all', 6, 10, '-all-', 5);
     $games_rand = array_rand($games, 5);
     //$num = count($games_rand);
     $i = 0;
     foreach ($games_rand as $game => $gamevalue) {
         ++$i;
-        $link = Core::getLinkGame($games[$gamevalue]['id']);
+        $link = PHPArcade\Core::getLinkGame($games[$gamevalue]['id']);
         if (mb_strlen($games[$gamevalue]['desc']) > 35) {
             $games[$gamevalue]['desc'] = substr($games[$gamevalue]['desc'], 0, 35) . ' ..';
         }

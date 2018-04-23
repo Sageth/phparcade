@@ -1,12 +1,15 @@
 <?php
-declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
+
+use PDO;
+use PDOException;
+
 class mySQL
 {
     protected static $db;
     private function __construct()
     {
-        $inicfg = Core::getInstance()->getINIConfig();
+        $inicfg = \PHPArcade\Core::getINIConfig();
         try {
             // assign PDO object to db variable
             self::$db = new PDO($inicfg['database']['driver'] . ':host=' . $inicfg['database']['host'] . ';port=' .

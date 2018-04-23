@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
+
+use PDO;
 
 class Scores
 {
@@ -52,7 +54,7 @@ class Scores
     }
     public static function submitGameScore($gameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link, $sort = 'DESC')
     {
-        $time = Core::getCurrentDate();
+        $time = \PHPArcade\Core::getCurrentDate();
         self::updateGameChamp($gameid, $player, $score, $sort, $time);
         self::updateGameScore($gameid, $player, $score, $ip, $time, $sort, $link);
         return;
@@ -135,24 +137,24 @@ class Scores
                 [5] = Current epoch time */
         if (self::GetGameScorebyNameIDRowCount($nameid, $player) === 0) {
             self::InsertScoreIntoGameScore($nameid, $_SESSION['user']['id'], $score, $ip, $time);
-            Core::loadRedirect(gettext('scoresaved'), $link);
+            \PHPArcade\Core::loadRedirect(gettext('scoresaved'), $link);
         } else {
             $gamescore = self::GetGameScorebyNameID($nameid, $player);
             switch ($sort) {
                 case 'ASC':
                     if ($score < $gamescore['score']) {
                         self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
-                        Core::loadRedirect(gettext('scoresaved'), $link);
+                        \PHPArcade\Core::loadRedirect(gettext('scoresaved'), $link);
                     } else {
-                        Core::loadRedirect(gettext('scorewontsaved'), $link);
+                        \PHPArcade\Core::loadRedirect(gettext('scorewontsaved'), $link);
                     }
                     break;
                 case 'DESC':
                     if ($score >= $gamescore['score']) {
                         self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
-                        Core::loadRedirect(gettext('scoresaved'), $link);
+                        \PHPArcade\Core::loadRedirect(gettext('scoresaved'), $link);
                     } else {
-                        Core::loadRedirect(gettext('scorewontsaved'), $link);
+                        \PHPArcade\Core::loadRedirect(gettext('scorewontsaved'), $link);
                     }
                     break;
             }

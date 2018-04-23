@@ -1,11 +1,11 @@
 <?php
 function pages_links()
 {
-    Administrations::addLink(gettext('pages'), 'index.php?act=pages');
+    PHPArcade\Administrations::addLink(gettext('pages'), 'index.php?act=pages');
 }
 
-Administrations::addSubLink(gettext('add'), 'index.php?act=pages&mthd=addpage-form', 'pages');
-Administrations::addSubLink(gettext('manage'), 'index.php?act=pages&mthd=manage', 'pages');
+PHPArcade\Administrations::addSubLink(gettext('add'), 'index.php?act=pages&mthd=addpage-form', 'pages');
+PHPArcade\Administrations::addSubLink(gettext('manage'), 'index.php?act=pages&mthd=manage', 'pages');
 /**
  * @param $mthd
  */
@@ -52,14 +52,14 @@ function pages_admin($mthd)
 				</div>
 				<input type='hidden' name='act' value='pages'/>
 				<input type='hidden' name='mthd' value='addpage-do'/>
-				<?php Pages::getSubmitButton();?>
+				<?php PHPArcade\Pages::getSubmitButton();?>
 			</form><?php
             break;
         case 'addpage-do':
             if (html_entity_decode($_POST['title']) == "" || html_entity_decode($_POST['content']) == "") {
-                Core::showWarning(gettext('allfieldserror'));
+                \PHPArcade\Core::showWarning(gettext('allfieldserror'));
             } else {
-                Pages::pageAdd(
+                PHPArcade\Pages::pageAdd(
                     null,
                                 html_entity_decode($_POST['title']),
                                 html_entity_decode($_POST['content']),
@@ -69,8 +69,8 @@ function pages_admin($mthd)
             }
             break;
         case 'editpage-form':
-            $page = Pages::getPage($_REQUEST['id']);
-            $code = htmlentities('<?php echo Core::getLinkPage(' . $page['id'] . ');?>', ENT_QUOTES); ?>
+            $page = PHPArcade\Pages::getPage($_REQUEST['id']);
+            $code = htmlentities('<?php echo \PHPArcade\Core::getLinkPage(' . $page['id'] . ');?>', ENT_QUOTES); ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
 				<div class="col-lg-4">
 					<div class="panel panel-default">
@@ -130,23 +130,23 @@ function pages_admin($mthd)
 				<input type='hidden' name='act' value='pages'/>
 				<input type='hidden' name='mthd' value='editpage-do'/>
 				<input type='hidden' name='id' value='<?php echo $page['id']; ?>'/>
-				<?php Pages::getSubmitButton();?>
+				<?php PHPArcade\Pages::getSubmitButton();?>
 			</form><?php
             break;
         case 'editpage-do':
             if ($_POST['title'] == "" || $_POST['content'] == "") {
-                Core::showWarning(gettext('allfieldserror'));
+                \PHPArcade\Core::showWarning(gettext('allfieldserror'));
             } else {
-                Pages::pageUpdate($_POST['id'], $_POST['title'], $_POST['content'], $_POST['description'], $_POST['keywords']);
-                Core::showSuccess(gettext('updatesuccess'));
+                PHPArcade\Pages::pageUpdate($_POST['id'], $_POST['title'], $_POST['content'], $_POST['description'], $_POST['keywords']);
+                PHPArcade\Core::showSuccess(gettext('updatesuccess'));
             }
             break;
         case 'delete-do':
-            Pages::pageDelete($_REQUEST['id']);
+            PHPArcade\Pages::pageDelete($_REQUEST['id']);
             break;
         default:
             // case "": and case "manage":
-            $pages = Pages::getPages(); ?>
+            $pages = PHPArcade\Pages::getPages(); ?>
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -171,9 +171,9 @@ function pages_admin($mthd)
 										<td><?php echo $page['title']; ?></td>
 										<td><?php echo $page['content']; ?></td>
 										<td>
-											<?php Pages::getEditButton($page['id'], 'pages', 'editpage-form', gettext('edit')); ?>
+											<?php PHPArcade\Pages::getEditButton($page['id'], 'pages', 'editpage-form', gettext('edit')); ?>
 											&nbsp;
-											<?php Pages::getDeleteButton($page['id'], 'pages'); ?>
+											<?php PHPArcade\Pages::getDeleteButton($page['id'], 'pages'); ?>
 										</td>
 										</tr><?php
                                     } ?>

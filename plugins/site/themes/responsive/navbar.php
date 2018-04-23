@@ -19,7 +19,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right"><?php
-                if (!Users::isUserLoggedIn()) {
+                if (!PHPArcade\Users::isUserLoggedIn()) {
                     ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -31,7 +31,7 @@
 					</li>
 					<li class="active">
 						<a href="<?php
-                            echo Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
+                            echo PHPArcade\Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
 							<?php echo gettext('login'); ?>
 						</a>
 					</li><?php

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
 
 class Pages
 {
@@ -20,7 +20,7 @@ class Pages
         $stmt->bindParam(':pageid', $id);
         $stmt->execute();
         if ($stmt->rowCount() !== 1) {
-            die(Core::returnStatusCode(404));
+            die(\PHPArcade\Core::returnStatusCode(404));
         } else {
             return $stmt->fetch();
         }
@@ -84,7 +84,7 @@ class Pages
         $stmt = mySQL::getConnection()->prepare('CALL sp_Pages_DeletePagebyID(:pageid);');
         $stmt->bindParam(':pageid', $id);
         $stmt->execute();
-        Core::showSuccess(gettext('deletesuccess'));
+        \PHPArcade\Core::showSuccess(gettext('deletesuccess'));
     }
     public static function pageAdd($id = null, $title, $content, $keywords, $description)
     {
@@ -96,7 +96,7 @@ class Pages
         $stmt->bindParam(':pagekeywords', $keywords);
         $stmt->bindParam(':pagedescription', $description);
         $stmt->execute();
-        Core::showSuccess(gettext('addsuccess'));
+        \PHPArcade\Core::showSuccess(gettext('addsuccess'));
     }
     public static function pageUpdate($id, $title, $content, $description, $keywords)
     {

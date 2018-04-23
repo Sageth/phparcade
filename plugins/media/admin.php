@@ -1,14 +1,14 @@
 <?php
 function media_links()
 {
-    Administrations::addLink(gettext('gamesmedia'), 'index.php?act=media');
+    PHPArcade\Administrations::addLink(gettext('gamesmedia'), 'index.php?act=media');
 }
 
-Administrations::addSubLink(gettext('addcategory'), 'index.php?act=media&amp;mthd=addcat-form', 'media');
-Administrations::addSubLink(gettext('addmedia'), 'index.php?act=media&amp;mthd=addgame-form', 'media');
-Administrations::addSubLink(gettext('inactivegames'), 'index.php?act=media&amp;mthd=inactive', 'media');
-Administrations::addSubLink(gettext('managecat'), 'index.php?act=media&amp;mthd=manage-cat', 'media');
-Administrations::addSubLink(gettext('managemedia'), 'index.php?act=media&amp;mthd=manage', 'media');
+PHPArcade\Administrations::addSubLink(gettext('addcategory'), 'index.php?act=media&amp;mthd=addcat-form', 'media');
+PHPArcade\Administrations::addSubLink(gettext('addmedia'), 'index.php?act=media&amp;mthd=addgame-form', 'media');
+PHPArcade\Administrations::addSubLink(gettext('inactivegames'), 'index.php?act=media&amp;mthd=inactive', 'media');
+PHPArcade\Administrations::addSubLink(gettext('managecat'), 'index.php?act=media&amp;mthd=manage-cat', 'media');
+PHPArcade\Administrations::addSubLink(gettext('managemedia'), 'index.php?act=media&amp;mthd=manage', 'media');
 /**
  * @param $mthd
  */
@@ -16,11 +16,11 @@ function media_admin($mthd)
 {
     switch ($mthd) {
         case 'addcat-do':
-            $order = Games::getCategoryIDMax();
+            $order = PHPArcade\Games::getCategoryIDMax();
             if ($_POST['name'] == "") {
-                Core::showWarning(gettext('allfieldserror'));
+                PHPArcade\Core::showWarning(gettext('allfieldserror'));
             } else {
-                Games::insertCategory(null, $_POST['name'], $_POST['desc'], $_POST['keywords'], $order, $_POST['type']);
+                PHPArcade\Games::insertCategory(null, $_POST['name'], $_POST['desc'], $_POST['keywords'], $order, $_POST['type']);
             }
             break;
         case 'addcat-form': ?>
@@ -68,22 +68,22 @@ function media_admin($mthd)
                 </div>
                 <input type='hidden' name='act' value='media'/>
                 <input type='hidden' name='mthd' value='addcat-do'/>
-                <?php Pages::getSubmitButton(); ?>
+                <?php PHPArcade\Pages::getSubmitButton(); ?>
             </form><?php
             break;
         case 'addgame-do':
             // TODO: Break this up into smaller functions
-            $dbconfig = Core::getInstance()->getDBConfig();
+            $dbconfig = PHPArcade\Core::getDBConfig();
 
             //Check that the game isn't already added
             $gameid =
                 (!empty(strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)))) ? strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
-            $rowcount1 = Games::getGameCountByNameID($gameid);
-            $rowcount2 = Games::getGameCountByNameID(strtolower($_POST['name']));
+            $rowcount1 = PHPArcade\Games::getGameCountByNameID($gameid);
+            $rowcount2 = PHPArcade\Games::getGameCountByNameID(strtolower($_POST['name']));
             if ($rowcount1 == 0 && $rowcount2 == 0) { // If the game SWF hasn't already been added...
                 //if release date wasn't supplied, insert in today's datetime
                 if ($_POST['release_date'] == "") {
-                    $release_date = Core::getCurrentDate();
+                    $release_date = PHPArcade\Core::getCurrentDate();
                 } else {
                     list($year, $month, $day) = explode('-', $_POST['release_date']);
                     $release_date = mktime(0, 0, 0, $month, $day, $year);
@@ -113,17 +113,17 @@ function media_admin($mthd)
                     //var_dump(json_decode($json,true));
                     if ($type == 'SWF' && $_FILES['swffile']['error'] == 0) { // 0 Means uploaded without error?>
                         <div class="col-md-6 text-left"><?php
-                            Core::showSuccess(gettext('uploadsuccess') . ': ' . $swffile); ?>
+                            PHPArcade\Core::showSuccess(gettext('uploadsuccess') . ': ' . $swffile); ?>
                         </div>
                         <div class="clearfix invisible"></div><?php
                     } else {
                         ?>
                         <div class="col-md-6 text-left"><?php
-                            Core::showError(gettext('uploadfailed') . ': ' . $swffile); ?>
+                            PHPArcade\Core::showError(gettext('uploadfailed') . ': ' . $swffile); ?>
                         </div>
                         <div class="clearfix invisible"></div>
                         <div class="col-md-6 text-left"><?php
-                            Core::showError(gettext('errorcode') . $_FILES['swffile']['error']); ?>
+                            PHPArcade\Core::showError(gettext('errorcode') . $_FILES['swffile']['error']); ?>
                         </div>
                         <div class="clearfix invisible"></div><?php
                         return;
@@ -134,7 +134,7 @@ function media_admin($mthd)
                     $gheight = isset($gheight) ? $dimensions[1] : $dbconfig['defgheight'];
                 } else { // If no file was uploaded?>
                     <div class="col-md-6 text-left"><?php
-                        Core::showWarning(gettext('noswffile')); ?>
+                        PHPArcade\Core::showWarning(gettext('noswffile')); ?>
                     </div>
                     <div class="clearfix invisible"></div><?php //Throw a warning
                     $type = 'CustomCode'; // Set Custom Code type
@@ -171,21 +171,21 @@ function media_admin($mthd)
                     $nameid = empty($_FILES['swffile']['name']) ? strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
 
                     try {
-                        Games::convertImage($realimage, $nameid);
-                        Games::addGame(null, $nameid, $gameorder = -1, $gwidth, $gheight, $type, $playcount = 0, $release_date);
-                        Games::updateGameOrder();
+                        PHPArcade\Games::convertImage($realimage, $nameid);
+                        PHPArcade\Games::addGame(null, $nameid, $gameorder = -1, $gwidth, $gheight, $type, $playcount = 0, $release_date);
+                        PHPArcade\Games::updateGameOrder();
                         return;
                     } catch (Exception $e) {
-                        Core::showError(gettext('error') . ' ' . $e->getMessage());
+                        PHPArcade\Core::showError(gettext('error') . ' ' . $e->getMessage());
                     }
                     return;
                 } else {
                     //Images are required
-                    Core::showError(gettext('selectafileerror'));
+                    PHPArcade\Core::showError(gettext('selectafileerror'));
                     return;
                 }
             } else {
-                Core::showError(gettext('nameiderror'));
+                PHPArcade\Core::showError(gettext('nameiderror'));
             }
             break;
         case "":
@@ -203,7 +203,7 @@ function media_admin($mthd)
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('category'); ?></label>
-                                <?php echo Games::getCategorySelect('cat'); ?>
+                                <?php echo PHPArcade\Games::getCategorySelect('cat'); ?>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('release_date'); ?></label>
@@ -272,17 +272,17 @@ function media_admin($mthd)
                 </div>
                 <input type='hidden' name='act' value='media'/>
                 <input type='hidden' name='mthd' value='addgame-do'/>
-                <?php Pages::getSubmitButton(); ?>
+                <?php PHPArcade\Pages::getSubmitButton(); ?>
             </form><?php
             break;
         case 'delete-cat-do':
             /* Delete the category and then reorder them */
-            Games::deleteCategory($_REQUEST['id']);
-            Games::updateCategoryOrder(Games::getCategories('ASC'));
-            Core::showSuccess(gettext('deletesuccess'));
+            PHPArcade\Games::deleteCategory($_REQUEST['id']);
+            PHPArcade\Games::updateCategoryOrder(PHPArcade\Games::getCategories('ASC'));
+            PHPArcade\Core::showSuccess(gettext('deletesuccess'));
             break;
         case 'delete-do':
-            $game = Games::getGame($_REQUEST['id']);
+            $game = \PHPArcade\Games::getGame($_REQUEST['id']);
             if (isset($game['nameid'])) {
                 // Delete files
                 switch ($game['type']) {
@@ -298,23 +298,23 @@ function media_admin($mthd)
                 }
                 $result2 = unlink(IMG_DIR . $game['nameid'] . EXT_IMG);
                 if (!$result) {
-                    Core::showWarning(gettext('unabledeleteswferror'));
+                    PHPArcade\Core::showWarning(gettext('unabledeleteswferror'));
                 }
                 if (!$result2) {
-                    Core::showWarning(gettext('unabledeleteimgerror'));
+                    PHPArcade\Core::showWarning(gettext('unabledeleteimgerror'));
                 }
-                Games::deleteGame($_REQUEST['id']);
-                Games::updateGameOrder();
-                Core::showSuccess(gettext('deletesuccess'));
+                PHPArcade\Games::deleteGame($_REQUEST['id']);
+                PHPArcade\Games::updateGameOrder();
+                PHPArcade\Core::showSuccess(gettext('deletesuccess'));
             } else {
-                Core::showWarning(gettext('nogameselected'));
+                PHPArcade\Core::showWarning(gettext('nogameselected'));
             }
             break;
         case 'editcat-do':
-            Games::updateCategory(Core::encodeHTMLEntity($_POST['id']), Core::encodeHTMLEntity($_POST['name']), Core::encodeHTMLEntity($_POST['type']), Core::encodeHTMLEntity($_POST['desc']), Core::encodeHTMLEntity($_POST['keywords']));
+            PHPArcade\Games::updateCategory(PHPArcade\Core::encodeHTMLEntity($_POST['id']), PHPArcade\Core::encodeHTMLEntity($_POST['name']), PHPArcade\Core::encodeHTMLEntity($_POST['type']), PHPArcade\Core::encodeHTMLEntity($_POST['desc']), PHPArcade\Core::encodeHTMLEntity($_POST['keywords']));
             break;
         case 'editcat-form':
-            $category = Games::getCategoryID($_REQUEST['id']); ?>
+            $category = PHPArcade\Games::getCategoryID($_REQUEST['id']); ?>
             <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
                 <div class="col-lg-4">
                     <div class="panel panel-default">
@@ -357,20 +357,20 @@ function media_admin($mthd)
                 <input type='hidden' name='act' value='media'/>
                 <input type='hidden' name='mthd' value='editcat-do'/>
                 <input type='hidden' name='id' value='<?php echo $category['id']; ?>'/>
-                <?php Pages::getSubmitButton(); ?>
+                <?php PHPArcade\Pages::getSubmitButton(); ?>
             </form><?php
             break;
         case 'editgame-do':
             if ($_POST['release_date'] == "") {
-                $_POST['release_date'] = Core::getCurrentDate();
+                $_POST['release_date'] = PHPArcade\Core::getCurrentDate();
             } else {
                 list($year, $month, $day) = explode('-', $_POST['release_date']);
                 $_POST['release_date'] = mktime(0, 0, 0, $month, $day, $year);
             }
-            Games::updateGame($_POST['id']);
+            PHPArcade\Games::updateGame($_POST['id']);
             break;
         case 'editgame-form':
-            $game = Games::getGame($_REQUEST['id']);
+            $game = \PHPArcade\Games::getGame($_REQUEST['id']);
             $activechecked = ($game['active'] === 'Yes' || $game['active'] === 'on') ? 'checked' : ""; ?>
             <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
                 <div class="col-lg-4">
@@ -399,7 +399,7 @@ function media_admin($mthd)
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('category'); ?></label>
-                                <?php echo Games::getCategorySelect('cat', $game['cat']); ?>
+                                <?php echo PHPArcade\Games::getCategorySelect('cat', $game['cat']); ?>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('description'); ?></label>
@@ -491,11 +491,11 @@ function media_admin($mthd)
                 <input type='hidden' name='id' value='<?php echo $game['id']; ?>'/>
                 <input type='hidden' name='act' value='media'/>
                 <input type='hidden' name='mthd' value='editgame-do'/>
-                <?php Pages::getSubmitButton(); ?>
+                <?php PHPArcade\Pages::getSubmitButton(); ?>
             </form><?php
             break;
         case 'inactive':
-            $games = Games::getGamesInactive(); ?>
+            $games = \PHPArcade\Games::getGamesInactive(); ?>
             <div class="col-lg-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -514,9 +514,9 @@ function media_admin($mthd)
                                     <tr class="odd gradeA">
                                     <td><?php echo $game['name']; ?></td>
                                     <td>
-                                        <?php Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
+                                        <?php PHPArcade\Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
                                         &nbsp;
-                                        <?php Pages::getDeleteButton($game['id'], 'media'); ?>
+                                        <?php PHPArcade\Pages::getDeleteButton($game['id'], 'media'); ?>
                                     </td>
                                     </tr><?php
                                 } ?>
@@ -529,7 +529,7 @@ function media_admin($mthd)
             </div><?php
             break;
         case 'manage':
-            $games = Games::getGames($cat = 'all', 0, 10, 1, 5000); ?>
+            $games = \PHPArcade\Games::getGames($cat = 'all', 0, 10, 1, 5000); ?>
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -569,9 +569,9 @@ function media_admin($mthd)
                                             } ?>
                                                 <td><?php echo $game['cat']; ?></td>
                                                 <td class="col-lg-8">
-                                                    <?php Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
+                                                    <?php PHPArcade\Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
                                                     &nbsp;
-                                                    <?php Pages::getDeleteButton($game['id'], 'media'); ?>
+                                                    <?php PHPArcade\Pages::getDeleteButton($game['id'], 'media'); ?>
                                                 </td>
                                         </tr><?php
                                     } ?>
@@ -591,7 +591,7 @@ function media_admin($mthd)
             <script src="<?php echo JS_TABLEFILTER;?>" defer></script><?php
             break;
         case 'manage-cat':
-            $categories = Games::getCategories('ASC'); ?>
+            $categories = PHPArcade\Games::getCategories('ASC'); ?>
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -624,8 +624,8 @@ function media_admin($mthd)
                                             <td><?php echo $category['desc']; ?></td>
                                             <td><?php echo $category['type']; ?></td>
                                             <td>
-                                                <?php Pages::getEditButton($category['id'], 'media', 'editcat-form', gettext('edit')); ?>&nbsp;
-                                                <?php Pages::getDeleteButton($category['id'], 'media', 'delete-cat-do'); ?>
+                                                <?php PHPArcade\Pages::getEditButton($category['id'], 'media', 'editcat-form', gettext('edit')); ?>&nbsp;
+                                                <?php PHPArcade\Pages::getDeleteButton($category['id'], 'media', 'delete-cat-do'); ?>
                                             </td>
                                         </tr><?php
                                     } ?>

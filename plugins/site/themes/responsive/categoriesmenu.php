@@ -2,4 +2,4 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-Core::showCategoryList(Games::getCategories('ASC'));
+PHPArcade\Core::showCategoryList(PHPArcade\Games::getCategories('ASC'));

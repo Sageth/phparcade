@@ -1,5 +1,5 @@
 <?php
-Core::stopDirectAccess();
+\PHPArcade\Core::stopDirectAccess();
 if (!isset($_SESSION)) {
     session_start();
 }

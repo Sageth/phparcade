@@ -1,5 +1,5 @@
 <?php
-Core::stopDirectAccess();
+\PHPArcade\Core::stopDirectAccess();
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -42,13 +42,13 @@ $content = $content ?? ''; ?>
                     <!-- /.dropdown -->
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <?php echo Core::showGlyph('user'); ?><?php echo Core::showGlyph('caret-down'); ?>
+                            <?php echo \PHPArcade\Core::showGlyph('user'); ?><?php echo \PHPArcade\Core::showGlyph('caret-down'); ?>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
                             <li class="divider"></li>
                             <li>
                                 <a href="<?php echo SITE_URL . 'index.php?params=login/logout'; ?>">
-                                    <?php echo Core::showGlyph('sign-out'); ?>
+                                    <?php echo \PHPArcade\Core::showGlyph('sign-out'); ?>
                                     <?php echo gettext('logout'); ?>
                                 </a>
                             </li>
@@ -67,7 +67,7 @@ $content = $content ?? ''; ?>
                                         <input class="form-control" placeholder="Search...">
                                         <span class="input-group-btn">
 											<button class="btn btn-default" type="button">
-												<?php echo Core::showGlyph('search'); ?>
+												<?php echo \PHPArcade\Core::showGlyph('search'); ?>
 											</button>
 										</span>
                                     </div><!-- /input-group -->
@@ -75,7 +75,7 @@ $content = $content ?? ''; ?>
                             </li>
                             <li>
                                 <a href="index.php">
-                                    <?php echo Core::showGlyph('dashboard'); ?>
+                                    <?php echo \PHPArcade\Core::showGlyph('dashboard'); ?>
                                     &nbsp;
                                     <?php echo gettext('dashboard'); ?>
                                 </a>
@@ -92,7 +92,7 @@ $content = $content ?? ''; ?>
                                 } ?>
                                 <li>
                                     <a href="#">
-                                        <?php echo Core::showGlyph('wrench'); ?>
+                                        <?php echo \PHPArcade\Core::showGlyph('wrench'); ?>
                                         <?php echo $link; ?>
                                         <span class="fa arrow"></span>
                                     </a>

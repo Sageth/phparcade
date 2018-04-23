@@ -8,8 +8,8 @@ if (!isset($_SESSION)) {
 if ($_SESSION) {
     $user = $_SESSION;
 }
-$dbconfig = Core::getInstance()->getDBConfig();
-$metadata = Core::getPageMetaData();
+$dbconfig = \PHPArcade\Core::getDBConfig();
+$metadata = \PHPArcade\Core::getPageMetaData();
 include_once __DIR__ . '/scoresys.php';
 require_once __DIR__ . '/themeconfig.php';
 ?>
@@ -26,12 +26,12 @@ require_once __DIR__ . '/themeconfig.php';
 
         <!-- Run this first so you get your local CSS loaded before external JS -->
         <?php switch (true) {
-            case is('home'): ?>
+            case PHPArcade\Core::is('home'): ?>
                 <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>css/home.style.min.css" /><?php
                 break;
-            case is('game'):
+            case PHPArcade\Core::is('game'):
                 /** @noinspection PhpUndefinedVariableInspection */
-                $game = Games::getGame($params[1]); ?>
+                $game = PHPArcade\Games::getGame($params[1]); ?>
                 <meta property="og:type" content="video.movie"/>
                 <meta property="og:title" content="<?php echo $game['name'];?>"/>
                 <meta property="og:image" content="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"/>
@@ -39,7 +39,7 @@ require_once __DIR__ . '/themeconfig.php';
                 <meta property="og:description" content="<?php echo strip_tags($game['desc']); ?>"/>
                 <meta property="fb:app_id" content="<?php echo $dbconfig['facebook_appid']; ?>"/><?php
                 break;
-            case is('register'): ?>
+            case PHPArcade\Core::is('register'): ?>
                 <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>" defer></script><?php
             // no break
             default:
@@ -65,35 +65,35 @@ require_once __DIR__ . '/themeconfig.php';
             include_once INST_DIR . 'includes/js/Google/googletagmanager.php';
         }
         include_once __DIR__ . '/navbar.php';
-        if (true == is('home')) {
+        if (true == PHPArcade\Core::is('home')) {
             include_once __DIR__ . '/carousel.php';
         } ?>
         <!--Content Section -->
         <div class="container">
             <div class="row">
                 <?php switch (true) {
-                    case is('home'):
+                    case PHPArcade\Core::is('home'):
                         include_once __DIR__ . '/home.php';
                         break;
-                    case is('game'):
+                    case PHPArcade\Core::is('game'):
                         include_once __DIR__ . '/game.php';
                         break;
-                    case is('register'):
+                    case PHPArcade\Core::is('register'):
                         include_once __DIR__ . '/register.php';
                         break;
-                    case is('login'):
+                    case PHPArcade\Core::is('login'):
                         include_once __DIR__ . '/login.php';
                         break;
-                    case is('profile'):
+                    case PHPArcade\Core::is('profile'):
                         include_once __DIR__ . '/profile.php';
                         break;
-                    case is('category'):
+                    case PHPArcade\Core::is('category'):
                         include_once __DIR__ . '/category.php';
                         break;
-                    case is('page'):
+                    case PHPArcade\Core::is('page'):
                         include_once __DIR__ . '/page.php';
                         break;
-                    case is('search'):
+                    case PHPArcade\Core::is('search'):
                         include_once __DIR__ . '/search.php';
                         break;
                     default:
@@ -106,7 +106,7 @@ require_once __DIR__ . '/themeconfig.php';
         <script src="<?php echo JS_JQUERY; ?>" defer></script>
         <!--suppress XmlDefaultAttributeValue -->
         <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
-        <?php if (true == is('game')) {
+        <?php if (true == PHPArcade\Core::is('game')) {
                     ?>
             <!--suppress JSUnresolvedLibraryURL, XmlDefaultAttributeValue -->
             <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>"
@@ -147,7 +147,7 @@ require_once __DIR__ . '/themeconfig.php';
         </script>
         <script>
             <?php if (!empty($dbconfig['mixpanel_id'])) {
-                if (Users::isUserLoggedIn() === true) { ?>
+                if (PHPArcade\Users::isUserLoggedIn() === true) { ?>
                     mixpanel.register({
                         "$admin": "<?php echo $user['admin'];?>",
                         "$birthdate": "<?php echo $user['birth_date'];?>",

@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
 
 class Ads
 {
@@ -37,7 +37,7 @@ class Ads
         $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_Delete_ID(:adid);');
         $stmt->bindParam(':adid', $id);
         $stmt->execute();
-        Core::showSuccess(gettext('deletesuccess'));
+        \PHPArcade\Core::showSuccess(gettext('deletesuccess'));
     }
     public static function insertAd($id = null, $name, $code, $location, $advertisername, $comment)
     {
@@ -50,9 +50,9 @@ class Ads
         $stmt->bindParam(':advertiser', $advertisername);
         $stmt->bindParam(':adcomments', $comment);
         $stmt->execute();
-        Core::showSuccess(gettext('addsuccess'));
+        \PHPArcade\Core::showSuccess(gettext('addsuccess'));
     }
-    public static function showAds($location)
+    public static function showAds()
     {
         /* Displays ad on the front-end webpage */
         /* TODO: Add location to stored procedure */
@@ -72,7 +72,7 @@ class Ads
         $stmt->bindParam(':advertiser', $advertisername);
         $stmt->bindParam(':adcomments', $comment);
         $stmt->execute();
-        Core::showSuccess(gettext('updatesuccess'));
+        \PHPArcade\Core::showSuccess(gettext('updatesuccess'));
     }
     private function __clone()
     {

@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
 }
 
 global $params;
-$dbconfig = Core::getInstance()->getDBConfig(); ?>
+$dbconfig = \PHPArcade\Core::getDBConfig(); ?>
 <div class="col-lg-12">
 	<div class="card card text-white bg-info">
 		<div class="card-header">
@@ -14,20 +14,20 @@ $dbconfig = Core::getInstance()->getDBConfig(); ?>
             if ($params[1] === 'login') {
                 if ($params[2] === 'success') {
                     header('Location: //' . $_SERVER['SERVER_NAME']);
-                    Core::loadRedirect(gettext('loggedin'));
+                    PHPArcade\Core::loadRedirect(gettext('loggedin'));
                 } elseif ($params[2] === 'wrongup') {
                     header('Location: ' . SITE_URL . '/register/register.html');
                 } else {
                     header('Location: //' . $_SERVER['SERVER_NAME']);
                 }
             } elseif ($params[1] === 'logout') {
-                Users::userSessionEnd();
+                PHPArcade\Users::userSessionEnd();
             } elseif ($params[1] === 'recover') {
                 if ($params[2] === "" || empty($params[2]) || !isset($params[2])) {
-                    Users::passwordRecoveryForm(); ?><br/>
+                    PHPArcade\Users::passwordRecoveryForm(); ?><br/>
 					<?php echo gettext('emailwillbesentpw');
                 } elseif ($params[2] === 'do') {
-                    Users::passwordRecovery();
+                    PHPArcade\Users::passwordRecovery();
                 }
             } ?>
 		</div>

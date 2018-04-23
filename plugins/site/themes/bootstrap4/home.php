@@ -2,9 +2,9 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$dbconfig = Core::getInstance()->getDBConfig();
+$dbconfig = \PHPArcade\Core::getDBConfig();
 $i = 0;
-foreach (Games::getGamesHomePage() as $game) {
+foreach (\PHPArcade\Games::getGamesHomePage() as $game) {
     switch ($i){
         case 0:
             echo '<div class="card-deck mt-4">';
@@ -12,7 +12,7 @@ foreach (Games::getGamesHomePage() as $game) {
     } ?>
     <div class="card">
         <div class="card-body">
-            <a href="<?php echo Core::getLinkGame($game['id']); ?>">
+            <a href="<?php echo \PHPArcade\Core::getLinkGame($game['id']); ?>">
                 <img class="img-thumbnail rounded mx-auto d-block"
                      data-src="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"
                      alt="Play <?php echo $game['name']; ?> online for free!"
@@ -29,7 +29,7 @@ foreach (Games::getGamesHomePage() as $game) {
                     <?php echo $game['desc']; ?>
                 </p>
                 <p class="text-center">
-                    <a href="<?php echo Core::getLinkGame($game['id']); ?>" class="btn btn-primary">
+                    <a href="<?php echo \PHPArcade\Core::getLinkGame($game['id']); ?>" class="btn btn-primary">
                         <?php echo gettext('playnow'); ?>
                     </a>
                 </p>

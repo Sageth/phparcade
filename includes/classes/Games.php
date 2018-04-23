@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-Core::stopDirectAccess();
+namespace PHPArcade;
 
 class Games
 {
@@ -38,11 +38,16 @@ class Games
     }
     public static function convertImage($fromImage, $nameid)
     {
-        $dbconfig = Core::getInstance()->getDBConfig();
+        $dbconfig = Core::getDBConfig();
         //Load the file and convert to PNG
         $img = new \claviska\SimpleImage();
-        $img->fromFile($fromImage)->resize($dbconfig['twidth'], $dbconfig['theight'])->toFile(IMG_DIR .
-                                                                                              $nameid, 'image/png');
+        try
+        {
+            $img->fromFile($fromImage)->resize($dbconfig['twidth'], $dbconfig['theight'])->toFile(IMG_DIR .
+                $nameid, 'image/png');
+        } catch (\Exception $e)
+        {
+        }
         return;
     }
     public static function deleteCategory($id)
@@ -56,7 +61,7 @@ class Games
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_DeleteGamebyID(:gameid);');
         $stmt->bindParam(':gameid', $id);
         $stmt->execute();
-        Games::updateGameOrder();
+        self::updateGameOrder();
         Core::showSuccess(gettext('deletesuccess'));
     }
     public static function updateGameOrder()
@@ -79,7 +84,7 @@ class Games
             Limit End = 10,
             Page = "-all-",
             Games Per Page = 30 */
-        $dbconfig = Core::getInstance()->getDBConfig();
+        $dbconfig = Core::getDBConfig();
         $time = Core::getCurrentDate();
         if ($gamesperpage == -1 && isset($page)) {
             $gamesperpage = $dbconfig['gamesperpage'];

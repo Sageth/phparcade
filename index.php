@@ -1,19 +1,19 @@
 <?php
+
 require_once __DIR__ . '/cfg.php';
 
 $router = new Phroute\Phroute\RouteCollector();
 
-
 // Game Routing
 // catch http://phparcade.dev/game/2741/Sample.html
 $router->any(['/game/{id:i}/{passedName:.*}', 'game'], function ($id, $passedName) use (&$foundMatch) {
-    $game = Games::getGame($id);
-    $actualNameWithHtml = Core::getCleanURL($game['name']) . '.html';
+    $game = PHPArcade\Games::getGame($id);
+    $actualNameWithHtml = PHPArcade\Core::getCleanURL($game['name']) . '.html';
     if ($actualNameWithHtml != urldecode($passedName)) {
         header('Location: /game/'.$id.'/'.urlencode($actualNameWithHtml));
         return false;
     } else {
-        $_GET['params'] = 'game/'.$id.'/'. Core::getCleanURL($game['name']);
+        $_GET['params'] = 'game/'.$id.'/'. PHPArcade\Core::getCleanURL($game['name']);
     }
 });
 
@@ -24,7 +24,7 @@ $router->any('{route:.*}', function () {
 $response = (new Phroute\Phroute\Dispatcher($router->getData()))->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
 /* Enable debug logging in non-prod */
-$inicfg = Core::getInstance()->getINIConfig();
+$inicfg = PHPArcade\Core::getINIConfig();
 if ($inicfg['environment']['state'] === "dev") {
     error_reporting(-1);
     ini_set('display_errors', 'On');
@@ -32,8 +32,8 @@ if ($inicfg['environment']['state'] === "dev") {
 
 require_once INST_DIR . 'includes/first.php';
 
-Core::doEvent('pluginsloaded');
-Core::doEvent('theme_display');
+PHPArcade\Core::doEvent('pluginsloaded');
+PHPArcade\Core::doEvent('theme_display');
 
 /** @noinspection PhpUndefinedVariableInspection */
 /** @noinspection PhpIncludeInspection */

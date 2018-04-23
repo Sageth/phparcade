@@ -2,14 +2,14 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$games = Games::getGames('all', 0, 5, '-all-', -1);
+$games = PHPArcade\Games::getGames('all', 0, 5, '-all-', -1);
 $i = 0; ?>
 <!-- Carousel Section -->
 <div id="mainCarousel" class="carousel slide d-none d-md-block mt-4" data-ride="carousel">
     <div class="carousel-inner col-lg-8 mx-auto"><?php
         foreach ($games as $game) {
             ++$i;
-            $link = Core::getLinkGame($game['id']);
+            $link = PHPArcade\Core::getLinkGame($game['id']);
             if ($i === 1) {
                 echo '<div class="carousel-item active">';
             } else {
@@ -49,5 +49,4 @@ $i = 0; ?>
             </div>
             </div><?php
         } ?>
-    </div>
 </div>

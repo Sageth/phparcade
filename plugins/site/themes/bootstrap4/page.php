@@ -1,6 +1,6 @@
 <?php
 /** @noinspection PhpUndefinedVariableInspection */
-$page = Pages::getPage($params[1]); ?>
+$page = PHPArcade\Pages::getPage($params[1]); ?>
 <div class="row mt-4">
     <h1 class="page-header" itemprop="headline">
         <?php echo $page['title']; ?>
@@ -14,7 +14,7 @@ $page = Pages::getPage($params[1]); ?>
             </h3>
             <div class="card-body">
                 <p class="card-text"><?php
-                    echo Core::encodeHTMLEntity($page['content'], ENT_QUOTES); ?>
+                    echo PHPArcade\Core::encodeHTMLEntity($page['content'], ENT_QUOTES); ?>
                 </p>
             </div>
         </div>

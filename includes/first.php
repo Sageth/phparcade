@@ -1,6 +1,6 @@
 <?php
-Core::stopDirectAccess();
-if (!Administrations::isAdminArea()) {
+PHPArcade\Core::stopDirectAccess();
+if (!PHPArcade\Administrations::isAdminArea()) {
     $pathinfo = $_SERVER['PATH_INFO'] ?? getenv('PATH_INFO');
     if (empty($pathinfo)) {
         $pathinfo = $_SERVER['ORIG_PATH_INFO'] ?? getenv('ORIG_PATH_INFO');
@@ -17,14 +17,14 @@ if (!Administrations::isAdminArea()) {
         $act = $params[0];
     }
 }
-Core::loadLinks();
-Languages::loadLanguage();
+PHPArcade\Core::loadLinks();
+PHPArcade\Languages::loadLanguage();
 if (!isset($_SESSION)) {
     session_start();
 } else {
     $user = $_SESSION['user'];
 }
-$dbconfig = Core::getInstance()->getDBConfig();
+$dbconfig = \PHPArcade\Core::getDBConfig();
 /** @noinspection PhpUndefinedVariableInspection */
 $params[2] = $params[2] ?? "";
 /* This is the old 'exec.php' from each plugin folder, consolidated and in order */
@@ -35,9 +35,9 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
         case 'rss':
             header('Content-Type: application/rss+xml; charset=' . CHARSET);
             if ($params[1] == 'playcount') {
-                $array = Games::getGames('all', 0, $dbconfig['rssnumlatest'], '-all-', -1);
+                $array = PHPArcade\Games::getGames('all', 0, $dbconfig['rssnumlatest'], '-all-', -1);
             } else {  //Same thing as above to pass unit tests
-                $array = Games::getGames('all', 0, $dbconfig['rssnumlatest'], '-all-', -1);
+                $array = PHPArcade\Games::getGames('all', 0, $dbconfig['rssnumlatest'], '-all-', -1);
             }
             echo "<?xml version='1.0' encoding='UTF-8' ?>"; ?>
             <!--suppress HtmlExtraClosingTag -->
@@ -55,7 +55,7 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
                 for ($i = 0; $i < $dbconfig['rssnumlatest']; $i++) {
                     $title = $array[$i]['name'];
                     $desc = $array[$i]['desc'];
-                    $link = Core::getLinkGame($array[$i]['id']);
+                    $link = PHPArcade\Core::getLinkGame($array[$i]['id']);
                     PHP_EOL; ?>
                     <item>
                         <title><?php echo $title; ?></title>
@@ -74,22 +74,22 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
     }
     die();
 }
-Core::addAction('load_admin_theme', 'admin_theme_display');
+PHPArcade\Core::addAction('load_admin_theme', 'admin_theme_display');
 if ($dbconfig['membersenabled'] === 'on') {
-    Core::addAction('register_user_form', 'register_user_form');
-    Core::addAction('register_confirm', 'register_confirm');
-    Core::addAction('edit_profile_form', 'editprofile');
-    Core::addAction('edit_profile_do', 'profileediting');
+    PHPArcade\Core::addAction('register_user_form', 'register_user_form');
+    PHPArcade\Core::addAction('register_confirm', 'register_confirm');
+    PHPArcade\Core::addAction('edit_profile_form', 'editprofile');
+    PHPArcade\Core::addAction('edit_profile_do', 'profileediting');
 }
 switch ($act) {
     case 'login':
         if ($dbconfig['membersenabled'] === 'on') {
             if ($params[1] === 'login') {
-                Users::userVerifyPassword($_POST['username'], $_POST['password']);
-                Users::userUpdateLastLogin();
+                PHPArcade\Users::userVerifyPassword($_POST['username'], $_POST['password']);
+                PHPArcade\Users::userUpdateLastLogin();
             } else {
                 if ($params[1] === 'logout') {
-                    Users::userSessionEnd();
+                    PHPArcade\Users::userSessionEnd();
                 }
             }
         }
@@ -106,7 +106,7 @@ switch ($act) {
                     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                         return 'emailinvalid';
                     } else {
-                        if (Users::userAdd($_POST['username'], $_POST['email'])) {
+                        if (PHPArcade\Users::userAdd($_POST['username'], $_POST['email'])) {
                             $execstatus = 'success';
                             return 'emailconf';
                         } else {
@@ -124,7 +124,7 @@ switch ($act) {
         break;
     case 'profile':
         if ($params[2] === 'editdone') {
-            Core::doEvent('profileediting');
+            PHPArcade\Core::doEvent('profileediting');
         }
         // no break
     default:
