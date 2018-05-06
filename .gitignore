@@ -12,6 +12,7 @@
 *.cache
 # Common files #
 ##################
+ads.txt
 arcade/
 BingSiteAuth.xml
 config.xml
