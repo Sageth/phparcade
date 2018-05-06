@@ -369,11 +369,6 @@ use PDO;
         {
         }
     }
-    function load_admin_theme()
-    {
-        global $config;
-        $config['themeinc'] = ADMIN_SITE_THEME_PATH;
-    }
 
     function preappbase($string)
     {

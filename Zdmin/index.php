@@ -51,7 +51,7 @@ if ($dbconfig['membersenabled'] === 'on') {
         exit();
     }
 }
-ob_start('admin_set_content');
+ob_start('PHPArcade\Administrations::admin_set_content');
 $func = $act . '_admin';
 if (function_exists($func)) {
     $mthd = $_REQUEST['mthd'] ?? "";
@@ -61,4 +61,4 @@ ob_end_flush();
 PHPArcade\Core::doEvent('admin_theme_display');
 /** @noinspection PhpIncludeInspection */
 /** @noinspection PhpUndefinedVariableInspection */
-require_once $config['themeinc'];
+require_once ADMIN_SITE_THEME_PATH;
