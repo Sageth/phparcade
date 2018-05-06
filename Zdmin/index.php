@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 /* End Show Errors */
 
 require_once __DIR__ . '/../cfg.php';
-define('JS_BOOTSTRAP', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js');
+define('JS_BOOTSTRAP', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js');
 
 // global vars
 $act = $_REQUEST['act'] ?? 'site';
