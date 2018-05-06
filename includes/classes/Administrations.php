@@ -69,16 +69,17 @@ use PDOException;
             $scheme = empty($_SERVER['HTTPS']) && (!isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) ? 'http://' : 'https://';
             return $scheme;
         }
+        public static function admin_set_content($c)
+        {
+            global $content;
+            /** @noinspection OnlyWritesOnParameterInspection */
+            $content = $c;
+            return "";
+        }
         private function __clone()
         {
         }
     }
 
-    function admin_set_content($c)
-    {
-        global $content;
-        /** @noinspection OnlyWritesOnParameterInspection */
-        $content = $c;
-        return "";
-    }
+
 }
