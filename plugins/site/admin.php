@@ -643,7 +643,7 @@ function site_admin($mthd)
             PHPArcade\Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
             PHPArcade\Administrations::updateConfig('facebook_pageurl', $_POST['facebook_pageurl']);
             PHPArcade\Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
-            PHPArcade\Administrations::updateConfig('gtm_enabled', array_key_exists('ga_enabled', $_POST) ? 'on' : 'off');
+            PHPArcade\Administrations::updateConfig('gtm_enabled', array_key_exists('gtm_enabled', $_POST) ? 'on' : 'off');
             PHPArcade\Administrations::updateConfig('gtm_id', $_POST['gtm_id']);
             PHPArcade\Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
             PHPArcade\Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
