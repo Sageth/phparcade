@@ -28,13 +28,15 @@ require_once __DIR__ . '/themeconfig.php';
             </script>
             <!-- End Google Tag Manager -->
         <?php } ?>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-8727545858461215",
-                enable_page_level_ads: true
-            });
-        </script>
+        <?php if (['google_analytics_pubid'] !== '') { ?>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({
+                    google_ad_client: "<?php echo $dbconfig['google_analytics_pubid'];?>",
+                    enable_page_level_ads: true
+                });
+            </script>
+        <?php } ?>
         <meta charset="<?php echo CHARSET; ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
         <title><?php echo $metadata['metapagetitle']; ?></title>

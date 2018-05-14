@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: phparcade\n"
 "POT-Creation-Date: 2015-08-31 23:28-0500\n"
-"PO-Revision-Date: 2018-05-13 21:15-0400\n"
+"PO-Revision-Date: 2018-05-13 21:29-0400\n"
 "Last-Translator: Sage Russell <webmaster@sageth.com>\n"
 "Language-Team: PHPArcade <webmaster@sageth.com>\n"
 "Language: en\n"
@@ -400,6 +400,9 @@ msgstr "Google Recaptcha Secret Key"
 
 msgid "gravatar"
 msgstr "Gravatar"
+
+msgid "gtm_enabled"
+msgstr "Google Tag Manager Enabled"
 
 msgid "gtm_id"
 msgstr "Google Tag Manager ID"
