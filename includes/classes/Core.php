@@ -289,7 +289,7 @@ use PDO;
             <meta http-equiv="refresh" content="1;URL=<?php echo $url; ?>"/>
         </head>
         <body><?php
-        if ($dbconfig['ga_enabled'] === 'on') {
+        if ($dbconfig['gtm_enabled'] === 'on') {
             include_once INST_DIR . 'includes/js/Google/googletagmanager.php';
         } ?>
         <div class="col-md-12">

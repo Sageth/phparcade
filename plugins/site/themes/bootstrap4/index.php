@@ -18,7 +18,7 @@ require_once __DIR__ . '/themeconfig.php';
 <!--suppress JSIgnoredPromiseFromCall -->
 <html lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">
     <head>
-        <?php if ('on' === $dbconfig['ga_enabled']) { ?>
+        <?php if ('on' === $dbconfig['gtm_enabled']) { ?>
             <!-- Google Tag Manager -->
             <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -79,7 +79,7 @@ require_once __DIR__ . '/themeconfig.php';
         } ?>
     </head>
     <body>
-        <?php if ('on' === $dbconfig['ga_enabled']) {
+        <?php if ('on' === $dbconfig['gtm_enabled']) {
             include_once INST_DIR . 'includes/js/Google/googletagmanager.php';
         }
         include_once __DIR__ . '/navbar.php';

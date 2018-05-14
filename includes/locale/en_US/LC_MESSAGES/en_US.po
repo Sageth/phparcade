@@ -344,16 +344,10 @@ msgstr "Forgot?"
 msgid "from"
 msgstr "From"
 
-msgid "ga"
-msgstr "Google Tag Manager"
-
-msgid "ga_domain"
-msgstr "Google Tag Manager Domain"
-
 msgid "ga_enabled"
 msgstr "Google Tag Manager Enabled"
 
-msgid "ga_id"
+msgid "gtm_id"
 msgstr "Google Tag Manager ID"
 
 msgid "game"
