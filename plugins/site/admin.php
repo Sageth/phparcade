@@ -316,7 +316,7 @@ function site_admin($mthd)
             $checkedemailact = ($dbconfig['emailactivation'] === 'on') ? 'checked' : "";
             $checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
             $checkedfeed = ($dbconfig['rssenabled'] === 'on') ? 'checked' : "";
-            $checkedgaon = ($dbconfig['ga_enabled'] === 'on') ? 'checked' : "";
+            $checkedgtmon = ($dbconfig['gtm_enabled'] === 'on') ? 'checked' : "";
             $checkedpassrecovery = ($dbconfig['passwordrecovery'] === 'on') ? 'checked' : "";
             $checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : "";
             ?>
@@ -426,10 +426,10 @@ function site_admin($mthd)
                                 <div class="row">
                                     <div class="col-md-8">
                                         <?php echo PHPArcade\Core::showGlyph('google');?>&nbsp;
-                                        <label><?php echo gettext('ga_enabled'); ?></label>
+                                        <label><?php echo gettext('gtm_enabled'); ?></label>
                                         <div class="pull-right">
-                                            <label for="ga_enabled"></label>
-                                            <input type="checkbox" name="ga_enabled" id="ga_enabled" <?php echo $checkedgaon; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                            <label for="gtm_enabled"></label>
+                                            <input type="checkbox" name="gtm_enabled" id="gtm_enabled" <?php echo $checkedgtmon; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                         </div>
                                     </div>
                                 </div>
@@ -437,9 +437,24 @@ function site_admin($mthd)
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <label><?php echo gettext('ga_id'); ?></label>
-                                        <input class="form-control" title="Google Analytics Code" name='ga_id'
-                                               value='<?php echo $dbconfig['ga_id']; ?>'/>
+                                        <label><?php echo gettext('gtm_id'); ?></label>
+                                        <input class="form-control" title="Google Tag Manager ID" name='gtm_id'
+                                               value='<?php echo $dbconfig['gtm_id']; ?>'/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <hr/>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label><?php echo gettext('google_analytics_pubid'); ?></label>
+                                        <input class="form-control"
+                                               title="<?php echo gettext('google_analytics_pubid');?>"
+                                               name="google_analytics_pubid"
+                                               value="<?php echo $dbconfig['google_analytics_pubid']; ?>"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -643,8 +658,9 @@ function site_admin($mthd)
             PHPArcade\Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
             PHPArcade\Administrations::updateConfig('facebook_pageurl', $_POST['facebook_pageurl']);
             PHPArcade\Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
-            PHPArcade\Administrations::updateConfig('ga_enabled', array_key_exists('ga_enabled', $_POST) ? 'on' : 'off');
-            PHPArcade\Administrations::updateConfig('ga_id', $_POST['ga_id']);
+            PHPArcade\Administrations::updateConfig('gtm_enabled', array_key_exists('gtm_enabled', $_POST) ? 'on' : 'off');
+            PHPArcade\Administrations::updateConfig('gtm_id', $_POST['gtm_id']);
+            PHPArcade\Administrations::updateConfig('google_analytics_pubid', $_POST['google_analytics_pubid']);
             PHPArcade\Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
             PHPArcade\Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
             PHPArcade\Administrations::updateConfig('mixpanel_id', $_POST['mixpanel_id']);

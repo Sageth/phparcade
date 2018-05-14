@@ -5,14 +5,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: phparcade\n"
 "POT-Creation-Date: 2015-08-31 23:28-0500\n"
-"PO-Revision-Date: 2018-02-10 15:43-0500\n"
+"PO-Revision-Date: 2018-05-13 21:29-0400\n"
 "Last-Translator: Sage Russell <webmaster@sageth.com>\n"
 "Language-Team: PHPArcade <webmaster@sageth.com>\n"
-"Language: en_US\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.7\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -344,18 +344,6 @@ msgstr "Forgot?"
 msgid "from"
 msgstr "From"
 
-msgid "ga"
-msgstr "Google Tag Manager"
-
-msgid "ga_domain"
-msgstr "Google Tag Manager Domain"
-
-msgid "ga_enabled"
-msgstr "Google Tag Manager Enabled"
-
-msgid "ga_id"
-msgstr "Google Tag Manager ID"
-
 msgid "game"
 msgstr "Game"
 
@@ -398,6 +386,9 @@ msgstr "https://www.github.com/"
 msgid "google"
 msgstr "Google"
 
+msgid "google_analytics_pubid"
+msgstr "Google Analytics Publisher ID"
+
 msgid "google_appsforbusiness"
 msgstr "Looking for email coming from your own domain, protected by Google?  Check out <a href='https://goo.gl/OemyGV'>Google Apps for Business</a>"
 
@@ -409,6 +400,12 @@ msgstr "Google Recaptcha Secret Key"
 
 msgid "gravatar"
 msgstr "Gravatar"
+
+msgid "gtm_enabled"
+msgstr "Google Tag Manager Enabled"
+
+msgid "gtm_id"
+msgstr "Google Tag Manager ID"
 
 msgid "guest"
 msgstr "Guest"
@@ -583,6 +580,9 @@ msgstr "Meta Tags"
 
 msgid "minimumwidth"
 msgstr "Minimum Width (Set to -1 for no minimum.)"
+
+msgid "mixpanel"
+msgstr "MixPanel"
 
 msgid "months"
 msgstr "Month(s)"

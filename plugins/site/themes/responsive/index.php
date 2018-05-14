@@ -61,7 +61,7 @@ require_once __DIR__ . '/themeconfig.php';
         } ?>
     </head>
     <body>
-        <?php if ('on' === $dbconfig['ga_enabled']) {
+        <?php if ('on' === $dbconfig['gtm_enabled']) {
             include_once INST_DIR . 'includes/js/Google/googletagmanager.php';
         }
         include_once __DIR__ . '/navbar.php';
