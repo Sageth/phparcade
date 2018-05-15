@@ -3,15 +3,6 @@ function media_links()
 {
     PHPArcade\Administrations::addLink(gettext('gamesmedia'), 'index.php?act=media');
 }
-
-PHPArcade\Administrations::addSubLink(gettext('addcategory'), 'index.php?act=media&amp;mthd=addcat-form', 'media');
-PHPArcade\Administrations::addSubLink(gettext('addmedia'), 'index.php?act=media&amp;mthd=addgame-form', 'media');
-PHPArcade\Administrations::addSubLink(gettext('inactivegames'), 'index.php?act=media&amp;mthd=inactive', 'media');
-PHPArcade\Administrations::addSubLink(gettext('managecat'), 'index.php?act=media&amp;mthd=manage-cat', 'media');
-PHPArcade\Administrations::addSubLink(gettext('managemedia'), 'index.php?act=media&amp;mthd=manage', 'media');
-/**
- * @param $mthd
- */
 function media_admin($mthd)
 {
     switch ($mthd) {
@@ -25,26 +16,24 @@ function media_admin($mthd)
             break;
         case 'addcat-form': ?>
             <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                <div class="card-deck">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('category'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
                                 <label><?php echo gettext('name'); ?></label>
                                 <input class="form-control" title='name' name='name'/>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('otherinfo'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
                                 <label><?php echo gettext('type'); ?></label>
                                 <input class="form-control" title="type" name='type' value='Games'/>
@@ -63,7 +52,7 @@ function media_admin($mthd)
                                 </textarea>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
                 </div>
                 <input type='hidden' name='act' value='media'/>
@@ -191,15 +180,15 @@ function media_admin($mthd)
         case "":
         case 'addgame-form': ?>
             <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                <div class="card-deck mt-4">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('information'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
                                 <label><?php echo gettext('name'); ?></label>
-                                <input class="form-control" title="name" name="name"/>
+                                <input class="form-control is-invalid" title="name" name="name"/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('category'); ?></label>
@@ -208,26 +197,24 @@ function media_admin($mthd)
                             <div class="form-group">
                                 <label><?php echo gettext('release_date'); ?></label>
                                 <input class="form-control" title="release date" name='release_date'/>
-                                <p class="help-block"><?php echo gettext('dateformat'); ?></p>
+                                <small class="card-text"><?php echo gettext('dateformat'); ?></small>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('uploadswf'); ?></label>
-                                <input class="form-control" type='file' name='swffile'/>
+                                <input class="form-control is-invalid" type='file' name='swffile'/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('thumbnail'); ?></label>
                                 <input class="form-control" type='file' name='imgfile'/>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('information'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
                                 <label><?php echo gettext('description'); ?></label>
                                 <textarea class="form-control" title="description" name='desc' rows='6'></textarea>
@@ -237,15 +224,13 @@ function media_admin($mthd)
                                 <textarea class="form-control" title="instructions" name='instructions' rows='6'></textarea>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('information'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
                                 <label><?php echo gettext('customcode'); ?></label>
                                 <textarea class="form-control" title="Custom Code" name='customcode' rows='6'></textarea>
@@ -267,7 +252,7 @@ function media_admin($mthd)
                                           rows='6'></textarea>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
                 </div>
                 <input type='hidden' name='act' value='media'/>
@@ -316,25 +301,25 @@ function media_admin($mthd)
         case 'editcat-form':
             $category = PHPArcade\Games::getCategoryID($_REQUEST['id']); ?>
             <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                <div class="card-deck">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('general'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
                                 <label><?php echo gettext('name'); ?></label>
                                 <input class="form-control" title="Name" name='name'
                                        value='<?php echo $category['name']; ?>'/>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('otherinfo'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
                                 <label><?php echo gettext('type'); ?></label>
                                 <input class="form-control" title="Type" name='type'
@@ -351,7 +336,7 @@ function media_admin($mthd)
                                           rows='6'><?php echo $category['keywords']; ?></textarea>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
                 </div>
                 <input type='hidden' name='act' value='media'/>
@@ -373,29 +358,23 @@ function media_admin($mthd)
             $game = PHPArcade\Games::getGame($_REQUEST['id']);
             $activechecked = ($game['active'] === 'Yes' || $game['active'] === 'on') ? 'checked' : ""; ?>
             <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                <div class="card-deck">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('mediainfo'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
                                 <label><?php echo gettext('nameoffiles'); ?></label>
-                                <input class="form-control" title="Name of Files" name='nameid'
-                                       value='<?php echo $game['nameid']; ?>'/>
+                                <input class="form-control" title="Name of Files" name="nameid"
+                                       value="<?php echo $game['nameid']; ?>"/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('name'); ?></label>
                                 <input class="form-control"
                                        title="Game Name"
-                                       name='name'
-                                       value='<?php echo $game['name']; ?>'/>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('release_date'); ?></label>
-                                <input class="form-control" title="Release Date" name='release_date'
-                                       value='<?php echo date('Y-m-d', $game['release_date']); ?>'/>
-                                <p class="help-block"><?php echo gettext('dateformat'); ?></p>
+                                       name="name"
+                                       value="<?php echo $game['name']; ?>"/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('category'); ?></label>
@@ -413,44 +392,14 @@ function media_admin($mthd)
                                 <textarea class="form-control" title="Instructions" name='instructions'
                                           rows='6'><?php echo $game['instructions']; ?></textarea>
                             </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('customcode'); ?></label>
-                                <textarea class="form-control" title="Custom Code" name='customcode'
-                                          rows='6'><?php echo $game['customcode']; ?></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('active'); ?></label>
-                                    <input class="form-control"
-                                           title="Active"
-                                           type="checkbox"
-                                           name="active"
-                                           id="active" <?php echo $activechecked; ?>
-                                           data-toggle="toggle"
-                                           data-onstyle="success"
-                                           data-offstyle="danger"/>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('width'); ?></label>
-                                <input class="form-control"
-                                       title="Width"
-                                       name='width'
-                                       value='<?php echo $game['width']; ?>'/>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('height'); ?></label>
-                                <input class="form-control" title="Height" name='height'
-                                       value='<?php echo $game['height']; ?>'/>
-                            </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('otherinfo'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
                                 <label><?php echo gettext('flags'); ?></label>
                                 <select class="form-control" title="Flags" name="flags"><?php
@@ -485,7 +434,49 @@ function media_admin($mthd)
                                           rows='6'><?php echo $game['keywords']; ?></textarea>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <?php echo gettext('status'); ?>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label><?php echo gettext('active'); ?></label>
+                                <input class="form-control"
+                                       title="Active"
+                                       type="checkbox"
+                                       name="active"
+                                       id="active" <?php echo $activechecked; ?>
+                                       data-toggle="toggle"
+                                       data-onstyle="success"
+                                       data-offstyle="danger"/>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo gettext('customcode'); ?></label>
+                                <textarea class="form-control" title="Custom Code" name='customcode'
+                                          rows='6'><?php echo $game['customcode']; ?></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo gettext('width'); ?></label>
+                                <input class="form-control"
+                                       title="Width"
+                                       name="width"
+                                       value="<?php echo $game['width']; ?>"/>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo gettext('height'); ?></label>
+                                <input class="form-control" title="Height" name="height"
+                                       value="<?php echo $game['height']; ?>"/>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo gettext('release_date'); ?></label>
+                                <input class="form-control" title="Release Date" name='release_date'
+                                       value='<?php echo date('Y-m-d', $game['release_date']); ?>'/>
+                                <small class="card-block"><?php echo gettext('dateformat'); ?></small>
+                            </div>
+                        </div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
                 </div>
                 <input type='hidden' name='id' value='<?php echo $game['id']; ?>'/>
@@ -496,143 +487,130 @@ function media_admin($mthd)
             break;
         case 'inactive':
             $games = PHPArcade\Games::getGamesInactive(); ?>
-            <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <?php echo gettext('inactive-m'); ?>
-                </div>
-                <div class="panel-body">
+                <div class="container">
+                    <div class="mt-4">
+                        <?php echo gettext('inactive-m'); ?>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                                <tr><?php echo gettext('name'); ?></tr>
-                                <tr>&nbsp;</tr>
+                            <thead class="thead-light">
+                                <th><?php echo gettext('name'); ?></th>
+                                <th>&nbsp;</th>
                             </thead>
                             <tbody><?php
                                 foreach ($games as $game) {
                                     ?>
-                                    <tr class="odd gradeA">
-                                    <td><?php echo $game['name']; ?></td>
-                                    <td>
-                                        <?php PHPArcade\Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
-                                        &nbsp;
-                                        <?php PHPArcade\Pages::getDeleteButton($game['id'], 'media'); ?>
-                                    </td>
+                                    <tr>
+                                        <td><?php echo $game['name']; ?></td>
+                                        <td>
+                                            <?php PHPArcade\Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
+                                            &nbsp;
+                                            <?php PHPArcade\Pages::getDeleteButton($game['id'], 'media'); ?>
+                                        </td>
                                     </tr><?php
                                 } ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="panel-footer">&nbsp;</div>
-            </div>
-            </div><?php
+                <?php
             break;
         case 'manage':
             $games = PHPArcade\Games::getGames($cat = 'all', 0, 10, 1, 5000); ?>
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <?php echo gettext('manage'); ?>
-                    </div>
-                    <div class="panel-body">
-                        <div class="input-group col-lg-10">
-                            <span class="input-group-addon info" id="user-addon">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                                <?php echo gettext('search');?>
-                            </span>
-                            <input type="text" class="form-control" id="userList" onkeyup="filterTable()" placeholder="<?php echo gettext('gamefilter');?>" aria-describedby="user-addon">
+            <div class="container">
+                <div class="input-group col-lg-10">
+                    <span class="input-group-addon info col-lg-4" id="user-addon">
+                        <div class="align-middle mt-2">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                            <?php echo gettext('search');?>
                         </div>
-                        <div class="row">&nbsp;</div>
-                        <div class="table-responsive col-lg-10">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th><?php echo gettext('name'); ?></th>
-                                        <th><?php echo gettext('category'); ?></th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                </thead>
-                                <tbody><?php
-                                    foreach ($games as $game) {
-                                        ?>
-                                        <tr class="odd gradeA"><?php
-                                            if ($game['active'] == 'No') {
-                                                ?>
-                                                <td class="warning"><?php echo $game['name']; ?></td><?php
-                                            } elseif ($game['active'] == 'Yes') {
-                                                ?>
-                                                <td><?php echo $game['name']; ?></td><?php
-                                            } else {
-                                                ?>
-                                                <td class="danger"><?php echo $game['name']; ?></td><?php
-                                            } ?>
-                                                <td><?php echo $game['cat']; ?></td>
-                                                <td class="col-lg-8">
-                                                    <?php PHPArcade\Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
-                                                    &nbsp;
-                                                    <?php PHPArcade\Pages::getDeleteButton($game['id'], 'media'); ?>
-                                                </td>
-                                        </tr><?php
+                    </span>
+                    <input type="text" class="form-control" id="userList" onkeyup="filterTable()" placeholder="<?php echo gettext('gamefilter');?>" aria-describedby="user-addon">
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th scope="col"><?php echo gettext('name'); ?></th>
+                                <th scope="col"><?php echo gettext('category'); ?></th>
+                                <th scope="col">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody><?php
+                            foreach ($games as $game) {
+                                ?>
+                                <tr><?php
+                                    switch ($game['active'])
+                                    {
+                                        case 'Yes': ?>
+                                            <td>
+                                                <?php echo $game['name']; ?>
+                                            </td><?php
+                                            break;
+                                        case 'No': ?>
+                                            <td class="warning">
+                                                <?php echo $game['name']; ?>
+                                            </td><?php
+                                            break;
+                                        default: ?>
+                                            <td class="danger">
+                                                <?php echo $game['name']; ?>
+                                            </td><?php
+                                            break;
                                     } ?>
-                                </tbody>
-                            </table>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="dataTables_info" id="dataTables-example_info" role="alert"
-                                         aria-live="polite">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    <td>
+                                        <?php echo $game['cat']; ?>
+                                    </td>
+                                    <td class="col-md-4">
+                                        <?php PHPArcade\Pages::getEditButton($game['id'], 'media', 'editgame-form', gettext('edit')); ?>
+                                        &nbsp;
+                                        <?php PHPArcade\Pages::getDeleteButton($game['id'], 'media'); ?>
+                                    </td>
+                                </tr><?php
+                            } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <script src="<?php echo JS_TABLEFILTER;?>" defer></script><?php
             break;
         case 'manage-cat':
             $categories = PHPArcade\Games::getCategories('ASC'); ?>
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <?php echo gettext('manage'); ?>
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover grid">
-                                <thead>
-                                    <tr>
-                                        <th><?php echo gettext('order'); ?></th>
-                                        <th><?php echo gettext('name'); ?></th>
-                                        <th><?php echo gettext('description'); ?></th>
-                                        <th><?php echo gettext('type'); ?></th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="sortable"><?php
-                                    foreach ($categories as $category) {
-                                        ?>
-                                        <tr class="odd gradeA" id="rowsort-<?php echo $category['id']; ?>">
-                                            <td class="index">
-                                                <?php echo $category['order']; ?>
-                                            </td>
-                                            <td>
-                                                <a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&amp;mthd=manage&amp;order=name&amp;cat=<?php echo $category['name']; ?>">
-                                                    <?php echo $category['name']; ?>
-                                                </a>
-                                            </td>
-                                            <td><?php echo $category['desc']; ?></td>
-                                            <td><?php echo $category['type']; ?></td>
-                                            <td>
-                                                <?php PHPArcade\Pages::getEditButton($category['id'], 'media', 'editcat-form', gettext('edit')); ?>&nbsp;
-                                                <?php PHPArcade\Pages::getDeleteButton($category['id'], 'media', 'delete-cat-do'); ?>
-                                            </td>
-                                        </tr><?php
-                                    } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <div class="container">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover grid">
+                        <thead>
+                            <tr>
+                                <th scope="col"><?php echo gettext('order'); ?></th>
+                                <th scope="col"><?php echo gettext('name'); ?></th>
+                                <th scope="col"><?php echo gettext('description'); ?></th>
+                                <th scope="col"><?php echo gettext('type'); ?></th>
+                                <th scope="col">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sortable"><?php
+                            foreach ($categories as $category) { ?>
+                                <tr id="rowsort-<?php echo $category['id']; ?>">
+                                    <th scope="row" class="index">
+                                        <?php echo $category['order']; ?>
+                                    </th>
+                                    <td>
+                                        <a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&amp;mthd=manage&amp;order=name&amp;cat=<?php echo $category['name']; ?>">
+                                            <?php echo $category['name']; ?>
+                                        </a>
+                                    </td>
+                                    <td><?php echo $category['desc']; ?></td>
+                                    <td><?php echo $category['type']; ?></td>
+                                    <td class="col">
+                                        <?php PHPArcade\Pages::getEditButton($category['id'], 'media', 'editcat-form', gettext('edit')); ?>&nbsp;
+                                        &nbsp;
+                                        <?php PHPArcade\Pages::getDeleteButton($category['id'], 'media', 'delete-cat-do'); ?>
+                                    </td>
+                                </tr><?php
+                            } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div><?php
             break;
