@@ -24,9 +24,8 @@ $content = $content ?? ''; ?>
         <link rel="stylesheet" href="<?php echo CSS_INPUTCOLORS;?>"/>
     </head>
     <body>
-        <div class="container-fluid">
             <!-- Navigation -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+            <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-primary">
                 <a class="navbar-brand" href="#">
                     <?php echo gettext('logo');?>
                 </a>
@@ -35,7 +34,7 @@ $content = $content ?? ''; ?>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav justify-content-between">
                         <?php /* Dashboard */ ?>
                         <li class="nav-item">
                             <a class="nav-link" href="index.php">
@@ -107,8 +106,7 @@ $content = $content ?? ''; ?>
                 <div class="row">
                     <?php echo $content; ?>
                 </div>
-            </div><!-- /#page-wrapper -->
-        </div><!-- /#wrapper -->
+            </div>
         <script src="<?php echo JS_JQUERY; ?>" defer></script>
         <script src="<?php echo JS_JQUERY_UI; ?>" defer></script>
         <script src="<?php echo JS_TABLESORT; ?>" defer></script>
