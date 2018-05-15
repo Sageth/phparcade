@@ -94,7 +94,7 @@ $content = $content ?? ''; ?>
                 </ul>
             </div>
         </nav>
-        <div id="page-wrapper">
+        <div class="container">
             <div class="row">
                 <?php echo $content; ?>
             </div>
