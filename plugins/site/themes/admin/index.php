@@ -19,7 +19,6 @@ $content = $content ?? ''; ?>
         </title>
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_ADMIN; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_SB_ADMIN_2; ?>" integrity="<?php echo CSS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous"/>
         <link rel="stylesheet" href="<?php echo CSS_METISMENU; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_INPUTCOLORS;?>"/>
@@ -27,92 +26,77 @@ $content = $content ?? ''; ?>
     <body>
         <div class="container-fluid">
             <!-- Navigation -->
-            <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0;">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.php"><?php echo gettext('logo'); ?></a>
-                </div>
-                <!-- /.navbar-header -->
-                <ul class="nav navbar-top-links navbar-right">
-                    <!-- /.dropdown -->
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <?php echo PHPArcade\Core::showGlyph('user'); ?><?php echo PHPArcade\Core::showGlyph('caret-down'); ?>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li class="divider"></li>
-                            <li>
-                                <a href="<?php echo SITE_URL . 'index.php?params=login/logout'; ?>">
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                <a class="navbar-brand" href="#">
+                    <?php echo gettext('logo');?>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <?php /* Dashboard */ ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php">
+                                <?php echo PHPArcade\Core::showGlyph('dashboard'); ?>&nbsp;<?php echo gettext('dashboard'); ?>
+                            </a>
+                        </li>
+
+                        <?php /* Create */ ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php echo PHPArcade\Core::showGlyph('plus-square'); ?>&nbsp;<?php echo gettext('Add'); ?>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=ads&mthd=addad-form">Advertising</a>
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=addcat-form">Category</a>
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=addgame-form">Game</a>
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=pages&mthd=addpage-form">Page</a>
+                            </div>
+                        </li>
+
+                        <?php /* Configuration */ ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php echo PHPArcade\Core::showGlyph('warehouse'); ?>&nbsp;<?php echo gettext('Configure'); ?>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=site&mthd=site-config">Main Configuration</a>
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=site&mthd=theme-config">Theme</a>
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=site&mthd=feature-config">Features</a>
+                            </div>
+                        </li>
+
+                        <?php /* Manage */ ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php echo PHPArcade\Core::showGlyph('eye'); ?>&nbsp;<?php echo gettext('Manage'); ?>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=ads&mthd=manage">Advertising</a>
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=manage-cat">Categories</a>
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=manage">Games</a>
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=manage">Pages</a>
+                                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=users&mthd=manage">Users</a>
+                            </div>
+                        </li>
+
+
+                        <?php /* My Profile dropdown */ ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" data-toggle="dropdown" href="#">
+                                <?php echo PHPArcade\Core::showGlyph('user'); ?><?php echo PHPArcade\Core::showGlyph('caret-down'); ?>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link" href="<?php echo SITE_URL . 'index.php?params=login/logout'; ?>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?php echo PHPArcade\Core::showGlyph('sign-out'); ?>
                                     <?php echo gettext('logout'); ?>
                                 </a>
-                            </li>
-                        </ul>
-                        <!-- /.dropdown-user -->
-                    </li>
-                    <!-- /.dropdown -->
-                </ul>
-                <!-- /.navbar-top-links -->
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <ul class="nav" id="side-menu">
-                            <li class="sidebar-search">
-                                <fieldset disabled>
-                                    <div class="input-group custom-search-form">
-                                        <input class="form-control" placeholder="Search...">
-                                        <span class="input-group-btn">
-											<button class="btn btn-default" type="button">
-												<?php echo PHPArcade\Core::showGlyph('search'); ?>
-											</button>
-										</span>
-                                    </div><!-- /input-group -->
-                                </fieldset>
-                            </li>
-                            <li>
-                                <a href="index.php">
-                                    <?php echo PHPArcade\Core::showGlyph('dashboard'); ?>
-                                    &nbsp;
-                                    <?php echo gettext('dashboard'); ?>
-                                </a>
-                            </li><?php
-                            if (!isset($_REQUEST['act'])) {
-                                $_REQUEST['act'] = 'site';
-                            }
-                            for ($i = 0; $i < count($links); ++$i) {
-                                $link = $links[$i];
-                                $jstext =
-                                    strtolower(preg_replace("/\-|\/|\s/", "", $link)); //If chars '-', '/', or " ";
-                                if ($jstext === 'gamesmedia') {
-                                    $jstext = 'media';
-                                } ?>
-                                <li>
-                                    <a href="#">
-                                        <?php echo PHPArcade\Core::showGlyph('wrench'); ?>
-                                        <?php echo $link; ?>
-                                        <span class="fa arrow"></span>
-                                    </a>
-                                    <ul class="nav nav-second-level"><?php
-                                        $snum = count($sublinks[$jstext]);
-                                for ($b = 0; $b < $snum; ++$b) {
-                                    $link = $sublinks[$jstext][$b];
-                                    $href = $sublinkshref[$jstext][$b]; ?>
-                                                <li>
-                                                    <a href="<?php echo $href; ?>">
-                                                        <?php echo $link; ?>
-                                                    </a>
-                                                </li><?php
-                                } ?>
-                                    </ul>
-                                </li><?php
-                            } ?>
-                        </ul>
-                    </div><!-- /.sidebar-collapse -->
-                </div><!-- /.navbar-static-side -->
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </nav>
             <div id="page-wrapper">
                 <div class="row">
