@@ -19,7 +19,6 @@ $content = $content ?? ''; ?>
         </title>
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_ADMIN; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_METISMENU; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
         <link rel="stylesheet" href="<?php echo CSS_INPUTCOLORS;?>"/>
     </head>
