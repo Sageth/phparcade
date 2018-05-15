@@ -136,90 +136,93 @@ function site_admin($mthd)
         case 'site-config':
             ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
-                <div class="col-md-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <?php echo PHPArcade\Core::showGlyph('cogs');?>&nbsp;<?php echo gettext('configuration'); ?>
+                <div class="container">
+                    <div class="card-deck mt-4 ml-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <?php echo PHPArcade\Core::showGlyph('cogs');?>&nbsp;<?php echo gettext('configuration'); ?>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label><?php echo gettext('sitetitle'); ?></label>
+                                    <input class="form-control" title="Site Title" name='sitetitle'
+                                           value='<?php echo $dbconfig['sitetitle']; ?>'/>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label><?php echo gettext('metadescription'); ?></label>
+                                    <textarea class="form-control" title="Metadescription" name='metadesc'
+                                              rows='6'><?php echo $dbconfig['metadesc']; ?></textarea>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label><?php echo gettext('imgurl'); ?></label>
+                                    <input class="form-control" title="Image URL" name='imgurl'
+                                           value='<?php echo $dbconfig['imgurl']; ?>'/>
+                                    <small class="form-text"><?php echo gettext('trailingslash') . ' ' . gettext('imgurlexample'); ?></small>
+                                </div>
+                            </div>
+                            <div class="card-footer">&nbsp;</div>
                         </div>
-                        <div class="panel-body">
-                            <div class="form-group col-md-10">
-                                <label><?php echo gettext('sitetitle'); ?></label>
-                                <input class="form-control" title="Site Title" name='sitetitle'
-                                       value='<?php echo $dbconfig['sitetitle']; ?>'/>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <?php echo PHPArcade\Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('email'); ?>
+                                <small class="form-text pull-right"><?php echo gettext('google_appsforbusiness');?></small>
                             </div>
-                            <hr/>
-                            <div class="form-group col-md-10">
-                                <label><?php echo gettext('metadescription'); ?></label>
-                                <textarea class="form-control" title="Metadescription" name='metadesc'
-                                          rows='6'><?php echo $dbconfig['metadesc']; ?></textarea>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label><?php echo gettext('emaildomain'); ?></label>
+                                    <input class="form-control" title="email domain" name='emaildomain'
+                                           value='<?php echo $dbconfig['emaildomain']; ?>'/>
+                                    <small class="form-text"><?php echo gettext('domainhelper'); ?></small>
+                                </div>
+                                <div class="form-group">
+                                    <label><?php echo gettext('emailhost'); ?></label>
+                                    <input class="form-control" title="email host" name='emailhost'
+                                           value='<?php echo $dbconfig['emailhost']; ?>'/>
+                                    <small class="form-text"><?php echo gettext('emailhostexample'); ?></small>
+                                </div>
+                                <div class="form-group">
+                                    <label><?php echo gettext('emailport'); ?>
+                                        <input class="form-control" title="email port" name='emailport'
+                                               value='<?php echo $dbconfig['emailport']; ?>'/>
+                                    </label>
+                                    <small class="form-text"><?php echo gettext('emailportexample'); ?></small>
+                                </div>
+                                <div class="form-group">
+                                    <label><?php echo gettext('emaildebug'); ?></label>
+                                    <select class="form-control" title="Email Debug" name="emaildebug"><?php
+                                        switch ($dbconfig['emaildebug']) {
+                                            case 0:?>
+                                                <option value='0' selected>0</option>
+                                                <option value='1'>1</option>
+                                                <option value='2'>2</option><?php
+                                                break;
+                                            case 1:?>
+                                                <option value='0'>0</option>
+                                                <option value='1' selected>1</option>
+                                                <option value='2'>2</option><?php
+                                                break;
+                                            case 2:?>
+                                                <option value='0'>0</option>
+                                                <option value='1'>1</option>
+                                                <option value='2' selected>2</option><?php
+                                                break;
+                                            default:?>
+                                                <option value='ERR' selected>ERROR</option>
+                                                <option value='0'>0</option>
+                                                <option value='1'>1</option>
+                                                <option value='2'>2</option><?php
+                                        } ?>
+                                    </select>
+                                    <small class="form-text">
+                                        <?php echo gettext('emaildebugexample'); ?>
+                                    </small>
+                                </div>
                             </div>
-                            <hr/>
-                            <div class="form-group col-md-10">
-                                <label><?php echo gettext('imgurl'); ?></label>
-                                <input class="form-control" title="Image URL" name='imgurl'
-                                       value='<?php echo $dbconfig['imgurl']; ?>'/>
-                                <p class="help-block"><?php echo gettext('trailingslash') . gettext('imgurlexample'); ?></p>
-                            </div>
+                            <div class="card-footer">&nbsp;</div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <?php echo PHPArcade\Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('email'); ?>
-                            <p class="help-block pull-right"><?php echo gettext('google_appsforbusiness');?></p>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label><?php echo gettext('emaildomain'); ?></label>
-                                <input class="form-control" title="email domain" name='emaildomain'
-                                       value='<?php echo $dbconfig['emaildomain']; ?>'/>
-                                <p class="help-block"><?php echo gettext('domainhelper'); ?></p>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('emailhost'); ?></label>
-                                <input class="form-control" title="email host" name='emailhost'
-                                       value='<?php echo $dbconfig['emailhost']; ?>'/>
-                                <p class="help-block"><?php echo gettext('emailhostexample'); ?></p>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('emailport'); ?>
-                                    <input class="form-control" title="email port" name='emailport'
-                                           value='<?php echo $dbconfig['emailport']; ?>'/>
-                                </label>
-                                <p class="help-block"><?php echo gettext('emailportexample'); ?></p>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('emaildebug'); ?></label>
-                                <select class="form-control" title="Email Debug" name="emaildebug"><?php
-                                    switch ($dbconfig['emaildebug']) {
-                                        case 0:?>
-                                            <option value='0' selected>0</option>
-                                            <option value='1'>1</option>
-                                            <option value='2'>2</option><?php
-                                            break;
-                                        case 1:?>
-                                            <option value='0'>0</option>
-                                            <option value='1' selected>1</option>
-                                            <option value='2'>2</option><?php
-                                            break;
-                                        case 2:?>
-                                            <option value='0'>0</option>
-                                            <option value='1'>1</option>
-                                            <option value='2' selected>2</option><?php
-                                            break;
-                                        default:?>
-                                            <option value='ERR' selected>ERROR</option>
-                                            <option value='0'>0</option>
-                                            <option value='1'>1</option>
-                                            <option value='2'>2</option><?php
-                                    } ?>
-                                </select>
-    							<p class="help-block"><?php echo gettext('emaildebugexample'); ?></p>
-                            </div>
-                        </div>
-                        <div class="panel-footer">&nbsp;</div>
                     </div>
                     <input type='hidden' name='act' value='site'/>
                     <input type='hidden' name='mthd' value='site-config-do'/>
