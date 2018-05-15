@@ -53,10 +53,10 @@ use PDOException;
         }
         public static function getPreReqs()
         {
-            return ['broken_games' => Games::getGamesBrokenCount() === 0 ? $broken = ['green', 'check'] : $broken = ['red', 'support'],
-                'inactive_games' => Games::getGamesInactiveCount() === 0 ? $inactive = ['green', 'check'] : $inactive = ['yellow', 'warning'],
-                'ssl' => (self::getScheme() === 'https://') ? ['green', 'lock'] : ['red', 'unlock'],
-                'folder_session' => is_writable(session_save_path()) ? ['green', 'file'] : ['red', 'pencil'],
+            return ['broken_games' => Games::getGamesBrokenCount() === 0 ? $broken = ['success', 'check'] : $broken = ['danger', 'support'],
+                'inactive_games' => Games::getGamesInactiveCount() === 0 ? $inactive = ['success', 'check'] : $inactive = ['warning', 'warning'],
+                'ssl' => (self::getScheme() === 'https://') ? ['success', 'lock'] : ['danger', 'unlock'],
+                'folder_session' => is_writable(session_save_path()) ? ['success', 'file'] : ['danger', 'pencil'],
             ];
         }
         public static function getScheme()

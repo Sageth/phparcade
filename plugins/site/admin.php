@@ -4,9 +4,6 @@ function site_links()
     PHPArcade\Administrations::addLink(gettext('site'), 'index.php?act=site');
 }
 
-PHPArcade\Administrations::addSubLink(gettext('mainconfig'), 'index.php?act=site&mthd=site-config', 'site');
-PHPArcade\Administrations::addSubLink(gettext('theme'), 'index.php?act=site&mthd=theme-config', 'site');
-PHPArcade\Administrations::addSubLink(gettext('featureconfig'), 'index.php?act=site&mthd=feature-config', 'site');
 function site_admin($mthd)
 {
     $dbconfig = PHPArcade\Core::getDBConfig();
@@ -15,155 +12,123 @@ function site_admin($mthd)
     switch ($mthd) {
         case "":
         case 'home': ?>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="container-fluid">
-						<div class="jumbotron">
-							<h1>Welcome!</h1>
-							<p>Thanks for downloading phpArcade.  I'd like to let you know of a few things to help you along:</p>
-							<ul>
-								<li>Please file bugs or feature requests at
-									<a href="<?php echo URL_GITHUB_PHPARCADE;?>issues">
-										<?php echo PHPArcade\Core::showGlyph('github');?> GitHub
-									</a>
-								</li>
-								<li>As of now, there is no direct upgrade path from version to version</li>
-								<li>Help -- in any form -- is <em>always</em> appreciated! <?php echo PHPArcade\Core::showGlyph('smile-o');?></i></li>
-							</ul>
-							<!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="clearfix invisible"></div><?php
-            /* Broken Block */
-            if (PHPArcade\Games::getGamesBrokenCount() > 0) {
-                ?>
-				<div class="col-lg-2 col-md-6">
-					<div class="panel panel-<?php echo $prerequisites['broken_games'][0]; ?>">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<?php echo PHPArcade\Core::showGlyph($prerequisites['broken_games'][1], '5x'); ?>
-								</div>
-								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo PHPArcade\Games::getGamesBrokenCount(); ?></div>
-									<div><?php echo gettext('notworking'); ?></div>
-								</div>
-							</div>
-						</div>
-						<a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=viewbroken">
-							<div class="panel-footer">
-								<span class="pull-left"><?php echo gettext('viewdetails'); ?>></span>
-								<span class="pull-right"><?php echo PHPArcade\Core::showGlyph('arrow-circle-right'); ?></span>
-								<div class="clearfix"></div>
-							</div>
-						</a>
-					</div>
-				</div><?php
-            }
+            <div class="container">
+                <div class="jumbotron container-fluid">
+                    <h1 class="display-4">Welcome!</h1>
+                    <p>Thanks for downloading phpArcade.  I'd like to let you know of a few things to help you along:</p>
+                    <ul>
+                        <li>Please file bugs or feature requests at
+                            <a href="<?php echo URL_GITHUB_PHPARCADE;?>issues" target="_blank" rel="noopener">
+                                <?php echo PHPArcade\Core::showGlyph('github');?> GitHub
+                            </a>
+                        </li>
+                        <li>As of now, there is no direct upgrade path from version to version</li>
+                        <li>Help -- in any form -- is <em>always</em> appreciated! <?php echo PHPArcade\Core::showGlyph('smile-o');?></i></li>
+                    </ul>
+                </div>
 
-            /* Inactive Block */
-            if (PHPArcade\Games::getGamesInactiveCount() > 0) {
-                ?>
-				<div class="col-lg-2 col-md-6">
-					<div class="panel panel-<?php echo $prerequisites['inactive_games'][0]; ?>">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<?php echo PHPArcade\Core::showGlyph($prerequisites['inactive_games'][1], '5x'); ?>
-								</div>
-								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo PHPArcade\Games::getGamesInactiveCount(); ?></div>
-									<div><?php echo gettext('inactivegames'); ?></div>
-								</div>
-							</div>
-						</div>
-						<a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=inactive">
-							<div class="panel-footer">
-								<span class="pull-left"><?php echo gettext('viewdetails'); ?></span>
-								<span class="pull-right"><?php echo PHPArcade\Core::showGlyph('arrow-circle-right'); ?></i></span>
-								<div class="clearfix"></div>
-							</div>
-						</a>
-					</div>
-				</div><?php
-            }
+                <div class="card-deck">
+                    <?php
+                    /* Broken Block */
+                    if (PHPArcade\Games::getGamesBrokenCount() > 0) {
+                        ?>
+                        <div class="card" style="max-width: 18rem;">
+                            <div class="card-body bg-<?php echo $prerequisites['broken_games'][0]; ?>">
+                                <?php echo PHPArcade\Core::showGlyph($prerequisites['broken_games'][1], '5x'); ?>
+                                <?php echo PHPArcade\Games::getGamesBrokenCount(); ?>
+                                <?php echo gettext('notworking'); ?>
+                            </div>
+                            <div class="card-footer">
+                                <a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=viewbroken">
+                                    <span class="pull-left"><?php echo gettext('viewdetails'); ?>></span>
+                                    <span class="pull-right"><?php echo PHPArcade\Core::showGlyph('arrow-circle-right'); ?></span>
+                                    <div class="clearfix"></div>
+                                </a>
+                            </div>
+                        </div>
+                        <?php
+                    }
 
-            /* SSL Block */
-            if (PHPArcade\Administrations::getScheme() === 'http://') {
-                ?>
-				<div class="col-lg-2 col-md-6">
-					<div class="panel panel-<?php echo $prerequisites['ssl'][0]; ?>">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<?php echo PHPArcade\Core::showGlyph($prerequisites['ssl'][1], '5x'); ?>
-								</div>
-								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo gettext('ssl'); ?></div>
-								</div>
-							</div>
-						</div>
-						<a href="https://www.cloudflare.com/plans" target="_blank" rel="noopener">
-							<div class="panel-footer">
-								<span class="pull-left"><?php echo gettext('viewdetails'); ?></span>
-								<span class="pull-right"><?php echo PHPArcade\Core::showGlyph('arrow-circle-right'); ?></span>
-								<div class="clearfix"></div>
-							</div>
-						</a>
-					</div>
-				</div><?php
-            }
+                    /* Inactive Block */
+                    if (PHPArcade\Games::getGamesInactiveCount() > 0) {
+                        ?>
+                        <div class="card" style="max-width: 18rem;">
+                            <div class="card-body bg-<?php echo $prerequisites['inactive_games'][0]; ?>">
+                                <?php echo PHPArcade\Core::showGlyph($prerequisites['inactive_games'][1], '5x'); ?>
+                                <?php echo PHPArcade\Games::getGamesInactiveCount(); ?>
+                                <?php echo gettext('inactivegames'); ?>
+                            </div>
+                            <div class="card-footer">
+                                <a href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=inactive">
+                                    <span class="pull-left"><?php echo gettext('viewdetails'); ?></span>
+                                    <span class="pull-right"><?php echo PHPArcade\Core::showGlyph('arrow-circle-right'); ?></i></span>
+                                    <div class="clearfix"></div>
+                                </a>
+                            </div>
+                        </div>
+                        <?php
+                    }
 
-            /* Session Block */
-            if ($prerequisites['folder_session'][0] === 'red') {
-                ?>
-				<div class="col-lg-2 col-md-6">
-					<div class="panel panel-<?php echo $prerequisites['folder_session'][0]; ?>">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<?php echo PHPArcade\Core::showGlyph($prerequisites['folder_session'][1], '5x'); ?>
-								</div>
-								<div class="col-xs-9 text-right">
-									<div class="huge"><?php echo gettext('sessions'); ?></div>
-									<div><?php echo session_save_path() . ' ' . gettext('unwritable'); ?> </div>
-								</div>
-							</div>
-						</div>
-						<div class="panel-footer">
-							<p><?php echo gettext('solutionchown'); ?>:</p>
-							<p>
-								<code>
-									$(which chown) -R <?php echo get_current_user(); ?>:<?php echo $processUser['name'] .
-                                                                                                   ' ' . session_save_path(); ?>
-								</code>
-							</p>
-							<p><?php echo gettext('solutionchownwarning'); ?></p>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div><?php
-            } ?>
-			<div class="col-lg-2">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<?php echo gettext('statistics'); ?>
-					</div>
-					<div class="panel-body">
-						<p class="text-info">
-							<?php echo gettext('tg'); ?>: <?php echo number_format(PHPArcade\Games::getGamesCount('all')); ?>
-						</p>
-						<p class="text-info">
-							<?php echo gettext('totalgameplays'); ?>: <?php echo number_format(PHPArcade\Core::getPlayCountTotal()); ?>
-						</p>
-						<p class="text-info">
-							<?php echo gettext('registeredusers'); ?>: <?php echo number_format(PHPArcade\Users::getUsersCount()); ?>
-						</p>
-					</div>
-				</div>
-			</div><?php
+                    /* SSL Block */
+                    if (PHPArcade\Administrations::getScheme() === 'http://') {
+                        ?>
+                        <div class="card" style="max-width: 18rem;">
+                            <div class="card-body bg-<?php echo $prerequisites['ssl'][0]; ?>">
+                                <?php echo gettext('ssl'); ?>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://www.cloudflare.com/plans" target="_blank" rel="noopener">
+                                    <span class="pull-left"><?php echo gettext('viewdetails'); ?></span>
+                                    <span class="pull-right"><?php echo PHPArcade\Core::showGlyph('arrow-circle-right'); ?></span>
+                                    <div class="clearfix"></div>
+                                </a>
+                            </div>
+                        </div><?php
+                    }
+
+                    /* Session Block */
+                    if ($prerequisites['folder_session'][0] === 'danger') {
+                        ?>
+                            <div class="card" style="max-width: 18rem;">
+                                <div class="card-body bg-<?php echo $prerequisites['folder_session'][0]; ?>">
+                                    <?php echo PHPArcade\Core::showGlyph($prerequisites['folder_session'][1], '5x'); ?>
+                                    <?php echo gettext('sessions'); ?>
+                                    <?php echo session_save_path() . ' ' . gettext('unwritable'); ?>
+                                </div>
+                                <div class="card-footer">
+                                    <p><?php echo gettext('solutionchown'); ?>:</p>
+                                    <p>
+                                        <code>
+                                            $(which chown) -R <?php echo get_current_user(); ?>:<?php echo $processUser['name'] . ' ' . session_save_path(); ?>
+                                        </code>
+                                    </p>
+                                    <p>
+                                        <?php echo gettext('solutionchownwarning'); ?>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php
+                    } ?>
+
+                    <?php /* Statistics */ ?>
+                    <div class="card" style="max-width: 18rem;">
+                        <div class="card-header">
+                            <?php echo gettext('statistics'); ?>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-info">
+                                <?php echo gettext('tg'); ?>: <?php echo number_format(PHPArcade\Games::getGamesCount('all')); ?>
+                            </p>
+                            <p class="text-info">
+                                <?php echo gettext('totalgameplays'); ?>: <?php echo number_format(PHPArcade\Core::getPlayCountTotal()); ?>
+                            </p>
+                            <p class="text-info">
+                                <?php echo gettext('registeredusers'); ?>: <?php echo number_format(PHPArcade\Users::getUsersCount()); ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div><?php
             break;
         case 'logout':
             PHPArcade\Users::userSessionEnd();
