@@ -40,13 +40,13 @@ class Games
     {
         $dbconfig = Core::getDBConfig();
         //Load the file and convert to PNG
-        $img = new \claviska\SimpleImage();
         try
         {
-            $img->fromFile($fromImage)->resize($dbconfig['twidth'], $dbconfig['theight'])->toFile(IMG_DIR .
+            (new \claviska\SimpleImage())->fromFile($fromImage)->resize($dbconfig['twidth'], $dbconfig['theight'])->toFile(IMG_DIR .
                 $nameid, 'image/png');
         } catch (\Exception $e)
         {
+            Core::showError('Unable to convert', 'ambulance');
         }
         return;
     }
