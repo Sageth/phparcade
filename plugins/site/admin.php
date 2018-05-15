@@ -242,37 +242,37 @@ function site_admin($mthd)
             break;
         case 'theme-config': ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<?php echo gettext('theme'); ?>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<label><?php echo gettext('theme'); ?>:</label>
-								<select class="form-control" title="Theme Name" name="themename">
-                                    <?php
-                                    foreach(glob(dirname(__FILE__) . '/themes/*') as $filename){
-                                        if (basename($filename) === 'admin') {
-                                            continue;
-                                        }
-                                        $selected = basename($filename) === $dbconfig['theme'] ? 'selected' : '';
-                                        echo "<option value='" . basename($filename) . "' $selected>". basename($filename) ."</option>";
+                <div class="card">
+                    <div class="card-header">
+                        <?php echo gettext('theme'); ?>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <select class="form-control" title="Theme Name" name="themename">
+                                <?php
+                                foreach(glob(dirname(__FILE__) . '/themes/*') as $filename){
+                                    if (basename($filename) === 'admin') {
+                                        continue;
                                     }
-                                    ?>
-								</select>
-								<p class="help-block">
-                                    <?php echo gettext('uploadthemesto');?>
+                                    $selected = basename($filename) === $dbconfig['theme'] ? 'selected' : '';
+                                    echo "<option value='" . basename($filename) . "' $selected>". basename($filename) ."</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="form-text">
+                            <?php echo gettext('uploadthemesto');?>
+                            <span class="badge badge-secondary" data-toggle="tooltip" data-placement="bottom" title="<?php echo gettext('themehelp');?>">
                                     <?php echo gettext('themehelp');?>
-                                </p>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-                    <input type='hidden' name='act' value='site'/>
-					<input type='hidden' name='mthd' value='theme-config-do'/>
-					<?php PHPArcade\Pages::getSubmitButton(); ?>
-				</div>
+                                </span>
+                        </small>
+                    </div>
+                </div>
+                <input type='hidden' name='act' value='site'/>
+                <input type='hidden' name='mthd' value='theme-config-do'/>
+                <?php PHPArcade\Pages::getSubmitButton(); ?>
 			</form><?php
             break;
         case 'theme-config-do':
