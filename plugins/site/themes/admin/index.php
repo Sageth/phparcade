@@ -56,7 +56,7 @@ $content = $content ?? ''; ?>
                     <?php /* Configuration */ ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?php echo PHPArcade\Core::showGlyph('warehouse'); ?>&nbsp;<?php echo gettext('Configure'); ?>
+                            <?php echo PHPArcade\Core::showGlyph('cogs'); ?>&nbsp;<?php echo gettext('Configure'); ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=site&mthd=site-config">Main Configuration</a>
