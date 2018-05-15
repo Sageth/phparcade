@@ -289,332 +289,235 @@ function site_admin($mthd)
             $checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : "";
             ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
-				<div class="col-md-7">
-					<div class="panel panel-default">
-						<div class="panel-heading">
+				<div class="card-deck mt-4">
+					<div class="card">
+						<div class="card-header">
 							<?php echo PHPArcade\Core::showGlyph('comments');?>&nbsp;<?php echo gettext('disqus'); ?>
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
 							<div class="form-group">
-								<div class="row">
-									<div class="col-md-8">
-										<?php echo PHPArcade\Core::showGlyph('commenting-o');?>
-										<label><?php echo gettext('disqus_enabled'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="disqus_on"></label>
-											<input type="checkbox" name="disqus_on" id="disqus_on" <?php echo $checkeddisqus; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr/>
-							<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('disqus_user'); ?></label>
-                                        <input class="form-control" title="Disqus User" name='disqus_user'
-                                               value='<?php echo $dbconfig['disqus_user']; ?>'/>
-                                    </div>
+                                <?php echo PHPArcade\Core::showGlyph('commenting-o');?>
+                                <label><?php echo gettext('disqus_enabled'); ?></label>
+                                <div class="checkbox-inline pull-right">
+                                    <label for="disqus_on"></label>
+                                    <input type="checkbox" name="disqus_on" id="disqus_on" <?php echo $checkeddisqus; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                 </div>
                             </div>
+                            <hr/>
+                            <div class="form-group">
+                                <label><?php echo gettext('disqus_user'); ?></label>
+                                <input class="form-control" title="Disqus User" name='disqus_user'
+                                       value='<?php echo $dbconfig['disqus_user']; ?>'
+                                />
+                            </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
-                </div>
-				<div class="col-md-7">
-					<div class="panel panel-default">
-						<div class="panel-heading">
+					<div class="card">
+						<div class="card-header">
 							<?php echo PHPArcade\Core::showGlyph('facebook');?>&nbsp;<?php echo gettext('facebook'); ?>
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
 							<div class="form-group">
-								<div class="row">
-									<div class="col-md-8">
-										<?php echo PHPArcade\Core::showGlyph('database');?>
-										<label><?php echo gettext('facebook_enabled'); ?></label>
-										<div class="checkbox-inline pull-right">
-											<label for="facebook_on"></label>
-											<input disabled type="checkbox" name="facebook_on" id="facebook_on" <?php echo $checkedfacebk; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr/>
-							<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('facebook_appid'); ?></label>
-                                        <input class="form-control" title="Facebook App ID" name='facebook_appid'
-                                               value='<?php echo $dbconfig['facebook_appid']; ?>'/>
-                                        <p class="help-block"><?php echo gettext('facebook_developers'); ?></p>
-                                    </div>
+                                <?php echo PHPArcade\Core::showGlyph('database');?>
+                                <label><?php echo gettext('facebook_enabled'); ?></label>
+                                <div class="checkbox-inline pull-right">
+                                    <label for="facebook_on"></label>
+                                    <input disabled type="checkbox" name="facebook_on" id="facebook_on" <?php echo $checkedfacebk; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                 </div>
+                            </div>
+                        	<hr/>
+							<div class="form-group">
+                                <label><?php echo gettext('facebook_appid'); ?></label>
+                                <input class="form-control" title="Facebook App ID" name='facebook_appid'
+                                       value='<?php echo $dbconfig['facebook_appid']; ?>'/>
+                                <small class="form-text"><?php echo gettext('facebook_developers'); ?></small>
                             </div>
                             <hr/>
 							<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('facebook_pageurl'); ?></label>
-                                        <input class="form-control" title="Facebook Page URL" name="facebook_pageurl"
-                                               value="<?php echo $dbconfig['facebook_pageurl']; ?>"/>
-                                    </div>
-                                </div>
+                                <label><?php echo gettext('facebook_pageurl'); ?></label>
+                                <input class="form-control" title="Facebook Page URL" name="facebook_pageurl"
+                                       value="<?php echo $dbconfig['facebook_pageurl']; ?>"/>
                             </div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
+                        </div>
+                        <div class="card-footer">&nbsp;</div>
 					</div>
-				</div>
-				<div class="col-md-7">
-					<div class="panel panel-default">
-						<div class="panel-heading">
+					<div class="card">
+						<div class="card-header">
 							<?php echo PHPArcade\Core::showGlyph('bar-chart');?>&nbsp;<?php echo gettext('mixpanel'); ?>
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <?php echo PHPArcade\Core::showGlyph('table'); ?>
-                                        <label for="mixpanel_id"><?php echo gettext('mixpanel_id'); ?></label>
-                                        <input class="form-control" title="MixPanel ID" name="mixpanel_id"
-                                               value="<?php echo $dbconfig['mixpanel_id']; ?>"/>
-                                    </div>
-                                </div>
+                                <?php echo PHPArcade\Core::showGlyph('table'); ?>
+                                <label for="mixpanel_id"><?php echo gettext('mixpanel_id'); ?></label>
+                                <input class="form-control" title="MixPanel ID" name="mixpanel_id"
+                                       value="<?php echo $dbconfig['mixpanel_id']; ?>"/>
                             </div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
+                            <p class="form-text">If you would like to disable this feature, please leave the field empty.</p>
+                        </div>
+                        <div class="card-footer">&nbsp;</div>
 					</div>
 				</div>
-				<div class="col-md-7">
-					<div class="panel panel-default">
-						<div class="panel-heading">
+				<div class="card-deck mt-4">
+					<div class="card">
+						<div class="card-header">
 							<?php echo PHPArcade\Core::showGlyph('google');?>&nbsp;<?php echo gettext('google'); ?>
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <?php echo PHPArcade\Core::showGlyph('google');?>&nbsp;
-                                        <label><?php echo gettext('gtm_enabled'); ?></label>
-                                        <div class="pull-right">
-                                            <label for="gtm_enabled"></label>
-                                            <input type="checkbox" name="gtm_enabled" id="gtm_enabled" <?php echo $checkedgtmon; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                        </div>
-                                    </div>
+                                <?php echo PHPArcade\Core::showGlyph('google');?>&nbsp;
+                                <label><?php echo gettext('gtm_enabled'); ?></label>
+                                <div class="pull-right">
+                                    <label for="gtm_enabled"></label>
+                                    <input type="checkbox" name="gtm_enabled" id="gtm_enabled" <?php echo $checkedgtmon; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('gtm_id'); ?></label>
-                                        <input class="form-control" title="Google Tag Manager ID" name='gtm_id'
-                                               value='<?php echo $dbconfig['gtm_id']; ?>'/>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <hr/>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('google_analytics_pubid'); ?></label>
-                                        <input class="form-control"
-                                               title="<?php echo gettext('google_analytics_pubid');?>"
-                                               name="google_analytics_pubid"
-                                               value="<?php echo $dbconfig['google_analytics_pubid']; ?>"
-                                        />
-                                    </div>
-                                </div>
+                                <label><?php echo gettext('gtm_id'); ?></label>
+                                <input class="form-control" title="Google Tag Manager ID" name='gtm_id'
+                                       value='<?php echo $dbconfig['gtm_id']; ?>'/>
                             </div>
                             <hr/>
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <?php echo PHPArcade\Core::showGlyph('database');?>
-                                        <label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
-                                        <input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
-                                               name='google_recaptcha_sitekey'
-                                               value='<?php echo $dbconfig['google_recaptcha_sitekey']; ?>'/>
-                                    </div>
-                                </div>
+                                <label><?php echo gettext('google_analytics_pubid'); ?></label>
+                                <input class="form-control"
+                                       title="<?php echo gettext('google_analytics_pubid');?>"
+                                       name="google_analytics_pubid"
+                                       value="<?php echo $dbconfig['google_analytics_pubid']; ?>"
+                                />
+                            </div>
+                            <hr/>
+                            <div class="form-group">
+                                <?php echo PHPArcade\Core::showGlyph('database');?>
+                                <label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
+                                <input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
+                                       name='google_recaptcha_sitekey'
+                                       value='<?php echo $dbconfig['google_recaptcha_sitekey']; ?>'/>
                             </div>
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('google_recaptcha_secretkey'); ?></label>
-                                        <input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>"
-                                               name='google_recaptcha_secretkey'
-                                               value='<?php echo $dbconfig['google_recaptcha_secretkey']; ?>'/>
-                                    </div>
-                                </div>
+                                <label><?php echo gettext('google_recaptcha_secretkey'); ?></label>
+                                <input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>"
+                                       name='google_recaptcha_secretkey'
+                                       value='<?php echo $dbconfig['google_recaptcha_secretkey']; ?>'/>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('thumbnails'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('width'); ?></label>
-                                        <input class="form-control" title="Thumbnail Width" name='twidth'
-                                               value='<?php echo $dbconfig['twidth']; ?>'/>
-                                    </div>
-                                </div>
+                                <label><?php echo gettext('width'); ?></label>
+                                <input class="form-control" title="Thumbnail Width" name='twidth'
+                                       value='<?php echo $dbconfig['twidth']; ?>'/>
                             </div>
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('height'); ?></label>
-                                        <input class="form-control" title="Thumbnail Height" name='theight'
-                                               value='<?php echo $dbconfig['theight']; ?>'/>
-                                    </div>
-                                </div>
+                                <label><?php echo gettext('height'); ?></label>
+                                <input class="form-control" title="Thumbnail Height" name='theight'
+                                       value='<?php echo $dbconfig['theight']; ?>'/>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('mediafiles'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('defaultwidth'); ?></label>
-                                        <input class="form-control" title="Default Game Width" name='defgwidth'
-                                               value='<?php echo $dbconfig['defgwidth']; ?>'/>
-                                    </div>
-                                </div>
+                                <label><?php echo gettext('defaultwidth'); ?></label>
+                                <input class="form-control" title="Default Game Width" name='defgwidth'
+                                       value='<?php echo $dbconfig['defgwidth']; ?>'/>
                             </div>
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label><?php echo gettext('defaultheight'); ?></label>
-                                        <input class="form-control" title="Default Game Height" name='defgheight'
-                                               value='<?php echo $dbconfig['defgheight']; ?>'/>
-                                    </div>
-                                </div>
+                                <label><?php echo gettext('defaultheight'); ?></label>
+                                <input class="form-control" title="Default Game Height" name='defgheight'
+                                       value='<?php echo $dbconfig['defgheight']; ?>'/>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
                 </div>
-                <div class="col-md-7">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                <div class="card-deck mt-4">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo gettext('rssfeeds'); ?>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <?php echo PHPArcade\Core::showGlyph('rss');?>
-                                        <label><?php echo gettext('enablerss'); ?></label>
-                                        <div class="checkbox-inline pull-right">
-                                            <input type="checkbox" name="rssenabled" title="rssenabled" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                        </div>
-                                    </div>
+                                <?php echo PHPArcade\Core::showGlyph('rss');?>
+                                <label><?php echo gettext('enablerss'); ?></label>
+                                <div class="checkbox-inline pull-right">
+                                    <input type="checkbox" name="rssenabled" title="rssenabled" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                 </div>
                             </div>
                             <hr />
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <?php echo PHPArcade\Core::showGlyph('asterisk');?>
-                                        <label><?php echo gettext('numlatest'); ?></label>
-                                        <input class="form-control" name='rssnumlatest' title="rssnumlatest"
-                                               value='<?php echo $dbconfig['rssnumlatest']; ?>'/>
-                                    </div>
-                                </div>
+                                <?php echo PHPArcade\Core::showGlyph('asterisk');?>
+                                <label><?php echo gettext('numlatest'); ?></label>
+                                <input class="form-control" name='rssnumlatest' title="rssnumlatest"
+                                       value='<?php echo $dbconfig['rssnumlatest']; ?>'/>
                             </div>
                             <hr />
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <?php echo PHPArcade\Core::showGlyph('link');?>
-                                        <label><?php echo gettext('rssfeedurl'); ?></label>
-                                        <input class="form-control" name='rssfeed' title="rssfeed"
-                                               value='<?php echo $dbconfig['rssfeed']; ?>'/>
-                                        <p class="help-block"><?php echo gettext('rssfeedexample1'); ?></p>
-                                        <p class="help-block"><?php echo gettext('rssfeedexample2'); ?></p>
-                                    </div>
-                                </div>
+                                <?php echo PHPArcade\Core::showGlyph('link');?>
+                                <label><?php echo gettext('rssfeedurl'); ?></label>
+                                <input class="form-control" name='rssfeed' title="rssfeed"
+                                       value='<?php echo $dbconfig['rssfeed']; ?>'/>
+                                <small class="form-text"><?php echo gettext('rssfeedexample1'); ?></small>
+                                <small class="form-text"><?php echo gettext('rssfeedexample2'); ?></small>
                             </div>
                         </div>
-                        <div class="panel-footer">&nbsp;</div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card">
+                        <div class="card-header">
                             <?php echo PHPArcade\Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('general'); ?>
-                            <p class="help-block pull-right"><?php echo gettext('google_appsforbusiness');?></p>
+                            <small class="form-text pull-right"><?php echo gettext('google_appsforbusiness');?></small>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <?php echo PHPArcade\Core::showGlyph('users');?>
-                                        <label><?php echo gettext('usersenabled'); ?></label>
-                                        <div class="checkbox-inline pull-right">
-                                            <label for="membersenabled"></label>
-                                            <input type="checkbox" name="membersenabled" id="membersenabled" <?php echo $checkeduserson; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                        </div>
-                                    </div>
+                                <?php echo PHPArcade\Core::showGlyph('users');?>
+                                <label><?php echo gettext('usersenabled'); ?></label>
+                                <div class="checkbox-inline pull-right">
+                                    <label for="membersenabled"></label>
+                                    <input type="checkbox" name="membersenabled" id="membersenabled" <?php echo $checkeduserson; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                 </div>
                             </div>
                             <hr />
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <?php echo PHPArcade\Core::showGlyph('list');?>
-                                        <label><?php echo gettext('emailactivation'); ?></label>
-                                        <div class="checkbox-inline pull-right">
-                                            <label for="emailactivation"></label>
-                                            <input type="checkbox" name="emailactivation" id="emailactivation" <?php echo $checkedemailact; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                        </div>
-                                    </div>
+                                <?php echo PHPArcade\Core::showGlyph('list');?>
+                                <label><?php echo gettext('emailactivation'); ?></label>
+                                <div class="checkbox-inline pull-right">
+                                    <label for="emailactivation"></label>
+                                    <input type="checkbox" name="emailactivation" id="emailactivation" <?php echo $checkedemailact; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                 </div>
                             </div>
                             <hr />
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <?php echo PHPArcade\Core::showGlyph('list');?>
-                                        <label><?php echo gettext('allowpasswordrecovery'); ?></label>
-                                        <div class="checkbox-inline pull-right">
-                                            <label for="passwordrecovery"></label>
-                                            <input type="checkbox" name="passwordrecovery" id="passwordrecovery" <?php echo $checkedpassrecovery; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                        </div>
-                                    </div>
+                                <?php echo PHPArcade\Core::showGlyph('list');?>
+                                <label><?php echo gettext('allowpasswordrecovery'); ?></label>
+                                <div class="checkbox-inline pull-right">
+                                    <label for="passwordrecovery"></label>
+                                    <input type="checkbox" name="passwordrecovery" id="passwordrecovery" <?php echo $checkedpassrecovery; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
                                 </div>
                             </div>
+                            <hr />
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label>
-                                            <?php echo gettext('emailaddressfrom'); ?>
-                                            <input class="form-control" name='emailfrom' value='<?php echo $dbconfig['emailfrom']; ?>'/>
-                                        </label>
-                                    </div>
-                                </div>
+                                <?php echo PHPArcade\Core::showGlyph('envelope');?>
+                                <label><?php echo gettext('emailaddressfrom'); ?></label>
+                                <input class="form-control" name='emailfrom' value='<?php echo $dbconfig['emailfrom']; ?>'/>
                             </div>
                         </div>
-                        <div class="panel-footer">
-                            <input type='hidden' name='act' value='site' />
-                            <input type='hidden' name='mthd' value='feature-config-do' />
-                            <?php PHPArcade\Pages::getSubmitButton(); ?>
-                        </div>
+                        <div class="card-footer">&nbsp;</div>
                     </div>
                 </div>
-			</form><?php
+                <input type='hidden' name='act' value='site' />
+                <input type='hidden' name='mthd' value='feature-config-do' />
+                <?php PHPArcade\Pages::getSubmitButton(); ?>
+            </form><?php
             break;
         case 'feature-config-do':
             PHPArcade\Administrations::updateConfig('defgwidth', $_POST['defgwidth']);
