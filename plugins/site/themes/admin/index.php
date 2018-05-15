@@ -102,9 +102,8 @@ $content = $content ?? ''; ?>
         <script src="<?php echo JS_JQUERY; ?>" defer></script>
         <script src="<?php echo JS_JQUERY_UI; ?>" defer></script>
         <script src="<?php echo JS_TABLESORT; ?>" defer></script>
-        <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
+        <script src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" defer></script>
         <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous" defer></script>
-        <script src="<?php echo JS_SB_ADMIN_2; ?>" integrity="<?php echo JS_SB_ADMIN_2_SRI;?>" crossorigin="anonymous" defer></script>
         <script src="<?php echo JS_METISMENU; ?>" defer></script>
     </body>
 </html>
