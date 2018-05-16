@@ -73,7 +73,7 @@ $content = $content ?? ''; ?>
                             <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=ads&mthd=manage">Advertising</a>
                             <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=manage-cat">Categories</a>
                             <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=manage">Games</a>
-                            <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&mthd=manage">Pages</a>
+                            <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=pages&mthd=manage">Pages</a>
                             <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>index.php?act=users&mthd=manage">Users</a>
                         </div>
                     </li>
