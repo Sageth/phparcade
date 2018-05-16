@@ -326,12 +326,11 @@ use PDO;
             }
         }
         public static function showError($text, $glyph = 'ambulance')
-        {
-            ?>
+        { ?>
             <div class="alert alert-danger mt-4" role="alert">
-            <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
-            <strong><?php echo gettext('error') ?></strong>
-            <?php echo $text; ?>
+                <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
+                <strong><?php echo gettext('error') ?></strong>
+                <?php echo $text; ?>
             </div><?php
         }
         public static function showGlyph($glyph, $size = '1x', $hidden = 'true')
@@ -342,27 +341,27 @@ use PDO;
         {
             ?>
             <div class="alert alert-info mt-4" role="alert">
-            <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
-            <strong><?php echo gettext('info') ?></strong>
-            <?php echo $text; ?>
+                <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
+                <strong><?php echo gettext('info') ?></strong>
+                <?php echo $text; ?>
             </div><?php
         }
         public static function showSuccess($text, $glyph = 'check')
         {
             ?>
             <div class="alert alert-success mt-4" role="alert">
-            <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
-            <strong><?php echo gettext('success') ?></strong>
-            <?php echo $text; ?>
+                <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
+                <strong><?php echo gettext('success') ?></strong>
+                <?php echo $text; ?>
             </div><?php
         }
         public static function showWarning($text, $glyph = 'warning')
         {
             ?>
             <div class="alert alert-warning mt-4" role="alert">
-            <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
-            <strong><?php echo gettext('warning') ?></strong>
-            <?php echo $text; ?>
+                <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
+                <strong><?php echo gettext('warning') ?></strong>
+                <?php echo $text; ?>
             </div><?php
         }
         private function __clone()

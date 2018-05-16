@@ -323,14 +323,22 @@ class Users
         if (self::userGetPassword($username) === self::userPasswordMD5($password)) {
             self::userGeneratePassword($username, $password);
         }
+
+        /* Store your encrypted password in $hash */
         $hash = self::userGetPassword($username);
+
+        /* Verify password */
         if (password_verify($password, self::userGetPassword($username))) {
-            // Login successful.
+
+            /* Login successful. Regenerate password hash if needed */
             if (password_needs_rehash(self::userGetPassword($username), PASSWORD_DEFAULT)) {
                 $hash = self::userGeneratePassword($username, $password);
             }
+
+            /* Now generate user session */
             Users::userSessionStart($username);
         } else {
+            /* Password unsuccessful.  Kill the session and tell the user */
             Users::userSessionEnd();
             return gettext('wrongup');
         }

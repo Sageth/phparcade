@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: phparcade\n"
 "POT-Creation-Date: 2015-08-31 23:28-0500\n"
-"PO-Revision-Date: 2018-05-13 21:29-0400\n"
+"PO-Revision-Date: 2018-05-15 17:50-0400\n"
 "Last-Translator: Sage Russell <webmaster@sageth.com>\n"
 "Language-Team: PHPArcade <webmaster@sageth.com>\n"
 "Language: en\n"
@@ -583,6 +583,9 @@ msgstr "Minimum Width (Set to -1 for no minimum.)"
 
 msgid "mixpanel"
 msgstr "MixPanel"
+
+msgid "mixpanel_id"
+msgstr "MixPanel ID"
 
 msgid "months"
 msgstr "Month(s)"

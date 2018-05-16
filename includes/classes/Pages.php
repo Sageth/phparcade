@@ -8,11 +8,6 @@ class Pages
     private function __construct()
     {
     }
-    /** @noinspection PhpInconsistentReturnPointsInspection
-     * @param $id
-     *
-     * @return mixed
-     */
     public static function getPage($id)
     {
         /* Used to display on the front-end website */

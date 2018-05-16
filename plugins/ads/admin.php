@@ -3,43 +3,33 @@ function ads_links()
 {
     PHPArcade\Administrations::addLink(gettext('ads'), 'index.php?act=ads');
 }
-
-PHPArcade\Administrations::addSubLink(gettext('add'), 'index.php?act=ads&mthd=addad-form', 'ads');
-PHPArcade\Administrations::addSubLink(gettext('ads-manage'), 'index.php?act=ads&mthd=manage', 'ads');
-
-
-/**
- * @param $mthd
- */
 function ads_admin($mthd)
 {
     switch ($mthd) {
         case 'addad-form': ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<?php echo gettext('advertisement') ?>
-						</div>
-						<div class="panel-body">
-							<div class="form-group">
-								<label><?php echo gettext('name'); ?></label>
-								<input class="form-control" title="Name" name="name"/>
-							</div>
-							<div class="form-group">
-								<label><?php echo gettext('adcode'); ?></label>
-								<textarea class="form-control" title="Code" name='code' cols='60' rows='10'></textarea>
-							</div>
-						</div>
-						<div class="panel-footer">&nbsp;</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
+				<div class="card-deck mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <?php echo gettext('advertisement') ?>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label><?php echo gettext('name'); ?></label>
+                                <input class="form-control" title="Name" name="name"/>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo gettext('adcode'); ?></label>
+                                <textarea class="form-control" title="Code" name='code' cols='60' rows='10'></textarea>
+                            </div>
+                        </div>
+                        <div class="card-footer">&nbsp;</div>
+                    </div>
+					<div class="card">
+						<div class="card-header">
 							<?php echo gettext('optionalinfo'); ?>
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
 							<div class="form-group">
 								<label><?php echo gettext('location'); ?></label>
 								<input class="form-control" title="Location" name='location'/>
@@ -53,7 +43,7 @@ function ads_admin($mthd)
 								<textarea class="form-control" title="Comment" name="adcomment" rows="3"></textarea>
 							</div>
 						</div>
-						<div class="panel-footer">&nbsp;</div>
+						<div class="card-footer">&nbsp;</div>
 					</div>
 				</div>
 				<input type='hidden' name='act' value='ads'/>
@@ -74,32 +64,30 @@ function ads_admin($mthd)
         case 'editad-form':
             $ad = PHPArcade\Ads::getInstance()->getAd($_REQUEST['id']); ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
+				<div class="card-deck mt-4">
+					<div class="card">
+						<div class="card-header">
 							<?php echo gettext('advertisement'); ?>
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
 							<div class="form-group">
 								<label><?php echo gettext('name'); ?></label>
 								<input class="form-control" title="Ad Name" name='name' value="<?php echo $ad['name']; ?>"/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('adcode'); ?></label>
-								<textarea class="form-control" title="Code" name='code' rows='15'>
+								<textarea class="form-control" title="Code" name="code" rows="15">
 									<?php echo $ad['code']; ?>
 								</textarea>
 							</div>
 						</div>
-						<div class="panel-footer">&nbsp;</div>
+						<div class="card-footer">&nbsp;</div>
 					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
+					<div class="card">
+						<div class="card-header">
 							<?php echo gettext('optionalinfo'); ?>
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
 							<div class="form-group">
 								<label><?php echo gettext('location'); ?></label>
 								<input class="form-control" title="Location"
@@ -116,7 +104,7 @@ function ads_admin($mthd)
 								          rows="8"><?php echo $ad['adcomment']; ?></textarea>
 							</div>
 						</div>
-						<div class="panel-footer">&nbsp;</div>
+						<div class="card-footer">&nbsp;</div>
 					</div>
 				</div>
 				<input type='hidden' name='act' value='ads'/>
@@ -133,39 +121,36 @@ function ads_admin($mthd)
             }
             break;
         case 'getcode': ?>
-			<div class="col-lg-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<?php echo gettext('getcode'); ?>
-					</div>
-					<div class="panel-body">
-						<div class="form-group"><?php
-                            $ad = PHPArcade\Ads::getInstance()->getAd($_REQUEST['id']);
-                            $ad['code'] = '<?php echo Ads::getInstance()->showAds("' . $ad['id'] . '");?>';
-                            $ad['lcode'] = '<?php echo Ads::getInstance()->showAds("' . $ad['location'] . '");?>'; ?>
-							<label><?php echo gettext('individualadcode'); ?></label>
-							<textarea class="form-control" title="Ad Code" rows="3"><?php echo $ad['code']; ?></textarea>
-							<br/>
-							<label><?php echo gettext('location'); ?> (Recommended)</label>
-							<textarea class="form-control" title="Ad Location" rows="3"><?php echo $ad['lcode']; ?></textarea>
-						</div>
-					</div>
-					<div class="panel-footer">&nbsp;</div>
-				</div>
+			<div class="card">
+                <div class="card-header">
+                    <?php echo gettext('getcode'); ?>
+                </div>
+                <div class="card-body">
+                    <div class="form-group"><?php
+                        $ad = PHPArcade\Ads::getInstance()->getAd($_REQUEST['id']);
+                        $ad['code'] = '<?php echo Ads::getInstance()->showAds("' . $ad['id'] . '");?>';
+                        $ad['lcode'] = '<?php echo Ads::getInstance()->showAds("' . $ad['location'] . '");?>'; ?>
+                        <label><?php echo gettext('individualadcode'); ?></label>
+                        <textarea class="form-control" title="Ad Code" rows="3"><?php echo $ad['code']; ?></textarea>
+                        <br/>
+                        <label><?php echo gettext('location'); ?> (Recommended)</label>
+                        <textarea class="form-control" title="Ad Location" rows="3"><?php echo $ad['lcode']; ?></textarea>
+                    </div>
+                </div>
+                <div class="card-footer">&nbsp;</div>
 			</div><?php
             break;
         case "":
         case 'manage':
             $ads = PHPArcade\Ads::getInstance()->getAds() ?>
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
+				<div class="card mt-4">
+					<div class="card-header">
 						<?php echo gettext('manage'); ?>
 					</div>
-					<div class="panel-body">
+					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
-								<thead>
+								<thead class="thead-light">
 									<tr>
 										<th><?php echo gettext('name'); ?></th>
 										<th><?php echo gettext('location'); ?></th>
@@ -179,7 +164,7 @@ function ads_admin($mthd)
                                         if (mb_strlen($page['code']) > 72) {
                                             $page['code'] = substr($page['code'], 0, 72) . '...';
                                         } ?>
-										<tr class="odd gradeA">
+										<tr>
 											<td><?php echo $ad['name']; ?></td>
 											<td><?php echo $ad['location']; ?></td>
 											<td>
@@ -195,9 +180,8 @@ function ads_admin($mthd)
 							</table>
 						</div>
 					</div>
-					<div class="panel-footer">&nbsp;</div>
-				</div>
-			</div><?php
+					<div class="card-footer">&nbsp;</div>
+				</div><?php
             break;
         default:
     }

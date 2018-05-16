@@ -37,9 +37,8 @@ define('TOP_SCORE_COUNT', 10);
 /* ===== LIBRARIES USED THROUGHOUT THE SITE */
 
 /* CDNJS - v3.3.7 - BOOTSTRAP */
-define('CSS_BOOTSTRAP_ADMIN', SITE_URL . 'vendor/twbs/bootstrap/dist/css/bootstrap.min.css');
-define('CSS_BOOTSTRAP_THEME_ADMIN', SITE_URL . 'vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css');
-define('JS_BOOTSTRAP_ADMIN', SITE_URL . 'vendor/twbs/bootstrap/dist/js/bootstrap.min.js');
+define('CSS_BOOTSTRAP_ADMIN', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css');
+define('JS_BOOTSTRAP_ADMIN', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js');
 
 /* CDNJS - v2.2.2 - BOOTSTRAP TOGGLE */
 define('CSS_BOOTSTRAP_TOGGLE', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css');
