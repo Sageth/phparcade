@@ -3,8 +3,6 @@ function users_links()
 {
     PHPArcade\Administrations::addLink(gettext('users'), 'index.php?act=users');
 }
-
-PHPArcade\Administrations::addSubLink(gettext('manage'), 'index.php?act=users&mthd=manage', 'users');
 function users_admin($mthd)
 {
     switch ($mthd) {

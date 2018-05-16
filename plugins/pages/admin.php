@@ -4,8 +4,6 @@ function pages_links()
     PHPArcade\Administrations::addLink(gettext('pages'), 'index.php?act=pages');
 }
 
-PHPArcade\Administrations::addSubLink(gettext('add'), 'index.php?act=pages&mthd=addpage-form', 'pages');
-PHPArcade\Administrations::addSubLink(gettext('manage'), 'index.php?act=pages&mthd=manage', 'pages');
 /**
  * @param $mthd
  */

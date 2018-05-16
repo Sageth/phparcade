@@ -17,12 +17,6 @@ use PDOException;
             $links[] = $linktext;
             $linkshref[] = $href;
         }
-        public static function addSubLink($linktext, $href, $cat = 'none')
-        {
-            global $sublinks, $sublinkshref;
-            $sublinks[$cat][] = $linktext;
-            $sublinkshref[$cat][] = $href;
-        }
         public static function getProcessUser()
         {
             //http://php.net/manual/en/function.posix-getpwuid.php#82387
