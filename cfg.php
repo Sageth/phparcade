@@ -51,7 +51,7 @@ define('JS_BOOTSTRAP_TOGGLE_SRI', 'sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKd
 define('CSS_FONTAWESOME', SITE_URL . 'vendor/fortawesome/font-awesome/css/font-awesome.min.css');
 
 /* CUSTOM - INPUT COLORS */
-define('CSS_INPUTCOLORS', SITE_URL . '/plugins/site/themes/admin/assets/css/inputcolors.min.css');
+define('CSS_INPUTCOLORS', SITE_URL_ADMIN . 'assets/css/inputcolors.min.css');
 
 /* GOOGLE RECAPTCHA */
 define('JS_GOOGLE_RECAPTCHA', 'https://www.google.com/recaptcha/api.js');
@@ -81,10 +81,10 @@ define('JS_SB_ADMIN_2_SRI', 'sha256-Y0Z5pT4qPGaoUSHoxW+J8fIWjQnjc7v03WBEUnt9SQ0=
 define('JS_SWFOBJECT', SITE_URL . 'vendor/koala-framework/library-swfobject/swfobject.js');
 
 /* CUSTOM - TABLESORT */
-define('JS_TABLESORT', SITE_URL . 'plugins/site/themes/admin/assets/js/tablesort.min.js');
+define('JS_TABLESORT', SITE_URL_ADMIN . 'assets/js/tablesort.min.js');
 
 /* CUSTOM - USERFILTER */
-define('JS_TABLEFILTER', SITE_URL . 'plugins/site/themes/admin/assets/js/tablefilter.min.js');
+define('JS_TABLEFILTER', SITE_URL_ADMIN . '/assets/js/tablefilter.min.js');
 
 /* STANDARD URLS FOR EXTERNAL SITES */
 define('URL_FACEBOOK', 'https://www.facebook.com/');
