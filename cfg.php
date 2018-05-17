@@ -19,7 +19,7 @@ define('IMG_DIR_NOSLASH', INST_DIR . 'img');
 define('SITE_URL', sprintf('%s://%s/', isset($_SERVER['HTTPS']) &&
 $_SERVER['HTTPS'] != 'off' ? 'https' : 'http', $_SERVER['SERVER_NAME']));
 define('ADMIN_THEME_PATH', INST_DIR . 'Zdmin/index.php');
-define('ADMIN_SITE_THEME_PATH', INST_DIR . 'plugins/site/themes/admin/index.php');
+define('ADMIN_SITE_THEME_PATH', INST_DIR . 'Zdmin/index.php');
 define('CHARSET', 'UTF-8');
 define('EXT_IMG', '.png');
 define('GRAVATAR_URL', 'https://www.gravatar.com/avatar/');
