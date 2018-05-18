@@ -371,7 +371,6 @@ use PDO;
 
     function preappbase($string)
     {
-        global $prepend;
-        return $string != SITE_URL_ADMIN ? SITE_URL . $prepend . $string . '.html' : $string;
+        return $string != SITE_URL_ADMIN ? SITE_URL . $string . '.html' : $string;
     }
 }
