@@ -35,11 +35,6 @@ use PDO;
         {
             return html_entity_decode($string, $params);
         }
-        public static function getAdminGamePageCount()
-        {
-            mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();')->execute();
-            return ceil(mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();')->rowCount() / 50);
-        }
         public static function getCurrentDate()
         {
             return time();
