@@ -126,7 +126,7 @@ require_once __DIR__ . '/themeconfig.php';
         <?php if (true == PHPArcade\Core::is('game')) { ?>
             <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" crossorigin="anonymous" defer></script><?php
         } ?>
-        <script type="application/ld+json" defer>
+        <script type="application/ld+json" async>
         {
             "@context":"http://schema.org",
             "@type":"Organization",
@@ -137,7 +137,7 @@ require_once __DIR__ . '/themeconfig.php';
             ]
         }
         </script>
-        <script type="application/ld+json" defer>
+        <script type="application/ld+json" async>
         {
             "@context":"http://schema.org",
             "@type":"WebSite",
@@ -158,7 +158,7 @@ require_once __DIR__ . '/themeconfig.php';
             }
         }
         </script>
-        <script>
+        <script type="application/ld+json" async>
             <?php if (!empty($dbconfig['mixpanel_id'])) {
                 if (PHPArcade\Users::isUserLoggedIn() === true) { ?>
                     mixpanel.register({
