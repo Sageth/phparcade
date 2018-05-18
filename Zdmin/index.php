@@ -9,20 +9,16 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../cfg.php';
 PHPArcade\Languages::loadLanguage();
-
 define('JS_BOOTSTRAP', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js');
 
 // global vars
 $act = $_REQUEST['act'] ?? 'site';
 // -----------
-?>
 
-<?php
 PHPArcade\Core::stopDirectAccess();
 if (!isset($_SESSION)) {
     session_start();
 }
-global $links, $linkshref, $sublinkshref, $sublinks;
 $content = $content ?? ''; ?>
 <!DOCTYPE html>
 <html lang="en">
