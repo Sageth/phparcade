@@ -90,35 +90,34 @@ require_once __DIR__ . '/themeconfig.php';
         } ?>
         <!--Content Section -->
         <div class="container">
-                <?php switch (true) {
-                    case PHPArcade\Core::is('home'):
-                        include_once __DIR__ . '/home.php';
-                        break;
-                    case PHPArcade\Core::is('game'):
-                        include_once __DIR__ . '/game.php';
-                        break;
-                    case PHPArcade\Core::is('register'):
-                        include_once __DIR__ . '/register.php';
-                        break;
-                    case PHPArcade\Core::is('login'):
-                        include_once __DIR__ . '/login.php';
-                        break;
-                    case PHPArcade\Core::is('profile'):
-                        include_once __DIR__ . '/profile.php';
-                        break;
-                    case PHPArcade\Core::is('category'):
-                        include_once __DIR__ . '/category.php';
-                        break;
-                    case PHPArcade\Core::is('page'):
-                        include_once __DIR__ . '/page.php';
-                        break;
-                    case PHPArcade\Core::is('search'):
-                        include_once __DIR__ . '/search.php';
-                        break;
-                    default:
-                        include_once __DIR__ . '/error.php';
-                } ?>
-
+            <?php switch (true) {
+                case PHPArcade\Core::is('home'):
+                    include_once __DIR__ . '/home.php';
+                    break;
+                case PHPArcade\Core::is('game'):
+                    include_once __DIR__ . '/game.php';
+                    break;
+                case PHPArcade\Core::is('register'):
+                    include_once __DIR__ . '/register.php';
+                    break;
+                case PHPArcade\Core::is('login'):
+                    include_once __DIR__ . '/login.php';
+                    break;
+                case PHPArcade\Core::is('profile'):
+                    include_once __DIR__ . '/profile.php';
+                    break;
+                case PHPArcade\Core::is('category'):
+                    include_once __DIR__ . '/category.php';
+                    break;
+                case PHPArcade\Core::is('page'):
+                    include_once __DIR__ . '/page.php';
+                    break;
+                case PHPArcade\Core::is('search'):
+                    include_once __DIR__ . '/search.php';
+                    break;
+                default:
+                    include_once __DIR__ . '/error.php';
+            } ?>
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
         <script src="<?php echo JS_JQUERY; ?>" defer></script>
