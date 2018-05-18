@@ -18,11 +18,6 @@ use PDO;
         private function __construct()
         {
         }
-        public static function addAction($action, $event)
-        {
-            global $actions_array;
-            $actions_array[$event][] = $action;
-        }
         public static function doEvent($event)
         {
             global $actions_array;

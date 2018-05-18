@@ -74,13 +74,6 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
     }
     die();
 }
-PHPArcade\Core::addAction('load_admin_theme', 'admin_theme_display');
-if ($dbconfig['membersenabled'] === 'on') {
-    PHPArcade\Core::addAction('register_user_form', 'register_user_form');
-    PHPArcade\Core::addAction('register_confirm', 'register_confirm');
-    PHPArcade\Core::addAction('edit_profile_form', 'editprofile');
-    PHPArcade\Core::addAction('edit_profile_do', 'profileediting');
-}
 switch ($act) {
     case 'login':
         if ($dbconfig['membersenabled'] === 'on') {
