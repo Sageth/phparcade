@@ -1,8 +1,4 @@
 <?php
-function media_links()
-{
-    PHPArcade\Administrations::addLink(gettext('gamesmedia'), 'index.php?act=media');
-}
 function media_admin($mthd)
 {
     switch ($mthd) {

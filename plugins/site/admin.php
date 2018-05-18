@@ -1,9 +1,4 @@
 <?php
-function site_links()
-{
-    PHPArcade\Administrations::addLink(gettext('site'), 'index.php?act=site');
-}
-
 function site_admin($mthd)
 {
     $dbconfig = PHPArcade\Core::getDBConfig();

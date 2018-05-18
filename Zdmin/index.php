@@ -66,8 +66,6 @@ $content = $content ?? ''; ?>
         if (file_exists('../plugins/' . $plugin . '/admin.php')) {
             /** @noinspection PhpIncludeInspection */
             require_once '../plugins/' . $plugin . '/admin.php';
-            $func = $plugin . '_links';
-            $func();
         }
     }
 

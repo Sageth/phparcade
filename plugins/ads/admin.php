@@ -1,8 +1,4 @@
 <?php
-function ads_links()
-{
-    PHPArcade\Administrations::addLink(gettext('ads'), 'index.php?act=ads');
-}
 function ads_admin($mthd)
 {
     switch ($mthd) {
