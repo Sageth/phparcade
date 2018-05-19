@@ -31,7 +31,7 @@ if (PHPArcade\Users::isUserLoggedIn()) {
             </li><?php
             if ($user['admin'] === 'Yes') { ?>
                 <li class="dropdown-divider"></li>
-                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>">
+                <a class="dropdown-item" href="<?php echo SITE_URL_ADMIN; ?>" target="_blank" rel="noopener">
                     <?php echo gettext('admin'); ?>
                 </a><?php
             } ?>
