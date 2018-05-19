@@ -24,7 +24,7 @@ our [PHPArcade Discord Server](http://discord.gg/wzr3PCf).
 * Internal high score system for some game types, primarily ibPro v2
 * Bootstrap 3 and Bootstrap 4-based themes
 * RSS Feeds
-* Supports PHP7 and the latest strict standards of MySQL 5.7
+* Supports PHP7!
 * User administration and profiles
 
 ## Additional Notes
@@ -43,22 +43,14 @@ repositories. This code has not been tested on Apache. It may work with some bas
 * [Wiki](https://github.com/Sageth/phpArcade/wiki)
 * [Discord](http://discord.gg/wzr3PCf)
 
-## We are currently looking for the following contributors:
-* Coders (PHP, AJAX, CSS)
-* Theme Designers
-* Contributers should feel free to offer pull requests for updated features and functionality.
-
 ## Installation
 * See details on the [GitHub Wiki](https://github.com/Sageth/phparcade/wiki) or [GitLab Wiki](https://gitlab.com/Sageth/phparcade/wikis/home)
 
 ## Credits
 * [Binary Theme](http://www.binarytheme.com/) for use of the Responsive Theme
-* [Bootstrap](https://getbootstrap.com/) for the the framework
 * [CDNJS](https://cdnjs.com/) is used CDN-hosted javascript files.
 * [Google ReCaptcha](https://github.com/google/recaptcha) is used for bot verification
 * [PHP Mailer](https://www.github.com/PHPMailer/PHPMailer) is used for email notifications.
-* [SimpleImage](https://www.github.com/claviska/SimpleImage) library code is used for image uploads and manipulation.
-* [Start Bootstrap](http://startbootstrap.com/) for the base admin theme
 * [phpArcade](https://www.phparcade.com) is made open source by permission. Please note that the maintainer(s) of this 
 repository do not imply ownership or affiliation with [GameSiteScript](http://www.gamesitescript.com) or its contents.
 * [JetBrains](https://www.jetbrains.com/) has been incredibly helpful and I'd like to thank them for their products and 

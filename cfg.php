@@ -64,20 +64,9 @@ define('JS_JQUERY', SITE_URL . 'vendor/components/jquery/jquery.min.js');
 /* CDNJS - v1.12.1 - JQUERY UI */
 define('JS_JQUERY_UI', SITE_URL . 'vendor/components/jqueryui/jquery-ui.min.js');
 
-/* CDNJS - v2.7.0 - JQUERY METISMENU */
-define('CSS_METISMENU', SITE_URL . 'vendor/onokumus/metismenu/dist/metisMenu.min.css');
-define('JS_METISMENU', SITE_URL . 'vendor/onokumus/metismenu/dist/metisMenu.min.js');
-
 /* CDNJS - v10.6.0 - VANILLA-LAZYLOAD */
 define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.6.0/lazyload.min.js');
 define('JS_LAZYLOAD_SRI', 'sha256-l0s3Oq/rsgmMWQx+yA6VOM3YJNNlI0999aEB5HqYADw=');
-
-/* CDNJS - v3.3.7+1 SB ADMIN 2 THEME */
-define('CSS_SB_ADMIN_2', 'https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/css/sb-admin-2.min.css');
-define('CSS_SB_ADMIN_2_SRI', 'sha256-WeMGw+d+qR+l2h9TzmC+jTME4zy5zYzG8E6FbPikzeM=');
-
-define('JS_SB_ADMIN_2', 'https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/3.3.7+1/js/sb-admin-2.min.js');
-define('JS_SB_ADMIN_2_SRI', 'sha256-Y0Z5pT4qPGaoUSHoxW+J8fIWjQnjc7v03WBEUnt9SQ0=');
 
 /* CDNJS - v2.2.0 - SWFOBJECT */
 define('JS_SWFOBJECT', SITE_URL . 'vendor/koala-framework/library-swfobject/swfobject.js');
