@@ -81,11 +81,7 @@ $content = $content ?? ''; ?>
     if (function_exists($func)) {
         $mthd = $_REQUEST['mthd'] ?? "";
         $func($mthd);
-    }
-    PHPArcade\Core::doEvent('admin_theme_display');
-    /** @noinspection PhpIncludeInspection */
-    /** @noinspection PhpUndefinedVariableInspection */
-    require_once ADMIN_SITE_THEME_PATH; ?>
+    } ?>
     <div class="container">
         <div class="row">
             <?php echo $content; ?>
