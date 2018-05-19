@@ -14,16 +14,16 @@ if ($_GET['act'] == 'Arcade' && $_GET['do'] == 'newscore') { //v2 games
     /* Get the game link */
     $link = PHPArcade\Core::getLinkGame($game['id']);
     if (!$_SESSION) {
-        PHPArcade\Core::loadRedirect(gettext('logintosubmit'), $link);
+        PHPArcade\Core::loadRedirect($link);
     } else {
         if (isset($_POST['gname'], $_POST['gscore'])) {
             if ($_POST['gscore'] <= 0) {
-                PHPArcade\Core::loadRedirect(gettext('scoretoolow'), $link);
+                PHPArcade\Core::loadRedirect($link);
             }
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
             PHPArcade\Scores::submitGameScore($game['id'], $_POST['gscore'], $_SESSION['user']['id'], $ip, $link, $sort);
         } else {
-            PHPArcade\Core::loadRedirect(gettext('errorsubmitscore'), $link);
+            PHPArcade\Core::loadRedirect($link);
         }
     }
 }

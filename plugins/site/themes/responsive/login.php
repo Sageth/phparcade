@@ -14,11 +14,13 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
             if ($params[1] === 'login') {
                 if ($params[2] === 'success') {
                     header('Location: //' . $_SERVER['SERVER_NAME']);
-                    PHPArcade\Core::loadRedirect(gettext('loggedin'));
+                    exit();
                 } elseif ($params[2] === 'wrongup') {
                     header('Location: ' . SITE_URL . '/register/register.html');
+                    exit();
                 } else {
                     header('Location: //' . $_SERVER['SERVER_NAME']);
+                    exit();
                 }
             } elseif ($params[1] === 'logout') {
                 PHPArcade\Users::userSessionEnd();

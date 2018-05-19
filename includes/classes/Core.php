@@ -261,36 +261,13 @@ use PDO;
             $links_arr = array_map('PHPArcade\preappbase', $links_arr);
             return $links_arr;
         }
-        public static function loadRedirect($message, $url = 'refurl')
+        public static function loadRedirect($url = '')
         {
-            $dbconfig = self::getDBConfig();
-            if ($url == 'refurl') {
+            if ($url == '') {
                 $url = $_SERVER['HTTP_REFERER'];
-            } ?>
-            <html lang="en" xmlns="https://www.w3.org/1999/xhtml">
-        <head>
-            <!--suppress RequiredAttributes, HtmlUnknownAttribute -->
-            <meta charset="<?php echo CHARSET; ?>">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title><?php echo gettext('redirection'); ?></title>
-            <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>"/>
-            <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
-            <meta name="robots" content="noindex,nofollow"/>
-            <meta http-equiv="refresh" content="1;URL=<?php echo $url; ?>"/>
-        </head>
-        <body><?php
-        if ($dbconfig['gtm_enabled'] === 'on') {
-            include_once INST_DIR . 'includes/js/Google/googletagmanager.php';
-        } ?>
-        <div class="col-md-12">
-            <div class="panel-body text-center">
-                <p><?php echo $message; ?></p>
-                <p>If you are not redirected, please <a href="<?php echo $url; ?>">click here</a>.</p>
-            </div>
-        </div>
-        </body>
-            </html><?php
-            die();
+            }
+            header("Location: " . $url);
+            exit();
         }
         public static function stopDirectAccess()
         {
