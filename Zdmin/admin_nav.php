@@ -10,7 +10,7 @@
         <ul class="navbar-nav justify-content-between">
             <?php /* Dashboard */ ?>
             <li class="nav-item">
-                <a class="nav-link" href="index.php">
+                <a class="nav-link" href="<?php echo SITE_URL_ADMIN;?>">
                     <?php echo PHPArcade\Core::showGlyph('dashboard'); ?>&nbsp;<?php echo gettext('dashboard'); ?>
                 </a>
             </li>
