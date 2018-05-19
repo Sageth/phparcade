@@ -284,9 +284,8 @@ use PDO;
         {
             $i = 0;
             foreach ($categories as $category) {
-                ++$i;
-                $link = self::getLinkCategory($category['name'], 1); ?>
-                <a class="dropdown-item" href="<?php echo $link; ?>">
+                ++$i; ?>
+                <a class="dropdown-item" href="<?php echo self::getLinkCategory($category['name'], 1); ?>">
                     <?php echo $category['name']; ?>
                 </a>
                 <?php
