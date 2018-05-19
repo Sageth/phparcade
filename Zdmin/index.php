@@ -32,9 +32,9 @@ $content = $content ?? ''; ?>
         echo gettext('logo');
         echo gettext('admin'); ?>
     </title>
-    <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_ADMIN; ?>"/>
+    <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo CSS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous" />
     <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>"/>
-    <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
+    <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
     <link rel="stylesheet" href="<?php echo CSS_INPUTCOLORS;?>"/>
 </head>
 <body>
@@ -90,7 +90,7 @@ $content = $content ?? ''; ?>
     <script src="<?php echo JS_JQUERY; ?>" defer></script>
     <script src="<?php echo JS_JQUERY_UI; ?>" defer></script>
     <script src="<?php echo JS_TABLESORT; ?>" defer></script>
-    <script src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" defer></script>
+    <script src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo JS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous" defer></script>
     <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous" defer></script>
 </body>
 </html>

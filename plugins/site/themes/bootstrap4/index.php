@@ -67,7 +67,7 @@ require_once __DIR__ . '/themeconfig.php';
 
         <!-- Load everything else -->
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
         <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
         <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo SITE_URL; ?>favicon.ico" title="FavIcon"/>

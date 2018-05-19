@@ -36,7 +36,10 @@ define('TOP_SCORE_COUNT', 10);
 
 /* CDNJS - v3.3.7 - BOOTSTRAP */
 define('CSS_BOOTSTRAP_ADMIN', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css');
+define('CSS_BOOTSTRAP_ADMIN_SRI', 'sha256-Md8eaeo67OiouuXAi8t/Xpd8t2+IaJezATVTWbZqSOw=');
+
 define('JS_BOOTSTRAP_ADMIN', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js');
+define('JS_BOOTSTRAP_ADMIN_SRI', 'sha256-xaF9RpdtRxzwYMWg4ldJoyPWqyDPCRD0Cv7YEEe6Ie8=');
 
 /* CDNJS - v2.2.2 - BOOTSTRAP TOGGLE */
 define('CSS_BOOTSTRAP_TOGGLE', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css');
@@ -46,7 +49,8 @@ define('JS_BOOTSTRAP_TOGGLE', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-
 define('JS_BOOTSTRAP_TOGGLE_SRI', 'sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKdoDOmo=');
 
 /* CDNJS - v4.7.0 - FONT AWESOME */
-define('CSS_FONTAWESOME', SITE_URL . 'vendor/fortawesome/font-awesome/css/font-awesome.min.css');
+define('CSS_FONTAWESOME', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+define('CSS_FONTAWESOME_SRI', 'sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=');
 
 /* CUSTOM - INPUT COLORS */
 define('CSS_INPUTCOLORS', SITE_URL_ADMIN . 'assets/css/inputcolors.min.css');
