@@ -67,7 +67,7 @@ require_once __DIR__ . '/themeconfig.php';
 
         <!-- Load everything else -->
         <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
-        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
         <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
         <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo SITE_URL; ?>favicon.ico" title="FavIcon"/>
@@ -90,35 +90,34 @@ require_once __DIR__ . '/themeconfig.php';
         } ?>
         <!--Content Section -->
         <div class="container">
-                <?php switch (true) {
-                    case PHPArcade\Core::is('home'):
-                        include_once __DIR__ . '/home.php';
-                        break;
-                    case PHPArcade\Core::is('game'):
-                        include_once __DIR__ . '/game.php';
-                        break;
-                    case PHPArcade\Core::is('register'):
-                        include_once __DIR__ . '/register.php';
-                        break;
-                    case PHPArcade\Core::is('login'):
-                        include_once __DIR__ . '/login.php';
-                        break;
-                    case PHPArcade\Core::is('profile'):
-                        include_once __DIR__ . '/profile.php';
-                        break;
-                    case PHPArcade\Core::is('category'):
-                        include_once __DIR__ . '/category.php';
-                        break;
-                    case PHPArcade\Core::is('page'):
-                        include_once __DIR__ . '/page.php';
-                        break;
-                    case PHPArcade\Core::is('search'):
-                        include_once __DIR__ . '/search.php';
-                        break;
-                    default:
-                        include_once __DIR__ . '/error.php';
-                } ?>
-
+            <?php switch (true) {
+                case PHPArcade\Core::is('home'):
+                    include_once __DIR__ . '/home.php';
+                    break;
+                case PHPArcade\Core::is('game'):
+                    include_once __DIR__ . '/game.php';
+                    break;
+                case PHPArcade\Core::is('register'):
+                    include_once __DIR__ . '/register.php';
+                    break;
+                case PHPArcade\Core::is('login'):
+                    include_once __DIR__ . '/login.php';
+                    break;
+                case PHPArcade\Core::is('profile'):
+                    include_once __DIR__ . '/profile.php';
+                    break;
+                case PHPArcade\Core::is('category'):
+                    include_once __DIR__ . '/category.php';
+                    break;
+                case PHPArcade\Core::is('page'):
+                    include_once __DIR__ . '/page.php';
+                    break;
+                case PHPArcade\Core::is('search'):
+                    include_once __DIR__ . '/search.php';
+                    break;
+                default:
+                    include_once __DIR__ . '/error.php';
+            } ?>
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
         <script src="<?php echo JS_JQUERY; ?>" defer></script>
@@ -126,7 +125,7 @@ require_once __DIR__ . '/themeconfig.php';
         <?php if (true == PHPArcade\Core::is('game')) { ?>
             <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>" crossorigin="anonymous" defer></script><?php
         } ?>
-        <script type="application/ld+json" defer>
+        <script type="application/ld+json" async>
         {
             "@context":"http://schema.org",
             "@type":"Organization",
@@ -137,7 +136,7 @@ require_once __DIR__ . '/themeconfig.php';
             ]
         }
         </script>
-        <script type="application/ld+json" defer>
+        <script type="application/ld+json" async>
         {
             "@context":"http://schema.org",
             "@type":"WebSite",
@@ -158,7 +157,7 @@ require_once __DIR__ . '/themeconfig.php';
             }
         }
         </script>
-        <script>
+        <script type="application/ld+json" async>
             <?php if (!empty($dbconfig['mixpanel_id'])) {
                 if (PHPArcade\Users::isUserLoggedIn() === true) { ?>
                     mixpanel.register({

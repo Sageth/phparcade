@@ -33,7 +33,7 @@ if (PHPArcade\Users::isUserLoggedIn()) {
                 ?>
                 <li class="divider"></li>
                 <li>
-                    <a href="<?php echo SITE_URL_ADMIN; ?>">
+                    <a href="<?php echo SITE_URL_ADMIN; ?>" target="_blank" rel="noopener">
                         <?php echo gettext('admin'); ?>
                     </a>
                 </li><?php

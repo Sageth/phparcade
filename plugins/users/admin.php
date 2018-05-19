@@ -1,8 +1,4 @@
 <?php
-function users_links()
-{
-    PHPArcade\Administrations::addLink(gettext('users'), 'index.php?act=users');
-}
 function users_admin($mthd)
 {
     switch ($mthd) {

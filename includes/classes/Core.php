@@ -18,11 +18,6 @@ use PDO;
         private function __construct()
         {
         }
-        public static function addAction($action, $event)
-        {
-            global $actions_array;
-            $actions_array[$event][] = $action;
-        }
         public static function doEvent($event)
         {
             global $actions_array;
@@ -39,11 +34,6 @@ use PDO;
         public static function encodeHTMLEntity($string, $params = null)
         {
             return html_entity_decode($string, $params);
-        }
-        public static function getAdminGamePageCount()
-        {
-            mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();')->execute();
-            return ceil(mySQL::getConnection()->prepare('CALL sp_Games_GetGamesNameid();')->rowCount() / 50);
         }
         public static function getCurrentDate()
         {
@@ -271,36 +261,13 @@ use PDO;
             $links_arr = array_map('PHPArcade\preappbase', $links_arr);
             return $links_arr;
         }
-        public static function loadRedirect($message, $url = 'refurl')
+        public static function loadRedirect($url = '')
         {
-            $dbconfig = self::getDBConfig();
-            if ($url == 'refurl') {
+            if ($url == '') {
                 $url = $_SERVER['HTTP_REFERER'];
-            } ?>
-            <html lang="en" xmlns="https://www.w3.org/1999/xhtml">
-        <head>
-            <!--suppress RequiredAttributes, HtmlUnknownAttribute -->
-            <meta charset="<?php echo CHARSET; ?>">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title><?php echo gettext('redirection'); ?></title>
-            <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>"/>
-            <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
-            <meta name="robots" content="noindex,nofollow"/>
-            <meta http-equiv="refresh" content="1;URL=<?php echo $url; ?>"/>
-        </head>
-        <body><?php
-        if ($dbconfig['gtm_enabled'] === 'on') {
-            include_once INST_DIR . 'includes/js/Google/googletagmanager.php';
-        } ?>
-        <div class="col-md-12">
-            <div class="panel-body text-center">
-                <p><?php echo $message; ?></p>
-                <p>If you are not redirected, please <a href="<?php echo $url; ?>">click here</a>.</p>
-            </div>
-        </div>
-        </body>
-            </html><?php
-            die();
+            }
+            header("Location: " . $url);
+            exit();
         }
         public static function stopDirectAccess()
         {
@@ -317,9 +284,8 @@ use PDO;
         {
             $i = 0;
             foreach ($categories as $category) {
-                ++$i;
-                $link = self::getLinkCategory($category['name'], 1); ?>
-                <a class="dropdown-item" href="<?php echo $link; ?>">
+                ++$i; ?>
+                <a class="dropdown-item" href="<?php echo self::getLinkCategory($category['name'], 1); ?>">
                     <?php echo $category['name']; ?>
                 </a>
                 <?php
@@ -371,7 +337,6 @@ use PDO;
 
     function preappbase($string)
     {
-        global $prepend;
-        return $string != SITE_URL_ADMIN ? SITE_URL . $prepend . $string . '.html' : $string;
+        return $string != SITE_URL_ADMIN ? SITE_URL . $string . '.html' : $string;
     }
 }

@@ -11,12 +11,6 @@ use PDOException;
         private function __construct()
         {
         }
-        public static function addLink($linktext, $href)
-        {
-            global $links, $linkshref;
-            $links[] = $linktext;
-            $linkshref[] = $href;
-        }
         public static function getProcessUser()
         {
             //http://php.net/manual/en/function.posix-getpwuid.php#82387

@@ -1,8 +1,4 @@
 <?php
-function pages_links()
-{
-    PHPArcade\Administrations::addLink(gettext('pages'), 'index.php?act=pages');
-}
 
 /**
  * @param $mthd

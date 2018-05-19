@@ -9,20 +9,16 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../cfg.php';
 PHPArcade\Languages::loadLanguage();
-
 define('JS_BOOTSTRAP', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js');
 
 // global vars
 $act = $_REQUEST['act'] ?? 'site';
 // -----------
-?>
 
-<?php
 PHPArcade\Core::stopDirectAccess();
 if (!isset($_SESSION)) {
     session_start();
 }
-global $links, $linkshref, $sublinkshref, $sublinks;
 $content = $content ?? ''; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +32,9 @@ $content = $content ?? ''; ?>
         echo gettext('logo');
         echo gettext('admin'); ?>
     </title>
-    <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_ADMIN; ?>"/>
+    <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo CSS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous" />
     <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>"/>
-    <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>"/>
+    <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
     <link rel="stylesheet" href="<?php echo CSS_INPUTCOLORS;?>"/>
 </head>
 <body>
@@ -66,8 +62,6 @@ $content = $content ?? ''; ?>
         if (file_exists('../plugins/' . $plugin . '/admin.php')) {
             /** @noinspection PhpIncludeInspection */
             require_once '../plugins/' . $plugin . '/admin.php';
-            $func = $plugin . '_links';
-            $func();
         }
     }
 
@@ -87,11 +81,7 @@ $content = $content ?? ''; ?>
     if (function_exists($func)) {
         $mthd = $_REQUEST['mthd'] ?? "";
         $func($mthd);
-    }
-    PHPArcade\Core::doEvent('admin_theme_display');
-    /** @noinspection PhpIncludeInspection */
-    /** @noinspection PhpUndefinedVariableInspection */
-    require_once ADMIN_SITE_THEME_PATH; ?>
+    } ?>
     <div class="container">
         <div class="row">
             <?php echo $content; ?>
@@ -100,7 +90,7 @@ $content = $content ?? ''; ?>
     <script src="<?php echo JS_JQUERY; ?>" defer></script>
     <script src="<?php echo JS_JQUERY_UI; ?>" defer></script>
     <script src="<?php echo JS_TABLESORT; ?>" defer></script>
-    <script src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" defer></script>
+    <script src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo JS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous" defer></script>
     <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous" defer></script>
 </body>
 </html>

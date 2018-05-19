@@ -137,24 +137,24 @@ class Scores
                 [5] = Current epoch time */
         if (self::GetGameScorebyNameIDRowCount($nameid, $player) === 0) {
             self::InsertScoreIntoGameScore($nameid, $_SESSION['user']['id'], $score, $ip, $time);
-            Core::loadRedirect(gettext('scoresaved'), $link);
+            Core::loadRedirect($link);
         } else {
             $gamescore = self::GetGameScorebyNameID($nameid, $player);
             switch ($sort) {
                 case 'ASC':
                     if ($score < $gamescore['score']) {
                         self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
-                        Core::loadRedirect(gettext('scoresaved'), $link);
+                        Core::loadRedirect($link);
                     } else {
-                        Core::loadRedirect(gettext('scorewontsaved'), $link);
+                        Core::loadRedirect($link);
                     }
                     break;
                 case 'DESC':
                     if ($score >= $gamescore['score']) {
                         self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
-                        Core::loadRedirect(gettext('scoresaved'), $link);
+                        Core::loadRedirect($link);
                     } else {
-                        Core::loadRedirect(gettext('scorewontsaved'), $link);
+                        Core::loadRedirect($link);
                     }
                     break;
             }
