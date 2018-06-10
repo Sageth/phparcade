@@ -26,11 +26,11 @@ $i = 0; ?>
                         <div class="col-1">&nbsp;</div>
                         <div class="col">
                             <a href="<?php echo $link;?>">
-                                <img class="rounded"
-                                     src="<?php echo IMG_URL . $game['nameid'] . EXT_IMG;?>"
-                                     alt="<?php $game['name'];?>"
-                                     width="<?php echo $dbconfig['twidth']; ?>"
+                                <img alt="<?php $game['name'];?>"
+                                     class="rounded"
+                                     data-src="<?php echo IMG_URL . $game['nameid'] . EXT_IMG;?>"
                                      height="<?php echo $dbconfig['theight']; ?>"
+                                     width="<?php echo $dbconfig['twidth']; ?>"
                                 />
                             </a>
                         </div>

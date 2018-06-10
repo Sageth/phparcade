@@ -17,9 +17,9 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
         $i = 0;
         $games = PHPArcade\Games::getGamesChamp($user['id']); ?>
         <div class="col-sm-10">
-            <img class="img img-responsive img-circle"
+            <img alt="<?php echo $user['username']; ?>'s Gravatar"
+                 class="img img-responsive img-circle"
                  src="<?php echo PHPArcade\Users::userGetGravatar($user['username'], 80); ?>"
-                 alt="<?php echo $user['username']; ?>'s Gravatar"
                  title="<?php echo $user['username']; ?>'s Gravatar"
             />
             <h1>
@@ -100,20 +100,20 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                 $link = PHPArcade\Core::getLinkGame($game['id']); ?>
                                 <a href="<?php echo $link; ?>"><?php
                                     $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
-                                    <img class="img img-responsive img-rounded"
+                                    <img alt="<?php echo gettext('play')
+                                        . ' '
+                                        . $game['name']
+                                        . ' '
+                                        . gettext('onlineforfree'); ?>"
+                                         class="img img-responsive img-rounded"
                                          data-src="<?php echo $img; ?>"
-                                         alt="<?php echo gettext('play')
-                                             . ' '
-                                             . $game['name']
-                                             . ' '
-                                             . gettext('onlineforfree'); ?>"
+                                         height="<?php echo $dbconfig['theight']; ?>"
                                          title="<?php echo gettext('play')
                                              . ' '
                                              . $game['name']
                                              . ' '
                                              . gettext('onlineforfree'); ?>"
                                          width="<?php echo $dbconfig['twidth']; ?>"
-                                         height="<?php echo $dbconfig['theight']; ?>"
                                     />
                                 </a>
                                 <div class="caption">
@@ -268,7 +268,3 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
             } ?>
         </div>
     </div>
-    <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
-            crossorigin="anonymous" defer></script>
-    <!--suppress Annotator -->
-    <script>var myLazyLoad = new LazyLoad();</script>

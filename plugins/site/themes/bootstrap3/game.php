@@ -255,6 +255,3 @@ global $params; ?>
         </script>
     <?php } ?>
 </div>
-<!--suppress XmlDefaultAttributeValue -->
-<script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous" defer></script>
-<script>var myLazyLoad = new LazyLoad();</script>

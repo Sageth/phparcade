@@ -85,10 +85,10 @@ function users_admin($mthd)
                                 <label>
                                     <?php echo gettext('gravatar');?>
                                 </label>
-                                <img src="<?php echo PHPArcade\Users::userGetGravatar($user['username']); ?>"
-                                     class="img img-responsive img-circle"
-                                     style="float:right"
+                                <img class="img img-responsive img-circle"
+                                     data-src="<?php echo PHPArcade\Users::userGetGravatar($user['username']); ?>"
                                      height="80"
+                                     style="float:right"
                                      width="80"
                                 />
                             </div>

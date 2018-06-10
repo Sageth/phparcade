@@ -190,5 +190,15 @@ require_once __DIR__ . '/themeconfig.php';
                 }
             } ?>
         </script>
+
+        <!-- LazyLoader -->
+        <script>
+            window.lazyLoadOptions = {
+                /* Load options here. We just use the defaults.
+                   See more: https://www.andreaverlicchi.eu/lazyload/#recipes */
+            };
+        </script>
+        <script async src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous"></script>
+        <!-- End LazyLoader -->
     </body>
 </html>

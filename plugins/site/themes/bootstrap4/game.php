@@ -128,8 +128,8 @@ global $params; ?>
                                             <tr class="odd gradeA">
                                                 <td><?php echo $i; ?></td>
                                                 <td>
-                                                    <img data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'],40); ?>"
-                                                         class="img img-fluid rounded-circle"
+                                                    <img class="img img-fluid rounded-circle"
+                                                         data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'],40); ?>"
                                                          style="float:left"
                                                     />&nbsp;
                                                     <a href="<?php echo PHPArcade\Core::getLinkProfile($champ['id']); ?>">
@@ -181,12 +181,12 @@ global $params; ?>
                         <div class="card text-center border-0">
                             <a href="<?php echo $link; ?>"><?php
                                 $img = $dbconfig['imgurl'] . $gamelikethis['nameid'] . EXT_IMG; ?>
-                                <img class="img img-fluid rounded"
+                                <img alt="Play <?php echo $gamelikethis['name']; ?> online for free!"
+                                     class="img img-fluid rounded"
                                      data-src="<?php echo $img; ?>"
-                                     alt="Play <?php echo $gamelikethis['name']; ?> online for free!"
+                                     height="<?php echo $dbconfig['theight']; ?>"
                                      title="Play <?php echo $gamelikethis['name']; ?> online for free!"
                                      width="<?php echo $dbconfig['twidth']; ?>"
-                                     height="<?php echo $dbconfig['theight']; ?>"
                                 />
                             </a>
                             <div class="card-body">
@@ -246,7 +246,3 @@ global $params; ?>
             );
         </script>
     <?php } ?>
-
-<!--suppress XmlDefaultAttributeValue -->
-<script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous" defer></script>
-<script>var myLazyLoad = new LazyLoad();</script>

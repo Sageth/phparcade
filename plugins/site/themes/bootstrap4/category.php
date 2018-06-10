@@ -18,12 +18,12 @@ $games = PHPArcade\Games::getGames($category['name'], 0, 10, $params[2], $dbconf
                 <div class="card-body">
                     <a href="<?php echo $link; ?>"><?php
                         $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
-                        <img class="img-thumbnail rounded mx-auto d-block"
+                        <img alt="Play <?php echo $game['name']; ?> online for free!"
+                             class="img-thumbnail rounded mx-auto d-block"
                              data-src="<?php echo $img; ?>"
-                             alt="Play <?php echo $game['name']; ?> online for free!"
+                             height="<?php echo $dbconfig['theight']; ?>"
                              title="Play <?php echo $game['name']; ?> online for free!"
                              width="<?php echo $dbconfig['twidth']; ?>"
-                             height="<?php echo $dbconfig['theight']; ?>"
                         />
                     </a>
                     <h3 class="card-title">
@@ -58,9 +58,3 @@ $games = PHPArcade\Games::getGames($category['name'], 0, 10, $params[2], $dbconf
         </ul>
     </nav>
 </div>
-
-<!--suppress XmlDefaultAttributeValue -->
-<script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
-        crossorigin="anonymous" defer></script>
-<!--suppress Annotator -->
-<script>var myLazyLoad = new LazyLoad();</script>
