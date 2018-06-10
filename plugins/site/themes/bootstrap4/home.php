@@ -14,11 +14,11 @@ foreach (PHPArcade\Games::getGamesHomePage() as $game) {
         <div class="card-body">
             <a href="<?php echo PHPArcade\Core::getLinkGame($game['id']); ?>">
                 <img class="img-thumbnail rounded mx-auto d-block"
-                     data-src="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"
                      alt="Play <?php echo $game['name']; ?> online for free!"
+                     data-src="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"
+                     height="<?php echo $dbconfig['theight']; ?>"
                      title="Play <?php echo $game['name']; ?> online for free!"
                      width="<?php echo $dbconfig['twidth']; ?>"
-                     height="<?php echo $dbconfig['theight']; ?>"
                 />
             </a>
             <div class="card-body">
@@ -45,9 +45,4 @@ foreach (PHPArcade\Games::getGamesHomePage() as $game) {
             ++$i;
     }
 }?>
-<!--suppress XmlDefaultAttributeValue -->
-<script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
-        crossorigin="anonymous" defer></script>
-<!--suppress Annotator -->
-<script>var myLazyLoad = new LazyLoad();</script>
 <!--End Content Section -->

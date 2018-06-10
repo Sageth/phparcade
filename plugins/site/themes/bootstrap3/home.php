@@ -11,13 +11,13 @@ foreach ($games as $game) {
     <div class="col-md-3 col-md-4">
         <div class="thumbnail">
             <a href="<?php echo $link; ?>">
-                <img class="img img-responsive img-rounded"
+                <img alt="Play <?php echo $game['name']; ?> online for free!"
+                     class="img img-responsive img-rounded"
                      data-src="<?php echo $img; ?>"
-                     alt="Play <?php echo $game['name']; ?> online for free!"
+                     height="<?php echo $dbconfig['theight']; ?>"
                      title="Play <?php echo $game['name']; ?> online for free!"
                      width="<?php echo $dbconfig['twidth']; ?>"
-                     height="<?php echo $dbconfig['theight']; ?>"
-                />
+                                     />
             </a>
             <div class="caption">
                 <h1 class="home-game-title"><?php echo $game['name']; ?></h1>
@@ -42,6 +42,4 @@ foreach ($games as $game) {
 <!--suppress XmlDefaultAttributeValue -->
 <script type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
         crossorigin="anonymous" defer></script>
-<!--suppress Annotator -->
-<script>var myLazyLoad = new LazyLoad();</script>
 <!--End Content Section -->

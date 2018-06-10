@@ -22,12 +22,13 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 		<div class='mostpopular_box_left'>
 			<a href="<?php echo $link; ?>"><?php
                 $img = $dbconfig['imgurl'] . $games[$gamevalue]['nameid'] . EXT_IMG; ?>
-				<img class="img img-responsive img-rounded"
-					 src="<?php echo($img); ?>"
-				     alt="<?php echo $games[$gamevalue]['name']; ?>"
+				<img alt="<?php echo $games[$gamevalue]['name']; ?>"
+                     class="img img-responsive img-rounded"
+					 data-src="<?php echo($img); ?>"
 				     height="60px"
-				     width="50px"
-				     title="Play <?php echo $games[$gamevalue]['name']; ?> online for free!"/>
+				     title="Play <?php echo $games[$gamevalue]['name']; ?> online for free!"
+                     width="50px"
+                />
 			</a>
 		</div>
 		<div class='mostpopular_box_right'>

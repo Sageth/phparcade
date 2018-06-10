@@ -21,12 +21,12 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                     <div class="card card-body">
                         <a href="<?php echo $link; ?>"><?php
                             $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
-                            <img class="img img-fluid rounded"
-                                 src="<?php echo $img; ?>"
-                                 alt="Play <?php echo $game['name']; ?> online for free!"
+                            <img alt="Play <?php echo $game['name']; ?> online for free!"
+                                 class="img img-fluid rounded"
+                                 data-src="<?php echo $img; ?>"
+                                 height="<?php echo $dbconfig['theight']; ?>"
                                  title="Play <?php echo $game['name']; ?> online for free!"
                                  width="<?php echo $dbconfig['twidth']; ?>"
-                                 height="<?php echo $dbconfig['theight']; ?>"
                             />
                         </a>
                         <div class="caption">
