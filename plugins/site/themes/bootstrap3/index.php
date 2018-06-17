@@ -187,5 +187,22 @@ require_once __DIR__ . '/themeconfig.php';
         </script>
         <script async src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous"></script>
         <!-- End LazyLoader -->
+        <?php
+        $inicfg = PHPArcade\Core::getINIConfig();
+        if ($inicfg['webhooks']['highscoreURI'] != '') { ?>
+            <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async>
+                if (window.innerWidth > 768) {
+                    new Crate({
+                        server: '<?php echo $inicfg['webhooks']['hs_server'];?>',
+                        channel: '<?php echo $inicfg['webhooks']['hs_channel'];?>',
+                        location: ['bottom', 'right'],
+                        notifications: true,
+                        indicator: true,
+                        username: '<?php echo $user['name'];?>'
+                    })
+                }
+            </script><?php
+        }
+        ?>
     </body>
 </html>
