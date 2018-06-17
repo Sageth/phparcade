@@ -202,12 +202,12 @@ require_once __DIR__ . '/themeconfig.php';
         <!-- End LazyLoader -->
         <?php
         $inicfg = PHPArcade\Core::getINIConfig();
-        if ($inicfg['webhooks']['highscoreURI'] != '') { ?>
+        if ($inicfg['webhook']['highscoreURI'] != '') { ?>
             <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async>
                 if (window.innerWidth > 768) {
                     new Crate({
-                        server: '<?php echo $inicfg['webhooks']['hs_server'];?>',
-                        channel: '<?php echo $inicfg['webhooks']['hs_channel'];?>',
+                        server: '<?php echo $inicfg['webhook']['hs_server'];?>',
+                        channel: '<?php echo $inicfg['webhook']['hs_channel'];?>',
                         location: ['bottom', 'right'],
                         notifications: true,
                         indicator: true,
