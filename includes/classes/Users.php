@@ -12,46 +12,12 @@ class Users
     private function __construct()
     {
     }
-    public static function UpdateProfile()
+    public static function getUsersAll()
     {
-        /* Sanitization */
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        $github = filter_var($_POST['github_id'], FILTER_SANITIZE_STRING);
-        $facebook = filter_var($_POST['facebook_id'], FILTER_SANITIZE_STRING);
-        $twitter = filter_var($_POST['twitter_id'], FILTER_SANITIZE_STRING);
-        $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
-
-        try {
-            $stmt =
-                mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:email, :github, :facebook, :twitter, :id);');
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':github', $github);
-            $stmt->bindParam(':facebook', $facebook);
-            $stmt->bindParam(':twitter', $twitter);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-        } catch (PDOException $e) {
-            $params[2] = 'wompwomp';
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-                Core::showSuccess(gettext('emailvalid'));
-            } else {
-                Core::showError(gettext('emailinvalid'));
-            }
-            Core::showError($e->getMessage());
-        }
-    }
-    public static function userPasswordUpdateByID($id, $password)
-    {
-        $password = Users::userPasswordHash($password);
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberPassword(:password, :memberid);');
-        $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':memberid', $id);
+        /* Only used by admin on the get users page */
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetAllMembers();');
         $stmt->execute();
-        Core::showSuccess(gettext('updatesuccess'));
-    }
-    public static function userPasswordHash($password)
-    {
-        return password_hash($password, PASSWORD_DEFAULT);
+        return $stmt->fetchAll();
     }
     public static function getUserbyID($id)
     {
@@ -62,13 +28,6 @@ class Users
             return false;
         }
         return $stmt->fetch();
-    }
-    public static function getUsersAll()
-    {
-        /* Only used by admin on the get users page */
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetAllMembers();');
-        $stmt->execute();
-        return $stmt->fetchAll();
     }
     public static function getUsersCount()
     {
@@ -186,14 +145,33 @@ class Users
     {
         return bin2hex(random_bytes(5));
     }
-    public static function userPasswordUpdatebyEmail($password, $username, $email)
+    public static function UpdateProfile()
     {
-        $stmt =
-            mySQL::getConnection()->prepare('CALL sp_Members_UpdatePasswordbyUserEmail(:password, :username, :useremail);');
-        $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':useremail', $email);
-        $stmt->execute();
+        /* Sanitization */
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        $github = filter_var($_POST['github_id'], FILTER_SANITIZE_STRING);
+        $facebook = filter_var($_POST['facebook_id'], FILTER_SANITIZE_STRING);
+        $twitter = filter_var($_POST['twitter_id'], FILTER_SANITIZE_STRING);
+        $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+
+        try {
+            $stmt =
+                mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:email, :github, :facebook, :twitter, :id);');
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':github', $github);
+            $stmt->bindParam(':facebook', $facebook);
+            $stmt->bindParam(':twitter', $twitter);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            $params[2] = 'wompwomp';
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+                Core::showSuccess(gettext('emailvalid'));
+            } else {
+                Core::showError(gettext('emailinvalid'));
+            }
+            Core::showError($e->getMessage());
+        }
     }
     public static function userAdd($username, $email, $status = "")
     {
@@ -317,6 +295,121 @@ class Users
         $stmt->execute();
         Core::showSuccess(gettext('updatesuccess'));
     }
+    public static function userGeneratePassword($username, $password)
+    {
+        $hashandsalt = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GeneratePassword(:username, :hashandsalt);');
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':hashandsalt', $hashandsalt);
+        $stmt->execute();
+        return $hashandsalt;
+    }
+    public static function userGetPassword($username)
+    {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetPassword(:username);');
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+    public static function userGetGravatar($username, $size=80, $default='retro', $rating='pg')
+    {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_getUserEmail(:username);');
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $email = $stmt->fetchColumn();
+        return GRAVATAR_URL . md5(strtolower(trim($email))) . "?default=" . $default . "&size=" . $size . "&rating=" . $rating;
+    }
+    public static function userPasswordHash($password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+    public static function userPasswordMD5($password)
+    {
+        /* This method is only used for legacy accounts. It generally won't be used, as
+           all accounts which are logged into or set up after December 2016 use the PHP
+           password_hash() and password_verify() functions.  The initial admin password
+           also requires this function, as the hash is predictable. */
+        return md5($password);
+    }
+    public static function userPasswordUpdateByID($id, $password)
+    {
+        $password = Users::userPasswordHash($password);
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberPassword(:password, :memberid);');
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':memberid', $id);
+        $stmt->execute();
+        Core::showSuccess(gettext('updatesuccess'));
+    }
+    public static function userPasswordUpdatebyEmail($password, $username, $email)
+    {
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_Members_UpdatePasswordbyUserEmail(:password, :username, :useremail);');
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':useremail', $email);
+        $stmt->execute();
+    }
+    public static function userSessionEnd()
+    {
+        /* Resume sesion, then destroy it */
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        unset($_SESSION['user']);
+        if (isset($_SESSION['user'])) {
+            session_destroy();
+        }
+        header('Location: index.php');
+        exit();
+    }
+    public static function userSessionStart($username)
+    {
+        /* Sanitization */
+        $username = filter_var($username, FILTER_SANITIZE_STRING);
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        session_regenerate_id();
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetSession(:username);');
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $user = $stmt->fetch();
+
+        $_SESSION['user'] =
+            array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
+                  'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'facebook' => $user['facebook_id'],
+                  'github' => $user['github_id'], 'twitter' => $user['twitter_id'],
+                  'admin' => $user['admin'], 'ip' => $user['ip'], 'birth_date' => $user['birth_date'],
+                  'last_login' => $user['last_login']);
+    }
+    public static function userUpdateLastLogin()
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        /* Null checker to prevent extra log entries when user isn't logged in */
+        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+        if ($user !== null) {
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateLastLogin(:userid);');
+            $stmt->bindParam(':userid', $user['id']);
+            $stmt->execute();
+        }
+    }
+    public static function userUpdatePlaycount()
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        /* Null checker to prevent extra log entries when user isn't logged in */
+        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
+        if ($user !== null) {
+            /* Uses index */
+            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePlaycount(:userid);');
+            $stmt->bindParam(':userid', $user['id']);
+            $stmt->execute();
+        }
+    }
     public static function userVerifyPassword($username, $password)
     {
         /* Check if you're still using MD5. If you are, regenerate it as PHP Default's password algorithm */
@@ -343,99 +436,6 @@ class Users
             return gettext('wrongup');
         }
         return $hash;
-    }
-    public static function userGetPassword($username)
-    {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetPassword(:username);');
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        return $stmt->fetchColumn();
-    }
-    public static function userGetGravatar($username, $size=80, $default='retro', $rating='pg')
-    {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_getUserEmail(:username);');
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $email = $stmt->fetchColumn();
-        return GRAVATAR_URL . md5(strtolower(trim($email))) . "?default=" . $default . "&size=" . $size . "&rating=" . $rating;
-    }
-    public static function userPasswordMD5($password)
-    {
-        /* This method is only used for legacy accounts. It generally won't be used, as
-           all accounts which are logged into or set up after December 2016 use the PHP
-           password_hash() and password_verify() functions.  The initial admin password
-           also requires this function, as the hash is predictable. */
-        return md5($password);
-    }
-    public static function userGeneratePassword($username, $password)
-    {
-        $hashandsalt = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GeneratePassword(:username, :hashandsalt);');
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':hashandsalt', $hashandsalt);
-        $stmt->execute();
-        return $hashandsalt;
-    }
-    public static function userSessionStart($username)
-    {
-        /* Sanitization */
-        $username = filter_var($username, FILTER_SANITIZE_STRING);
-
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        session_regenerate_id();
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Members_GetSession(:username);');
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $user = $stmt->fetch();
-
-        $_SESSION['user'] =
-            array('id' => $user['id'], 'name' => $username, 'email' => $user['email'], 'active' => $user['active'],
-                  'regtime' => $user['regtime'], 'totalgames' => $user['totalgames'], 'facebook' => $user['facebook_id'],
-                  'github' => $user['github_id'], 'twitter' => $user['twitter_id'],
-                  'admin' => $user['admin'], 'ip' => $user['ip'], 'birth_date' => $user['birth_date'],
-                  'last_login' => $user['last_login']);
-    }
-    public static function userSessionEnd()
-    {
-        /* Resume sesion, then destroy it */
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        unset($_SESSION['user']);
-        if (isset($_SESSION['user'])) {
-            session_destroy();
-        }
-        header('Location: index.php');
-        exit();
-    }
-    public static function userUpdatePlaycount()
-    {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        /* Null checker to prevent extra log entries when user isn't logged in */
-        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
-        if ($user !== null) {
-            /* Uses index */
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdatePlaycount(:userid);');
-            $stmt->bindParam(':userid', $user['id']);
-            $stmt->execute();
-        }
-    }
-    public static function userUpdateLastLogin()
-    {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-        /* Null checker to prevent extra log entries when user isn't logged in */
-        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
-        if ($user !== null) {
-            $stmt = mySQL::getConnection()->prepare('CALL sp_Members_UpdateLastLogin(:userid);');
-            $stmt->bindParam(':userid', $user['id']);
-            $stmt->execute();
-        }
     }
     private function __clone()
     {
