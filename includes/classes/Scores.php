@@ -160,30 +160,30 @@ class Scores
     {
         /* Figure out who the champion is and their highest score in the GamesChamp table */
         $gamechamp = self::GetGameChampbyGameNameID($gameid);
-        $game = Games::getGame($gameid);
-        $playername = ucfirst($_SESSION['user']['name']);
+        $game = Games::getGameByID($gameid);
 
-        /* Get the game link */
+        $playername = ucfirst($_SESSION['user']['name']);
         $link = Core::getLinkGame($game['id']);
 
         if (self::GetGameChampbyGameNameID_RowCount($gameid) === 0)
         {
             /* If there is no champion, then INSERT the score into the game champs table */
             self::InsertScoreIntoGameChamps($gameid, $_SESSION['user']['id'], $score, $time);
+            self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
         } else
         {
             /* If there is a champion, figure out who it is */
             switch ($sort)
             {
-                /* If the game is a low-score-wins game (e.g. Golf), then update the score */
                 case 'ASC':
+                    /* If the game is a low-score-wins game (e.g. Golf), then update the score */
                     if ($score <= $gamechamp['score'])
                     {
                         self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
                         self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
                     }
                     break;
-                default:
+                case 'DESC':
                     /* Otherwise, just make sure you have a higher score and then update */
                     if ($score >= $gamechamp['score'])
                     {
@@ -191,6 +191,7 @@ class Scores
                         self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
                     }
                     break;
+                default:
             }
         }
     }
