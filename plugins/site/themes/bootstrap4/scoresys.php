@@ -13,6 +13,7 @@ if ($_GET['act'] == 'Arcade' && $_GET['do'] == 'newscore') { //v2 games
 
     /* Get the game link */
     $link = PHPArcade\Core::getLinkGame($game['id']);
+
     if (!$_SESSION) {
         PHPArcade\Core::loadRedirect($link);
     } else {
