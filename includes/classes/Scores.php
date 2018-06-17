@@ -101,11 +101,11 @@ class Scores
         $time = Core::getCurrentDate();
         $gamechamp = self::GetGameChampsbyGameNameID($gameid);
         $game = Games::getGame($gameid);
-        $player = ucfirst($_SESSION['user']['name']);
+        $playername = ucfirst($_SESSION['user']['name']);
 
         self::updateGameChamp($gameid, $player, $score, $sort, $time);
         self::updateGameScore($gameid, $player, $score, $ip, $time, $sort, $link);
-        self::notifyDiscordNewScore($game['name'], $player, $score, $gamechamp);
+        self::notifyDiscordNewScore($game['name'], $playername, $score, $gamechamp);
         return;
     }
     public static function updateGameChamp($gameid, $playerid, $score, $sort, $time)
