@@ -65,7 +65,7 @@ class Scores
     public static function notifyDiscordHighScore($gamename = '', $player = '', $score = 0, $link)
     {
         $inicfg = Core::getINIConfig();
-        $url = $inicfg['webhook']['highscoreURI'];
+        $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
 
         $message = $player . ' is the new champion of _' . $gamename . '_ with a score of ' . $score . '! Play now at ' . $link;
 
@@ -82,7 +82,7 @@ class Scores
     public static function notifyDiscordNewScore($gamename = '', $player = '', $score = 0, $link)
     {
         $inicfg = Core::getINIConfig();
-        $url = $inicfg['webhook']['highscoreURI'];
+        $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
 
         $message = $player . ' has a new personal high score of ' . $score . ' in _' . $gamename . 'Play now at ' . $link;
 
@@ -99,9 +99,6 @@ class Scores
     public static function submitGameScore($gameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link, $sort = 'DESC')
     {
         $time = Core::getCurrentDate();
-        $gamechamp = self::GetGameChampsbyGameNameID($gameid);
-        $game = Games::getGame($gameid);
-        $playername = ucfirst($_SESSION['user']['name']);
 
         self::updateGameChamp($gameid, $player, $score, $sort, $time);
         self::updateGameScore($gameid, $player, $score, $ip, $time, $sort, $link);
@@ -147,7 +144,7 @@ class Scores
     }
     public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link)
     {
-        $game = Games::getGame($gameid);
+        $game = Games::getGameByNameID($nameid);
         $playername = ucfirst($_SESSION['user']['name']);
 
         /* Update games_score table */
