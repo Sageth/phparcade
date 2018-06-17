@@ -113,7 +113,7 @@ class Scores
         /* Figure out who the champion is and their highest score in the GamesChamp table */
         $gamechamp = self::GetGameChampsbyGameNameID($gameid);
         $game = Games::getGame($gameid);
-        $player = ucfirst($_SESSION['user']['name']);
+        $playername = ucfirst($_SESSION['user']['name']);
 
         /* Get the game link */
         $link = Core::getLinkGame($game['id']);
@@ -132,7 +132,7 @@ class Scores
                     if ($score <= $gamechamp['score'])
                     {
                         self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
-                        self::notifyDiscordHighScore($game['name'], $player, $score, $link);
+                        self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
                     }
                     break;
                 default:
@@ -140,7 +140,7 @@ class Scores
                     if ($score >= $gamechamp['score'])
                     {
                         self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
-                        self::notifyDiscordHighScore($game['name'], $player, $score, $link);
+                        self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
                     }
                     break;
             }
