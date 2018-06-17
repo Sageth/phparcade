@@ -105,7 +105,6 @@ class Scores
 
         self::updateGameChamp($gameid, $player, $score, $sort, $time);
         self::updateGameScore($gameid, $player, $score, $ip, $time, $sort, $link);
-        self::notifyDiscordNewScore($game['name'], $playername, $score, $gamechamp);
         return;
     }
     public static function updateGameChamp($gameid, $playerid, $score, $sort, $time)
@@ -148,6 +147,9 @@ class Scores
     }
     public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link)
     {
+        $game = Games::getGame($gameid);
+        $playername = ucfirst($_SESSION['user']['name']);
+
         /* Update games_score table */
         /* $gamescore[]:
             [id]
@@ -175,6 +177,7 @@ class Scores
                     if ($score < $gamescore['score'])
                     {
                         self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
+                        self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
                         Core::loadRedirect($link);
                     } else
                     {
@@ -185,6 +188,7 @@ class Scores
                     if ($score >= $gamescore['score'])
                     {
                         self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
+                        self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
                         Core::loadRedirect($link);
                     } else
                     {
