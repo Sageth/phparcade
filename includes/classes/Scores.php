@@ -37,6 +37,21 @@ class Scores
         }
         return $score['score'];
     }
+    public static function GetGameChampbyGameNameID($nameid)
+    {
+        /* Gets all of the champions (highest score for an individual player) for a particular game */
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
+        $stmt->bindParam(':nameid', $nameid);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+    public static function GetGameChampbyGameNameID_RowCount($nameid)
+    {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
+        $stmt->bindParam(':nameid', $nameid);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
     public static function getGameScore($nameid, $sort, $limitnum)
     {
         /* Strips "-score" from game to be compatible with v2 Arcade Games */
@@ -58,9 +73,46 @@ class Scores
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    public static function GetGameScorebyNameID($nameid, $player)
+    {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
+        $stmt->bindParam(':nameid', $nameid);
+        $stmt->bindParam(':player', $player);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+    public static function GetGameScorebyNameIDRowCount($nameid, $player)
+    {
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
+        $stmt->bindParam(':nameid', $nameid);
+        $stmt->bindParam(':player', $player);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
     public static function getScoreType($string, $ostring)
     {
         return stristr($ostring, $string) ? true : false;
+    }
+    public static function InsertScoreIntoGameChamps($gamenameid, $player, $score, $time)
+    {
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_GamesChamps_InsertScoresbyGame(:currenttime, :nameid, :score, :player);');
+        $stmt->bindParam(':currenttime', $time);
+        $stmt->bindParam(':nameid', $gamenameid);
+        $stmt->bindParam(':score', $score);
+        $stmt->bindParam(':player', $player);
+        $stmt->execute();
+    }
+    public static function InsertScoreIntoGameScore($gameid, $player, $score, $ip, $time)
+    {
+        $stmt =
+            mySQL::getConnection()->prepare('CALL sp_GamesScore_InsertNewGamesScore(:ip, :date, :gamenameid, :gamescore, :gameplayer);');
+        $stmt->bindParam(':ip', $ip);
+        $stmt->bindParam(':date', $time);
+        $stmt->bindParam(':gamenameid', $gameid);
+        $stmt->bindParam(':gamescore', $score);
+        $stmt->bindParam(':gameplayer', $player);
+        $stmt->execute();
     }
     public static function notifyDiscordHighScore($gamename = '', $player = '', $score = 0, $link)
     {
@@ -107,7 +159,7 @@ class Scores
     public static function updateGameChamp($gameid, $playerid, $score, $sort, $time)
     {
         /* Figure out who the champion is and their highest score in the GamesChamp table */
-        $gamechamp = self::GetGameChampsbyGameNameID($gameid);
+        $gamechamp = self::GetGameChampbyGameNameID($gameid);
         $game = Games::getGame($gameid);
         $playername = ucfirst($_SESSION['user']['name']);
 
@@ -194,58 +246,6 @@ class Scores
                     break;
             }
         }
-    }
-    public static function GetGameChampbyGameNameID_RowCount($nameid)
-    {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
-        $stmt->bindParam(':nameid', $nameid);
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
-    public static function GetGameChampsbyGameNameID($nameid)
-    {
-        /* Gets all of the champions (highest score for an individual player) for a particular game */
-        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
-        $stmt->bindParam(':nameid', $nameid);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-    public static function GetGameScorebyNameID($nameid, $player)
-    {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
-        $stmt->bindParam(':nameid', $nameid);
-        $stmt->bindParam(':player', $player);
-        $stmt->execute();
-        return $stmt->fetch();
-    }
-    public static function GetGameScorebyNameIDRowCount($nameid, $player)
-    {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
-        $stmt->bindParam(':nameid', $nameid);
-        $stmt->bindParam(':player', $player);
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
-    public static function InsertScoreIntoGameChamps($gamenameid, $player, $score, $time)
-    {
-        $stmt =
-            mySQL::getConnection()->prepare('CALL sp_GamesChamps_InsertScoresbyGame(:currenttime, :nameid, :score, :player);');
-        $stmt->bindParam(':currenttime', $time);
-        $stmt->bindParam(':nameid', $gamenameid);
-        $stmt->bindParam(':score', $score);
-        $stmt->bindParam(':player', $player);
-        $stmt->execute();
-    }
-    public static function InsertScoreIntoGameScore($gameid, $player, $score, $ip, $time)
-    {
-        $stmt =
-            mySQL::getConnection()->prepare('CALL sp_GamesScore_InsertNewGamesScore(:ip, :date, :gamenameid, :gamescore, :gameplayer);');
-        $stmt->bindParam(':ip', $ip);
-        $stmt->bindParam(':date', $time);
-        $stmt->bindParam(':gamenameid', $gameid);
-        $stmt->bindParam(':gamescore', $score);
-        $stmt->bindParam(':gameplayer', $player);
-        $stmt->execute();
     }
     public static function UpdatePlayerScoreInGameChamps($gamenameid, $player, $score, $time)
     {
