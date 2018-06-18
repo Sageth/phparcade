@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
-
 namespace PHPArcade;
-
 use PDO;
 
 class Scores
@@ -81,7 +79,7 @@ class Scores
         $stmt->execute();
         return $stmt->fetch();
     }
-    public static function GetGameScorebyNameIDRowCount($nameid, $player)
+    public static function GetGameScorebyGameNameID_RowCount($nameid, $player)
     {
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScore_ScoresRowCount(:nameid, :player);');
         $stmt->bindParam(':nameid', $nameid);
@@ -136,7 +134,7 @@ class Scores
         $inicfg = Core::getINIConfig();
         $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
 
-        $message = $player . ' has a new personal high score of ' . $score . ' in _' . $gamename . 'Play now at ' . $link;
+        $message = $player . ' has a new personal high score of ' . $score . ' in _' . $gamename . '_ ! Play now at ' . $link;
 
         $data = array(
             "content" => $message,
@@ -148,20 +146,19 @@ class Scores
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         return curl_exec($curl);
     }
-    public static function submitGameScore($gameid = '', $score = 0, $player = '', $ip = '1.1.1.1', $link, $sort = 'DESC')
+    public static function submitGameScore($gameid = '', $score = 0, $playerid = '', $ip = '1.1.1.1', $link, $sort = 'DESC')
     {
         $time = Core::getCurrentDate();
 
-        self::updateGameChamp($gameid, $player, $score, $sort, $time);
-        self::updateGameScore($gameid, $player, $score, $ip, $time, $sort, $link);
+        self::updateGameChamp($gameid, $playerid, $score, $sort, $time);
+        self::updateGameScore($gameid, $playerid, $score, $ip, $time, $sort);
         return;
     }
-    public static function updateGameChamp($gameid, $playerid, $score, $sort, $time)
+    public static function updateGameChamp($gameid = '', $playerid, $score, $sort, $time)
     {
         /* Figure out who the champion is and their highest score in the GamesChamp table */
         $gamechamp = self::GetGameChampbyGameNameID($gameid);
         $game = Games::getGameByID($gameid);
-
         $playername = ucfirst($_SESSION['user']['name']);
         $link = Core::getLinkGame($game['id']);
 
@@ -195,13 +192,15 @@ class Scores
             }
         }
     }
-    public static function updateGameScore($nameid, $player, $score, $ip, $time, $sort, $link)
+    public static function updateGameScore($gameid = '', $playerid, $score, $ip, $time, $sort)
     {
-        $game = Games::getGameByNameID($nameid);
+        $game = Games::getGameByID($gameid);
         $playername = ucfirst($_SESSION['user']['name']);
+        $link = Core::getLinkGame($game['id']);
+
 
         /* Update games_score table */
-        /* $gamescore[]:
+        /* $game[]:
             [id]
                 [0] = Score ID (PK)
             [nameid]
@@ -214,20 +213,18 @@ class Scores
                 [4] = Current player's IP address
             [date]
                 [5] = Current epoch time */
-        if (self::GetGameScorebyNameIDRowCount($nameid, $player) === 0)
-        {
-            self::InsertScoreIntoGameScore($nameid, $_SESSION['user']['id'], $score, $ip, $time);
+        if (self::GetGameScorebyGameNameID_RowCount($gameid, $playerid) === 0) {
+            self::InsertScoreIntoGameScore($gameid, $playerid, $score, $ip, $time);
+            self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
             Core::loadRedirect($link);
-        } else
-        {
-            $gamescore = self::GetGameScorebyNameID($nameid, $player);
+        } else {
+            $gamescore = self::GetGameScorebyNameID($game['id'], $playerid);
             switch ($sort)
             {
                 case 'ASC':
                     if ($score < $gamescore['score'])
                     {
-                        self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
-                        self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
+                        self::UpdateScoreIntoGameScore($gameid, $gamescore['player'], $score, $ip, $time);
                         Core::loadRedirect($link);
                     } else
                     {
@@ -235,9 +232,9 @@ class Scores
                     }
                     break;
                 case 'DESC':
-                    if ($score >= $gamescore['score'])
+                    if ($score > $gamescore['score'])
                     {
-                        self::UpdateScoreIntoGameScore($gamescore['nameid'], $gamescore['player'], $score, $ip, $time);
+                        self::UpdateScoreIntoGameScore($gameid, $gamescore['player'], $score, $ip, $time);
                         self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
                         Core::loadRedirect($link);
                     } else
