@@ -274,6 +274,12 @@ class Games
         }
         return $game;
     }
+    public static function getGameByID($id){
+        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGameByID(:gameid);');
+        $stmt->bindParam(':gameid', $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
     public static function getGameByNameID($nameid)
     {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamebyNameid(:gamenameid);');
