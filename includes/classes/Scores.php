@@ -166,7 +166,6 @@ class Scores
         {
             /* If there is no champion, then INSERT the score into the game champs table */
             self::InsertScoreIntoGameChamps($gameid, $_SESSION['user']['id'], $score, $time);
-            self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
         } else
         {
             /* If there is a champion, figure out who it is */
