@@ -62,6 +62,9 @@ class Games
         $stmt->bindParam(':gameid', $id);
         $stmt->execute();
         self::updateGameOrder();
+
+        Scores::deleteGameChamps($id);
+        Scores::deleteGameScores($id);
         Core::showSuccess(gettext('deletesuccess'));
     }
     public static function updateGameOrder()

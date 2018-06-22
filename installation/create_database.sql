@@ -780,6 +780,18 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGamePlaycountby
 DELIMITER ;
 
 -- Games_Champs
+DROP PROCEDURE IF EXISTS `sp_GamesChamps_DeleteChampsbyGameID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_DeleteChampsbyGameID`(
+  IN gc_gameid INT(11))
+  BEGIN
+    DELETE FROM `games_champs`
+    WHERE
+      `nameid` =  gc_gameid
+    LIMIT 1;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_GamesChamps_GetChampsbyGame`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_GetChampsbyGame`(
@@ -857,6 +869,17 @@ DELIMITER ;
 
 
 -- Games_Score
+DROP PROCEDURE IF EXISTS `sp_GamesScores_DeleteScoresbyGameID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesScores_DeleteScoresbyGameID`(
+  IN gc_gameid INT(11))
+  BEGIN
+    DELETE FROM `games_score`
+    WHERE
+      `nameid` =  gc_gameid;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_GamesScore_GetScores_ASC`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesScore_GetScores_ASC`(

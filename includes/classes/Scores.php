@@ -12,6 +12,16 @@ class Scores
     {
     }
 
+    public static function deleteGameChamps($gameid){
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_DeleteChampsbyGameID(:gameid);');
+        $stmt->bindParam(':gameid', $gameid);
+        $stmt->execute();
+    }
+    public static function deleteGameScores($gameid){
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScores_DeleteScoresbyGameID(:gameid);');
+        $stmt->bindParam(':gameid', $gameid);
+        $stmt->execute();
+    }
     public static function formatScore($number, $dec = 1)
     { // cents: 0=never, 1=if needed, 2=always
         if (is_numeric($number))
