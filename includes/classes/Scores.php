@@ -41,13 +41,13 @@ class Scores
             $tscores = self::GetGameChampbyGameNameID($gameid); //Fix champ scores when users are deleted
         }
 
-        $playername = Users::getUserbyID($scores[0]['player']);
+        $player = Users::getUserbyID($scores[0]['player']);
         /* First, check that we don't have an empty scores array (prevents errors on the front-end.
            If the top score in games_champs is not equal to the top score in games_score, correct it */
         if (!empty($scores) && $tscores['score'] != $scores[0]['score']) {
             /* NameID is the game name ID */
             Games::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0]['score'], $time);
-            self::notifyDiscordFixedScore($scores[0]['nameid'], $playername['username'], $scores[0]['score'], $link);
+            self::notifyDiscordFixedScore($scores[0]['nameid'], $player['username'], $scores[0]['score'], $link);
         }
     }
     public static function formatScore($number, $dec = 1)
