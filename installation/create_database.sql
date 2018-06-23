@@ -814,21 +814,6 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_GetPlayerNameID
   END ;;
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS `sp_GamesChamps_InsertScoresbyGame`;
-DELIMITER ;;
-CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_InsertScoresbyGame`(
-  IN gc_date INT(10),
-  IN gc_nameid INT(11),
-  IN gc_score FLOAT,
-  IN gc_player INT(11))
-  BEGIN
-    INSERT INTO `games_champs`
-    (`nameid`, `player`, `score`, `date`)
-    VALUES
-      (gc_nameid, gc_player, gc_score, gc_date);
-  END ;;
-DELIMITER ;
-
 DROP PROCEDURE IF EXISTS `sp_GameChamps_UpdateChamp`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_UpdateChamp`(
