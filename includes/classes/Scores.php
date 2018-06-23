@@ -42,7 +42,6 @@ class Scores
         }
 
         $playername = Users::getUserbyID($scores[0]['player']);
-        var_dump($playername);
         /* First, check that we don't have an empty scores array (prevents errors on the front-end.
            If the top score in games_champs is not equal to the top score in games_score, correct it */
         if (!empty($scores) && $tscores['score'] != $scores[0]['score']) {
