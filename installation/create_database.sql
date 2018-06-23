@@ -835,18 +835,19 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_UpdateChamp`(
   IN gc_top_nameid INT(11),
   IN gc_top_player INT(11),
   IN gc_top_score FLOAT,
-  IN gc_curr_time INT(10),
-  IN gc_gameid INT(11))
+  IN gc_curr_time INT(10))
   BEGIN
-    UPDATE `games_champs`
+    INSERT INTO `games_champs`
     SET
       `nameid`= gc_top_nameid,
       `player`= gc_top_player,
       `score` = gc_top_score,
       `date`  = gc_curr_time
-    WHERE
-      `nameid` =  gc_gameid
-    LIMIT 1;
+    ON DUPLICATE KEY UPDATE
+      `nameid`= gc_top_nameid,
+      `player`= gc_top_player,
+      `score` = gc_top_score,
+      `date`  = gc_curr_time;
   END ;;
 DELIMITER ;
 
