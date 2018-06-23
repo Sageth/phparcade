@@ -174,7 +174,6 @@ class Games
                 $sql = "";
         }
         $stmt = mySQL::getConnection()->prepare($sql);
-        $stmt->bindParam(':parentcat', $parent);
         $stmt->execute();
         return $stmt->fetchAll();
     }
