@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace PHPArcade;
 
 use PDOException;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class Users
 {
@@ -79,7 +80,7 @@ class Users
             if ($count == 1) {
                 /** @noinspection PhpUndefinedClassInspection */
                 /** @noinspection PhpUndefinedNamespaceInspection */
-                $mail = new PHPMailer\PHPMailer\PHPMailer();
+                $mail = new PHPMailer();
                 try {
                     $body = file_get_contents(INST_DIR . 'includes/messages/forgottenmessage.txt');
                     $body = nl2br(str_replace('%username%', $username, $body));
@@ -190,7 +191,7 @@ class Users
                     try {
                         /** @noinspection PhpUndefinedClassInspection */
                         /** @noinspection PhpUndefinedNamespaceInspection */
-                        $mail = new PHPMailer\PHPMailer\PHPMailer();
+                        $mail = new PHPMailer();
                         $password = self::passwordGenerate();
                         $clearpass = $password;
                         $password = self::userPasswordHash($password);

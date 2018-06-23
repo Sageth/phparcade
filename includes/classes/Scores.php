@@ -207,33 +207,26 @@ class Scores
         $playername = ucfirst($_SESSION['user']['name']);
         $link = Core::getLinkGame($game['id']);
 
-        if (self::GetGameChampbyGameNameID_RowCount($gameid) === 0)
+        /* If there is a champion, figure out who it is */
+        switch ($sort)
         {
-            /* If there is no champion, then INSERT the score into the game champs table */
-            self::updateGameChamp($gameid, $_SESSION['user']['id'], $score, $time);
-        } else
-        {
-            /* If there is a champion, figure out who it is */
-            switch ($sort)
-            {
-                case 'ASC':
-                    /* If the game is a low-score-wins game (e.g. Golf), then update the score */
-                    if ($score <= $gamechamp['score'])
-                    {
-                        self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
-                        self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
-                    }
-                    break;
-                case 'DESC':
-                    /* Otherwise, just make sure you have a higher score and then update */
-                    if ($score >= $gamechamp['score'])
-                    {
-                        self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
-                        self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
-                    }
-                    break;
-                default:
-            }
+            case 'ASC':
+                /* If the game is a low-score-wins game (e.g. Golf), then update the score */
+                if ($score <= $gamechamp['score'])
+                {
+                    self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
+                    self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
+                }
+                break;
+            case 'DESC':
+                /* Otherwise, just make sure you have a higher score and then update */
+                if ($score >= $gamechamp['score'])
+                {
+                    self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
+                    self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
+                }
+                break;
+            default:
         }
     }
     public static function updateGameScore($gameid = '', $playerid, $score, $ip, $time, $sort)
