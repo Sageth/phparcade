@@ -12,6 +12,44 @@ class Scores
     {
     }
 
+    public static function deleteGameChamps($gameid){
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_DeleteChampsbyGameID(:gameid);');
+        $stmt->bindParam(':gameid', $gameid);
+        $stmt->execute();
+    }
+    public static function deleteGameScores($gameid){
+        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScores_DeleteScoresbyGameID(:gameid);');
+        $stmt->bindParam(':gameid', $gameid);
+        $stmt->execute();
+    }
+    public static function fixGameChamp($gameid){
+        $game = Games::getGameByID($gameid);
+        $time = Core::getCurrentDate();
+        $link = Core::getLinkGame($game['id']);
+
+        // Fix for bad champions
+        /* 	This corrects the "Games Champs Table.  When you delete the games_champs users that
+            don't exist anymore, it causes the "champ" to actually be the next person that plays... not the
+            actual champ. This code patches that issue by taking the best score for that game and updating the
+            champs table.
+            $tscore['x'] is the top player in the games list.*/
+        if (self::getScoreType('lowhighscore', $game['flags'])) {
+            $scores = self::getGameScore($gameid, 'ASC', TOP_SCORE_COUNT);
+            $tscores = self::GetGameChampbyGameNameID($gameid); // Fix scores when users are deleted
+        } else {
+            $scores = self::getGameScore($gameid, 'DESC', TOP_SCORE_COUNT);
+            $tscores = self::GetGameChampbyGameNameID($gameid); //Fix champ scores when users are deleted
+        }
+
+        $player = Users::getUserbyID($scores[0]['player']);
+        /* First, check that we don't have an empty scores array (prevents errors on the front-end.
+           If the top score in games_champs is not equal to the top score in games_score, correct it */
+        if (!empty($scores) && $tscores['score'] != $scores[0]['score']) {
+            /* NameID is the game name ID */
+            Games::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0]['score'], $time);
+            self::notifyDiscordFixedScore($scores[0]['nameid'], $player['username'], $scores[0]['score'], $link);
+        }
+    }
     public static function formatScore($number, $dec = 1)
     { // cents: 0=never, 1=if needed, 2=always
         if (is_numeric($number))
@@ -91,16 +129,6 @@ class Scores
     {
         return stristr($ostring, $string) ? true : false;
     }
-    public static function InsertScoreIntoGameChamps($gamenameid, $player, $score, $time)
-    {
-        $stmt =
-            mySQL::getConnection()->prepare('CALL sp_GamesChamps_InsertScoresbyGame(:currenttime, :nameid, :score, :player);');
-        $stmt->bindParam(':currenttime', $time);
-        $stmt->bindParam(':nameid', $gamenameid);
-        $stmt->bindParam(':score', $score);
-        $stmt->bindParam(':player', $player);
-        $stmt->execute();
-    }
     public static function InsertScoreIntoGameScore($gameid, $player, $score, $ip, $time)
     {
         $stmt =
@@ -112,12 +140,29 @@ class Scores
         $stmt->bindParam(':gameplayer', $player);
         $stmt->execute();
     }
+    public static function notifyDiscordFixedScore($gamename = '', $player = '', $score = 0, $link)
+    {
+        $inicfg = Core::getINIConfig();
+        $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
+
+        $message = '***BUGFIX ALERT!!!*** ' . $player . ' is the rightful champion of ' . $gamename . ' with a score of ' . self::formatScore($score) . '. This has been corrected. ' . $link;
+
+        $data = array(
+            "content" => $message,
+            "username" => "PHPArcade"
+        );
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        return curl_exec($curl);
+    }
     public static function notifyDiscordHighScore($gamename = '', $player = '', $score = 0, $link)
     {
         $inicfg = Core::getINIConfig();
         $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
 
-        $message = $player . ' is the new champion of _' . $gamename . '_ with a score of ' . $score . '! Play now at ' . $link;
+        $message = $player . ' is the new champion of _' . $gamename . '_ with a score of ' . self::formatScore($score) . '! Play now at ' . $link;
 
         $data = array(
             "content" => $message,
@@ -134,7 +179,7 @@ class Scores
         $inicfg = Core::getINIConfig();
         $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
 
-        $message = $player . ' has a new personal high score of ' . $score . ' in _' . $gamename . '_ ! Play now at ' . $link;
+        $message = $player . ' has a new personal high score of ' . self::formatScore($score) . ' in _' . $gamename . '_ ! Play now at ' . $link;
 
         $data = array(
             "content" => $message,
@@ -165,7 +210,7 @@ class Scores
         if (self::GetGameChampbyGameNameID_RowCount($gameid) === 0)
         {
             /* If there is no champion, then INSERT the score into the game champs table */
-            self::InsertScoreIntoGameChamps($gameid, $_SESSION['user']['id'], $score, $time);
+            self::updateGameChamp($gameid, $_SESSION['user']['id'], $score, $time);
         } else
         {
             /* If there is a champion, figure out who it is */
@@ -268,6 +313,14 @@ class Scores
 
     /* Scores for players which no longer exist
         SELECT * FROM phparcade.games_score WHERE player NOT IN (SELECT id FROM phparcade.members);
+    */
+
+    /* Scores in the champs table for which there are no matching scores in the scores table
+        SELECT * FROM phparcade.games_champs gc WHERE nameid NOT IN (SELECT nameid FROM phparcade.games_score);
+    */
+
+    /* Games which have scores, but there is no champ in the champs table
+        SELECT * FROM phparcade.games_score WHERE nameid NOT IN (SELECT nameid FROM phparcade.games_champs);
     */
 
     private function __clone()

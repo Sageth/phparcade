@@ -62,6 +62,9 @@ class Games
         $stmt->bindParam(':gameid', $id);
         $stmt->execute();
         self::updateGameOrder();
+
+        Scores::deleteGameChamps($id);
+        Scores::deleteGameScores($id);
         Core::showSuccess(gettext('deletesuccess'));
     }
     public static function updateGameOrder()
@@ -422,15 +425,14 @@ class Games
         $stmt->execute();
         Core::showSuccess(gettext('updatesuccess'));
     }
-    public static function updateGameChamp($tplayerid, $tplayername, $tscore, $time, $gameid)
+    public static function updateGameChamp($tgameid, $tplayername, $tscore, $time)
     {
         $stmt =
-            mySQL::getConnection()->prepare('CALL sp_GameChamps_UpdateChamp(:top_nameid, :top_user, :top_score, :curr_time, :game_id);');
-        $stmt->bindParam(':top_nameid', $tplayerid);
-        $stmt->bindParam(':top_user', $tplayername);
+            mySQL::getConnection()->prepare('CALL sp_GameChamps_UpdateChamp(:top_nameid, :top_player, :top_score, :curr_time);');
+        $stmt->bindParam(':top_nameid', $tgameid);
+        $stmt->bindParam(':top_player', $tplayername);
         $stmt->bindParam(':top_score', $tscore);
         $stmt->bindParam(':curr_time', $time);
-        $stmt->bindParam(':game_id', $gameid);
         $stmt->execute();
         return;
     }

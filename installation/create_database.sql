@@ -780,6 +780,18 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_UpdateGamePlaycountby
 DELIMITER ;
 
 -- Games_Champs
+DROP PROCEDURE IF EXISTS `sp_GamesChamps_DeleteChampsbyGameID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_DeleteChampsbyGameID`(
+  IN gc_gameid INT(11))
+  BEGIN
+    DELETE FROM `games_champs`
+    WHERE
+      `nameid` =  gc_gameid
+    LIMIT 1;
+  END ;;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_GamesChamps_GetChampsbyGame`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_GetChampsbyGame`(
@@ -802,39 +814,25 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_GetPlayerNameID
   END ;;
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS `sp_GamesChamps_InsertScoresbyGame`;
-DELIMITER ;;
-CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_InsertScoresbyGame`(
-  IN gc_date INT(10),
-  IN gc_nameid INT(11),
-  IN gc_score FLOAT,
-  IN gc_player INT(11))
-  BEGIN
-    INSERT INTO `games_champs`
-    (`nameid`, `player`, `score`, `date`)
-    VALUES
-      (gc_nameid, gc_player, gc_score, gc_date);
-  END ;;
-DELIMITER ;
-
 DROP PROCEDURE IF EXISTS `sp_GameChamps_UpdateChamp`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GameChamps_UpdateChamp`(
   IN gc_top_nameid INT(11),
-  IN gc_top_user INT(11),
+  IN gc_top_player INT(11),
   IN gc_top_score FLOAT,
-  IN gc_curr_time INT(10),
-  IN gc_gameid INT(11))
+  IN gc_curr_time INT(10))
   BEGIN
-    UPDATE `games_champs`
+    INSERT INTO `games_champs`
     SET
       `nameid`= gc_top_nameid,
-      `player`= gc_top_user,
+      `player`= gc_top_player,
       `score` = gc_top_score,
       `date`  = gc_curr_time
-    WHERE
-      `nameid` =  gc_gameid
-    LIMIT 1;
+    ON DUPLICATE KEY UPDATE
+      `nameid`= gc_top_nameid,
+      `player`= gc_top_player,
+      `score` = gc_top_score,
+      `date`  = gc_curr_time;
   END ;;
 DELIMITER ;
 
@@ -855,8 +853,19 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesChamps_UpdateScoresbyG
   END ;;
 DELIMITER ;
 
-
 -- Games_Score
+DROP PROCEDURE IF EXISTS `sp_GamesScores_DeleteScoresbyGameID`;
+DELIMITER ;;
+CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesScores_DeleteScoresbyGameID`(
+  IN gc_gameid INT(11))
+  BEGIN
+    DELETE FROM `games_score`
+    WHERE
+      `nameid` =  gc_gameid;
+  END ;;
+DELIMITER ;
+
+
 DROP PROCEDURE IF EXISTS `sp_GamesScore_GetScores_ASC`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesScore_GetScores_ASC`(
