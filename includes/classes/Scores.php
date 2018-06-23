@@ -49,6 +49,7 @@ class Scores
             /* NameID is the game name ID */
             Games::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0]['score'], $time);
             self::notifyDiscordFixedScore($game['name'], $player['username'], $scores[0]['score'], $link);
+
         }
     }
     public static function formatScore($number, $dec = 1)
