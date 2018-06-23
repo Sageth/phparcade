@@ -22,6 +22,31 @@ class Scores
         $stmt->bindParam(':gameid', $gameid);
         $stmt->execute();
     }
+    public static function fixGameChamp($gameid){
+        $game = Games::getGameByID($gameid);
+        $time = Core::getCurrentDate();
+
+        // Fix for bad champions
+        /* 	This corrects the "Games Champs Table.  When you delete the games_champs users that
+            don't exist anymore, it causes the "champ" to actually be the next person that plays... not the
+            actual champ. This code patches that issue by taking the best score for that game and updating the
+            champs table.
+            $tscore['x'] is the top player in the games list.*/
+        if (self::getScoreType('lowhighscore', $game['flags'])) {
+            $scores = self::getGameScore($gameid, 'ASC', TOP_SCORE_COUNT);
+            $tscores = self::GetGameChampbyGameNameID($gameid); // Fix scores when users are deleted
+        } else {
+            $scores = self::getGameScore($gameid, 'DESC', TOP_SCORE_COUNT);
+            $tscores = self::GetGameChampbyGameNameID($gameid); //Fix champ scores when users are deleted
+        }
+
+        /* First, check that we don't have an empty scores array (prevents errors on the front-end.
+           If the top score in games_champs is not equal to the top score in games_score, correct it */
+        if (!empty($scores) && $tscores['score'] != $scores[0]['score']) {
+            /* NameID is the game name ID */
+            Games::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0]['score'], $time);
+        }
+    }
     public static function formatScore($number, $dec = 1)
     { // cents: 0=never, 1=if needed, 2=always
         if (is_numeric($number))
@@ -121,6 +146,23 @@ class Scores
         $stmt->bindParam(':gamescore', $score);
         $stmt->bindParam(':gameplayer', $player);
         $stmt->execute();
+    }
+    public static function notifyDiscordFixedScore($gamename = '', $player = '', $score = 0, $link)
+    {
+        $inicfg = Core::getINIConfig();
+        $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
+
+        $message = '***BUGFIX ALERT***' . $player . ' is the rightful champion of ' . $gamename . ' with a score of ' . $score . '. This has been corrected. ' . $link;
+
+        $data = array(
+            "content" => $message,
+            "username" => "PHPArcade"
+        );
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        return curl_exec($curl);
     }
     public static function notifyDiscordHighScore($gamename = '', $player = '', $score = 0, $link)
     {

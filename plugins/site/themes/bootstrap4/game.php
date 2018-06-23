@@ -46,35 +46,11 @@ global $params; ?>
                     </p>
                 </div>
             </div>
-        </div><?php
-        // Fix for bad champions
-        /* 	This next section corrects the "Games Champs Table.  When you delete the games_champs users that
-            don't exist anymore, it causes the "champ" to actually be the next person that plays... not the
-            actual champ. This code patches that issue by taking the best score for that game and updating the
-            champs table. This code is driven by above if ($scoreslist->getScoreType("lowhighscore", $game['flags'])).
-            Also, the champs table had a PK added on nameid to prevent duplicates.  I'm not sure that $scores needs to
-            be defined, but I'm not going to change it just yet.
-            $info[0] is the score in the games_champs table
-            $tscore['x'] is the top player in the games list.*/
-        if (PHPArcade\Scores::getScoreType('lowhighscore', $game['flags'])) {
-            $scores = PHPArcade\Scores::getGameScore($game['id'], 'ASC', TOP_SCORE_COUNT);
-            $tscores = PHPArcade\Scores::getGameScore($game['id'], 'ASC', 1); // Fix scores when users are deleted
-        } else {
-            $scores = PHPArcade\Scores::getGameScore($game['id'], 'DESC', TOP_SCORE_COUNT);
-            $tscores = PHPArcade\Scores::getGameScore($game['id'], 'DESC', 1); //Fix champ scores when users are deleted
-        }
-        foreach ($tscores as $tscore) { //Get the top score on that game.
-            $tnameid = $tscore['nameid'];
-            $tuser = $tscore['player'];
-            $tscore = $tscore['score'];
-            $info[0] = $info ?? '';
-            if ($tscore <> $info[0]) {
-                /* Compare the top score to the champ ($info) which is defined in scoreinfo.php
-                   If the scores don't match, then correct it. */
-                PHPArcade\Games::updateGameChamp($tnameid, $tuser, $tscore, $time, $game['id']);
-            }
-        }
-        /* End Games Champs Fix */ ?>
+        </div>
+        <?php
+        PHPArcade\Scores::fixGameChamp($game['id']);
+        $scores = PHPArcade\Scores::getScoreType('lowhighscore', $game['flags']) ? PHPArcade\Scores::getGameScore($game['id'], 'ASC', TOP_SCORE_COUNT) : PHPArcade\Scores::getGameScore($game['id'], 'DESC', TOP_SCORE_COUNT);
+        ?>
         <!-- Game Code -->
         <div class="card-deck mt-4">
             <div class="card text-center">
