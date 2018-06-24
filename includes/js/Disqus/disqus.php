@@ -2,7 +2,7 @@
 $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <!--suppress ALL -->
 <div id="disqus_thread"></div>
-<script data-cfasync="false" defer>
+<script async data-cfasync="false">
     var disqus_config = function () {
         this.page.url = '<?php echo $currentlink;?>';
         this.page.identifier = '<?php echo $game['id'];?>';

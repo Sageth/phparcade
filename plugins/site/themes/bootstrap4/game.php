@@ -183,7 +183,7 @@ global $params; ?>
         <?php PHPArcade\Games::getGameModal();?>
     </div>
     <!-- Schema -->
-    <script type="application/ld+json" defer>
+    <script async type="application/ld+json">
         {
           "@context": "http://schema.org",
           "@type": "Game",
