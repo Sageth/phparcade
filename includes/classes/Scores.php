@@ -52,24 +52,17 @@ class Scores
     }
     public static function formatScore($number, $dec = 1)
     { // cents: 0=never, 1=if needed, 2=always
-        if (is_numeric($number))
+        $number = floatval($number);
+        if (!$number)
         {
-            if (!$number)
+            $score['score'] = ($dec == 3 ? '0.00' : '0');
+        } else {
+            if (floor($number) == $number)
             {
-                $score['score'] = ($dec == 3 ? '0.00' : '0');
-            } else
-            {
-                if (floor($number) == $number)
-                {
-                    $score['score'] = number_format($number, ($dec == 3 ? 3 : 0));
-                } else
-                {
-                    $score['score'] = number_format(round($number, 3), ($dec == 0 ? 0 : 3));
-                }
+                $score['score'] = number_format($number, ($dec == 3 ? 3 : 0));
+            } else {
+                $score['score'] = number_format(round($number, 3), ($dec == 0 ? 0 : 3));
             }
-        } else
-        { //Should never happen
-            $score['score'] = 0;// numeric
         }
         return $score['score'];
     }
@@ -281,6 +274,7 @@ class Scores
                     if ($score < $gamescore['score'])
                     {
                         self::UpdateScoreIntoGameScore($gameid, $gamescore['player'], $score, $ip, $time);
+                        self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
                         Core::loadRedirect($link);
                     } else
                     {
