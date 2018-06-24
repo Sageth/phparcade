@@ -32,9 +32,10 @@ define('SWF_DIR', INST_DIR . 'swf/');
 define('SWF_URL', SITE_URL . 'swf/');
 define('TOP_SCORE_COUNT', 10);
 
-/* ===== LIBRARIES USED THROUGHOUT THE SITE */
+/* ===== LIBRARIES USED THROUGHOUT THE SITE
+   ===== YOU CAN FIND THEME-SPECIFIC CONSTANTS IN THE themeconfig.php FILE IN EACH THEME */
 
-/* CDNJS - v3.3.7 - BOOTSTRAP */
+/* CDNJS - v4.1.1 - BOOTSTRAP */
 define('CSS_BOOTSTRAP_ADMIN', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css');
 define('CSS_BOOTSTRAP_ADMIN_SRI', 'sha256-Md8eaeo67OiouuXAi8t/Xpd8t2+IaJezATVTWbZqSOw=');
 
@@ -58,18 +59,20 @@ define('CSS_INPUTCOLORS', SITE_URL_ADMIN . 'assets/css/inputcolors.min.css');
 /* GOOGLE RECAPTCHA */
 define('JS_GOOGLE_RECAPTCHA', 'https://www.google.com/recaptcha/api.js');
 
-/* CDNJS - v3.2.1 - JQUERY */
-define('JS_JQUERY', SITE_URL . 'vendor/components/jquery/jquery.min.js');
+/* CDNJS - v3.3.1 - JQUERY */
+define('JS_JQUERY', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js');
+define('JS_JQUERY_SRI', 'sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=');
 
 /* CDNJS - v1.12.1 - JQUERY UI */
 define('JS_JQUERY_UI', SITE_URL . 'vendor/components/jqueryui/jquery-ui.min.js');
 
 /* CDNJS - v10.6.0 - VANILLA-LAZYLOAD */
-define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.6.0/lazyload.min.js');
-define('JS_LAZYLOAD_SRI', 'sha256-l0s3Oq/rsgmMWQx+yA6VOM3YJNNlI0999aEB5HqYADw=');
+define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.8.0/lazyload.min.js');
+define('JS_LAZYLOAD_SRI', 'sha256-Oz+eDj3BmLJZdPBBQ+aooOaZuZ516P87TlmDY/yHHT8=');
 
 /* CDNJS - v2.2.0 - SWFOBJECT */
-define('JS_SWFOBJECT', SITE_URL . 'vendor/koala-framework/library-swfobject/swfobject.js');
+define('JS_SWFOBJECT', 'https://cdnjs.cloudflare.com/ajax/libs/swfobject/2.2/swfobject.min.js');
+define('JS_SWFOBJECT_SRI', 'sha256-oYy9uw+7cz1/TLpdKv1rJwbj8UHHQ/SRBX5YADaM2OU=');
 
 /* CUSTOM - TABLESORT */
 define('JS_TABLESORT', SITE_URL_ADMIN . 'assets/js/tablesort.min.js');

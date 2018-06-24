@@ -10,11 +10,11 @@ use PDO;
     {
         private static $dbconfig;
         private static $instance;
-        protected $act;
-        protected $config;
-        protected $line;
-        protected $links_arr;
-        protected $string;
+        public $act;
+        public $config;
+        public $line;
+        public $links_arr;
+        public $string;
         private function __construct()
         {
         }
