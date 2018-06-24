@@ -87,7 +87,7 @@ $content = $content ?? ''; ?>
             <?php echo $content; ?>
         </div>
     </div>
-    <script async src="<?php echo JS_JQUERY; ?>"></script>
+    <script async src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous"></script>
     <script async src="<?php echo JS_JQUERY_UI; ?>"></script>
     <script async src="<?php echo JS_TABLESORT; ?>"></script>
     <script async src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo JS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous"></script>

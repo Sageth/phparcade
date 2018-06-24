@@ -102,8 +102,8 @@ require_once __DIR__ . '/themeconfig.php';
             </div>
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
-        <script async src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous"></script>
-        <script async src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"></script>
+        <script defer src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous"></script>
+        <script defer src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"></script>
         <?php if (true == PHPArcade\Core::is('game')) { ?>
             <script async src="<?php echo JS_SWFOBJECT;?>" integrity="<?php echo JS_SWFOBJECT_SRI;?>" crossorigin="anonymous"></script><?php
         } ?>
