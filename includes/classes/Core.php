@@ -145,8 +145,7 @@ use PDO;
         }
         public static function getLinkProfileEdit()
         {
-            global $links_arr;
-            return $links_arr['editprofile'];
+            return 'profile/edit.html';
         }
         public static function getPageMetaData()
         {
@@ -250,7 +249,6 @@ use PDO;
             }
             // Link data
             $links_arr['category'] = 'category/%name%/%page%';
-            $links_arr['editprofile'] = 'profile/edit';
             $links_arr['logout'] = 'login/logout';
             $links_arr['page'] = 'page/%id%/%name%';
             $links_arr['passwordchange'] = 'login/recover/change/%code%/%username%';
