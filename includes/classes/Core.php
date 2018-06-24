@@ -278,17 +278,6 @@ use PDO;
         {
             return http_response_code($statuscode);
         }
-        public static function showCategoryList($categories)
-        {
-            $i = 0;
-            foreach ($categories as $category) {
-                ++$i; ?>
-                <a class="dropdown-item" href="<?php echo self::getLinkCategory($category['name'], 1); ?>">
-                    <?php echo $category['name']; ?>
-                </a>
-                <?php
-            }
-        }
         public static function showError($text, $glyph = 'ambulance')
         { ?>
             <div class="alert alert-danger mt-4" role="alert">

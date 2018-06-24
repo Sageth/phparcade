@@ -42,12 +42,6 @@
 			<div class="col-lg-4 navbar-right">
 				<?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
 			</div>
-			<!--<form class="navbar-form navbar-right visible-lg" role="search">
-				<div class="form-group">
-					<input type="text" name="q" id="q" class="form-control" placeholder="Search">
-				</div>
-				<button type="submit" name="params" value="search" class="btn btn-default"><?php //echo gettext("submit");?></button>
-			</form>-->
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
