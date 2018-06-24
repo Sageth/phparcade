@@ -47,7 +47,7 @@ class Scores
         if (!empty($scores) && $tscores['score'] != $scores[0]['score']) {
             /* NameID is the game name ID */
             Games::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0]['score'], $time);
-            self::notifyDiscordFixedScore($game['name'], $player['username'], $scores[0]['score'], $link);
+            self::notifyDiscordHighScore($game['name'], $player['username'], $scores[0]['score'], $link);
         }
     }
     public static function formatScore($number, $dec = 1)
@@ -140,29 +140,23 @@ class Scores
         $stmt->bindParam(':gameplayer', $player);
         $stmt->execute();
     }
-    public static function notifyDiscordFixedScore($gamename = '', $player = '', $score = 0, $link)
-    {
-        $inicfg = Core::getINIConfig();
-        $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
-
-        $message = '***BUGFIX ALERT!!!*** ' . $player . ' is the rightful champion of ' . $gamename . ' with a score of ' . self::formatScore($score) . '. This has been corrected. ' . $link;
-
-        $data = array(
-            "content" => $message,
-            "username" => "PHPArcade"
-        );
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        return curl_exec($curl);
-    }
     public static function notifyDiscordHighScore($gamename = '', $player = '', $score = 0, $link)
     {
         $inicfg = Core::getINIConfig();
         $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
 
-        $message = $player . ' is the new champion of _' . $gamename . '_ with a score of ' . self::formatScore($score) . '! Play now at ' . $link;
+        $message = array(
+            $player . ' is the new champion of _' . $gamename . '_ with a score of ' . self::formatScore($score) . '! Play now at ' . $link,
+            'You have the high score (' . self::formatScore($score) .') in _' . $gamename . '_!.  Kidding.  ' . $player . ' does. ' . $link,
+            $player . ' gets the Fizzy Lifting Drinks for winning _' . $gamename . '_ with a score of ' . self::formatScore($score) . $link,
+            $player . ' is the rightful champion of _' . $gamename . '_ with a score of ' . self::formatScore($score) . '. This has been corrected. ' . $link,
+            'We went and goofed. ' . $player . ' is the real king of _' . $gamename . '_.  Our bad. ' . $link,
+            $player . '. ' . $gamename . '. Winner. ' . $link,
+            'Winner, winner' . $player . ' gets the chicken dinner for having the *real* high score in ' . $gamename . $link,
+            'Yeeeaaah, I need you to go ahead and relinquish your high score to ' . $player . '. Their score is ' . self::formatScore($score) . '. And if you could try playing ' . $gamename . ' again, yeah, that would be great.  Here is the link, Peter: ' . $link
+        );
+
+        $message = $message[mt_rand(0, count($message) - 1)];
 
         $data = array(
             "content" => $message,
@@ -179,7 +173,13 @@ class Scores
         $inicfg = Core::getINIConfig();
         $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
 
-        $message = $player . ' has a new personal high score of ' . self::formatScore($score) . ' in _' . $gamename . '_ ! Play now at ' . $link;
+        $message = array(
+            $player . ' has a new personal high score of ' . self::formatScore($score) . ' in _' . $gamename . '_ ! Play now at ' . $link,
+            'Ever best yourself? No? ' . $player . ' did by beating their own personal score in _' . $gamename . '_ with a score of ' . self::formatScore($score) . '. ' . $link,
+            $player . ' beat the high score in ' . $gamename . ' with a score of ' . self::formatScore($score) . '. And by "high score" we mean their own. ' . $player . ' is not the best, but they are better than they were. That counts for something. ' . $link
+        );
+
+        $message = $message[mt_rand(0, count($message) - 1)];
 
         $data = array(
             "content" => $message,
@@ -207,33 +207,26 @@ class Scores
         $playername = ucfirst($_SESSION['user']['name']);
         $link = Core::getLinkGame($game['id']);
 
-        if (self::GetGameChampbyGameNameID_RowCount($gameid) === 0)
+        /* If there is a champion, figure out who it is */
+        switch ($sort)
         {
-            /* If there is no champion, then INSERT the score into the game champs table */
-            self::updateGameChamp($gameid, $_SESSION['user']['id'], $score, $time);
-        } else
-        {
-            /* If there is a champion, figure out who it is */
-            switch ($sort)
-            {
-                case 'ASC':
-                    /* If the game is a low-score-wins game (e.g. Golf), then update the score */
-                    if ($score <= $gamechamp['score'])
-                    {
-                        self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
-                        self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
-                    }
-                    break;
-                case 'DESC':
-                    /* Otherwise, just make sure you have a higher score and then update */
-                    if ($score >= $gamechamp['score'])
-                    {
-                        self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
-                        self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
-                    }
-                    break;
-                default:
-            }
+            case 'ASC':
+                /* If the game is a low-score-wins game (e.g. Golf), then update the score */
+                if ($score <= $gamechamp['score'])
+                {
+                    self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
+                    self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
+                }
+                break;
+            case 'DESC':
+                /* Otherwise, just make sure you have a higher score and then update */
+                if ($score >= $gamechamp['score'])
+                {
+                    self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
+                    self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
+                }
+                break;
+            default:
         }
     }
     public static function updateGameScore($gameid = '', $playerid, $score, $ip, $time, $sort)
