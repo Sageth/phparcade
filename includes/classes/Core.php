@@ -10,11 +10,11 @@ use PDO;
     {
         private static $dbconfig;
         private static $instance;
-        protected $act;
-        protected $config;
-        protected $line;
-        protected $links_arr;
-        protected $string;
+        public $act;
+        public $config;
+        public $line;
+        public $links_arr;
+        public $string;
         private function __construct()
         {
         }
@@ -145,8 +145,7 @@ use PDO;
         }
         public static function getLinkProfileEdit()
         {
-            global $links_arr;
-            return $links_arr['editprofile'];
+            return 'profile/edit.html';
         }
         public static function getPageMetaData()
         {
@@ -250,7 +249,6 @@ use PDO;
             }
             // Link data
             $links_arr['category'] = 'category/%name%/%page%';
-            $links_arr['editprofile'] = 'profile/edit';
             $links_arr['logout'] = 'login/logout';
             $links_arr['page'] = 'page/%id%/%name%';
             $links_arr['passwordchange'] = 'login/recover/change/%code%/%username%';
@@ -279,17 +277,6 @@ use PDO;
         public static function returnStatusCode($statuscode)
         {
             return http_response_code($statuscode);
-        }
-        public static function showCategoryList($categories)
-        {
-            $i = 0;
-            foreach ($categories as $category) {
-                ++$i; ?>
-                <a class="dropdown-item" href="<?php echo self::getLinkCategory($category['name'], 1); ?>">
-                    <?php echo $category['name']; ?>
-                </a>
-                <?php
-            }
         }
         public static function showError($text, $glyph = 'ambulance')
         { ?>

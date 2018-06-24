@@ -152,8 +152,18 @@ class Scores
             $player . ' is the rightful champion of _' . $gamename . '_ with a score of ' . self::formatScore($score) . '. This has been corrected. ' . $link,
             'We went and goofed. ' . $player . ' is the real king of _' . $gamename . '_.  Our bad. ' . $link,
             $player . '. ' . $gamename . '. Winner. ' . $link,
-            'Winner, winner' . $player . ' gets the chicken dinner for having the *real* high score in ' . $gamename . $link,
-            'Yeeeaaah, I need you to go ahead and relinquish your high score to ' . $player . '. Their score is ' . self::formatScore($score) . '. And if you could try playing ' . $gamename . ' again, yeah, that would be great.  Here is the link, Peter: ' . $link
+            'Winner, winner! ' . $player . ' gets the chicken dinner for having the *real* high score in ' . $gamename . $link,
+            'Yeeeaaah, I need you to go ahead and relinquish your high score to ' . $player . '. Their score is ' . self::formatScore($score) . '. And if you could try playing _' . $gamename . '_ again, yeah, that would be great.  Here is the link, Peter: ' . $link,
+            'Losers? Losers always whine about doing their best.  Winners, like ' . $player . ' go home and... well... just know that their high score is ' . self::formatScore($score) . ' in _' .$gamename . '_. ' . $link,
+            'There are more important things in life than winning or losing a game. But not to ' . $player . ' who just got the high score of ' . self::formatScore($score) . 'in _' . $gamename . '_. Nice. ' . $link,
+            'Mia Hamm: "The person that said winning isn’t everything, never won anything." You know who is? ' . $player . ' with a high score of ' . self::formatScore($score) . ' in _' . $gamename . '_. ' . $link,
+            '"They may take our lives, but they will never take my high score!" _-- ' . $player . ' probably_.  They got a high score of ' . self::formatScore($score) . ' playing _' . $gamename . '_. ' . $link,
+            'If you let ' . $player . '\'s high score of ' . self::formatScore($score) . ' in _' . $gamename . '_ go now, that\'ll be the end of it. ' . $player . ' will not look for you, ' . $player . ' will not pursue you. But if you don\'t, ' . $player . ' will look for you, ' . $player . ' will find you, and ' . $player . ' will take it back.' . $link,
+            'My name is ' . $player . ', commander of _' . $gamename . '_, General of the Felix Legions and loyal servant to the true emperor, Marcus Aurelius.... ' . $player . ' will have their vengeance, in this life or the next. Probably this one with a score of ' . self::formatScore($score) . $link,
+            $player . ' DOES NOT ENTERTAIN!  Especially in _' . $gamename . '_ with a score of ' . self::formatScore($score) . '. ' . $link,
+            'Badges? We don\'t need no stinkin\' badges! But ' . $player . ' gets one for getting a high score of ' . self::formatScore($score) . ' in _' . $gamename . '_. ' . $link,
+            'Hello. My name is ' . $player . '. You killed my high score in _' . $gamename . '_. Prepare to die.' . $link
+
         );
 
         $message = $message[mt_rand(0, count($message) - 1)];

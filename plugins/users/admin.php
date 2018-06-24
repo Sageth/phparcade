@@ -143,7 +143,7 @@ function users_admin($mthd)
                     </div>
                 </div>
             </div>
-        <script src="<?php echo JS_TABLEFILTER;?>" defer></script>
+        <script async src="<?php echo JS_TABLEFILTER;?>"></script>
         <?php
             break;
         default:

@@ -139,7 +139,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                     </div>
                 </div>
             </div>
-            <script type="application/ld+json" defer>
+            <script async type="application/ld+json">
                     {
                         "@context": "http://schema.org",
                         "@type": "Person",

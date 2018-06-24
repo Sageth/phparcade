@@ -40,13 +40,13 @@ require_once __DIR__ . '/themeconfig.php';
                 <meta property="fb:app_id" content="<?php echo $dbconfig['facebook_appid']; ?>"/><?php
                 break;
             case PHPArcade\Core::is('register'): ?>
-                <script src="<?php echo JS_GOOGLE_RECAPTCHA; ?>" defer></script><?php
+                <script async src="<?php echo JS_GOOGLE_RECAPTCHA; ?>"></script><?php
             // no break
             default:
         } ?>
 
         <!-- Load everything else -->
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>"/>
+        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" />
         <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
         <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
         <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
@@ -102,17 +102,12 @@ require_once __DIR__ . '/themeconfig.php';
             </div>
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
-        <!--suppress XmlDefaultAttributeValue -->
-        <script src="<?php echo JS_JQUERY; ?>" defer></script>
-        <!--suppress XmlDefaultAttributeValue -->
-        <script src="<?php echo JS_BOOTSTRAP; ?>" defer></script>
-        <?php if (true == PHPArcade\Core::is('game')) {
-                    ?>
-            <!--suppress JSUnresolvedLibraryURL, XmlDefaultAttributeValue -->
-            <script type="text/javascript" src="<?php echo JS_SWFOBJECT; ?>"
-                    crossorigin="anonymous" defer></script><?php
-                } ?>
-        <script type="application/ld+json" defer>
+        <script defer src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous"></script>
+        <script defer src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"></script>
+        <?php if (true == PHPArcade\Core::is('game')) { ?>
+            <script async src="<?php echo JS_SWFOBJECT;?>" integrity="<?php echo JS_SWFOBJECT_SRI;?>" crossorigin="anonymous"></script><?php
+        } ?>
+        <script async type="application/ld+json">
         {
             "@context":"http://schema.org",
             "@type":"Organization",
@@ -124,7 +119,7 @@ require_once __DIR__ . '/themeconfig.php';
         }
         </script>
 
-        <script type="application/ld+json" defer>
+        <script async type="application/ld+json">
         {
             "@context":"http://schema.org",
             "@type":"WebSite",
@@ -145,7 +140,7 @@ require_once __DIR__ . '/themeconfig.php';
             }
         }
         </script>
-        <script>
+        <script async >
             <?php if (!empty($dbconfig['mixpanel_id'])) {
                 if (PHPArcade\Users::isUserLoggedIn() === true) { ?>
                     mixpanel.register({
@@ -190,7 +185,7 @@ require_once __DIR__ . '/themeconfig.php';
         <?php
         $inicfg = PHPArcade\Core::getINIConfig();
         if ($inicfg['webhook']['highscoreURI'] != '') { ?>
-            <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async>
+            <script async src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3">
                 if (window.innerWidth > 768) {
                     new Crate({
                         server: '<?php echo $inicfg['webhook']['hs_server'];?>',

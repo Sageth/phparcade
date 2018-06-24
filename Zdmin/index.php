@@ -87,10 +87,10 @@ $content = $content ?? ''; ?>
             <?php echo $content; ?>
         </div>
     </div>
-    <script src="<?php echo JS_JQUERY; ?>" defer></script>
-    <script src="<?php echo JS_JQUERY_UI; ?>" defer></script>
-    <script src="<?php echo JS_TABLESORT; ?>" defer></script>
-    <script src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo JS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous" defer></script>
-    <script src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous" defer></script>
+    <script defer src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous"></script>
+    <script defer src="<?php echo JS_JQUERY_UI; ?>"></script>
+    <script defer src="<?php echo JS_TABLESORT; ?>"></script>
+    <script defer src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo JS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous"></script>
+    <script defer src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous"></script>
 </body>
 </html>

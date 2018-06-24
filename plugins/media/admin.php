@@ -569,7 +569,7 @@ function media_admin($mthd)
                     </table>
                 </div>
             </div>
-            <script src="<?php echo JS_TABLEFILTER;?>" defer></script><?php
+            <script async src="<?php echo JS_TABLEFILTER;?>"></script><?php
             break;
         case 'manage-cat':
             $categories = PHPArcade\Games::getCategories('ASC'); ?>
