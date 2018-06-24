@@ -145,7 +145,7 @@ class Scores
         $inicfg = Core::getINIConfig();
         $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
 
-        $message = '***BUGFIX ALERT!!!*** ' . $player . ' is the rightful champion of ' . $gamename . ' with a score of ' . self::formatScore($score) . '. This has been corrected. ' . $link;
+        $message = '***BUGFIX ALERT!!!*** ' . $player . ' is the rightful champion of _' . $gamename . '_ with a score of ' . self::formatScore($score) . '. This has been corrected. ' . $link;
 
         $data = array(
             "content" => $message,
