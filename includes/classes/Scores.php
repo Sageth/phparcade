@@ -145,24 +145,28 @@ class Scores
         $inicfg = Core::getINIConfig();
         $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
 
+        $gamename = '**_' . $gamename . '_**';
+        $player = '**' . $player . '**';
+        $score = '**' . self::formatScore($score) . '**';
+
         $message = array(
-            $player . ' is the new champion of _' . $gamename . '_ with a score of ' . self::formatScore($score) . '! Play now at ' . $link,
-            'You have the high score (' . self::formatScore($score) .') in _' . $gamename . '_!.  Kidding.  ' . $player . ' does. ' . $link,
-            $player . ' gets the Fizzy Lifting Drinks for winning _' . $gamename . '_ with a score of ' . self::formatScore($score) . $link,
-            $player . ' is the rightful champion of _' . $gamename . '_ with a score of ' . self::formatScore($score) . '. This has been corrected. ' . $link,
-            'We went and goofed. ' . $player . ' is the real king of _' . $gamename . '_.  Our bad. ' . $link,
+            $player . ' is the new champion of ' . $gamename . ' with a score of ' . $score . '! Play now at ' . $link,
+            'You have the high score (' . $score .') in ' . $gamename . '!.  Kidding.  ' . $player . ' does. ' . $link,
+            $player . ' gets the Fizzy Lifting Drinks for winning ' . $gamename . ' with a score of ' . $score . '. ' . $link,
+            $player . ' is the rightful champion of ' . $gamename . ' with a score of ' . $score . '. This has been corrected. ' . $link,
+            'We went and goofed. ' . $player . ' is the real king of ' . $gamename . '.  Our bad. ' . $link,
             $player . '. ' . $gamename . '. Winner. ' . $link,
-            'Winner, winner! ' . $player . ' gets the chicken dinner for having the *real* high score in ' . $gamename . $link,
-            'Yeeeaaah, I need you to go ahead and relinquish your high score to ' . $player . '. Their score is ' . self::formatScore($score) . '. And if you could try playing _' . $gamename . '_ again, yeah, that would be great.  Here is the link, Peter: ' . $link,
-            'Losers? Losers always whine about doing their best.  Winners, like ' . $player . ' go home and... well... just know that their high score is ' . self::formatScore($score) . ' in _' .$gamename . '_. ' . $link,
-            'There are more important things in life than winning or losing a game. But not to ' . $player . ' who just got the high score of ' . self::formatScore($score) . 'in _' . $gamename . '_. Nice. ' . $link,
-            'Mia Hamm: "The person that said winning isn’t everything, never won anything." You know who is? ' . $player . ' with a high score of ' . self::formatScore($score) . ' in _' . $gamename . '_. ' . $link,
-            '"They may take our lives, but they will never take my high score!" _-- ' . $player . ' probably_.  They got a high score of ' . self::formatScore($score) . ' playing _' . $gamename . '_. ' . $link,
-            'If you let ' . $player . '\'s high score of ' . self::formatScore($score) . ' in _' . $gamename . '_ go now, that\'ll be the end of it. ' . $player . ' will not look for you, ' . $player . ' will not pursue you. But if you don\'t, ' . $player . ' will look for you, ' . $player . ' will find you, and ' . $player . ' will take it back.' . $link,
-            'My name is ' . $player . ', commander of _' . $gamename . '_, General of the Felix Legions and loyal servant to the true emperor, Marcus Aurelius.... ' . $player . ' will have their vengeance, in this life or the next. Probably this one with a score of ' . self::formatScore($score) . $link,
-            $player . ' DOES NOT ENTERTAIN!  Especially in _' . $gamename . '_ with a score of ' . self::formatScore($score) . '. ' . $link,
-            'Badges? We don\'t need no stinkin\' badges! But ' . $player . ' gets one for getting a high score of ' . self::formatScore($score) . ' in _' . $gamename . '_. ' . $link,
-            'Hello. My name is ' . $player . '. You killed my high score in _' . $gamename . '_. Prepare to die.' . $link
+            'Winner, winner! ' . $player . ' gets the chicken dinner for having the *real* high score in ' . $gamename . '. ' . $link,
+            'Yeeeaaah, I need you to go ahead and relinquish your high score to ' . $player . '. Their score is ' . $score . '. And if you could try playing ' . $gamename . ' again, yeah, that would be great.  Here is the link, Peter: ' . $link,
+            'Losers? Losers always whine about doing their best.  Winners, like ' . $player . ' go home and... well... just know that their high score is ' . $score . ' in ' .$gamename . '. ' . $link,
+            'There are more important things in life than winning or losing a game. But not to ' . $player . ' who just got the high score of ' . $score . 'in ' . $gamename . '. Nice. ' . $link,
+            'Mia Hamm: "The person that said winning isn’t everything, never won anything." You know who is? ' . $player . ' with a high score of ' . $score . ' in ' . $gamename . '. ' . $link,
+            '"They may take our lives, but they will never take my high score!" -- ' . $player . ' probably.  They got a high score of ' . $score . ' playing ' . $gamename . '. ' . $link,
+            'If you let ' . $player . '\'s high score of ' . $score . ' in ' . $gamename . ' go now, that\'ll be the end of it. ' . $player . ' will not look for you, ' . $player . ' will not pursue you. But if you don\'t, ' . $player . ' will look for you, ' . $player . ' will find you, and ' . $player . ' will take it back. ' . $link,
+            'My name is ' . $player . ', commander of ' . $gamename . ', General of the Felix Legions and loyal servant to the true emperor, Marcus Aurelius.... ' . $player . ' will have their vengeance, in this life or the next. Probably this one with a score of ' . $score . '. ' . $link,
+            $player . ' DOES NOT ENTERTAIN!  Especially in ' . $gamename . ' with a score of ' . $score . '. ' . $link,
+            'Badges? We don\'t need no stinkin\' badges! But ' . $player . ' gets one for getting a high score of ' . $score . ' in ' . $gamename . '. ' . $link,
+            'Hello. My name is ' . $player . '. You killed my high score in ' . $gamename . '. Prepare to die. ' . $link
 
         );
 
@@ -182,11 +186,16 @@ class Scores
     {
         $inicfg = Core::getINIConfig();
         $url = $inicfg['environment']['state'] === 'dev' ? $inicfg['webhook']['highscoreURI_Dev'] : $inicfg['webhook']['highscoreURI'];
+        $gamename = '**_' . $gamename . '_**';
+        $player = '**' . $player . '**';
+        $score = '**' . self::formatScore($score) . '**';
 
         $message = array(
-            $player . ' has a new personal high score of ' . self::formatScore($score) . ' in _' . $gamename . '_ ! Play now at ' . $link,
-            'Ever best yourself? No? ' . $player . ' did by beating their own personal score in _' . $gamename . '_ with a score of ' . self::formatScore($score) . '. ' . $link,
-            $player . ' beat the high score in ' . $gamename . ' with a score of ' . self::formatScore($score) . '. And by "high score" we mean their own. ' . $player . ' is not the best, but they are better than they were. That counts for something. ' . $link
+            $player . ' has a new personal high score of ' . $score . ' in _' . $gamename . '_ ! Play now at ' . $link,
+            'Ever best yourself? No? ' . $player . ' did by beating their own personal score in _' . $gamename . '_ with a score of ' . $score . '. ' . $link,
+            $player . ' beat the high score in ' . $gamename . ' with a score of ' . $score . '. And by "high score" we mean their own. ' . $player . ' is not the best, but they are better than they were. That counts for something. ' . $link,
+            'Nice job, ' . $player . '. You can only beat your own high score in ' . $gamename . '. Try beating the best score next time. ' . $link,
+            'Sometimes you feel like a nut, some times you don\'t. ' . $player . '\'s got the high score.  Others don\'t. ' . $link
         );
 
         $message = $message[mt_rand(0, count($message) - 1)];
