@@ -537,8 +537,7 @@ function media_admin($mthd)
                             foreach ($games as $game) {
                                 ?>
                                 <tr><?php
-                                    switch ($game['active'])
-                                    {
+                                    switch ($game['active']) {
                                         case 'Yes': ?>
                                             <td>
                                                 <?php echo $game['name']; ?>
@@ -586,7 +585,8 @@ function media_admin($mthd)
                             </tr>
                         </thead>
                         <tbody id="sortable"><?php
-                            foreach ($categories as $category) { ?>
+                            foreach ($categories as $category) {
+                                ?>
                                 <tr id="rowsort-<?php echo $category['id']; ?>">
                                     <th scope="row" class="index">
                                         <?php echo $category['order']; ?>

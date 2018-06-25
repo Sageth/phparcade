@@ -45,8 +45,7 @@ global $params; ?>
         </div>
         <?php
         PHPArcade\Scores::fixGameChamp($game['id']);
-        $scores = PHPArcade\Scores::getScoreType('lowhighscore', $game['flags']) ? PHPArcade\Scores::getGameScore($game['id'], 'ASC', TOP_SCORE_COUNT) : PHPArcade\Scores::getGameScore($game['id'], 'DESC', TOP_SCORE_COUNT);
-        ?>
+        $scores = PHPArcade\Scores::getScoreType('lowhighscore', $game['flags']) ? PHPArcade\Scores::getGameScore($game['id'], 'ASC', TOP_SCORE_COUNT) : PHPArcade\Scores::getGameScore($game['id'], 'DESC', TOP_SCORE_COUNT); ?>
         <!-- Game Code -->
         <div class="clearfix invisible"></div>
         <div class="col-lg-12">
@@ -58,7 +57,7 @@ global $params; ?>
                     <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
                     $game['type'] = $game['type'] ?? '';
-                    switch ($game['customcode']) {
+        switch ($game['customcode']) {
                         case null:
                         case '':
                             /** @noinspection MissingOrEmptyGroupStatementInspection */
@@ -105,7 +104,7 @@ global $params; ?>
                                             <tr class="odd gradeA">
                                             <td><?php echo $i; ?></td>
                                             <td>
-                                                <img data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'],40); ?>"
+                                                <img data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'], 40); ?>"
                                                      class="img img-responsive img-circle"
                                                      style="float:left"
                                                 />
@@ -202,7 +201,7 @@ global $params; ?>
           "aggregateRating": {
              "@type": "AggregateRating",
              "ratingValue": "4.75",
-             "reviewCount": "<?php echo rand(1,112);?>"
+             "reviewCount": "<?php echo rand(1, 112);?>"
           },
           "numberOfPlayers":{
             "@type":"QuantitativeValue",
@@ -219,15 +218,16 @@ global $params; ?>
           "url":"<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"
         }
     </script>
-    <?php if (!empty($dbconfig['mixpanel_id']))
-    { ?>
+    <?php if (!empty($dbconfig['mixpanel_id'])) {
+                    ?>
         <script>
             mixpanel.track(
                 "Loaded Game",
                 {
-                    "GameName": "<?php echo $game['name'];?>"
+                    "GameName": "<?php echo $game['name']; ?>"
                 }
             );
         </script>
-    <?php } ?>
+    <?php
+                } ?>
 </div>

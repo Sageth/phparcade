@@ -126,7 +126,8 @@ function users_admin($mthd)
                                 <th>&nbsp;</th>
                             </thead>
                             <tbody><?php
-                                foreach ($users as $user) { ?>
+                                foreach ($users as $user) {
+                                    ?>
                                     <tr>
                                         <td><?php echo $user['username']; ?></td>
                                         <td><?php echo $user['totalgames']; ?></td>

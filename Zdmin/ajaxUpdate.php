@@ -1,6 +1,6 @@
 <?php
 /* Loads classes */
-require_once ($_SERVER['DOCUMENT_ROOT'] . '/cfg.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/cfg.php');
 try {
     $stmt = PHPArcade\mySQL::getConnection()->prepare('CALL sp_Categories_UpdateOrder(:categoryorder, :categoryid)');
 

@@ -11,7 +11,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
         if ($params[1] === 'view' && $params[1] != 'edit') {
             $user = PHPArcade\Users::getUserbyID($params[2]);
             if ($user === false) {
-            PHPArcade\Core::showError(gettext('noexist'));
+                PHPArcade\Core::showError(gettext('noexist'));
             } else {
                 $games = PHPArcade\Games::getGamesChamp($user['id']); ?>
                 <div class="col mt-4">
@@ -55,9 +55,8 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                 <p class="card-text">
                                     <?php
                                     echo PHPArcade\Core::showGlyph('dashboard');
-                                    echo "&nbsp;";
-                                    echo gettext('activity');
-                                    ?>
+                echo "&nbsp;";
+                echo gettext('activity'); ?>
                                 </p>
                             </div>
                             <div class="card-body">
@@ -77,7 +76,8 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                             </div>
                             <div class="card-body text-center">
                                 <?php
-                                if ($user['facebook_id'] != "") { ?>
+                                if ($user['facebook_id'] != "") {
+                                    ?>
                                     <a href="<?php echo URL_FACEBOOK . $user['facebook_id']; ?>" target="_blank" rel="noopener">
                                         <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?>
                                     </a><?php
@@ -85,21 +85,23 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                     echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?><?php
                                 }
 
-                                if ($user['github_id'] != "") { ?>
+                if ($user['github_id'] != "") {
+                    ?>
                                     <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank" rel="noopener">
                                         <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false'); ?>
                                     </a><?php
-                                } else {
-                                    echo PHPArcade\Core::showGlyph('github', '2x', 'false');
-                                }
+                } else {
+                    echo PHPArcade\Core::showGlyph('github', '2x', 'false');
+                }
 
-                                if ($user['twitter_id'] != "") { ?>
+                if ($user['twitter_id'] != "") {
+                    ?>
                                     <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank" rel="noopener">
                                         <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false'); ?>
                                     </a><?php
-                                } else {
-                                    echo PHPArcade\Core::showGlyph('twitter', '2x', 'false');
-                                } ?>
+                } else {
+                    echo PHPArcade\Core::showGlyph('twitter', '2x', 'false');
+                } ?>
                             </div>
                         </div>
                     </div>
@@ -109,12 +111,12 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                         </h3>
                         <?php
                         $i=0;
-                        foreach ($games as $game) {
-                            $game = PHPArcade\Games::getGame($game['nameid']);
-                            $link = PHPArcade\Core::getLinkGame($game['id']);
-                            if ($i === 0) {
-                                echo '<div class="card-deck mt-4">';
-                            } ?>
+                foreach ($games as $game) {
+                    $game = PHPArcade\Games::getGame($game['nameid']);
+                    $link = PHPArcade\Core::getLinkGame($game['id']);
+                    if ($i === 0) {
+                        echo '<div class="card-deck mt-4">';
+                    } ?>
                             <div class="card">
                                 <div class="card-header">
                                     <h3>
@@ -154,12 +156,12 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                     </div>
                             </div><?php
                             ++$i;
-                            if ($i === 2) {
-                                echo '</div>';
-                                $i = 0;
-                            } ?>
+                    if ($i === 2) {
+                        echo '</div>';
+                        $i = 0;
+                    } ?>
                             </div><?php
-                        } ?>
+                } ?>
                     </div>
                 </div>
                 <script async type="application/ld+json">
@@ -169,22 +171,26 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                         "name": "<?php echo $user['username']; ?>",
                         "url": "<?php echo SITE_URL; ?>profile/view/<?php echo $user['id']; ?>/<?php echo $user['username']; ?>.html"
                         <?php
-                        if (!empty($user['facebook_id']) || (!empty($user['github_id'])) || (!empty($user['twitter_id']))) { ?>,
+                        if (!empty($user['facebook_id']) || (!empty($user['github_id'])) || (!empty($user['twitter_id']))) {
+                            ?>,
                             "sameAs": [
-                                <?php if (!empty($user['facebook_id'])) { ?>
+                                <?php if (!empty($user['facebook_id'])) {
+                                ?>
                                     "http://www.facebook.com/<?php echo $user['facebook_id']; ?>",
                                     <?php
-                                }
+                            }
 
-                                if (!empty($user['github_id'])) { ?>
+                            if (!empty($user['github_id'])) {
+                                ?>
                                     "http://www.github.com/<?php echo $user['github_id']; ?>",
                                     <?php
-                                }
+                            }
 
-                                if (!empty($user['twitter_id'])) { ?>
+                            if (!empty($user['twitter_id'])) {
+                                ?>
                                     "http://www.twitter.com/<?php echo $user['twitter_id']; ?>"
                                     <?php
-                                } ?>
+                            } ?>
                             ]
                             <?php
                         } ?>
@@ -198,7 +204,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                 if ($params[2] == "" || !isset($params[2])) {
                     ?>
                     <div class="card border-0 mt-4">
-                        <?php PHPArcade\Core::showInfo('Change your avatar at <a href="https://gravatar.com" target="_blank" rel="noopener">Gravatar.com</a>');?>
+                        <?php PHPArcade\Core::showInfo('Change your avatar at <a href="https://gravatar.com" target="_blank" rel="noopener">Gravatar.com</a>'); ?>
                     </div>
                     <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
                         <div class="card-deck">

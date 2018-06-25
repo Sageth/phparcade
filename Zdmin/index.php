@@ -38,7 +38,7 @@ $content = $content ?? ''; ?>
     <link rel="stylesheet" href="<?php echo CSS_INPUTCOLORS;?>"/>
 </head>
 <body>
-    <?php include (__DIR__ . '/admin_nav.php'); ?>
+    <?php include(__DIR__ . '/admin_nav.php'); ?>
     <p class="mt-4">&nbsp;</p>
     <?php
     $dh = opendir('../plugins');

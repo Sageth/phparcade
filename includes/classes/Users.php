@@ -43,8 +43,8 @@ class Users
     public static function passwordRecoveryForm()
     {
         $dbconfig = Core::getDBConfig();
-        if ($dbconfig['passwordrecovery'] === 'on')
-        { ?>
+        if ($dbconfig['passwordrecovery'] === 'on') {
+            ?>
             <form action='<?php echo SITE_URL; ?>' method='post'><br/>
                 <?php echo gettext('username'); ?>:<br/>
                 <label>

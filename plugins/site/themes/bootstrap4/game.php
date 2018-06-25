@@ -49,8 +49,7 @@ global $params; ?>
         </div>
         <?php
         PHPArcade\Scores::fixGameChamp($game['id']);
-        $scores = PHPArcade\Scores::getScoreType('lowhighscore', $game['flags']) ? PHPArcade\Scores::getGameScore($game['id'], 'ASC', TOP_SCORE_COUNT) : PHPArcade\Scores::getGameScore($game['id'], 'DESC', TOP_SCORE_COUNT);
-        ?>
+        $scores = PHPArcade\Scores::getScoreType('lowhighscore', $game['flags']) ? PHPArcade\Scores::getGameScore($game['id'], 'ASC', TOP_SCORE_COUNT) : PHPArcade\Scores::getGameScore($game['id'], 'DESC', TOP_SCORE_COUNT); ?>
         <!-- Game Code -->
         <div class="card-deck mt-4">
             <div class="card text-center">
@@ -61,7 +60,7 @@ global $params; ?>
                     <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
                     $game['type'] = $game['type'] ?? '';
-                    switch ($game['customcode']) {
+        switch ($game['customcode']) {
                         case null:
                             case '':
                                 if ($game['type'] !== 'extlink') {
@@ -105,7 +104,7 @@ global $params; ?>
                                                 <td><?php echo $i; ?></td>
                                                 <td>
                                                     <img class="img img-fluid rounded-circle"
-                                                         data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'],40); ?>"
+                                                         data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'], 40); ?>"
                                                          style="float:left"
                                                     />&nbsp;
                                                     <a href="<?php echo PHPArcade\Core::getLinkProfile($champ['id']); ?>">
@@ -126,7 +125,8 @@ global $params; ?>
             <!-- End Game Code -->
             <?php
         }
-        if ($dbconfig['disqus_on'] === 'on') { ?>
+        if ($dbconfig['disqus_on'] === 'on') {
+            ?>
             <div class="card-deck mt-4">
                 <div class="card">
                     <h3 class="card-header">
@@ -138,7 +138,8 @@ global $params; ?>
                 </div>
             </div><?php
         }
-    } else { ?>
+    } else {
+        ?>
         <h1><?php echo gettext('404status'); ?></h1>
         <h2><?php echo gettext('404page'); ?></h2><?php
         PHPArcade\Core::returnStatusCode(404);
@@ -194,7 +195,7 @@ global $params; ?>
           "aggregateRating": {
              "@type": "AggregateRating",
              "ratingValue": "4.75",
-             "reviewCount": "<?php echo rand(1,112);?>"
+             "reviewCount": "<?php echo rand(1, 112);?>"
           },
           "numberOfPlayers":{
             "@type":"QuantitativeValue",
@@ -211,14 +212,15 @@ global $params; ?>
           "url":"<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"
         }
     </script>
-    <?php if (!empty($dbconfig['mixpanel_id']))
-    { ?>
+    <?php if (!empty($dbconfig['mixpanel_id'])) {
+                    ?>
         <script>
             mixpanel.track(
                 "Loaded Game",
                 {
-                    "GameName": "<?php echo $game['name'];?>"
+                    "GameName": "<?php echo $game['name']; ?>"
                 }
             );
         </script>
-    <?php } ?>
+    <?php
+                } ?>

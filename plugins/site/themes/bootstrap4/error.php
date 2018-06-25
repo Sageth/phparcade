@@ -20,12 +20,12 @@ global $params; ?>
 		</div>
 	</div>
 </div>
-<?php if (!empty($dbconfig['mixpanel_id']))
-{ ?>
+<?php if (!empty($dbconfig['mixpanel_id'])) {
+                ?>
     <script async type="application/ld+json">
         mixpanel.track(
             "Error Page"
         );
     </script><?php
-}
+            }
 ?>

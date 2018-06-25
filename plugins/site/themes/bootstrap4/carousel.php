@@ -25,10 +25,10 @@ $i = 0; ?>
                     <div class="row">
                         <div class="col-1">&nbsp;</div>
                         <div class="col">
-                            <a href="<?php echo $link;?>">
-                                <img alt="<?php $game['name'];?>"
+                            <a href="<?php echo $link; ?>">
+                                <img alt="<?php $game['name']; ?>"
                                      class="rounded"
-                                     data-src="<?php echo IMG_URL . $game['nameid'] . EXT_IMG;?>"
+                                     data-src="<?php echo IMG_URL . $game['nameid'] . EXT_IMG; ?>"
                                      height="<?php echo $dbconfig['theight']; ?>"
                                      width="<?php echo $dbconfig['twidth']; ?>"
                                 />
@@ -40,7 +40,7 @@ $i = 0; ?>
                         <div class="col">&nbsp;</div>
                         <div class="col">
                             <p class="text-justify text-black">
-                                <?php echo $game['desc'];?>
+                                <?php echo $game['desc']; ?>
                             </p>
                         </div>
                         <div class="col">&nbsp;</div>

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace PHPArcade;
+
 use PDO;
 
 class Scores
@@ -12,17 +13,20 @@ class Scores
     {
     }
 
-    public static function deleteGameChamps($gameid){
+    public static function deleteGameChamps($gameid)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_DeleteChampsbyGameID(:gameid);');
         $stmt->bindParam(':gameid', $gameid);
         $stmt->execute();
     }
-    public static function deleteGameScores($gameid){
+    public static function deleteGameScores($gameid)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_GamesScores_DeleteScoresbyGameID(:gameid);');
         $stmt->bindParam(':gameid', $gameid);
         $stmt->execute();
     }
-    public static function fixGameChamp($gameid){
+    public static function fixGameChamp($gameid)
+    {
         $game = Games::getGameByID($gameid);
         $time = Core::getCurrentDate();
         $link = Core::getLinkGame($game['id']);
@@ -53,12 +57,10 @@ class Scores
     public static function formatScore($number, $dec = 1)
     { // cents: 0=never, 1=if needed, 2=always
         $number = floatval($number);
-        if (!$number)
-        {
+        if (!$number) {
             $score['score'] = ($dec == 3 ? '0.00' : '0');
         } else {
-            if (floor($number) == $number)
-            {
+            if (floor($number) == $number) {
                 $score['score'] = number_format($number, ($dec == 3 ? 3 : 0));
             } else {
                 $score['score'] = number_format(round($number, 3), ($dec == 0 ? 0 : 3));
@@ -78,8 +80,7 @@ class Scores
     {
         /* Strips "-score" from game to be compatible with v2 Arcade Games */
         $nameid = str_replace('-score', "", $nameid);
-        switch ($sort)
-        {
+        switch ($sort) {
             case 'ASC':
                 $sql = 'CALL sp_GamesScore_GetScores_ASC(:gamenameid, :limitnum);';
                 break;
@@ -177,10 +178,10 @@ class Scores
         $score = '**' . self::formatScore($score) . '**';
 
         $message = array(
-            $player . ' has a new personal high score of ' . $score . ' in _' . $gamename . '_ ! Play now at ' . $link,
-            'Ever best yourself? No? ' . $player . ' did by beating their own personal score in _' . $gamename . '_ with a score of ' . $score . '. ' . $link,
+            $player . ' has a new personal high score of ' . $score . ' in ' . $gamename . ' ! Play now at ' . $link,
+            'Ever best yourself? No? ' . $player . ' did by beating their own personal score in ' . $gamename . ' with a score of ' . $score . '. ' . $link,
             $player . ' beat the high score in ' . $gamename . ' with a score of ' . $score . '. And by "high score" we mean their own. ' . $player . ' is not the best, but they are better than they were. That counts for something. ' . $link,
-            'Nice job, ' . $player . '. You can only beat your own high score in ' . $gamename . '. Try beating the best score next time. ' . $link,
+            'Nice job, ' . $player . '. You only beat your own high score in ' . $gamename . '. Try beating the champion next time. ' . $link,
             'Sometimes you feel like a nut, some times you don\'t. ' . $player . '\'s got the high score.  Others don\'t. ' . $link
         );
 
@@ -213,20 +214,17 @@ class Scores
         $link = Core::getLinkGame($game['id']);
 
         /* If there is a champion, figure out who it is */
-        switch ($sort)
-        {
+        switch ($sort) {
             case 'ASC':
                 /* If the game is a low-score-wins game (e.g. Golf), then update the score */
-                if ($score <= $gamechamp['score'])
-                {
+                if ($score <= $gamechamp['score']) {
                     self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
                     self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
                 }
                 break;
             case 'DESC':
                 /* Otherwise, just make sure you have a higher score and then update */
-                if ($score >= $gamechamp['score'])
-                {
+                if ($score >= $gamechamp['score']) {
                     self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
                     self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
                 }
@@ -260,27 +258,22 @@ class Scores
             Core::loadRedirect($link);
         } else {
             $gamescore = self::GetGameScorebyNameID($game['id'], $playerid);
-            switch ($sort)
-            {
+            switch ($sort) {
                 case 'ASC':
-                    if ($score < $gamescore['score'])
-                    {
+                    if ($score < $gamescore['score']) {
                         self::UpdateScoreIntoGameScore($gameid, $gamescore['player'], $score, $ip, $time);
                         self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
                         Core::loadRedirect($link);
-                    } else
-                    {
+                    } else {
                         Core::loadRedirect($link);
                     }
                     break;
                 case 'DESC':
-                    if ($score > $gamescore['score'])
-                    {
+                    if ($score > $gamescore['score']) {
                         self::UpdateScoreIntoGameScore($gameid, $gamescore['player'], $score, $ip, $time);
                         self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
                         Core::loadRedirect($link);
-                    } else
-                    {
+                    } else {
                         Core::loadRedirect($link);
                     }
                     break;
