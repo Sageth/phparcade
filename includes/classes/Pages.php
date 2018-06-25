@@ -34,16 +34,6 @@ class Pages
             <?php echo gettext('submit'); ?>
         </button><?php
     }
-    public static function getGetCodeButton($id, $act, $mthd)
-    {
-        ?>
-        <div class="btn-group">
-            <a class="btn btn-info"
-                href="<?php echo SITE_URL_ADMIN; ?>index.php?act=<?php echo $act; ?>&amp;mthd=<?php echo $mthd; ?>&amp;id=<?php echo $id; ?>">
-                <?php echo gettext('edit'); ?>
-            </a>
-        </div><?php
-    }
     public static function getEditButton($id, $act, $mthd, $text, $style = 'primary')
     {
         ?>
@@ -51,16 +41,6 @@ class Pages
             <a class="btn btn-<?php echo $style; ?>"
                 href="<?php echo SITE_URL_ADMIN; ?>index.php?act=<?php echo $act; ?>&amp;mthd=<?php echo $mthd; ?>&amp;id=<?php echo $id; ?>">
                 <?php echo $text; ?>
-            </a>
-        </div><?php
-    }
-    public static function getFeatureGameButton($gameid)
-    {
-        ?>
-        <div class="btn-group">
-            <a class="btn btn-info disabled"
-                href="<?php echo SITE_URL_ADMIN; ?>index.php?act=media&amp;mthd=feature&amp;id=<?php echo $gameid; ?>">
-                <?php echo gettext('feature'); ?>
             </a>
         </div><?php
     }

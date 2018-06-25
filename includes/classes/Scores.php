@@ -52,24 +52,17 @@ class Scores
     }
     public static function formatScore($number, $dec = 1)
     { // cents: 0=never, 1=if needed, 2=always
-        if (is_numeric($number))
+        $number = floatval($number);
+        if (!$number)
         {
-            if (!$number)
+            $score['score'] = ($dec == 3 ? '0.00' : '0');
+        } else {
+            if (floor($number) == $number)
             {
-                $score['score'] = ($dec == 3 ? '0.00' : '0');
-            } else
-            {
-                if (floor($number) == $number)
-                {
-                    $score['score'] = number_format($number, ($dec == 3 ? 3 : 0));
-                } else
-                {
-                    $score['score'] = number_format(round($number, 3), ($dec == 0 ? 0 : 3));
-                }
+                $score['score'] = number_format($number, ($dec == 3 ? 3 : 0));
+            } else {
+                $score['score'] = number_format(round($number, 3), ($dec == 0 ? 0 : 3));
             }
-        } else
-        { //Should never happen
-            $score['score'] = 0;// numeric
         }
         return $score['score'];
     }
@@ -80,13 +73,6 @@ class Scores
         $stmt->bindParam(':nameid', $nameid);
         $stmt->execute();
         return $stmt->fetch();
-    }
-    public static function GetGameChampbyGameNameID_RowCount($nameid)
-    {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
-        $stmt->bindParam(':nameid', $nameid);
-        $stmt->execute();
-        return $stmt->rowCount();
     }
     public static function getGameScore($nameid, $sort, $limitnum)
     {
@@ -254,7 +240,6 @@ class Scores
         $playername = ucfirst($_SESSION['user']['name']);
         $link = Core::getLinkGame($game['id']);
 
-
         /* Update games_score table */
         /* $game[]:
             [id]
@@ -269,7 +254,7 @@ class Scores
                 [4] = Current player's IP address
             [date]
                 [5] = Current epoch time */
-        if (self::GetGameScorebyGameNameID_RowCount($gameid, $playerid) === 0) {
+        if (self::GetGameScorebyGameNameID_RowCount($gameid, $playerid) == 0) {
             self::InsertScoreIntoGameScore($gameid, $playerid, $score, $ip, $time);
             self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
             Core::loadRedirect($link);
@@ -281,6 +266,7 @@ class Scores
                     if ($score < $gamescore['score'])
                     {
                         self::UpdateScoreIntoGameScore($gameid, $gamescore['player'], $score, $ip, $time);
+                        self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
                         Core::loadRedirect($link);
                     } else
                     {

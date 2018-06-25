@@ -347,14 +347,6 @@ class Games
         $stmt->execute();
         return $stmt->rowCount();
     }
-    public static function getGamesBroken()
-    {
-        $yes = 'Yes';
-        $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGames_Broken(:broken);');
-        $stmt->bindParam(':broken', $yes);
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
     public static function getGamesBrokenCount()
     {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetBrokenByID();');

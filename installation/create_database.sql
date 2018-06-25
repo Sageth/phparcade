@@ -521,17 +521,6 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetBrokenByID`()
   END ;;
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS `sp_Games_GetGames_Broken`;
-DELIMITER ;;
-CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGames_Broken`(
-  IN g_broken ENUM('Yes','No'))
-  BEGIN
-    SELECT `id`
-    FROM `games`
-    WHERE `broken` = g_broken;
-  END ;;
-DELIMITER ;
-
 DROP PROCEDURE IF EXISTS `sp_Games_GetGamesByCategory_ASC`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesByCategory_ASC`(
@@ -608,15 +597,6 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGames_ActivebyCate
     WHERE `active` = 'Yes'
           AND release_date <= g_releasedate
           AND cat = g_category;
-  END ;;
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS `sp_Games_GetGamesNameid`;
-DELIMITER ;;
-CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesNameid`()
-  BEGIN
-    SELECT `nameid`
-    FROM `games`;
   END ;;
 DELIMITER ;
 
@@ -1231,17 +1211,5 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Pages_UpdatePage`(
       `description` = p_pagedescription,
       `keywords` = p_pagekeywords
     WHERE `id` = p_pageid;
-  END ;;
-DELIMITER ;
-
--- Sessions
-DROP PROCEDURE IF EXISTS `sp_Sessions_GetSessionbyUserid`;
-DELIMITER ;;
-CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Sessions_GetSessionbyUserid`(
-  IN s_userid INT(10))
-  BEGIN
-    SELECT *
-    FROM `sessions`
-    WHERE `userid` = s_userid;
   END ;;
 DELIMITER ;
