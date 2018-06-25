@@ -247,7 +247,6 @@ class Scores
         $playername = ucfirst($_SESSION['user']['name']);
         $link = Core::getLinkGame($game['id']);
 
-
         /* Update games_score table */
         /* $game[]:
             [id]
@@ -262,7 +261,7 @@ class Scores
                 [4] = Current player's IP address
             [date]
                 [5] = Current epoch time */
-        if (self::GetGameScorebyGameNameID_RowCount($gameid, $playerid) === 0) {
+        if (self::GetGameScorebyGameNameID_RowCount($gameid, $playerid) == 0) {
             self::InsertScoreIntoGameScore($gameid, $playerid, $score, $ip, $time);
             self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
             Core::loadRedirect($link);
