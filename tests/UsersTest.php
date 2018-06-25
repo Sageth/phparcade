@@ -13,14 +13,13 @@ final class UsersTest extends TestCase
     public function tearDown()
     {
         unset($_SERVER['DOCUMENT_ROOT']);
-        if (isset($_SESSION['user']))
-        {
+        if (isset($_SESSION['user'])) {
             @session_destroy();
             unset($_SESSION);
         }
-
     }
-    public function testgetUsersCount(): void{
+    public function testgetUsersCount(): void
+    {
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
         $stmt = $db->prepare('CALL sp_Members_GetAllIDs();');
@@ -41,7 +40,8 @@ final class UsersTest extends TestCase
         $_SESSION['user'] = array( 'name' => 'testuser');
         $this->assertEquals('testuser', $_SESSION['user']['name']);
     }
-    public function testUserAdd(): void{
+    public function testUserAdd(): void
+    {
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
         $id = 7;
@@ -66,7 +66,8 @@ final class UsersTest extends TestCase
         $rows = $db->query('SELECT * FROM members;')->rowCount();
         $this->assertEquals('1', $rows);
     }
-    public function testUserDelete(): void{
+    public function testUserDelete(): void
+    {
         $db = new PDO("mysql:host=127.0.0.1;dbname=phparcade", 'root', '');
 
         $id = 400;

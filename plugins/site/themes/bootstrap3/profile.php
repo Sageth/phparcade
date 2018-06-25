@@ -9,13 +9,13 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <div class="row">
     <div class="col-lg-12"><?php
         if ($params[1] === 'view' && $params[1] != 'edit') {
-        $user = PHPArcade\Users::getUserbyID($params[2]);
+            $user = PHPArcade\Users::getUserbyID($params[2]);
 
-        if ($user === false) {
-            PHPArcade\Core::showInfo(gettext('noexist'));
-        } else {
-        $i = 0;
-        $games = PHPArcade\Games::getGamesChamp($user['id']); ?>
+            if ($user === false) {
+                PHPArcade\Core::showInfo(gettext('noexist'));
+            } else {
+                $i = 0;
+                $games = PHPArcade\Games::getGamesChamp($user['id']); ?>
         <div class="col-sm-10">
             <img alt="<?php echo $user['username']; ?>'s Gravatar"
                  class="img img-responsive img-circle"
@@ -43,7 +43,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                 <ul class="list-group">
                     <li class="list-group-item text-muted">
                         <?php echo gettext('activity');
-                        echo PHPArcade\Core::showGlyph('dashboard'); ?>
+                echo PHPArcade\Core::showGlyph('dashboard'); ?>
                     </li>
                     <li class="list-group-item text-right">
                                 <span class="pull-left">
@@ -66,22 +66,24 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                             ?>
                             <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?><?php
                         }
-                        if ($user['github_id'] != "") { ?>
+                if ($user['github_id'] != "") {
+                    ?>
                         <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank" rel="noopener">
                             <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false'); ?>
                             </a><?php
-                        } else {
-                            echo PHPArcade\Core::showGlyph('github', '2x', 'false');
-                        }
-                        if ($user['twitter_id'] != "") { ?>
+                } else {
+                    echo PHPArcade\Core::showGlyph('github', '2x', 'false');
+                }
+                if ($user['twitter_id'] != "") {
+                    ?>
                         <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank" rel="noopener">
                             <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false'); ?>
                             </a><?php
-                        } else {
-                            echo PHPArcade\Core::showGlyph('twitter', '2x', 'false');
-                        }
-                        echo PHPArcade\Core::showGlyph('pinterest', '2x', 'false');
-                        echo PHPArcade\Core::showGlyph('google-plus', '2x', 'false'); ?>
+                } else {
+                    echo PHPArcade\Core::showGlyph('twitter', '2x', 'false');
+                }
+                echo PHPArcade\Core::showGlyph('pinterest', '2x', 'false');
+                echo PHPArcade\Core::showGlyph('google-plus', '2x', 'false'); ?>
                     </div>
                 </div>
                 <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
@@ -97,7 +99,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                             <div class="col-md-4 col-md-4">
                             <div class="thumbnail"><?php
                                 $game = PHPArcade\Games::getGame($game['nameid']);
-                                $link = PHPArcade\Core::getLinkGame($game['id']); ?>
+                            $link = PHPArcade\Core::getLinkGame($game['id']); ?>
                                 <a href="<?php echo $link; ?>"><?php
                                     $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
                                     <img alt="<?php echo gettext('play')
@@ -146,28 +148,28 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                         "name": "<?php echo $user['username']; ?>",
                         "url": "<?php echo SITE_URL; ?>profile/view/<?php echo $user['id']; ?>/<?php echo $user['username']; ?>.html"
                         <?php if (!empty($user['facebook_id']) || (!empty($user['github_id'])) || (!empty($user['twitter_id']))) {
-                    ?>,
+                            ?>,
                             "sameAs": [
                                 <?php if (!empty($user['facebook_id'])) {
-                        ?>
+                                ?>
                                     "http://www.facebook.com/<?php echo $user['facebook_id']; ?>",<?php
-                    } ?>
+                            } ?>
                     <?php if (!empty($user['github_id'])) {
-                        ?>"http://www.github.com/<?php echo $user['github_id']; ?>",<?php
-                    } ?>
+                                ?>"http://www.github.com/<?php echo $user['github_id']; ?>",<?php
+                            } ?>
                     <?php if (!empty($user['twitter_id'])) {
-                        ?>"http://www.twitter.com/<?php echo $user['twitter_id']; ?>"<?php
-                    } ?>
+                                ?>"http://www.twitter.com/<?php echo $user['twitter_id']; ?>"<?php
+                            } ?>
                             ]<?php
-                } ?>
+                        } ?>
                     }
                     </script><?php
             }
-            } else {
-                if ($params[1] === 'edit') {
-                    $user = PHPArcade\Users::getUserbyID($_SESSION['user']['id']);
-                    if ($params[2] == "" || !isset($params[2])) {
-                        ?>
+        } else {
+            if ($params[1] === 'edit') {
+                $user = PHPArcade\Users::getUserbyID($_SESSION['user']['id']);
+                if ($params[2] == "" || !isset($params[2])) {
+                    ?>
                     <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data"
                           autocomplete="off">
                         <div class="col-lg-4">
@@ -248,23 +250,23 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                             <?php echo gettext('submit'); ?>
                         </button>
                         </form><?php
-                    } else {
-                        if ($params[0] === 'profile' && $params[2] === 'editdone') {
-                            /* Update user profile entries */
-                            PHPArcade\Users::UpdateProfile();
+                } else {
+                    if ($params[0] === 'profile' && $params[2] === 'editdone') {
+                        /* Update user profile entries */
+                        PHPArcade\Users::UpdateProfile();
 
-                            /* Update Password if necessary */
-                            if ($_POST['password'] != '') {
-                                PHPArcade\Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
-                                PHPArcade\Core::showSuccess(gettext('updatesuccess'));
-                            }
-
+                        /* Update Password if necessary */
+                        if ($_POST['password'] != '') {
+                            PHPArcade\Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
                             PHPArcade\Core::showSuccess(gettext('updatesuccess'));
-                        } else {
-                            PHPArcade\Core::showError(gettext('error'));
                         }
+
+                        PHPArcade\Core::showSuccess(gettext('updatesuccess'));
+                    } else {
+                        PHPArcade\Core::showError(gettext('error'));
                     }
                 }
-            } ?>
+            }
+        } ?>
         </div>
     </div>

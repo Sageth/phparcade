@@ -40,12 +40,10 @@ class Games
     {
         $dbconfig = Core::getDBConfig();
         //Load the file and convert to PNG
-        try
-        {
+        try {
             (new \claviska\SimpleImage())->fromFile($fromImage)->resize($dbconfig['twidth'], $dbconfig['theight'])->toFile(IMG_DIR .
                 $nameid, 'image/png');
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             Core::showError('Unable to convert', 'ambulance');
         }
         return;
@@ -276,7 +274,8 @@ class Games
         }
         return $game;
     }
-    public static function getGameByID($id){
+    public static function getGameByID($id)
+    {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGameByID(:gameid);');
         $stmt->bindParam(':gameid', $id);
         $stmt->execute();

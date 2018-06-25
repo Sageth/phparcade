@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 $dbconfig = PHPArcade\Core::getDBConfig();
 $i = 0;
 foreach (PHPArcade\Games::getGamesHomePage() as $game) {
-    switch ($i){
+    switch ($i) {
         case 0:
             echo '<div class="card-deck mt-4">';
             break;

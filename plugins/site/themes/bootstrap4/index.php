@@ -18,25 +18,29 @@ require_once __DIR__ . '/themeconfig.php';
 <!--suppress JSIgnoredPromiseFromCall -->
 <html lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">
     <head>
-        <?php if ('on' === $dbconfig['gtm_enabled']) { ?>
+        <?php if ('on' === $dbconfig['gtm_enabled']) {
+    ?>
             <!-- Google Tag Manager -->
             <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','<?php echo $dbconfig['gtm_id'];?>');
+            })(window,document,'script','dataLayer','<?php echo $dbconfig['gtm_id']; ?>');
             </script>
             <!-- End Google Tag Manager -->
-        <?php } ?>
-        <?php if (['google_analytics_pubid'] !== '') { ?>
+        <?php
+} ?>
+        <?php if (['google_analytics_pubid'] !== '') {
+        ?>
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({
-                    google_ad_client: "<?php echo $dbconfig['google_analytics_pubid'];?>",
+                    google_ad_client: "<?php echo $dbconfig['google_analytics_pubid']; ?>",
                     enable_page_level_ads: true
                 });
             </script>
-        <?php } ?>
+        <?php
+    } ?>
         <meta charset="<?php echo CHARSET; ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
         <title><?php echo $metadata['metapagetitle']; ?></title>
@@ -77,7 +81,7 @@ require_once __DIR__ . '/themeconfig.php';
         <meta name="no-email-collection" content="https://www.unspam.com/noemailcollection"/>
         <meta name="robots" content="noarchive"/>
         <?php if (!empty($dbconfig['mixpanel_id'])) {
-            include (INST_DIR . 'includes/js/MixPanel/mixpanel.php');
+            include(INST_DIR . 'includes/js/MixPanel/mixpanel.php');
         } ?>
     </head>
     <body>
@@ -122,9 +126,10 @@ require_once __DIR__ . '/themeconfig.php';
         <?php require_once __DIR__ . '/footer.php'; ?>
         <script defer src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous"></script>
         <script defer src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"></script>
-        <?php if (true == PHPArcade\Core::is('game')) { ?>
-            <script async src="<?php echo JS_SWFOBJECT;?>" integrity="<?php echo JS_SWFOBJECT_SRI;?>" crossorigin="anonymous"></script><?php
-        } ?>
+        <?php if (true == PHPArcade\Core::is('game')) {
+                ?>
+            <script async src="<?php echo JS_SWFOBJECT; ?>" integrity="<?php echo JS_SWFOBJECT_SRI; ?>" crossorigin="anonymous"></script><?php
+            } ?>
         <script async type="application/ld+json">
         {
             "@context":"http://schema.org",
@@ -159,34 +164,36 @@ require_once __DIR__ . '/themeconfig.php';
         </script>
         <script async type="application/ld+json">
             <?php if (!empty($dbconfig['mixpanel_id'])) {
-                if (PHPArcade\Users::isUserLoggedIn() === true) { ?>
+                if (PHPArcade\Users::isUserLoggedIn() === true) {
+                    ?>
                     mixpanel.register({
-                        "$admin": "<?php echo $user['admin'];?>",
-                        "$birthdate": "<?php echo $user['birth_date'];?>",
-                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']);?>",
-                        "$facebook_id": "<?php echo $user['facebook'];?>",
-                        "$github_id": "<?php echo $user['github'];?>",
-                        "$id": "<?php echo $user['id'];?>",
-                        "$email": "<?php echo $user['email'];?>",
-                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']);?>",
-                        "$total_games_played": "<?php echo $user['totalgames'];?>",
-                        "$username": "<?php echo $user['name'];?>"
+                        "$admin": "<?php echo $user['admin']; ?>",
+                        "$birthdate": "<?php echo $user['birth_date']; ?>",
+                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
+                        "$facebook_id": "<?php echo $user['facebook']; ?>",
+                        "$github_id": "<?php echo $user['github']; ?>",
+                        "$id": "<?php echo $user['id']; ?>",
+                        "$email": "<?php echo $user['email']; ?>",
+                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
+                        "$total_games_played": "<?php echo $user['totalgames']; ?>",
+                        "$username": "<?php echo $user['name']; ?>"
                     });
-                    mixpanel.identify('<?php echo $user['id'];?>');
+                    mixpanel.identify('<?php echo $user['id']; ?>');
                     mixpanel.people.set({
-                        "$admin": "<?php echo $user['admin'];?>",
-                        "$birthdate": "<?php echo $user['birth_date'];?>",
-                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']);?>",
-                        "$facebook_id": "<?php echo $user['facebook'];?>",
-                        "$github_id": "<?php echo $user['github'];?>",
-                        "$id": "<?php echo $user['id'];?>",
-                        "$email": "<?php echo $user['email'];?>",
-                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']);?>",
-                        "$total_games_played": "<?php echo $user['totalgames'];?>",
-                        "$username": "<?php echo $user['name'];?>"
+                        "$admin": "<?php echo $user['admin']; ?>",
+                        "$birthdate": "<?php echo $user['birth_date']; ?>",
+                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
+                        "$facebook_id": "<?php echo $user['facebook']; ?>",
+                        "$github_id": "<?php echo $user['github']; ?>",
+                        "$id": "<?php echo $user['id']; ?>",
+                        "$email": "<?php echo $user['email']; ?>",
+                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
+                        "$total_games_played": "<?php echo $user['totalgames']; ?>",
+                        "$username": "<?php echo $user['name']; ?>"
                     })<?php
-                } else { ?>
-                    mixpanel.register("<?php echo session_id();?>");<?php
+                } else {
+                    ?>
+                    mixpanel.register("<?php echo session_id(); ?>");<?php
                 }
             } ?>
         </script>
@@ -202,16 +209,17 @@ require_once __DIR__ . '/themeconfig.php';
         <!-- End LazyLoader -->
         <?php
         $inicfg = PHPArcade\Core::getINIConfig();
-        if ($inicfg['webhook']['highscoreURI'] != '') { ?>
+        if ($inicfg['webhook']['highscoreURI'] != '') {
+            ?>
             <script async src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3">
                 if (window.innerWidth > 768) {
                     new Crate({
-                        server: '<?php echo $inicfg['webhook']['hs_server'];?>',
-                        channel: '<?php echo $inicfg['webhook']['hs_channel'];?>',
+                        server: '<?php echo $inicfg['webhook']['hs_server']; ?>',
+                        channel: '<?php echo $inicfg['webhook']['hs_channel']; ?>',
                         location: ['bottom', 'right'],
                         notifications: true,
                         indicator: true,
-                        username: '<?php echo $user['name'];?>'
+                        username: '<?php echo $user['name']; ?>'
                     })
                 }
             </script><?php

@@ -245,7 +245,7 @@ function site_admin($mthd)
                         <div class="form-group">
                             <select class="form-control" title="Theme Name" name="themename">
                                 <?php
-                                foreach(glob(dirname(__FILE__) . '/themes/*') as $filename){
+                                foreach (glob(dirname(__FILE__) . '/themes/*') as $filename) {
                                     if (basename($filename) === 'admin') {
                                         continue;
                                     }

@@ -279,7 +279,8 @@ use PDO;
             return http_response_code($statuscode);
         }
         public static function showError($text, $glyph = 'ambulance')
-        { ?>
+        {
+            ?>
             <div class="alert alert-danger mt-4" role="alert">
                 <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
                 <strong><?php echo gettext('error') ?></strong>
