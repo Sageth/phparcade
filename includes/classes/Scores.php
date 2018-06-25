@@ -301,19 +301,6 @@ class Scores
         $stmt->bindParam(':player', $player);
         $stmt->execute();
     }
-
-    /* Scores for players which no longer exist
-        SELECT * FROM phparcade.games_score WHERE player NOT IN (SELECT id FROM phparcade.members);
-    */
-
-    /* Scores in the champs table for which there are no matching scores in the scores table
-        SELECT * FROM phparcade.games_champs gc WHERE nameid NOT IN (SELECT nameid FROM phparcade.games_score);
-    */
-
-    /* Games which have scores, but there is no champ in the champs table
-        SELECT * FROM phparcade.games_score WHERE nameid NOT IN (SELECT nameid FROM phparcade.games_champs);
-    */
-
     private function __clone()
     {
     }
