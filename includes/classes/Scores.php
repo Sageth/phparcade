@@ -74,13 +74,6 @@ class Scores
         $stmt->execute();
         return $stmt->fetch();
     }
-    public static function GetGameChampbyGameNameID_RowCount($nameid)
-    {
-        $stmt = mySQL::getConnection()->prepare('CALL sp_GamesChamps_GetChampsbyGame(:nameid);');
-        $stmt->bindParam(':nameid', $nameid);
-        $stmt->execute();
-        return $stmt->rowCount();
-    }
     public static function getGameScore($nameid, $sort, $limitnum)
     {
         /* Strips "-score" from game to be compatible with v2 Arcade Games */
