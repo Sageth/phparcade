@@ -204,7 +204,7 @@ INSERT INTO `phparcade`.`members` SET
   `password` = '21232f297a57a5a743894a0e4a801fc3',
   `email` = 'admin@example.com',
   `active` = 'Yes',
-  `regtime` = 1219016824,
+  `regtime` = UNIX_TIMESTAMP(NOW()),
   `totalgames` = 0,
   `twitter_id` = '',
   `github_id` = NULL,
@@ -213,7 +213,7 @@ INSERT INTO `phparcade`.`members` SET
   `favorites` = '',
   `ip` = '',
   `birth_date` = '',
-  `last_login` = NOW();
+  `last_login` = UNIX_TIMESTAMP(NOW());
 
 --
 -- Table structure for table `pages`
@@ -938,7 +938,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_AddMember`(
     INSERT INTO `members`
     (`id`,`username`,`password`,`email`,`active`,`regtime`, `admin`,`ip`)
     VALUES
-      (m_id, m_username, m_password, m_email, m_active, NOW(), m_admin, m_ip);
+      (m_id, m_username, m_password, m_email, m_active, UNIX_TIMESTAMP(NOW()), m_admin, m_ip);
   END ;;
 DELIMITER ;
 
