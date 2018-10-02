@@ -35,12 +35,12 @@ define('TOP_SCORE_COUNT', 10);
 /* ===== LIBRARIES USED THROUGHOUT THE SITE
    ===== YOU CAN FIND THEME-SPECIFIC CONSTANTS IN THE themeconfig.php FILE IN EACH THEME */
 
-/* CDNJS - v4.1.1 - BOOTSTRAP */
-define('CSS_BOOTSTRAP_ADMIN', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css');
-define('CSS_BOOTSTRAP_ADMIN_SRI', 'sha256-Md8eaeo67OiouuXAi8t/Xpd8t2+IaJezATVTWbZqSOw=');
+/* CDNJS - v4.1.3 - BOOTSTRAP */
+define('CSS_BOOTSTRAP_ADMIN', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css');
+define('CSS_BOOTSTRAP_ADMIN_SRI', 'sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=');
 
-define('JS_BOOTSTRAP_ADMIN', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js');
-define('JS_BOOTSTRAP_ADMIN_SRI', 'sha256-xaF9RpdtRxzwYMWg4ldJoyPWqyDPCRD0Cv7YEEe6Ie8=');
+define('JS_BOOTSTRAP_ADMIN', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js');
+define('JS_BOOTSTRAP_ADMIN_SRI', 'sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=');
 
 /* CDNJS - v2.2.2 - BOOTSTRAP TOGGLE */
 define('CSS_BOOTSTRAP_TOGGLE', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css');
@@ -64,11 +64,12 @@ define('JS_JQUERY', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.
 define('JS_JQUERY_SRI', 'sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=');
 
 /* CDNJS - v1.12.1 - JQUERY UI */
-define('JS_JQUERY_UI', SITE_URL . 'vendor/components/jqueryui/jquery-ui.min.js');
+define('JS_JQUERY_UI', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js');
+define('JS_JQUERY_UI_SRI', 'sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=');
 
 /* CDNJS - v10.6.0 - VANILLA-LAZYLOAD */
-define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.8.0/lazyload.min.js');
-define('JS_LAZYLOAD_SRI', 'sha256-Oz+eDj3BmLJZdPBBQ+aooOaZuZ516P87TlmDY/yHHT8=');
+define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.17.0/lazyload.min.js');
+define('JS_LAZYLOAD_SRI', 'sha256-oFLOKhv6Of0DFewit7EjoAl9yZiEpbEMNIkxorAZCx8=');
 
 /* CDNJS - v2.2.0 - SWFOBJECT */
 define('JS_SWFOBJECT', 'https://cdnjs.cloudflare.com/ajax/libs/swfobject/2.2/swfobject.min.js');

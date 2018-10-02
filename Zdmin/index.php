@@ -89,7 +89,7 @@ $content = $content ?? ''; ?>
         </div>
     </div>
     <script defer src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous"></script>
-    <script defer src="<?php echo JS_JQUERY_UI; ?>"></script>
+    <script defer src="<?php echo JS_JQUERY_UI; ?>" integrity="<?php echo JS_JQUERY_UI_SRI;?>" crossorigin="anonymous"></script>
     <script defer src="<?php echo JS_TABLESORT; ?>"></script>
     <script defer src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo JS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous"></script>
     <script defer src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous"></script>
