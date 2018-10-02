@@ -220,14 +220,14 @@ class Scores
                         Core::loadRedirect($link);
                     }
                     $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
-                    Scores::submitGameScore($game['id'], $_POST['gscore'], $_SESSION['user']['id'], $ip, $link, $sort);
+                    Scores::submitGameScore($game['id'], $_POST['gscore'], $_SESSION['user']['id'], $ip, $sort);
                 } else {
                     Core::loadRedirect($link);
                 }
             }
         }
     }
-    public static function submitGameScore($gameid = '', $score = 0, $playerid = '', $ip = '1.1.1.1', $link, $sort = 'DESC')
+    public static function submitGameScore($gameid = '', $score = 0, $playerid = '', $ip = '1.1.1.1', $sort = 'DESC')
     {
         $time = Core::getCurrentDate();
 
