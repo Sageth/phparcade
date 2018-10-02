@@ -8,7 +8,7 @@ $category = PHPArcade\Games::getCategory($params[1]);
 $games = PHPArcade\Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']);
 $i = 0; ?>
 <div class="col-lg-12">
-	<?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
+	<?php echo PHPArcade\Ads::getInstance()->showAds(); ?>
 	<div class="clearfix invisible"></div>
 	<div class="panel panel-info">
 		<div class="panel-heading">

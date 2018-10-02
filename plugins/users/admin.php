@@ -37,10 +37,10 @@ function users_admin($mthd)
                                 <input class="form-control" name="email" value="<?php echo $user['email']; ?>" title="email"/>
 							</div>
 							<div class="form-group">
-								<label>
+								<label for="password">
 									<?php echo gettext('password'); ?> (<?php echo gettext('blank'); ?>)
 								</label>
-                                <input class="form-control" name='password' value=''/>
+                                <input class="form-control" id="password" name="password" value=""/>
 							</div>
 							<div class="form-group">
                                 <?php echo PHPArcade\Core::showGlyph('user');?>
@@ -69,17 +69,17 @@ function users_admin($mthd)
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label>
+								<label for="gamesplayed">
 									<?php echo gettext('gamesplayed');?>
 								</label>
                                 <input disabled class="form-control"
-                                       name='totalgames' value='<?php echo $user['totalgames']; ?>' />
+                                       id="gamesplayed" name='totalgames' value='<?php echo $user['totalgames']; ?>' />
 							</div>
 							<div class="form-group">
-								<label>
+								<label for="twitter">
 									<?php echo gettext('twitter'); ?>
 								</label>
-                                <input class="form-control" name='twitter_id' value='<?php echo $user['twitter_id']; ?>'/>
+                                <input class="form-control" id="twitter" name='twitter_id' value='<?php echo $user['twitter_id']; ?>'/>
 							</div>
                             <div>
                                 <label>

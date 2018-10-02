@@ -7,7 +7,7 @@ $dbconfig = PHPArcade\Core::getDBConfig();
 $category = PHPArcade\Games::getCategory($params[1]);
 $games = PHPArcade\Games::getGames($category['name'], 0, 10, $params[2], $dbconfig['gamesperpage']); ?>
 <div class="row">
-    <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
+    <?php echo PHPArcade\Ads::getInstance()->showAds(); ?>
     <h1><?php echo $category['name'] . ' Games'; ?></h1>
     <div class="row"><?php
         foreach ($games as $game) {

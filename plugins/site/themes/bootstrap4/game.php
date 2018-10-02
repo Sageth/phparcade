@@ -57,7 +57,7 @@ global $params; ?>
                     <?php echo $game['name']; ?>
                 </h3>
                 <div class="card-body">
-                    <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
+                    <?php echo PHPArcade\Ads::getInstance()->showAds(); ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
                     $game['type'] = $game['type'] ?? '';
         switch ($game['customcode']) {
@@ -72,7 +72,7 @@ global $params; ?>
                                     echo $game['customcode'];
                     } ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
-                    echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
+                    echo PHPArcade\Ads::getInstance()->showAds(); ?>
                 </div>
             </div>
         </div><?php
