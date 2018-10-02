@@ -32,9 +32,6 @@ if ($inicfg['environment']['state'] === "dev") {
 
 require_once INST_DIR . 'includes/first.php';
 
-PHPArcade\Core::doEvent('pluginsloaded');
-PHPArcade\Core::doEvent('theme_display');
-
 /** @noinspection PhpUndefinedVariableInspection */
 /** @noinspection PhpIncludeInspection */
 include SITE_THEME_PATH;
