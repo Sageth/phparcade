@@ -10,7 +10,10 @@ if ($_SESSION) {
 }
 $dbconfig = PHPArcade\Core::getDBConfig();
 $metadata = PHPArcade\Core::getPageMetaData();
-include_once __DIR__ . '/scoresys.php';
+
+/* Registers the score system. Must be called after session start */
+PHPArcade\Scores::registerScoreSystem();
+
 require_once __DIR__ . '/themeconfig.php';
 ?>
 
