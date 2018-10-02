@@ -6,7 +6,8 @@
     "components/jqueryui": "1.*",
     "google/recaptcha": "1.*",
     "phpmailer/phpmailer": "~6.0",
-    "phroute/phroute": "^2.1"
+    "phroute/phroute": "^2.1",
+    "ext-gettext": "*"
   },
   "config": {
     "optimize-autoloader": true
