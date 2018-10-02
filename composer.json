@@ -4,10 +4,14 @@
     "gargron/fileupload": "1.*",
     "components/jquery": "3.*",
     "components/jqueryui": "1.*",
+    "ext-curl": "*",
+    "ext-gettext": "*",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "ext-posix": "*",
     "google/recaptcha": "1.*",
     "phpmailer/phpmailer": "~6.0",
-    "phroute/phroute": "^2.1",
-    "ext-gettext": "*"
+    "phroute/phroute": "^2.1"
   },
   "config": {
     "optimize-autoloader": true
