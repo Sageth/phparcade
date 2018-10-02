@@ -86,10 +86,10 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                 echo PHPArcade\Core::showGlyph('google-plus', '2x', 'false'); ?>
                     </div>
                 </div>
-                <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
+                <?php echo PHPArcade\Ads::getInstance()->showAds(); ?>
             </div>
             <div class="col-md-9">
-                <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
+                <?php echo PHPArcade\Ads::getInstance()->showAds(); ?>
                 <div class="clearfix invisible"></div>
                 <h3><?php echo $user['username'] . ' ' . gettext('bestplayer'); ?> </h3>
                 <div class="panel panel-info">

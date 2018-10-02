@@ -7,7 +7,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 <div class="card-block">
     <div class="col-lg-12 mt-4">
         <?php
-        echo PHPArcade\Ads::getInstance()->showAds('Responsive');
+        echo PHPArcade\Ads::getInstance()->showAds();
         if ($params[1] === 'view' && $params[1] != 'edit') {
             $user = PHPArcade\Users::getUserbyID($params[2]);
             if ($user === false) {

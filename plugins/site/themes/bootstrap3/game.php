@@ -20,7 +20,7 @@ global $params; ?>
         $dt = new DateTime("@$epoch");
         $game['time'] = date('M d, Y', $game['time']);
         PHPArcade\Games::updateGamePlaycount($game['id']); ?>
-        <div class="col-lg-12">
+        <div class="col-lg-12 mt-4">
             <h1 class="page-header" itemprop="headline"><?php echo $game['name']; ?></h1>
         </div>
         <div class="col-lg-6">
@@ -54,7 +54,7 @@ global $params; ?>
                     <h3 class="panel-title"><?php echo $game['name']; ?></h3>
                 </div>
                 <div class="panel-body text-center">
-                    <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
+                    <?php echo PHPArcade\Ads::getInstance()->showAds(); ?>
                     <div class="clearfix invisible">&nbsp;</div><?php
                     $game['type'] = $game['type'] ?? '';
         switch ($game['customcode']) {
@@ -71,7 +71,7 @@ global $params; ?>
                             echo $game['customcode'];
                     } ?>
                     <div class="clearfix invisible">&nbsp;</div>
-                    <?php echo PHPArcade\Ads::getInstance()->showAds('Responsive'); ?>
+                    <?php echo PHPArcade\Ads::getInstance()->showAds(); ?>
                     <div class="clearfix invisible">&nbsp;</div>
                 </div>
             </div>

@@ -502,8 +502,8 @@ function site_admin($mthd)
                             <hr />
                             <div class="form-group">
                                 <?php echo PHPArcade\Core::showGlyph('envelope');?>
-                                <label><?php echo gettext('emailaddressfrom'); ?></label>
-                                <input class="form-control" name='emailfrom' value='<?php echo $dbconfig['emailfrom']; ?>'/>
+                                <label for="emailfrom"><?php echo gettext('emailaddressfrom'); ?></label>
+                                <input class="form-control" name="emailfrom" id="emailfrom" value='<?php echo $dbconfig['emailfrom']; ?>'/>
                             </div>
                         </div>
                         <div class="card-footer">&nbsp;</div>
