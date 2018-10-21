@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `games` (
   UNIQUE KEY `nameid_UNIQUE` (`nameid`),
   KEY `idx_cat_lookup` (`playcount`,`release_date`,`cat`,`nameid`,`name`,`width`,`height`,`type`,`flags`,`time`) USING BTREE,
   KEY `idx_game_lookup` (`id`,`nameid`,`name`,`desc`(100),`instructions`(100)) USING BTREE,
-  KEY `idx_game_releasedate` (`id`,`nameid`,`name`,`release_date`),
+  KEY `idx_game_releasedate` (`release_date` DESC,`id` DESC,`nameid`,`name`) USING BTREE,
   KEY `idx_game_search` (`name`,`release_date`,`id`,`nameid`),
   KEY `idx_releasedate_lookup` (`id`,`active`,`release_date`,`cat`),
   KEY `idx_game_active` (`active`),
