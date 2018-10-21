@@ -34,24 +34,19 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
     switch ($type) {
         case 'rss':
             header('Content-Type: application/rss+xml; charset=' . CHARSET);
-            if ($params[1] == 'playcount') {
-                $array = PHPArcade\Games::getGames('all', 0, $dbconfig['rssnumlatest'], '-all-', -1);
-            } else {  //Same thing as above to pass unit tests
-                $array = PHPArcade\Games::getGames('all', 0, $dbconfig['rssnumlatest'], '-all-', -1);
+            if ($params[1] == 'recent') {
+                $array = PHPArcade\Games::getGamesbyReleaseDate_DESC('all');
             }
-            echo "<?xml version='1.0' encoding='UTF-8' ?>"; ?>
-            <!--suppress HtmlExtraClosingTag -->
+            ?>
+            <?xml version="1.0" encoding="<?php echo CHARSET;?>" ?>
             <rss version="2.0" xmlns="http://purl.org/rss/1.0/modules/content/"
                  xmlns:atom="http://www.w3.org/2005/Atom"
             >
-            <!--suppress HtmlExtraClosingTag -->
             <channel>
                 <title><?php echo $dbconfig['sitetitle']; ?></title><?php echo PHP_EOL; ?>
                 <description><?php echo $dbconfig['metadesc']; ?></description>
                 <link><?php echo SITE_URL; ?></link>
-                <atom:link href='<?php echo $dbconfig['rssfeed']; ?>'
-                           rel='self'
-                           type='application/rss+xml'/><?php PHP_EOL;
+                <atom:link href="<?php echo $dbconfig['rssfeed']; ?>" rel="self" type="application/rss+xml"/><?php PHP_EOL;
                 for ($i = 0; $i < $dbconfig['rssnumlatest']; $i++) {
                     $title = $array[$i]['name'];
                     $desc = $array[$i]['desc'];
@@ -66,11 +61,15 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
                         <category>Flash Games</category>
                         <category>Online Games</category>
                         <category>Browser Games</category>
+                        <category>HTML5 Gamess</category>
+                        <category>Mobile Games</category>
+                        <category>Famobi Gamess</category>
                     </item><?php echo PHP_EOL;
                 } ?>
             </channel>
             </rss><?php
             break;
+        default:
     }
     die();
 }

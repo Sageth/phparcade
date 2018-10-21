@@ -135,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `games` (
   UNIQUE KEY `nameid_UNIQUE` (`nameid`),
   KEY `idx_cat_lookup` (`playcount`,`release_date`,`cat`,`nameid`,`name`,`width`,`height`,`type`,`flags`,`time`) USING BTREE,
   KEY `idx_game_lookup` (`id`,`nameid`,`name`,`desc`(100),`instructions`(100)) USING BTREE,
+  KEY `idx_game_releasedate` (`id`,`nameid`,`name`,`release_date`),
   KEY `idx_game_search` (`name`,`release_date`,`id`,`nameid`),
   KEY `idx_releasedate_lookup` (`id`,`active`,`release_date`,`cat`),
   KEY `idx_game_active` (`active`),
@@ -622,10 +623,10 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesByReleasedate
   IN g_limitstart INT(10),
   IN g_limitend INT(10))
   BEGIN
-    SELECT *
+    SELECT `id`,`nameid`,`name`
     FROM `games`
     WHERE `release_date` <= g_release_date
-    ORDER BY `playcount` DESC
+    ORDER BY `release_date` DESC
     LIMIT g_limitstart, g_limitend;
   END ;;
 DELIMITER ;

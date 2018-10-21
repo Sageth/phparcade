@@ -326,6 +326,25 @@ class Games
         $stmt->execute();
         return $stmt->rowCount();
     }
+    public static function getGamesbyReleaseDate_DESC($category)
+    {
+        $dbconfig = Core::getDBConfig();
+        $time = Core::getCurrentDate();
+        $limitstart = 0;
+        $limitend = $dbconfig['rssnumlatest'];
+        switch ($category) {
+            case 'all':
+                $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetGamesByReleasedate_DESC(:release_date, :limitstart, :limitend);');
+                $stmt->bindParam(':release_date', $time);
+                $stmt->bindParam(':limitstart', $limitstart);
+                $stmt->bindParam(':limitend', $limitend);
+                break;
+            default:
+                echo "ALL?";
+        }
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
     public static function getGamesHomePage()
     {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetRandom8();');
