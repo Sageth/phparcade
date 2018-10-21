@@ -623,7 +623,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesByReleasedate
   IN g_limitstart INT(10),
   IN g_limitend INT(10))
   BEGIN
-    SELECT `id`,`nameid`,`name`
+    SELECT `id`,`nameid`,`name`,`desc`
     FROM `games`
     WHERE `release_date` <= g_release_date
     ORDER BY `release_date` DESC
