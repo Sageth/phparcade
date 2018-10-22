@@ -128,47 +128,21 @@ function media_admin($mthd)
                 }
 
                 // Image file processing
-                if (!empty($_FILES['imgfile']['name'])) {
-                    $_FILES['imgfile']['name'] = strtolower($_FILES['imgfile']['name']);
-                    $realimage = IMG_DIR . $_FILES['imgfile']['name'];
-                    /** @noinspection PhpMethodParametersCountMismatchInspection */
-                    $validator = new FileUpload\Validator\Simple(
-                        1024 * 1024 * 10,
-                        ['image/png'],
-                        ['image/jpg'],
-                        ['image/gif']
-                    );  // File upload validations
-                    $pathresolver = new FileUpload\PathResolver\Simple(IMG_DIR_NOSLASH);     // Upload path
-                    $filesystem = new FileUpload\FileSystem\Simple();               // The machine's filesystem
-                    $fileupload = new FileUpload\FileUpload($_FILES['imgfile'], $_SERVER);   // FileUploader itself
-                    //Final prep
-                    $fileupload->setPathResolver($pathresolver);
-                    $fileupload->setFileSystem($filesystem);
-                    $fileupload->addValidator($validator);
+                PHPArcade\Games::uploadImage($_FILES['imgfile']);
 
-                    // Doing the actual upload
-                    /** @noinspection PhpUnusedLocalVariableInspection */
-                    list($files, $headers) = $fileupload->processAll();
-
-                    /* If there is no swf file (e.g. custom game code), then use the image name as the nameid for
-                       the database.  Otherwise, the image should be saved as a .png to the IMG_DIR folder.
-                       Files are saved in lowercase. */
-                    $nameid = empty($_FILES['swffile']['name']) ? strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
-
-                    try {
-                        PHPArcade\Games::convertImage($realimage, $nameid);
-                        PHPArcade\Games::addGame(null, $nameid, $gameorder = -1, $gwidth, $gheight, $type, $playcount = 0, $release_date);
-                        PHPArcade\Games::updateGameOrder();
-                        return;
-                    } catch (Exception $e) {
-                        PHPArcade\Core::showError(gettext('error') . ' ' . $e->getMessage());
-                    }
+                /* If there is no swf file (e.g. custom game code), then use the image name as the nameid for
+                   the database.  Otherwise, the image should be saved as a .png to the IMG_DIR folder.
+                   Files are saved in lowercase. */
+                $nameid = empty($_FILES['swffile']['name']) ? strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
+                try {
+                    /* PHPArcade\Games::convertImage($realimage, $nameid); */
+                    PHPArcade\Games::addGame(null, $nameid, $gameorder = -1, $gwidth, $gheight, $type, $playcount = 0, $release_date);
+                    PHPArcade\Games::updateGameOrder();
                     return;
-                } else {
-                    //Images are required
-                    PHPArcade\Core::showError(gettext('selectafileerror'));
-                    return;
+                } catch (Exception $e) {
+                    PHPArcade\Core::showError(gettext('error') . ' ' . $e->getMessage());
                 }
+                return;
             } else {
                 PHPArcade\Core::showError(gettext('nameiderror'));
             }
