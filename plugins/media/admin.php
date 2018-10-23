@@ -1,88 +1,97 @@
 <?php
 function media_admin($mthd)
 {
-    switch ($mthd) {
+    switch ($mthd)
+    {
         case 'addcat-do':
             $order = PHPArcade\Games::getCategoryIDMax();
-            if ($_POST['name'] == "") {
+            if ($_POST['name'] == "")
+            {
                 PHPArcade\Core::showWarning(gettext('allfieldserror'));
-            } else {
+            } else
+            {
                 PHPArcade\Games::insertCategory(null, $_POST['name'], $_POST['desc'], $_POST['keywords'], $order, $_POST['type']);
             }
             break;
         case 'addcat-form': ?>
             <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
-                <div class="card-deck">
-                    <div class="card">
-                        <div class="card-header">
-                            <?php echo gettext('category'); ?>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label><?php echo gettext('name'); ?></label>
-                                <input class="form-control" title='name' name='name'/>
-                            </div>
-                        </div>
-                        <div class="card-footer">&nbsp;</div>
+            <div class="card-deck">
+                <div class="card">
+                    <div class="card-header">
+                        <?php echo gettext('category'); ?>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <?php echo gettext('otherinfo'); ?>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label><?php echo gettext('name'); ?></label>
+                            <input class="form-control" title='name' name='name'/>
                         </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label><?php echo gettext('type'); ?></label>
-                                <input class="form-control" title="type" name='type' value='Games'/>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('description'); ?></label>
-                                <textarea class="form-control" title="description" name='desc' rows='6'></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('keywords'); ?></label>
-                                <textarea class="form-control"
-                                          title="keywords"
-                                          name="keywords"
-                                          cols="42"
-                                          rows="6">
-                                </textarea>
-                            </div>
-                        </div>
-                        <div class="card-footer">&nbsp;</div>
                     </div>
+                    <div class="card-footer">&nbsp;</div>
                 </div>
-                <input type='hidden' name='act' value='media'/>
-                <input type='hidden' name='mthd' value='addcat-do'/>
-                <?php PHPArcade\Pages::getSubmitButton(); ?>
+                <div class="card">
+                    <div class="card-header">
+                        <?php echo gettext('otherinfo'); ?>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label><?php echo gettext('type'); ?></label>
+                            <input class="form-control" title="type" name='type' value='Games'/>
+                        </div>
+                        <div class="form-group">
+                            <label><?php echo gettext('description'); ?></label>
+                            <textarea class="form-control" title="description" name='desc' rows='6'></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label><?php echo gettext('keywords'); ?></label>
+                            <textarea class="form-control"
+                                      title="keywords"
+                                      name="keywords"
+                                      cols="42"
+                                      rows="6">
+                                </textarea>
+                        </div>
+                    </div>
+                    <div class="card-footer">&nbsp;</div>
+                </div>
+            </div>
+            <input type='hidden' name='act' value='media'/>
+            <input type='hidden' name='mthd' value='addcat-do'/>
+            <?php PHPArcade\Pages::getSubmitButton(); ?>
             </form><?php
             break;
         case 'addgame-do':
-            // TODO: Break this up into smaller functions
+            /* TODO: Break this up into smaller functions */
             $dbconfig = PHPArcade\Core::getDBConfig();
 
-            //Check that the game isn't already added
-            $gameid =
-                (!empty(strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)))) ? strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
-            $rowcount1 = PHPArcade\Games::getGameCountByNameID($gameid);
+            /* Check that the game isn't already added */
+            $nameid =
+                (!empty(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME))) ? mb_strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)) : mb_strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
+            $rowcount1 = PHPArcade\Games::getGameCountByNameID($nameid);
             $rowcount2 = PHPArcade\Games::getGameCountByNameID(strtolower($_POST['name']));
-            if ($rowcount1 == 0 && $rowcount2 == 0) { // If the game SWF hasn't already been added...
-                //if release date wasn't supplied, insert in today's datetime
-                if ($_POST['release_date'] == "") {
+            if ($rowcount1 == 0 && $rowcount2 == 0)
+            {
+                /* If the game SWF hasn't already been added...
+                   if release date wasn't supplied, insert in today's datetime */
+                if ($_POST['release_date'] == "")
+                {
                     $release_date = PHPArcade\Core::getCurrentDate();
-                } else {
+                } else
+                {
                     list($year, $month, $day) = explode('-', $_POST['release_date']);
                     $release_date = mktime(0, 0, 0, $month, $day, $year);
                 }
-                // SWF file processing
-                if (!empty($_FILES['swffile']['name'])) {
+
+                /* SWF file processing */
+                if (!empty($_FILES['swffile']['name']))
+                {
                     $swffile = $_FILES['swffile']['name'];
                     $realswf = SWF_DIR . $swffile;
                     // Set type and nameID
                     /** @noinspection PhpUnusedLocalVariableInspection */
-                    $nameid = strtolower(pathinfo($swffile, PATHINFO_FILENAME)); //Get base name
-                    $type = strtoupper(pathinfo($swffile, PATHINFO_EXTENSION)); //Get file extension
+                    $nameid = mb_strtolower(pathinfo($swffile, PATHINFO_FILENAME)); //Get base name
+                    $type = mb_strtoupper(pathinfo($swffile, PATHINFO_EXTENSION)); //Get file extension
                     $validator = new FileUpload\Validator\Simple(1024 * 1024 *
-                                                                 100, ['application/x-shockwave-flash']);  // File upload falications
+                        100, ['application/x-shockwave-flash']);  // File upload falications
                     $pathresolver = new FileUpload\PathResolver\Simple(SWF_DIR);     // Upload path
                     $filesystem = new FileUpload\FileSystem\Simple();               // The machine's filesystem
                     $fileupload = new FileUpload\FileUpload($_FILES['swffile'], $_SERVER);   // FileUploader itself
@@ -96,12 +105,14 @@ function media_admin($mthd)
                     // TODO: Set up so that json output goes to screen for accurate error message
                     //$json = json_encode(['files' => $files]);
                     //var_dump(json_decode($json,true));
-                    if ($type == 'SWF' && $_FILES['swffile']['error'] == 0) { // 0 Means uploaded without error?>
+                    if ($type == 'SWF' && $_FILES['swffile']['error'] == 0)
+                    { // 0 Means uploaded without error?>
                         <div class="col-md-6 text-left"><?php
                             PHPArcade\Core::showSuccess(gettext('uploadsuccess') . ': ' . $swffile); ?>
                         </div>
                         <div class="clearfix invisible"></div><?php
-                    } else {
+                    } else
+                    {
                         ?>
                         <div class="col-md-6 text-left"><?php
                             PHPArcade\Core::showError(gettext('uploadfailed') . ': ' . $swffile); ?>
@@ -117,7 +128,9 @@ function media_admin($mthd)
                     $dimensions = getimagesize($realswf) ?? 0;
                     $gwidth = isset($gwidth) ? $dimensions[0] : $dbconfig['defgwidth'];
                     $gheight = isset($gheight) ? $dimensions[1] : $dbconfig['defgheight'];
-                } else { // If no file was uploaded?>
+                } else
+                { ?>
+                    <?php /* If no file was uploaded */ ?>
                     <div class="col-md-6 text-left"><?php
                         PHPArcade\Core::showWarning(gettext('noswffile')); ?>
                     </div>
@@ -128,46 +141,20 @@ function media_admin($mthd)
                 }
 
                 // Image file processing
-                if (!empty($_FILES['imgfile']['name'])) {
-                    $_FILES['imgfile']['name'] = strtolower($_FILES['imgfile']['name']);
-                    $realimage = IMG_DIR . $_FILES['imgfile']['name'];
-                    /** @noinspection PhpMethodParametersCountMismatchInspection */
-                    $validator = new FileUpload\Validator\Simple(
-                        1024 * 1024 * 10,
-                        ['image/png'],
-                        ['image/jpg'],
-                        ['image/gif']
-                    );  // File upload validations
-                    $pathresolver = new FileUpload\PathResolver\Simple(IMG_DIR_NOSLASH);     // Upload path
-                    $filesystem = new FileUpload\FileSystem\Simple();               // The machine's filesystem
-                    $fileupload = new FileUpload\FileUpload($_FILES['imgfile'], $_SERVER);   // FileUploader itself
-                    //Final prep
-                    $fileupload->setPathResolver($pathresolver);
-                    $fileupload->setFileSystem($filesystem);
-                    $fileupload->addValidator($validator);
+                PHPArcade\Games::uploadImage($_FILES['imgfile']);
 
-                    // Doing the actual upload
-                    /** @noinspection PhpUnusedLocalVariableInspection */
-                    list($files, $headers) = $fileupload->processAll();
-
-                    /* If there is no swf file (e.g. custom game code), then use the image name as the nameid for
-                       the database.  Otherwise, the image should be saved as a .png to the IMG_DIR folder.
-                       Files are saved in lowercase. */
-                    $nameid = empty($_FILES['swffile']['name']) ? strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
-
+                /* If the nameid isn't set, return an error, otherwise upload and continue */
+                if ($nameid === '') {
+                    PHPArcade\Core::showError(gettext('selectafileerror'));
+                    return;
+                } else {
                     try {
-                        PHPArcade\Games::convertImage($realimage, $nameid);
                         PHPArcade\Games::addGame(null, $nameid, $gameorder = -1, $gwidth, $gheight, $type, $playcount = 0, $release_date);
                         PHPArcade\Games::updateGameOrder();
                         return;
                     } catch (Exception $e) {
                         PHPArcade\Core::showError(gettext('error') . ' ' . $e->getMessage());
                     }
-                    return;
-                } else {
-                    //Images are required
-                    PHPArcade\Core::showError(gettext('selectafileerror'));
-                    return;
                 }
             } else {
                 PHPArcade\Core::showError(gettext('nameiderror'));

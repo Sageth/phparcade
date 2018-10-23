@@ -41,8 +41,7 @@ class Games
         $dbconfig = Core::getDBConfig();
         //Load the file and convert to PNG
         try {
-            (new \claviska\SimpleImage())->fromFile($fromImage)->resize($dbconfig['twidth'], $dbconfig['theight'])->toFile(IMG_DIR .
-                $nameid, 'image/png');
+            (new \claviska\SimpleImage())->fromFile($fromImage)->resize($dbconfig['twidth'], $dbconfig['theight'])->toFile(IMG_DIR . $nameid, 'image/png');
         } catch (\Exception $e) {
             Core::showError('Unable to convert', 'ambulance');
         }
@@ -451,6 +450,34 @@ class Games
         $stmt->bindParam(':gameid', $gameid);
         $stmt->execute();
         return;
+    }
+    public static function uploadImage($image){
+        if (!empty($image['name'])) {
+            $imageupload = strtolower($image['name']);
+            $realimage = IMG_DIR . $imageupload;
+            /** @noinspection PhpMethodParametersCountMismatchInspection */
+            $validator = new \FileUpload\Validator\Simple(
+                1024 * 1024 * 10,
+                ['image/png'],
+                ['image/jpg'],
+                ['image/gif']
+            );  // File upload validations
+            $pathresolver = new \FileUpload\PathResolver\Simple(IMG_DIR_NOSLASH);     // Upload path
+            $filesystem = new \FileUpload\FileSystem\Simple();               // The machine's filesystem
+            $fileupload = new \FileUpload\FileUpload($image, $_SERVER);   // FileUploader itself
+            //Final prep
+            $fileupload->setPathResolver($pathresolver);
+            $fileupload->setFileSystem($filesystem);
+            $fileupload->addValidator($validator);
+
+            // Doing the actual upload
+            /** @noinspection PhpUnusedLocalVariableInspection */
+            list($files, $headers) = $fileupload->processAll();
+        } else {
+            //Images are required
+            Core::showError(gettext('selectafileerror'));
+            return;
+        }
     }
     private function __clone()
     {
