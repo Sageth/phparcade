@@ -14,7 +14,7 @@ function media_admin($mthd)
             }
             break;
         case 'addcat-form': ?>
-        <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
+            <form action='<?php echo SITE_URL_ADMIN; ?>index.php' method='POST' enctype='multipart/form-data'>
             <div class="card-deck">
                 <div class="card">
                     <div class="card-header">
@@ -60,13 +60,13 @@ function media_admin($mthd)
             </form><?php
             break;
         case 'addgame-do':
-            // TODO: Break this up into smaller functions
+            /* TODO: Break this up into smaller functions */
             $dbconfig = PHPArcade\Core::getDBConfig();
 
-            //Check that the game isn't already added
-            $gameid =
-                (!empty(strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)))) ? strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)) : strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
-            $rowcount1 = PHPArcade\Games::getGameCountByNameID($gameid);
+            /* Check that the game isn't already added */
+            $nameid =
+                (!empty(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME))) ? mb_strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)) : mb_strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
+            $rowcount1 = PHPArcade\Games::getGameCountByNameID($nameid);
             $rowcount2 = PHPArcade\Games::getGameCountByNameID(strtolower($_POST['name']));
             if ($rowcount1 == 0 && $rowcount2 == 0)
             {
@@ -88,8 +88,8 @@ function media_admin($mthd)
                     $realswf = SWF_DIR . $swffile;
                     // Set type and nameID
                     /** @noinspection PhpUnusedLocalVariableInspection */
-                    $nameid = strtolower(pathinfo($swffile, PATHINFO_FILENAME)); //Get base name
-                    $type = strtoupper(pathinfo($swffile, PATHINFO_EXTENSION)); //Get file extension
+                    $nameid = mb_strtolower(pathinfo($swffile, PATHINFO_FILENAME)); //Get base name
+                    $type = mb_strtoupper(pathinfo($swffile, PATHINFO_EXTENSION)); //Get file extension
                     $validator = new FileUpload\Validator\Simple(1024 * 1024 *
                         100, ['application/x-shockwave-flash']);  // File upload falications
                     $pathresolver = new FileUpload\PathResolver\Simple(SWF_DIR);     // Upload path
@@ -129,7 +129,8 @@ function media_admin($mthd)
                     $gwidth = isset($gwidth) ? $dimensions[0] : $dbconfig['defgwidth'];
                     $gheight = isset($gheight) ? $dimensions[1] : $dbconfig['defgheight'];
                 } else
-                { // If no file was uploaded?>
+                { ?>
+                    <?php /* If no file was uploaded */ ?>
                     <div class="col-md-6 text-left"><?php
                         PHPArcade\Core::showWarning(gettext('noswffile')); ?>
                     </div>
@@ -142,24 +143,21 @@ function media_admin($mthd)
                 // Image file processing
                 PHPArcade\Games::uploadImage($_FILES['imgfile']);
 
-                /* If there is no swf file (e.g. custom game code), then use the image name as the nameid for
-                   the database.  Otherwise, the image should be saved as a .png to the IMG_DIR folder.
-                   Files are saved in lowercase. */
-                $nameid = !empty($_FILES['swffile']['name']) ? mb_strtolower(pathinfo($_FILES['swffile']['name'], PATHINFO_FILENAME)) : mb_strtolower(pathinfo($_FILES['imgfile']['name'], PATHINFO_FILENAME));
-
-                /* Now that we know that the $nameid is set, make sure it isn't empty.  If it is, error out. */
+                /* If the nameid isn't set, return an error, otherwise upload and continue */
                 if ($nameid === '') {
-                    PHPArcade\Core::showError(gettext('nameiderror'));
+                    PHPArcade\Core::showError(gettext('selectafileerror'));
+                    return;
+                } else {
+                    try {
+                        PHPArcade\Games::addGame(null, $nameid, $gameorder = -1, $gwidth, $gheight, $type, $playcount = 0, $release_date);
+                        PHPArcade\Games::updateGameOrder();
+                        return;
+                    } catch (Exception $e) {
+                        PHPArcade\Core::showError(gettext('error') . ' ' . $e->getMessage());
+                    }
                 }
-            }
-
-            try {
-                /* PHPArcade\Games::convertImage($realimage, $nameid); */
-                PHPArcade\Games::addGame(null, $nameid, $gameorder = -1, $gwidth, $gheight, $type, $playcount = 0, $release_date);
-                PHPArcade\Games::updateGameOrder();
-                return;
-            } catch (Exception $e) {
-                PHPArcade\Core::showError(gettext('error') . ' ' . $e->getMessage());
+            } else {
+                PHPArcade\Core::showError(gettext('nameiderror'));
             }
             break;
         case "":
