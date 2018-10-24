@@ -4,9 +4,9 @@ require_once __DIR__ . '/cfg.php';
 
 $router = new Phroute\Phroute\RouteCollector();
 
-// Game Routing
-// catch http://phparcade.dev/game/2741/Sample.html
-$router->get(['/game/{id:i}/{gameName:.*}', 'game'], function ($id, $gameName) use (&$foundMatch) {
+/* Game Routing
+ catch http://phparcade.dev/game/2741/Sample.html */
+$router->any(['/game/{id:i}/{gameName:.*}', 'game'], function ($id, $gameName) use (&$foundMatch) {
     $game = PHPArcade\Games::getGame($id);
     $cleanGameName = PHPArcade\Core::getCleanURL($game['name']) . '.html';
     if ($cleanGameName != urldecode($gameName)) {
@@ -17,9 +17,9 @@ $router->get(['/game/{id:i}/{gameName:.*}', 'game'], function ($id, $gameName) u
     }
 });
 
-// User Profile Routing
-// catch http://phparcade.dev/profile/view/1/Username.html
-$router->get(['/profile/view/{id:i}/{userProfile:.*}', 'user'], function ($id, $userProfile) use (&$foundMatch) {
+/* User Profile Routing
+   catch http://phparcade.dev/profile/view/1/Username.html */
+$router->any(['/profile/view/{id:i}/{userProfile:.*}', 'user'], function ($id, $userProfile) use (&$foundMatch) {
     $user = PHPArcade\Users::getUserbyID($id);
     $cleanUserName = PHPArcade\Core::getCleanURL($user['username']) . '.html';
     if ($cleanUserName != urldecode($userProfile))
@@ -32,7 +32,7 @@ $router->get(['/profile/view/{id:i}/{userProfile:.*}', 'user'], function ($id, $
     }
 });
 
-//catch all routes not caught earlier
+/* catch all routes not caught earlier */
 $router->any('{route:.*}', function () {
 });
 
