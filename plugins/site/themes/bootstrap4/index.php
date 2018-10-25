@@ -5,9 +5,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/cfg.php';
 if (!isset($_SESSION)) {
     session_start();
 }
-if ($_SESSION) {
-    $user = $_SESSION;
-}
+$user = empty($_SESSION) ? array("name" => "-") : $_SESSION;
+
 $dbconfig = PHPArcade\Core::getDBConfig();
 $metadata = PHPArcade\Core::getPageMetaData();
 
