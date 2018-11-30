@@ -22,10 +22,8 @@ global $params; ?>
 </div>
 <?php if (!empty($dbconfig['mixpanel_id'])) {
                 ?>
-    <script async type="application/ld+json">
-        mixpanel.track(
-            "Error Page"
-        );
+    <script async>
+        mixpanel.track("Error Page");
     </script><?php
             }
 ?>

@@ -2,7 +2,7 @@
     session_start();
 } ?>
 <!-- Nav Section -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark pr-5">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="<?php echo SITE_URL; ?>">
         <?php echo gettext('logo'); ?>
     </a>
@@ -12,10 +12,11 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
+        <form class="col-md-4 ml-auto">
+            <?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
+        </form>
         <ul class="navbar-nav">
-            <div class="col-lg-4 ml-auto">
-                <?php include_once INST_DIR . 'includes/js/Google/googlecustomsearch.php';?>
-            </div><?php
+            <?php
             if (!PHPArcade\Users::isUserLoggedIn()) {
                 ?>
                 <li class="nav-item dropdown">
