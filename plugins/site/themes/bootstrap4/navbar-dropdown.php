@@ -19,7 +19,7 @@ if (PHPArcade\Users::isUserLoggedIn()) {
             <?php echo gettext('myaccount'); ?>
             <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu" role="menu">
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
             <li class="dropdown-header">
                 <img class="img img-fluid rounded-circle"
                      data-src="<?php echo PHPArcade\Users::userGetGravatar($user['name'], 25); ?>"
