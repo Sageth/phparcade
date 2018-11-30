@@ -143,36 +143,40 @@ require_once __DIR__ . '/themeconfig.php';
             }
         }
         </script>
-        <script async >
+        <script async>
             <?php if (!empty($dbconfig['mixpanel_id'])) {
-                if (PHPArcade\Users::isUserLoggedIn() === true) { ?>
+                if (PHPArcade\Users::isUserLoggedIn() === true) {
+                    ?>
                     mixpanel.register({
-                        "$admin": "<?php echo $user['admin'];?>",
-                        "$birthdate": "<?php echo $user['birth_date'];?>",
-                        "$created": "<?php echo date('Y-m-d', $user['regtime']);?>",
-                        "$facebook_id": "<?php echo $user['facebook'];?>",
-                        "$github_id": "<?php echo $user['github'];?>",
-                        "$id": "<?php echo $user['id'];?>",
-                        "$email": "<?php echo $user['email'];?>",
-                        "$last_login": "<?php echo $user['last_login'];?>",
-                        "$total_games_played": "<?php echo $user['totalgames'];?>",
-                        "$username": "<?php echo $user['name'];?>"
+                        "$admin": "<?php echo $user['admin']; ?>",
+                        "$birthdate": "<?php echo $user['birth_date']; ?>",
+                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
+                        "$facebook_id": "<?php echo $user['facebook']; ?>",
+                        "$github_id": "<?php echo $user['github']; ?>",
+                        "$id": "<?php echo $user['id']; ?>",
+                        "$email": "<?php echo $user['email']; ?>",
+                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
+                        "$total_games_played": "<?php echo $user['totalgames']; ?>",
+                        "$username": "<?php echo $user['name']; ?>"
                     });
-                    mixpanel.identify('<?php echo $user['id'];?>');
+                    mixpanel.identify('<?php echo $user['id']; ?>');
                     mixpanel.people.set({
-                        "$admin": "<?php echo $user['admin'];?>",
-                        "$birthdate": "<?php echo $user['birth_date'];?>",
-                        "$created": "<?php echo date('Y-m-d', $user['regtime']);?>",
-                        "$facebook_id": "<?php echo $user['facebook'];?>",
-                        "$github_id": "<?php echo $user['github'];?>",
-                        "$id": "<?php echo $user['id'];?>",
-                        "$email": "<?php echo $user['email'];?>",
-                        "$last_login": "<?php echo $user['last_login'];?>",
-                        "$total_games_played": "<?php echo $user['totalgames'];?>",
-                        "$username": "<?php echo $user['name'];?>"
-                    });<?php
-                } else { ?>
-                    mixpanel.register("<?php echo session_id();?>");<?php
+                        "$admin": "<?php echo $user['admin']; ?>",
+                        "$birthdate": "<?php echo $user['birth_date']; ?>",
+                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
+                        "$facebook_id": "<?php echo $user['facebook']; ?>",
+                        "$github_id": "<?php echo $user['github']; ?>",
+                        "$id": "<?php echo $user['id']; ?>",
+                        "$email": "<?php echo $user['email']; ?>",
+                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
+                        "$total_games_played": "<?php echo $user['totalgames']; ?>",
+                        "$username": "<?php echo $user['name']; ?>"
+                    });
+                  <?php
+                } else {
+                    ?>
+                    mixpanel.register("<?php echo session_id(); ?>");
+                    <?php
                 }
             } ?>
         </script>

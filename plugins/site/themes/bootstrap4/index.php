@@ -164,7 +164,7 @@ require_once __DIR__ . '/themeconfig.php';
             }
         }
         </script>
-        <script async type="application/ld+json">
+        <script async>
             <?php if (!empty($dbconfig['mixpanel_id'])) {
                 if (PHPArcade\Users::isUserLoggedIn() === true) {
                     ?>
@@ -192,7 +192,8 @@ require_once __DIR__ . '/themeconfig.php';
                         "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
                         "$total_games_played": "<?php echo $user['totalgames']; ?>",
                         "$username": "<?php echo $user['name']; ?>"
-                    })<?php
+                    });
+                  <?php
                 } else {
                     ?>
                     mixpanel.register("<?php echo session_id(); ?>");
