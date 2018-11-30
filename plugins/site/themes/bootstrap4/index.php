@@ -17,8 +17,8 @@ require_once __DIR__ . '/themeconfig.php';
 ?>
 
 <!DOCTYPE html>
-<!--suppress JSIgnoredPromiseFromCall -->
-<html lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">
+<!--suppress JSIgnoredPromiseFromCall, HtmlUnknownTag -->
+<html lang="en" prefix="og:http://ogp.me/ns#" xmlns="https://www.w3.org/1999/xhtml">
     <head>
         <?php if ('on' === $dbconfig['gtm_enabled']) {
     ?>
@@ -164,6 +164,7 @@ require_once __DIR__ . '/themeconfig.php';
             }
         }
         </script>
+        <!--suppress JSUnresolvedFunction -->
         <script async>
             <?php if (!empty($dbconfig['mixpanel_id'])) {
                 if (PHPArcade\Users::isUserLoggedIn() === true) {

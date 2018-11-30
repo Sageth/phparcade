@@ -18,7 +18,7 @@ require_once __DIR__ . '/themeconfig.php';
 ?>
 
 <!DOCTYPE html>
-<!--suppress JSIgnoredPromiseFromCall -->
+<!--suppress JSIgnoredPromiseFromCall, HtmlUnknownTag -->
 <html lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">
     <head>
         <meta charset="<?php echo CHARSET; ?>">
@@ -143,6 +143,7 @@ require_once __DIR__ . '/themeconfig.php';
             }
         }
         </script>
+        <!--suppress JSUnresolvedFunction -->
         <script async>
             <?php if (!empty($dbconfig['mixpanel_id'])) {
                 if (PHPArcade\Users::isUserLoggedIn() === true) {
