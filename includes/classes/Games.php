@@ -453,8 +453,6 @@ class Games
     }
     public static function uploadImage($image){
         if (!empty($image['name'])) {
-            $imageupload = strtolower($image['name']);
-            $realimage = IMG_DIR . $imageupload;
             /** @noinspection PhpMethodParametersCountMismatchInspection */
             $validator = new \FileUpload\Validator\Simple(
                 1024 * 1024 * 10,

@@ -17,8 +17,8 @@ require_once __DIR__ . '/themeconfig.php';
 ?>
 
 <!DOCTYPE html>
-<!--suppress JSIgnoredPromiseFromCall -->
-<html lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">
+<!--suppress JSIgnoredPromiseFromCall, HtmlUnknownTag -->
+<html lang="en" prefix="og:http://ogp.me/ns#" xmlns="https://www.w3.org/1999/xhtml">
     <head>
         <?php if ('on' === $dbconfig['gtm_enabled']) {
     ?>
@@ -164,7 +164,8 @@ require_once __DIR__ . '/themeconfig.php';
             }
         }
         </script>
-        <script async type="application/ld+json">
+        <!--suppress JSUnresolvedFunction -->
+        <script async>
             <?php if (!empty($dbconfig['mixpanel_id'])) {
                 if (PHPArcade\Users::isUserLoggedIn() === true) {
                     ?>
@@ -192,10 +193,12 @@ require_once __DIR__ . '/themeconfig.php';
                         "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
                         "$total_games_played": "<?php echo $user['totalgames']; ?>",
                         "$username": "<?php echo $user['name']; ?>"
-                    })<?php
+                    });
+                  <?php
                 } else {
                     ?>
-                    mixpanel.register("<?php echo session_id(); ?>");<?php
+                    mixpanel.register("<?php echo session_id(); ?>");
+                    <?php
                 }
             } ?>
         </script>
@@ -209,23 +212,5 @@ require_once __DIR__ . '/themeconfig.php';
         </script>
         <script async src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous"></script>
         <!-- End LazyLoader -->
-        <?php
-        $inicfg = PHPArcade\Core::getINIConfig();
-        if ($inicfg['webhook']['highscoreURI'] != '') {
-            ?>
-            <script async src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3">
-                if (window.innerWidth > 768) {
-                    new Crate({
-                        server: '<?php echo $inicfg['webhook']['hs_server']; ?>',
-                        channel: '<?php echo $inicfg['webhook']['hs_channel']; ?>',
-                        location: ['bottom', 'right'],
-                        notifications: true,
-                        indicator: true,
-                        username: '<?php echo $user['name']; ?>'
-                    })
-                }
-            </script><?php
-        }
-        ?>
     </body>
 </html>

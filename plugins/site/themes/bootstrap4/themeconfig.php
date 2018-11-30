@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 }
 
 /* ===== LIBRARIES USED THROUGHOUT THE THEME */
-/* CDNJS - v4.1.1 - BOOTSTRAP */
+/* CDNJS - v4.1.3 - BOOTSTRAP */
 define('CSS_BOOTSTRAP', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css');
 define('CSS_BOOTSTRAP_SRI', 'sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=');
 

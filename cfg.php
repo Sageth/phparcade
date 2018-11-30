@@ -63,13 +63,14 @@ define('JS_GOOGLE_RECAPTCHA', 'https://www.google.com/recaptcha/api.js');
 define('JS_JQUERY', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js');
 define('JS_JQUERY_SRI', 'sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=');
 
+
 /* CDNJS - v1.12.1 - JQUERY UI */
 define('JS_JQUERY_UI', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js');
 define('JS_JQUERY_UI_SRI', 'sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=');
 
-/* CDNJS - v10.6.0 - VANILLA-LAZYLOAD */
-define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.17.0/lazyload.min.js');
-define('JS_LAZYLOAD_SRI', 'sha256-oFLOKhv6Of0DFewit7EjoAl9yZiEpbEMNIkxorAZCx8=');
+/* CDNJS - v10.19.0 - VANILLA-LAZYLOAD */
+define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/10.19.0/lazyload.min.js');
+define('JS_LAZYLOAD_SRI', 'sha256-rfA/erh2Ivqne00S+X/4BGY3eVC4BQIaB6jBGATOrBQ=');
 
 /* CDNJS - v2.2.0 - SWFOBJECT */
 define('JS_SWFOBJECT', 'https://cdnjs.cloudflare.com/ajax/libs/swfobject/2.2/swfobject.min.js');
