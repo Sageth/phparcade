@@ -33,7 +33,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                             <h3><?php echo $game['name']; ?></h3>
                             <p><?php echo $game['desc']; ?></p>
                             <p>
-                                <a href="<?php echo $link; ?>" class="btn btn-primary btn-lg btn-block">
+                                <a class="btn btn-primary btn-lg btn-block" href="<?php echo $link; ?>">
                                     <?php echo gettext('playnow'); ?>
                                 </a>
                             </p>

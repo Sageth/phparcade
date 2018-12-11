@@ -87,7 +87,8 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 
                 if ($user['github_id'] != "") {
                     ?>
-                                    <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank" rel="noopener">
+                                    <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" rel="noopener"
+                                       target="_blank">
                                         <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false'); ?>
                                     </a><?php
                 } else {
@@ -96,7 +97,8 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 
                 if ($user['twitter_id'] != "") {
                     ?>
-                                    <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank" rel="noopener">
+                                    <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" rel="noopener"
+                                       target="_blank">
                                         <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false'); ?>
                                     </a><?php
                 } else {
@@ -206,7 +208,8 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                     <div class="card border-0 mt-4">
                         <?php PHPArcade\Core::showInfo('Change your avatar at <a href="https://gravatar.com" target="_blank" rel="noopener">Gravatar.com</a>'); ?>
                     </div>
-                    <form action="<?php echo SITE_URL; ?>" method="POST" enctype="multipart/form-data" autocomplete="off">
+                    <form action="<?php echo SITE_URL; ?>" autocomplete="off" enctype="multipart/form-data"
+                          method="POST">
                         <div class="card-deck">
                             <div class="card">
                                 <div class="card-header">
@@ -216,11 +219,12 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                 </div>
                                 <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="id" class="col-sm-4 col-form-label">
+                                    <label class="col-sm-4 col-form-label" for="id">
                                         <?php echo gettext('ID'); ?>
                                     </label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" title="id" name="id" value="<?php echo $user['id']; ?>" readonly/>
+                                        <input class="form-control" name="id" readonly title="id"
+                                               type="text" value="<?php echo $user['id']; ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -228,47 +232,49 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         <?php echo gettext('username'); ?>
                                     </label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" title="username" name="username" value="<?php echo $user['username']; ?>" readonly/>
+                                        <input class="form-control" name="username" readonly title="username"
+                                               type="text" value="<?php echo $user['username']; ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="email" class="col-sm-4 col-form-label">
+                                    <label class="col-sm-4 col-form-label" for="email">
                                         <?php echo gettext('email'); ?>
                                     </label>
                                     <div class="col-sm-8">
-                                        <input type="email" class="form-control" title="email" name="email" value="<?php echo $user['email']; ?>"/>
+                                        <input class="form-control" name="email" title="email" type="email"
+                                               value="<?php echo $user['email']; ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="birth_date" class="col-sm-4 col-form-label">
                                         <?php echo gettext('datebirth'); ?>
-                                        <a href="https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/childrens-online-privacy-protection-rule"
-                                           target="_blank"
+                                        <a class="badge badge-danger"
+                                           href="https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/childrens-online-privacy-protection-rule"
                                            rel="noopener"
-                                           class="badge badge-danger">
+                                           target="_blank">
                                             COPPA requirement
                                         </a>
                                     </label>
                                     <div class="col-sm-8">
                                         <input class="form-control"
-                                               title="<?php echo gettext('datebirth'); ?>"
                                                name="birth_date"
                                                placeholder="<?php echo $user['birth_date']; ?>"
+                                               title="<?php echo gettext('datebirth'); ?>"
                                         />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="email" class="col-sm-4 col-form-label">
+                                    <label class="col-sm-4 col-form-label" for="email">
                                         <?php echo gettext('password'); ?>
                                     </label>
                                     <div class="col-sm-8">
-                                        <input type="password"
+                                        <input aria-describedby="passwordHelp"
                                                class="form-control"
                                                id="changePassword"
-                                               aria-describedby="passwordHelp"
-                                               title="<?php echo gettext('password'); ?>"
                                                name="password"
                                                placeholder=""
+                                               title="<?php echo gettext('password'); ?>"
+                                               type="password"
                                         />
                                         <small id="passwordHelp" class="form-text text-muted">
                                             <?php echo gettext('blank'); ?>
@@ -286,7 +292,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                             </div>
                             <div class="card-body">
                                 <div class="form-group row align-items-center">
-                                    <label for="facebook_id" class="col-sm-3 col-form-label">
+                                    <label class="col-sm-3 col-form-label" for="facebook_id">
                                         <?php echo gettext('facebook'); ?>
                                     </label>
                                     <div class="col">
@@ -294,35 +300,37 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                             <div class="input-group-text border-right-0">
                                                 <?php echo gettext('facebook_link'); ?>
                                             </div>
-                                            <input class="form-control" placeholder="Friendly Name" name="facebook_id"
+                                            <input class="form-control" name="facebook_id" placeholder="Friendly Name"
                                                    value="<?php echo $user['facebook_id']; ?>"/>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="github" class="col-sm-3 col-form-label">
+                                    <label class="col-sm-3 col-form-label" for="github">
                                         <?php echo gettext('github_id'); ?>
                                     </label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" placeholder="Friendly Name" name="github_id"
+                                        <input class="form-control" name="github_id" placeholder="Friendly Name"
                                                value="<?php echo $user['github_id']; ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="twitter" class="col-sm-3 col-form-label">
+                                    <label class="col-sm-3 col-form-label" for="twitter">
                                         <?php echo gettext('twitter'); ?>
                                     </label>
                                     <div class="col-sm-4">
                                         <span class="input-group-prepend">
                                             <div class="input-group-text border-right-0">@</div>
-                                            <input type="text" class="form-control" id="twitter" placeholder="Friendly Name" name="twitter_id"
+                                            <input class="form-control" id="twitter" name="twitter_id"
+                                                   placeholder="Friendly Name" type="text"
                                                    value="<?php echo $user['twitter_id']; ?>"/>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="form-group row text-center mt-4">
                                     <div class="col-sm-8">
-                                        <a href="https://gravatar.com" class="btn btn-primary" target="_blank" rel="noopener">
+                                        <a class="btn btn-primary" href="https://gravatar.com" rel="noopener"
+                                           target="_blank">
                                             Change Gravatar
                                         </a>
                                     </div>
@@ -331,7 +339,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                             <div class="card-footer"></div>
                         </div>
                     </div>
-                    <input type='hidden' name='params' value='profile/edit/editdone'/>
+                    <input name='params' type='hidden' value='profile/edit/editdone'/>
                     <button class='btn btn-primary' value='<?php echo gettext('profileedit'); ?>'>
                         <?php echo gettext('submit'); ?>
                     </button>

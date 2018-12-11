@@ -13,8 +13,8 @@ foreach (PHPArcade\Games::getGamesHomePage() as $game) {
     <div class="card">
         <div class="card-body">
             <a href="<?php echo PHPArcade\Core::getLinkGame($game['id']); ?>">
-                <img class="img-thumbnail rounded mx-auto d-block"
-                     alt="Play <?php echo $game['name']; ?> online for free!"
+                <img alt="Play <?php echo $game['name']; ?> online for free!"
+                     class="img-thumbnail rounded mx-auto d-block"
                      data-src="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"
                      height="<?php echo $dbconfig['theight']; ?>"
                      title="Play <?php echo $game['name']; ?> online for free!"
@@ -29,7 +29,7 @@ foreach (PHPArcade\Games::getGamesHomePage() as $game) {
                     <?php echo $game['desc']; ?>
                 </p>
                 <p class="text-center">
-                    <a href="<?php echo PHPArcade\Core::getLinkGame($game['id']); ?>" class="btn btn-primary">
+                    <a class="btn btn-primary" href="<?php echo PHPArcade\Core::getLinkGame($game['id']); ?>">
                         <?php echo gettext('playnow'); ?>
                     </a>
                 </p>

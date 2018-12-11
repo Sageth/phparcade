@@ -24,7 +24,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                 $img = $dbconfig['imgurl'] . $games[$gamevalue]['nameid'] . EXT_IMG; ?>
 				<img alt="<?php echo $games[$gamevalue]['name']; ?>"
                      class="img img-fluid rounded"
-					 data-src="<?php echo($img); ?>"
+                     data-src="<?php echo($img); ?>"
                      height="60px"
                      title="Play <?php echo $games[$gamevalue]['name']; ?> online for free!"
                      width="50px"
@@ -38,8 +38,8 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 			<?php echo $games[$gamevalue]['desc']; ?>
 			<br/>
 			<a href="<?php echo $link; ?>"
-			   title="Play <?php echo $games[$gamevalue]['name']; ?> online for free!"
-			   class="playnow-66x18">
+               title="Play <?php echo $games[$gamevalue]['name']; ?> online for free!"
+               class="playnow-66x18">
 				<?php echo gettext('playnow'); ?>
 			</a>
 		</div>
