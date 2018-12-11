@@ -386,9 +386,6 @@ msgstr "https://www.github.com/"
 msgid "google"
 msgstr "Google"
 
-msgid "google_analytics_pubid"
-msgstr "Google Analytics Publisher ID"
-
 msgid "google_appsforbusiness"
 msgstr "Looking for email coming from your own domain, protected by Google?  Check out <a href='https://goo.gl/OemyGV'>Google Apps for Business</a>"
 
