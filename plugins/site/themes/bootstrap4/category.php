@@ -52,7 +52,8 @@ $games = PHPArcade\Games::getGames($category['name'], 0, 10, $params[2], $dbconf
                 <li class="page-item <?php if ($i === $params[2]-1) {
                     echo 'active';
                 }; ?>">
-                    <a class="page-link" href="<?php echo PHPArcade\Core::getLinkCategory($category['name'], $i + 1); ?>">
+                    <a class="page-link"
+                       href="<?php echo PHPArcade\Core::getLinkCategory($category['name'], $i + 1); ?>">
                         <?php echo $i + 1; ?>
                     </a>
                 </li><?php

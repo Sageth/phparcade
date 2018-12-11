@@ -33,45 +33,47 @@ require_once __DIR__ . '/themeconfig.php'; ?>
             <?php
         } ?>
         <meta charset="<?php echo CHARSET; ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport">
         <title><?php echo $metadata['metapagetitle']; ?></title>
-        <link rel="manifest" href="<?php echo SITE_URL;?>manifest.json" />
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <link href="<?php echo SITE_URL;?>manifest.json" rel="manifest"/>
+        <link href="https://cdnjs.cloudflare.com" rel="preconnect"/>
 
         <!-- Run this first so you get your local CSS loaded before external JS -->
         <?php
         switch (true) {
             case PHPArcade\Core::is('home'): ?>
-                <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>assets/css/home.style.min.css" /><?php
+                <link href="<?php echo SITE_THEME_URL; ?>assets/css/home.style.min.css" rel="stylesheet"/><?php
                 break;
             case PHPArcade\Core::is('game'):
                 /** @noinspection PhpUndefinedVariableInspection */
                 $game = PHPArcade\Games::getGame($params[1]); ?>
-                <meta property="og:type" content="video.movie"/>
-                <meta property="og:title" content="<?php echo $game['name'];?>"/>
-                <meta property="og:image" content="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"/>
-                <meta property="og:url" content="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
-                <meta property="og:description" content="<?php echo strip_tags($game['desc']); ?>"/>
-                <meta property="fb:app_id" content="<?php echo $dbconfig['facebook_appid']; ?>"/><?php
+                <meta content="video.movie" property="og:type"/>
+                <meta content="<?php echo $game['name'];?>" property="og:title"/>
+                <meta content="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>" property="og:image"/>
+                <meta content="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" property="og:url"/>
+                <meta content="<?php echo strip_tags($game['desc']); ?>" property="og:description"/>
+                <meta content="<?php echo $dbconfig['facebook_appid']; ?>" property="fb:app_id"/><?php
                 break;
             case PHPArcade\Core::is('register'): ?>
-                <link rel="stylesheet" href="<?php echo SITE_THEME_URL;?>assets/css/login.style.min.css" />
+                <link href="<?php echo SITE_THEME_URL;?>assets/css/login.style.min.css" rel="stylesheet"/>
                 <script async src="<?php echo JS_GOOGLE_RECAPTCHA; ?>"></script><?php
                 break;
             default:
         } ?>
 
         <!-- Load everything else -->
-        <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>" crossorigin="anonymous" />
-        <link rel="stylesheet" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>" crossorigin="anonymous"/>
-        <link rel="canonical" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"/>
-        <link rel="alternate" href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en"/>
-        <link rel="shortcut icon" type="image/x-icon" href="<?php echo SITE_URL; ?>favicon.ico" title="FavIcon"/>
-        <meta name="description" content="<?php echo $metadata['metapagedesc']; ?>"/>
-        <meta name="keywords" content="<?php echo $metadata['metapagekeywords']; ?>"/>
-        <meta name="language" content="English"/>
-        <meta name="no-email-collection" content="https://www.unspam.com/noemailcollection"/>
-        <meta name="robots" content="noarchive"/>
+        <link crossorigin="anonymous" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>"
+              rel="stylesheet"/>
+        <link crossorigin="anonymous" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>"
+              rel="stylesheet"/>
+        <link href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" rel="canonical"/>
+        <link href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en" rel="alternate"/>
+        <link href="<?php echo SITE_URL; ?>favicon.ico" rel="shortcut icon" title="FavIcon" type="image/x-icon"/>
+        <meta content="<?php echo $metadata['metapagedesc']; ?>" name="description"/>
+        <meta content="<?php echo $metadata['metapagekeywords']; ?>" name="keywords"/>
+        <meta content="English" name="language"/>
+        <meta content="https://www.unspam.com/noemailcollection" name="no-email-collection"/>
+        <meta content="noarchive" name="robots"/>
         <?php if (!empty($dbconfig['mixpanel_id'])) {
             include(INST_DIR . 'includes/js/MixPanel/mixpanel.php');
         } ?>
@@ -113,11 +115,13 @@ require_once __DIR__ . '/themeconfig.php'; ?>
             } ?>
         </div>
         <?php require_once __DIR__ . '/footer.php'; ?>
-        <script defer src="<?php echo JS_JQUERY; ?>" integrity="<?php echo JS_JQUERY_SRI;?>" crossorigin="anonymous"></script>
-        <script defer src="<?php echo JS_BOOTSTRAP; ?>" integrity="<?php echo JS_BOOTSTRAP_SRI;?>" crossorigin="anonymous"></script>
+        <script crossorigin="anonymous" defer integrity="<?php echo JS_JQUERY_SRI;?>" src="<?php echo JS_JQUERY; ?>"></script>
+        <script crossorigin="anonymous" defer integrity="<?php echo JS_BOOTSTRAP_SRI;?>"
+                src="<?php echo JS_BOOTSTRAP; ?>"></script>
         <?php if (true == PHPArcade\Core::is('game')) {
                 ?>
-            <script async src="<?php echo JS_SWFOBJECT; ?>" integrity="<?php echo JS_SWFOBJECT_SRI; ?>" crossorigin="anonymous"></script><?php
+            <script async crossorigin="anonymous" integrity="<?php echo JS_SWFOBJECT_SRI; ?>"
+                    src="<?php echo JS_SWFOBJECT; ?>"></script><?php
             } ?>
         <script async type="application/ld+json">
         {
@@ -197,7 +201,7 @@ require_once __DIR__ . '/themeconfig.php'; ?>
                    See more: https://www.andreaverlicchi.eu/lazyload/#recipes */
             };
         </script>
-        <script async src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>" crossorigin="anonymous"></script>
+        <script async crossorigin="anonymous" integrity="<?php echo JS_LAZYLOAD_SRI;?>" src="<?php echo JS_LAZYLOAD; ?>"></script>
         <!-- End LazyLoader -->
     </body>
 </html>

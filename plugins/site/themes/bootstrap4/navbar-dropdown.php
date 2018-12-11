@@ -7,15 +7,17 @@ if (!isset($_SESSION)) {
 if (PHPArcade\Users::isUserLoggedIn()) {
     ?>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+           id="navbarCategories">
             <?php echo gettext('gamecategories'); ?>
         </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarCategories">
+        <ul aria-labelledby="navbarCategories" class="dropdown-menu">
             <?php include_once __DIR__ . '/categoriesmenu.php'; ?>
         </ul>
     </li>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
             <?php echo gettext('myaccount'); ?>
             <span class="caret"></span>
         </a>

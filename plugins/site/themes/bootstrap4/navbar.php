@@ -7,7 +7,8 @@
         <?php echo gettext('logo'); ?>
     </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbarNav" data-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -20,7 +21,8 @@
             if (!PHPArcade\Users::isUserLoggedIn()) {
                 ?>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                       href="#" id="navbarCategories">
                         <?php echo gettext('gamecategories'); ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarCategories">
@@ -28,7 +30,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo PHPArcade\Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>" class="signupbutton">
+                    <a class="nav-link" class="signupbutton"
+                       href="<?php echo PHPArcade\Core::getLinkRegister(); ?>" title="<?php echo gettext('login'); ?>">
                         <?php echo gettext('login'); ?>
                     </a>
                 </li><?php

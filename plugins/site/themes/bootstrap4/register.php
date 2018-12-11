@@ -5,13 +5,15 @@
             <h2>Login</h2>
         </div>
         <div class="card-body">
-            <form class="form-signin" autocomplete="off" action="<?php echo SITE_URL; ?>" method="post">
+            <form action="<?php echo SITE_URL; ?>" autocomplete="off" class="form-signin" method="post">
                 <div class="form-label-group">
-                    <input type="text" id="loginUsername" name="username" class="form-control" placeholder="User name" required autofocus />
+                    <input autofocus class="form-control" id="loginUsername" name="username" placeholder="User name"
+                           required type="text"/>
                     <label for="loginUsername">Username</label>
                 </div>
                 <div class="form-label-group">
-                    <input type="password" id="loginPassword" name="password" class="form-control" placeholder="Password" required />
+                    <input class="form-control" id="loginPassword" name="password" placeholder="Password"
+                           required type="password"/>
                     <label for="loginPassword">Password</label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" name="params" value="login/login">
@@ -29,7 +31,7 @@
         </div>
         <?php PHPArcade\Core::showWarning(gettext('recoveryinstructions')); ?>
         <div class="card-body">
-            <form class="form-signin" autocomplete="off" action="<?php echo SITE_URL; ?>" method="post">
+            <form action="<?php echo SITE_URL; ?>" autocomplete="off" class="form-signin" method="post">
                 <div class="form-label-group">
                     <input class="form-control" id="forgotUsername" name="username" placeholder="User name">
                     <label for="forgotUsername"><?php echo gettext('username');?></label>
@@ -94,14 +96,16 @@
             } ?>
             <form class="form-signin" autocomplete="off" action="<?php echo SITE_URL; ?>" method="post">
                 <div class="form-label-group">
-                    <input type="text" id="registerUsername" name="username" class="form-control" placeholder="User name">
+                    <input type="text" id="registerUsername" name="username" class="form-control"
+                           placeholder="User name">
                     <label for="registerUsername"><?php echo gettext('username');?></label>
                 </div>
                 <div class="form-label-group">
                     <input type="email" id="registerEmail" name="email" class="form-control" placeholder="Email Address">
                     <label for="registerEmail"><?php echo gettext('email');?></label>
                 </div>
-                <div class="g-recaptcha form-label-group" data-sitekey="<?php echo $dbconfig['google_recaptcha_sitekey'];?>"></div>
+                <div class="g-recaptcha form-label-group"
+                     data-sitekey="<?php echo $dbconfig['google_recaptcha_sitekey'];?>"></div>
 
                 <!-- CloudFlare Server-side Exclude hides the registration button for suspicious visitors -->
                 <!--sse-->
