@@ -374,15 +374,6 @@ function site_admin($mthd)
                             </div>
                             <hr/>
                             <div class="form-group">
-                                <label><?php echo gettext('google_analytics_pubid'); ?></label>
-                                <input class="form-control"
-                                       title="<?php echo gettext('google_analytics_pubid');?>"
-                                       name="google_analytics_pubid"
-                                       value="<?php echo $dbconfig['google_analytics_pubid']; ?>"
-                                />
-                            </div>
-                            <hr/>
-                            <div class="form-group">
                                 <?php echo PHPArcade\Core::showGlyph('database');?>
                                 <label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
                                 <input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
@@ -526,7 +517,6 @@ function site_admin($mthd)
             PHPArcade\Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
             PHPArcade\Administrations::updateConfig('gtm_enabled', array_key_exists('gtm_enabled', $_POST) ? 'on' : 'off');
             PHPArcade\Administrations::updateConfig('gtm_id', $_POST['gtm_id']);
-            PHPArcade\Administrations::updateConfig('google_analytics_pubid', $_POST['google_analytics_pubid']);
             PHPArcade\Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
             PHPArcade\Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
             PHPArcade\Administrations::updateConfig('mixpanel_id', $_POST['mixpanel_id']);

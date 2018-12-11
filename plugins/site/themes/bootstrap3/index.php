@@ -19,7 +19,7 @@ require_once __DIR__ . '/themeconfig.php';
 
 <!DOCTYPE html>
 <!--suppress JSIgnoredPromiseFromCall, HtmlUnknownTag -->
-<html lang="en" xmlns="https://www.w3.org/1999/xhtml" prefix="og:http://ogp.me/ns#">
+<html lang="en" prefix="og:http://ogp.me/ns#" xmlns="https://www.w3.org/1999/xhtml">
     <head>
         <meta charset="<?php echo CHARSET; ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -64,9 +64,7 @@ require_once __DIR__ . '/themeconfig.php';
         } ?>
     </head>
     <body>
-        <?php if ('on' === $dbconfig['gtm_enabled']) {
-            include_once INST_DIR . 'includes/js/Google/googletagmanager.php';
-        }
+        <?php
         include_once __DIR__ . '/navbar.php';
         if (true == PHPArcade\Core::is('home')) {
             include_once __DIR__ . '/carousel.php';

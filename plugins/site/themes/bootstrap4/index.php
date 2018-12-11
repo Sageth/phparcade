@@ -13,36 +13,25 @@ $metadata = PHPArcade\Core::getPageMetaData();
 /* Registers the score system. Must be called after session start */
 PHPArcade\Scores::registerScoreSystem();
 
-require_once __DIR__ . '/themeconfig.php';
-?>
-
+require_once __DIR__ . '/themeconfig.php'; ?>
 <!DOCTYPE html>
 <!--suppress JSIgnoredPromiseFromCall, HtmlUnknownTag -->
 <html lang="en" prefix="og:http://ogp.me/ns#" xmlns="https://www.w3.org/1999/xhtml">
     <head>
-        <?php if ('on' === $dbconfig['gtm_enabled']) {
-    ?>
+        <?php if ('on' === $dbconfig['gtm_enabled']) { ?>
             <!-- Google Tag Manager -->
-            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','<?php echo $dbconfig['gtm_id']; ?>');
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $dbconfig['gtm_id'];?>"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '<?php echo $dbconfig['gtm_id'];?>');
             </script>
             <!-- End Google Tag Manager -->
-        <?php
-} ?>
-        <?php if (['google_analytics_pubid'] !== '') {
-        ?>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({
-                    google_ad_client: "<?php echo $dbconfig['google_analytics_pubid']; ?>",
-                    enable_page_level_ads: true
-                });
-            </script>
-        <?php
-    } ?>
+            <?php
+        } ?>
         <meta charset="<?php echo CHARSET; ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
         <title><?php echo $metadata['metapagetitle']; ?></title>
@@ -50,7 +39,8 @@ require_once __DIR__ . '/themeconfig.php';
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
         <!-- Run this first so you get your local CSS loaded before external JS -->
-        <?php switch (true) {
+        <?php
+        switch (true) {
             case PHPArcade\Core::is('home'): ?>
                 <link rel="stylesheet" href="<?php echo SITE_THEME_URL; ?>assets/css/home.style.min.css" /><?php
                 break;
@@ -87,10 +77,7 @@ require_once __DIR__ . '/themeconfig.php';
         } ?>
     </head>
     <body>
-        <?php if ('on' === $dbconfig['gtm_enabled']) {
-            include_once INST_DIR . 'includes/js/Google/googletagmanager.php';
-        }
-        include_once __DIR__ . '/navbar.php';
+        <?php include_once __DIR__ . '/navbar.php';
         if (true == PHPArcade\Core::is('home')) {
             include_once __DIR__ . '/carousel.php';
         } ?>
