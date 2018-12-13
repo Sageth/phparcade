@@ -221,7 +221,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                             <?php echo gettext('ID'); ?>
                                         </label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" name="id" readonly title="id"
+                                            <input class="form-control" id="id" name="id" readonly title="id"
                                                    type="text" value="<?php echo $user['id']; ?>"/>
                                         </div>
                                     </div>
@@ -230,7 +230,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                             <?php echo gettext('username'); ?>
                                         </label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" name="username" readonly title="username"
+                                            <input class="form-control" id="username" name="username" readonly title="username"
                                                    type="text" value="<?php echo $user['username']; ?>"/>
                                         </div>
                                     </div>
@@ -239,7 +239,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                             <?php echo gettext('email'); ?>
                                         </label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" name="email" title="email" type="email"
+                                            <input class="form-control" id="email" name="email" title="email" type="email"
                                                    value="<?php echo $user['email']; ?>"/>
                                         </div>
                                     </div>
