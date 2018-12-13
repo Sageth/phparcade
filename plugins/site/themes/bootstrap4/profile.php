@@ -55,8 +55,8 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                 <p class="card-text">
                                     <?php
                                     echo PHPArcade\Core::showGlyph('dashboard');
-                echo "&nbsp;";
-                echo gettext('activity'); ?>
+                                    echo "&nbsp;";
+                                    echo gettext('activity'); ?>
                                 </p>
                             </div>
                             <div class="card-body">
@@ -84,26 +84,24 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                 } else {
                                     echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?><?php
                                 }
-
-                if ($user['github_id'] != "") {
-                    ?>
+                                if ($user['github_id'] != "") {
+                                    ?>
                                     <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" rel="noopener"
                                        target="_blank">
-                                        <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false'); ?>
+                                            <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false'); ?>
                                     </a><?php
-                } else {
-                    echo PHPArcade\Core::showGlyph('github', '2x', 'false');
-                }
-
-                if ($user['twitter_id'] != "") {
-                    ?>
+                                } else {
+                                    echo PHPArcade\Core::showGlyph('github', '2x', 'false');
+                                }
+                                if ($user['twitter_id'] != "") {
+                                    ?>
                                     <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" rel="noopener"
                                        target="_blank">
-                                        <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false'); ?>
+                                            <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false'); ?>
                                     </a><?php
-                } else {
-                    echo PHPArcade\Core::showGlyph('twitter', '2x', 'false');
-                } ?>
+                                } else {
+                                    echo PHPArcade\Core::showGlyph('twitter', '2x', 'false');
+                                } ?>
                             </div>
                         </div>
                     </div>
@@ -113,12 +111,12 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                         </h3>
                         <?php
                         $i=0;
-                foreach ($games as $game) {
-                    $game = PHPArcade\Games::getGame($game['nameid']);
-                    $link = PHPArcade\Core::getLinkGame($game['id']);
-                    if ($i === 0) {
-                        echo '<div class="card-deck mt-4">';
-                    } ?>
+                        foreach ($games as $game) {
+                            $game = PHPArcade\Games::getGame($game['nameid']);
+                            $link = PHPArcade\Core::getLinkGame($game['id']);
+                            if ($i === 0) {
+                                echo '<div class="card-deck mt-4">';
+                            } ?>
                             <div class="card">
                                 <div class="card-header">
                                     <h3>
@@ -158,12 +156,12 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                     </div>
                             </div><?php
                             ++$i;
-                    if ($i === 2) {
-                        echo '</div>';
-                        $i = 0;
-                    } ?>
+                            if ($i === 2) {
+                                echo '</div>';
+                                $i = 0;
+                            } ?>
                             </div><?php
-                } ?>
+                        } ?>
                     </div>
                 </div>
                 <script async type="application/ld+json">
@@ -218,133 +216,124 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                     </h3>
                                 </div>
                                 <div class="card-body">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="id">
-                                        <?php echo gettext('ID'); ?>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" name="id" readonly title="id"
-                                               type="text" value="<?php echo $user['id']; ?>"/>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" for="username">
+                                            <?php echo gettext('username'); ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" name="username" readonly title="username"
+                                                   type="text" value="<?php echo $user['username']; ?>"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" for="email">
+                                            <?php echo gettext('email'); ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" name="email" title="email" type="email"
+                                                   value="<?php echo $user['email']; ?>"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" for="birth_date">
+                                            <?php echo gettext('datebirth'); ?>
+                                            <a class="badge badge-danger"
+                                               href="https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/childrens-online-privacy-protection-rule"
+                                               rel="noopener"
+                                               target="_blank">
+                                                COPPA requirement
+                                            </a>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control"
+                                                   name="birth_date"
+                                                   placeholder="<?php echo $user['birth_date']; ?>"
+                                                   title="<?php echo gettext('datebirth'); ?>"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" for="email">
+                                            <?php echo gettext('password'); ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input aria-describedby="passwordHelp"
+                                                   class="form-control"
+                                                   id="changePassword"
+                                                   name="password"
+                                                   placeholder=""
+                                                   title="<?php echo gettext('password'); ?>"
+                                                   type="password"
+                                            />
+                                            <small id="passwordHelp" class="form-text text-muted">
+                                                <?php echo gettext('blank'); ?>
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="username" class="col-sm-4 col-form-label">
-                                        <?php echo gettext('username'); ?>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" name="username" readonly title="username"
-                                               type="text" value="<?php echo $user['username']; ?>"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="email">
-                                        <?php echo gettext('email'); ?>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" name="email" title="email" type="email"
-                                               value="<?php echo $user['email']; ?>"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="birth_date" class="col-sm-4 col-form-label">
-                                        <?php echo gettext('datebirth'); ?>
-                                        <a class="badge badge-danger"
-                                           href="https://www.ftc.gov/enforcement/rules/rulemaking-regulatory-reform-proceedings/childrens-online-privacy-protection-rule"
-                                           rel="noopener"
-                                           target="_blank">
-                                            COPPA requirement
-                                        </a>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control"
-                                               name="birth_date"
-                                               placeholder="<?php echo $user['birth_date']; ?>"
-                                               title="<?php echo gettext('datebirth'); ?>"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label" for="email">
-                                        <?php echo gettext('password'); ?>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input aria-describedby="passwordHelp"
-                                               class="form-control"
-                                               id="changePassword"
-                                               name="password"
-                                               placeholder=""
-                                               title="<?php echo gettext('password'); ?>"
-                                               type="password"
-                                        />
-                                        <small id="passwordHelp" class="form-text text-muted">
-                                            <?php echo gettext('blank'); ?>
-                                        </small>
-                                    </div>
-                                </div>
+                                <div class="card-footer"></div>
                             </div>
-                            <div class="card-footer"></div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>
+                                        <?php echo gettext('socialinfo'); ?>
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group row align-items-center">
+                                        <label class="col-sm-3 col-form-label" for="facebook_id">
+                                            <?php echo gettext('facebook'); ?>
+                                        </label>
+                                        <div class="col">
+                                            <span class="input-group-prepend">
+                                                <div class="input-group-text border-right-0">
+                                                    <?php echo gettext('facebook_link'); ?>
+                                                </div>
+                                                <input class="form-control" name="facebook_id" placeholder="Friendly Name"
+                                                       value="<?php echo $user['facebook_id']; ?>"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="github">
+                                            <?php echo gettext('github_id'); ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" name="github_id" placeholder="Friendly Name"
+                                                   value="<?php echo $user['github_id']; ?>"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="twitter">
+                                            <?php echo gettext('twitter'); ?>
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <span class="input-group-prepend">
+                                                <div class="input-group-text border-right-0">@</div>
+                                                <input class="form-control" id="twitter" name="twitter_id"
+                                                       placeholder="Friendly Name" type="text"
+                                                       value="<?php echo $user['twitter_id']; ?>"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row text-center mt-4">
+                                        <div class="col-sm-8">
+                                            <a class="btn btn-primary" href="https://gravatar.com" rel="noopener"
+                                               target="_blank">
+                                                Change Gravatar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer"></div>
+                            </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>
-                                    <?php echo gettext('socialinfo'); ?>
-                                </h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group row align-items-center">
-                                    <label class="col-sm-3 col-form-label" for="facebook_id">
-                                        <?php echo gettext('facebook'); ?>
-                                    </label>
-                                    <div class="col">
-                                        <span class="input-group-prepend">
-                                            <div class="input-group-text border-right-0">
-                                                <?php echo gettext('facebook_link'); ?>
-                                            </div>
-                                            <input class="form-control" name="facebook_id" placeholder="Friendly Name"
-                                                   value="<?php echo $user['facebook_id']; ?>"/>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="github">
-                                        <?php echo gettext('github_id'); ?>
-                                    </label>
-                                    <div class="col-sm-8">
-                                        <input class="form-control" name="github_id" placeholder="Friendly Name"
-                                               value="<?php echo $user['github_id']; ?>"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="twitter">
-                                        <?php echo gettext('twitter'); ?>
-                                    </label>
-                                    <div class="col-sm-4">
-                                        <span class="input-group-prepend">
-                                            <div class="input-group-text border-right-0">@</div>
-                                            <input class="form-control" id="twitter" name="twitter_id"
-                                                   placeholder="Friendly Name" type="text"
-                                                   value="<?php echo $user['twitter_id']; ?>"/>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group row text-center mt-4">
-                                    <div class="col-sm-8">
-                                        <a class="btn btn-primary" href="https://gravatar.com" rel="noopener"
-                                           target="_blank">
-                                            Change Gravatar
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer"></div>
-                        </div>
-                    </div>
-                    <input name='params' type='hidden' value='profile/edit/editdone'/>
-                    <button class='btn btn-primary' value='<?php echo gettext('profileedit'); ?>'>
-                        <?php echo gettext('submit'); ?>
-                    </button>
-                </form>
-            <?php
+                        <input name='params' type='hidden' value='profile/edit/editdone'/>
+                        <button class='btn btn-primary' value='<?php echo gettext('profileedit'); ?>'>
+                            <?php echo gettext('submit'); ?>
+                        </button>
+                    </form>
+                    <?php
                 } else {
                     if ($params[0] === 'profile' && $params[2] === 'editdone') {
                         /* Update user profile entries */
