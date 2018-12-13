@@ -175,26 +175,27 @@ CREATE TABLE IF NOT EXISTS `games_score` (
 -- Table structure for table `members`
 --
 
-CREATE TABLE IF NOT EXISTS `members` (
+CREATE TABLE `members` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(16) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   `email` varchar(255) NOT NULL DEFAULT '',
   `active` varchar(10) NOT NULL DEFAULT 'Yes',
-  `regtime` bigint(10) NOT NULL DEFAULT 0,
+  `regtime` int(10) NOT NULL DEFAULT 0,
   `totalgames` int(10) NOT NULL DEFAULT 0,
   `facebook_id` varchar(255) DEFAULT NULL,
   `github_id` varchar(255) DEFAULT NULL,
   `twitter_id` varchar(255) NOT NULL DEFAULT '',
   `admin` varchar(10) NOT NULL DEFAULT 'No',
   `ip` varchar(45) NOT NULL,
-  `birth_date` varchar(10) NOT NULL DEFAULT '{null}',
+  `birth_date` bigint(10) NOT NULL DEFAULT 0,
   `last_login` bigint(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`username`,`email`),
   KEY `members_active-totalgames` (`id`,`active`,`totalgames`),
   KEY `idx_members` (`id`,`username`,`totalgames`,`ip`,`last_login`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1413 DEFAULT CHARSET=utf8;
+
 
 -- Password is 'admin'
 INSERT INTO `phparcade`.`members` SET
@@ -210,7 +211,7 @@ INSERT INTO `phparcade`.`members` SET
   `facebook_id` = NULL,
   `admin` = 'Yes',
   `ip` = '',
-  `birth_date` = '',
+  `birth_date` = 0,
   `last_login` = UNIX_TIMESTAMP(NOW());
 
 --

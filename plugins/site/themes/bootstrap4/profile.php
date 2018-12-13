@@ -197,8 +197,10 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                 <?php
             }
         } else {
-            if ($params[1] === 'edit') {
+            if ($params[1] === 'edit' && $params[1] != 'view' ) {
                 $user = PHPArcade\Users::getUserbyID($_SESSION['user']['id']);
+                var_dump($user);
+                var_dump($_POST);
                 if ($params[2] == "" || !isset($params[2])) {
                     ?>
                     <div class="card border-0 mt-4">
@@ -214,6 +216,15 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                     </h3>
                                 </div>
                                 <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label" for="id">
+                                            <?php echo gettext('ID'); ?>
+                                        </label>
+                                        <div class="col-sm-8">
+                                            <input class="form-control" name="id" readonly title="id"
+                                                   type="text" value="<?php echo $user['id']; ?>"/>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label" for="username">
                                             <?php echo gettext('username'); ?>
@@ -245,7 +256,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         <div class="col-sm-8">
                                             <input class="form-control"
                                                    name="birth_date"
-                                                   placeholder="<?php echo $user['birth_date']; ?>"
+                                                   placeholder="<?php echo date('Y-m-d', $user['birth_date']); ?>"
                                                    title="<?php echo gettext('datebirth'); ?>"
                                             />
                                         </div>
@@ -291,9 +302,9 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         <div class="col">
                                             <span class="input-group-prepend">
                                                 <div class="input-group-text border-right-0">
-                                                    <?php echo gettext('github_link'); ?>
+                                                    <?php echo URL_GITHUB; ?>
                                                 </div>
-                                                <input class="form-control" id="github" name="github_link" placeholder="Friendly Name"
+                                                <input class="form-control" id="github_id" name="github_id" placeholder="Friendly Name"
                                                        value="<?php echo $user['github_id']; ?>"/>
                                             </span>
                                         </div>
@@ -335,7 +346,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 
                         /* Update Password if necessary */
                         if ($_POST['password'] != '') {
-                            PHPArcade\Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
+                            PHPArcade\Users::userPasswordUpdateByID($user['id'], $_POST['password']);
                             PHPArcade\Core::showSuccess(gettext('updatesuccess'));
                         }
                         PHPArcade\Core::showSuccess(gettext('updatesuccess'));

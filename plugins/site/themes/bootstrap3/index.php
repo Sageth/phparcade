@@ -152,7 +152,7 @@ require_once __DIR__ . '/themeconfig.php';
                     ?>
                     mixpanel.register({
                         "$admin": "<?php echo $user['admin']; ?>",
-                        "$birthdate": "<?php echo $user['birth_date']; ?>",
+                        "$birthdate": "<?php echo date('Y-m-d', $user['birth_date']); ?>",
                         "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
                         "$facebook_id": "<?php echo $user['facebook']; ?>",
                         "$github_id": "<?php echo $user['github']; ?>",
@@ -165,7 +165,7 @@ require_once __DIR__ . '/themeconfig.php';
                     mixpanel.identify('<?php echo $user['id']; ?>');
                     mixpanel.people.set({
                         "$admin": "<?php echo $user['admin']; ?>",
-                        "$birthdate": "<?php echo $user['birth_date']; ?>",
+                        "$birthdate": "<?php echo date('Y-m-d', $user['birth_date']); ?>",
                         "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
                         "$facebook_id": "<?php echo $user['facebook']; ?>",
                         "$github_id": "<?php echo $user['github']; ?>",
