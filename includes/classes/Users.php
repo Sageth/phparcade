@@ -149,15 +149,17 @@ class Users
     public static function UpdateProfile()
     {
         /* Sanitization */
+        $birth_date = '' ? '1970-01-01' : filter_var(strtotime($_POST['birth_date']), FILTER_SANITIZE_NUMBER_INT);
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        $github = filter_var($_POST['github_id'], FILTER_SANITIZE_STRING);
         $facebook = filter_var($_POST['facebook_id'], FILTER_SANITIZE_STRING);
-        $twitter = filter_var($_POST['twitter_id'], FILTER_SANITIZE_STRING);
+        $github = filter_var($_POST['github_id'], FILTER_SANITIZE_STRING);
         $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+        $twitter = filter_var($_POST['twitter_id'], FILTER_SANITIZE_STRING);
 
         try {
             $stmt =
-                mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:email, :github, :facebook, :twitter, :id);');
+                mySQL::getConnection()->prepare('CALL sp_Members_UpdateMemberProfile(:birthdate, :email, :github, :facebook, :twitter, :id);');
+            $stmt->bindParam(':birthdate', $birth_date);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':github', $github);
             $stmt->bindParam(':facebook', $facebook);

@@ -199,7 +199,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         <label for="birth_date"><?php echo gettext('datebirth'); ?></label>
                                         <input class="form-control"
                                                title="<?php echo gettext('datebirth'); ?>" name="birth_date"
-                                               placeholder="<?php echo $user['birth_date']; ?>" disabled/>
+                                               placeholder="<?php echo date('Y-m-d', $user['birth_date']); ?>" />
                                     </div>
                                     <div class="form-group">
                                         <label for="email"><?php echo gettext('password'); ?></label>

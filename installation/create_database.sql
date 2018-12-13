@@ -175,27 +175,27 @@ CREATE TABLE IF NOT EXISTS `games_score` (
 -- Table structure for table `members`
 --
 
-CREATE TABLE IF NOT EXISTS `members` (
+CREATE TABLE `members` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(16) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   `email` varchar(255) NOT NULL DEFAULT '',
   `active` varchar(10) NOT NULL DEFAULT 'Yes',
-  `regtime` bigint(10) NOT NULL DEFAULT 0,
+  `regtime` int(10) NOT NULL DEFAULT 0,
   `totalgames` int(10) NOT NULL DEFAULT 0,
   `facebook_id` varchar(255) DEFAULT NULL,
   `github_id` varchar(255) DEFAULT NULL,
   `twitter_id` varchar(255) NOT NULL DEFAULT '',
   `admin` varchar(10) NOT NULL DEFAULT 'No',
-  `favorites` varchar(1) NOT NULL DEFAULT '0',
   `ip` varchar(45) NOT NULL,
-  `birth_date` varchar(10) NOT NULL DEFAULT '{null}',
+  `birth_date` bigint(10) NOT NULL DEFAULT 0,
   `last_login` bigint(10) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`username`,`email`),
   KEY `members_active-totalgames` (`id`,`active`,`totalgames`),
   KEY `idx_members` (`id`,`username`,`totalgames`,`ip`,`last_login`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1413 DEFAULT CHARSET=utf8;
+
 
 -- Password is 'admin'
 INSERT INTO `phparcade`.`members` SET
@@ -210,9 +210,8 @@ INSERT INTO `phparcade`.`members` SET
   `github_id` = NULL,
   `facebook_id` = NULL,
   `admin` = 'Yes',
-  `favorites` = '',
   `ip` = '',
-  `birth_date` = '',
+  `birth_date` = 0,
   `last_login` = UNIX_TIMESTAMP(NOW());
 
 --
@@ -1106,6 +1105,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS `sp_Members_UpdateMemberProfile`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateMemberProfile`(
+  IN m_birth_date BIGINT(10),
   IN m_email VARCHAR(255),
   IN m_github VARCHAR(255),
   IN m_facebook VARCHAR(255),
@@ -1114,6 +1114,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateMemberProfile
   BEGIN
     UPDATE `members`
     SET
+      `birth_date` = m_birth_date,
       `twitter_id` = m_twitter,
       `facebook_id` = m_facebook,
       `github_id` = m_github,
