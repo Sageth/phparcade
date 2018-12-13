@@ -124,8 +124,6 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                     </h3>
                                 </div>
                                 <div class="card-body">
-                                    <?php
-                                     ?>
                                     <a href="<?php echo $link; ?>">
                                         <?php
                                         $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
