@@ -187,7 +187,6 @@ CREATE TABLE IF NOT EXISTS `members` (
   `github_id` varchar(255) DEFAULT NULL,
   `twitter_id` varchar(255) NOT NULL DEFAULT '',
   `admin` varchar(10) NOT NULL DEFAULT 'No',
-  `favorites` varchar(1) NOT NULL DEFAULT '0',
   `ip` varchar(45) NOT NULL,
   `birth_date` varchar(10) NOT NULL DEFAULT '{null}',
   `last_login` bigint(10) NOT NULL DEFAULT 0,
@@ -210,7 +209,6 @@ INSERT INTO `phparcade`.`members` SET
   `github_id` = NULL,
   `facebook_id` = NULL,
   `admin` = 'Yes',
-  `favorites` = '',
   `ip` = '',
   `birth_date` = '',
   `last_login` = UNIX_TIMESTAMP(NOW());
