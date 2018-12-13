@@ -273,41 +273,37 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                             </div>
                             <div class="card">
                                 <div class="card-header">
-                                    <h3>
-                                        <?php echo gettext('socialinfo'); ?>
-                                    </h3>
+                                    <h3><?php echo gettext('socialinfo'); ?></h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group row align-items-center">
-                                        <label class="col-sm-3 col-form-label" for="facebook_id">
-                                            <?php echo gettext('facebook'); ?>
-                                        </label>
-                                        <div class="col">
+                                         <div class="col">
                                             <span class="input-group-prepend">
                                                 <div class="input-group-text border-right-0">
                                                     <?php echo gettext('facebook_link'); ?>
                                                 </div>
-                                                <input class="form-control" name="facebook_id" placeholder="Friendly Name"
+                                                <input class="form-control" id="facebook" name="facebook_id" placeholder="Friendly Name"
                                                        value="<?php echo $user['facebook_id']; ?>"/>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="github">
-                                            <?php echo gettext('github_id'); ?>
-                                        </label>
-                                        <div class="col-sm-8">
-                                            <input class="form-control" name="github_id" placeholder="Friendly Name"
-                                                   value="<?php echo $user['github_id']; ?>"/>
+                                        <div class="col">
+                                            <span class="input-group-prepend">
+                                                <div class="input-group-text border-right-0">
+                                                    <?php echo gettext('github_link'); ?>
+                                                </div>
+                                                <input class="form-control" id="github" name="github_link" placeholder="Friendly Name"
+                                                       value="<?php echo $user['github_id']; ?>"/>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="twitter">
-                                            <?php echo gettext('twitter'); ?>
-                                        </label>
-                                        <div class="col-sm-4">
+                                        <div class="col">
                                             <span class="input-group-prepend">
-                                                <div class="input-group-text border-right-0">@</div>
+                                                <div class="input-group-text border-right-0">
+                                                    <?php echo gettext('twitter_link');?>
+                                                </div>
                                                 <input class="form-control" id="twitter" name="twitter_id"
                                                        placeholder="Friendly Name" type="text"
                                                        value="<?php echo $user['twitter_id']; ?>"/>
