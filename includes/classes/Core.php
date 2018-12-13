@@ -145,7 +145,7 @@ use PDO;
         }
         public static function getLinkProfileEdit()
         {
-            return 'profile/edit.html';
+            return '/profile/edit.html';
         }
         public static function getPageMetaData()
         {
