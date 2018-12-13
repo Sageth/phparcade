@@ -255,9 +255,10 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         <div class="col-sm-8">
                                             <input class="form-control"
                                                    name="birth_date"
+                                                   pattern="^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$"
                                                    placeholder="<?php echo date('Y-m-d', $user['birth_date']); ?>"
                                                    required
-                                                   title="<?php echo gettext('datebirth'); ?>"
+                                                   title="<?php echo gettext('dateformat'); ?>"
                                                    value="<?php echo date('Y-m-d', $user['birth_date']);?>"
                                             />
                                             <small id="birth_date_helper" class="form-text text-muted">
