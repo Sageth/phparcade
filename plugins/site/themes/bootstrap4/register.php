@@ -33,11 +33,11 @@
         <div class="card-body">
             <form action="<?php echo SITE_URL; ?>" autocomplete="off" class="form-signin" method="post">
                 <div class="form-label-group">
-                    <input class="form-control" id="forgotUsername" name="username" placeholder="User name">
+                    <input class="form-control" id="forgotUsername" name="username" placeholder="User name" required/>
                     <label for="forgotUsername"><?php echo gettext('username');?></label>
                 </div>
                 <div class="form-label-group">
-                    <input class="form-control" id="forgotEmail" name="email" placeholder="Email Address">
+                    <input class="form-control" id="forgotEmail" name="email" placeholder="Email Address" required/>
                     <label for="forgotEmail"><?php echo gettext('email');?></label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" name="params" value="login/recover/do">
@@ -97,11 +97,12 @@
             <form class="form-signin" autocomplete="off" action="<?php echo SITE_URL; ?>" method="post">
                 <div class="form-label-group">
                     <input type="text" id="registerUsername" name="username" class="form-control"
-                           placeholder="User name">
+                           placeholder="User name" required/>
                     <label for="registerUsername"><?php echo gettext('username');?></label>
                 </div>
                 <div class="form-label-group">
-                    <input type="email" id="registerEmail" name="email" class="form-control" placeholder="Email Address">
+                    <input type="email" id="registerEmail" name="email" class="form-control" placeholder="Email Address"
+                           required/>
                     <label for="registerEmail"><?php echo gettext('email');?></label>
                 </div>
                 <div class="g-recaptcha form-label-group"

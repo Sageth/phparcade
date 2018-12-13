@@ -1105,6 +1105,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS `sp_Members_UpdateMemberProfile`;
 DELIMITER ;;
 CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateMemberProfile`(
+  IN m_birth_date BIGINT(10),
   IN m_email VARCHAR(255),
   IN m_github VARCHAR(255),
   IN m_facebook VARCHAR(255),
@@ -1113,6 +1114,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_UpdateMemberProfile
   BEGIN
     UPDATE `members`
     SET
+      `birth_date` = m_birth_date,
       `twitter_id` = m_twitter,
       `facebook_id` = m_facebook,
       `github_id` = m_github,

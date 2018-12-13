@@ -164,26 +164,26 @@ require_once __DIR__ . '/themeconfig.php'; ?>
                         "$admin": "<?php echo $user['admin']; ?>",
                         "$birthdate": "<?php echo date('Y-m-d', $user['birth_date']); ?>",
                         "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
-                        "$facebook_id": "<?php echo $user['facebook']; ?>",
-                        "$github_id": "<?php echo $user['github']; ?>",
+                        "$facebook_id": "<?php echo $user['facebook_id']; ?>",
+                        "$github_id": "<?php echo $user['github_id']; ?>",
                         "$id": "<?php echo $user['id']; ?>",
                         "$email": "<?php echo $user['email']; ?>",
                         "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
                         "$total_games_played": "<?php echo $user['totalgames']; ?>",
-                        "$username": "<?php echo $user['name']; ?>"
+                        "$username": "<?php echo $user['username']; ?>",
                     });
                     mixpanel.identify('<?php echo $user['id']; ?>');
                     mixpanel.people.set({
                         "$admin": "<?php echo $user['admin']; ?>",
                         "$birthdate": "<?php echo date('Y-m-d', $user['birth_date']); ?>",
                         "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
-                        "$facebook_id": "<?php echo $user['facebook']; ?>",
-                        "$github_id": "<?php echo $user['github']; ?>",
+                        "$facebook_id": "<?php echo $user['facebook_id']; ?>",
+                        "$github_id": "<?php echo $user['github_id']; ?>",
                         "$id": "<?php echo $user['id']; ?>",
                         "$email": "<?php echo $user['email']; ?>",
                         "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
                         "$total_games_played": "<?php echo $user['totalgames']; ?>",
-                        "$username": "<?php echo $user['name']; ?>"
+                        "$username": "<?php echo $user['username']; ?>",
                     });
                   <?php
                 } else {

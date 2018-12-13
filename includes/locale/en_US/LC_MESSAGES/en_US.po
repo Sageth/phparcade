@@ -159,7 +159,7 @@ msgid "datebirth"
 msgstr "Date of Birth"
 
 msgid "dateformat"
-msgstr "(YYYY-MM-DD)"
+msgstr "YYYY-MM-DD"
 
 msgid "defaultheight"
 msgstr "Default Height"

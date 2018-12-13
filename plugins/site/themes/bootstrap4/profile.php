@@ -199,8 +199,6 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
         } else {
             if ($params[1] === 'edit' && $params[1] != 'view' ) {
                 $user = PHPArcade\Users::getUserbyID($_SESSION['user']['id']);
-                var_dump($user);
-                var_dump($_POST);
                 if ($params[2] == "" || !isset($params[2])) {
                     ?>
                     <div class="card border-0 mt-4">
@@ -239,8 +237,9 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                             <?php echo gettext('email'); ?>
                                         </label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" id="email" name="email" title="email" type="email"
-                                                   value="<?php echo $user['email']; ?>"/>
+                                            <input class="form-control" id="email" name="email" required
+                                                   title="email"
+                                                   type="email" value="<?php echo $user['email']; ?>"/>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -257,8 +256,13 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                             <input class="form-control"
                                                    name="birth_date"
                                                    placeholder="<?php echo date('Y-m-d', $user['birth_date']); ?>"
+                                                   required
                                                    title="<?php echo gettext('datebirth'); ?>"
+                                                   value="<?php echo date('Y-m-d', $user['birth_date']);?>"
                                             />
+                                            <small id="birth_date_helper" class="form-text text-muted">
+                                                <?php echo gettext('dateformat');?>
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="form-group row">
