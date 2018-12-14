@@ -6,7 +6,7 @@ use PDOException;
 
 class mySQL
 {
-    protected static $db;
+    private static $db;
     private function __construct()
     {
         $inicfg = Core::getINIConfig();
