@@ -58,12 +58,13 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
                         <description><![CDATA[<?php echo $desc; ?>]]></description>
                         <guid><?php echo $link; ?></guid>
                         <category>Games</category>
-                        <category>Flash Games</category>
-                        <category>Online Games</category>
                         <category>Browser Games</category>
+                        <category>Famobi Gamess</category>
+                        <category>Flash Games</category>
+                        <category>Free Games</category>
                         <category>HTML5 Gamess</category>
                         <category>Mobile Games</category>
-                        <category>Famobi Gamess</category>
+                        <category>Online Games</category>
                     </item><?php echo PHP_EOL;
                 } ?>
             </channel>
