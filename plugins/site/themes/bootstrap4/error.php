@@ -1,6 +1,4 @@
 <?php
-//TODO: Determine if this is still used. I don't think it is
-
 if (!isset($_SESSION)) {
     session_start();
     $user = $_SESSION['user'];
