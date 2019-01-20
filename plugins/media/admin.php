@@ -22,8 +22,8 @@ function media_admin($mthd)
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label><?php echo gettext('name'); ?></label>
-                            <input class="form-control" title='name' name='name'/>
+                            <label for="name"><?php echo gettext('name'); ?></label>
+                            <input class="form-control" id="name" name='name' title='name'/>
                         </div>
                     </div>
                     <div class="card-footer">&nbsp;</div>
@@ -34,16 +34,17 @@ function media_admin($mthd)
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label><?php echo gettext('type'); ?></label>
-                            <input class="form-control" title="type" name='type' value='Games'/>
+                            <label for="type"><?php echo gettext('type'); ?></label>
+                            <input class="form-control" id="type" title="type" name='type' value='Games'/>
                         </div>
                         <div class="form-group">
-                            <label><?php echo gettext('description'); ?></label>
-                            <textarea class="form-control" title="description" name='desc' rows='6'></textarea>
+                            <label for="description"><?php echo gettext('description'); ?></label>
+                            <textarea class="form-control" id="description" title="description" name='desc' rows='6'></textarea>
                         </div>
                         <div class="form-group">
-                            <label><?php echo gettext('keywords'); ?></label>
+                            <label for="keywords"><?php echo gettext('keywords'); ?></label>
                             <textarea class="form-control"
+                                      id="keywords"
                                       title="keywords"
                                       name="keywords"
                                       cols="42"
@@ -170,16 +171,16 @@ function media_admin($mthd)
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label><?php echo gettext('name'); ?></label>
-                                <input class="form-control is-invalid" title="name" name="name"/>
+                                <label for="name"><?php echo gettext('name'); ?></label>
+                                <input class="form-control is-invalid" id="name" title="name" name="name"/>
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('category'); ?></label>
                                 <?php echo PHPArcade\Games::getCategorySelect('cat'); ?>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('release_date'); ?></label>
-                                <input class="form-control" title="release date" name='release_date'/>
+                                <label for="release-date"><?php echo gettext('release_date'); ?></label>
+                                <input class="form-control" id="release-date" title="release date" name="release_date"/>
                                 <small class="card-text"><?php echo gettext('dateformat'); ?></small>
                             </div>
                             <div class="form-group">
@@ -187,8 +188,8 @@ function media_admin($mthd)
                                 <input class="form-control is-invalid" type='file' name='swffile'/>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('thumbnail'); ?></label>
-                                <input class="form-control" type='file' name='imgfile'/>
+                                <label for="thumbnail"><?php echo gettext('thumbnail'); ?></label>
+                                <input class="form-control" id="thumbnail" type="file" name="imgfile"/>
                             </div>
                         </div>
                         <div class="card-footer">&nbsp;</div>
@@ -199,12 +200,12 @@ function media_admin($mthd)
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label><?php echo gettext('description'); ?></label>
-                                <textarea class="form-control" title="description" name='desc' rows='6'></textarea>
+                                <label for="description"><?php echo gettext('description'); ?></label>
+                                <textarea class="form-control" id="description" title="description" name='desc' rows='6'></textarea>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('instructions'); ?></label>
-                                <textarea class="form-control" title="instructions" name='instructions' rows='6'></textarea>
+                                <label for="instructions"><?php echo gettext('instructions'); ?></label>
+                                <textarea class="form-control" id="instructions" title="instructions" name="instructions" rows="6"></textarea>
                             </div>
                         </div>
                         <div class="card-footer">&nbsp;</div>
@@ -215,20 +216,21 @@ function media_admin($mthd)
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label><?php echo gettext('customcode'); ?></label>
-                                <textarea class="form-control" title="Custom Code" name='customcode' rows='6'></textarea>
+                                <label for="customcode"><?php echo gettext('customcode'); ?></label>
+                                <textarea class="form-control" id="customcode" title="Custom Code" name='customcode' rows='6'></textarea>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('flags'); ?></label>
-                                <select class="form-control" title="Flags" name="flags">
+                                <label for="flags"><?php echo gettext('flags'); ?></label>
+                                <select class="form-control" id="flags" title="Flags" name="flags">
                                     <option value="highscore"><?php echo gettext('highscore'); ?></option>
                                     <option value="lowhighscore"><?php echo gettext('lowhighscore'); ?></option>
                                     <option value="" SELECTED><?php echo gettext('none'); ?></option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('keywords'); ?></label>
+                                <label for="keywords"><?php echo gettext('keywords'); ?></label>
                                 <textarea class="form-control"
+                                          id="keywords"
                                           title="Keywords"
                                           name='keywords'
                                           cols='42'
@@ -291,8 +293,8 @@ function media_admin($mthd)
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label><?php echo gettext('name'); ?></label>
-                                <input class="form-control" title="Name" name='name'
+                                <label for="name"><?php echo gettext('name'); ?></label>
+                                <input class="form-control" id="name" title="Name" name='name'
                                        value='<?php echo $category['name']; ?>'/>
                             </div>
                         </div>
@@ -304,19 +306,21 @@ function media_admin($mthd)
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label><?php echo gettext('type'); ?></label>
-                                <input class="form-control" title="Type" name='type'
+                                <label for="type"><?php echo gettext('type'); ?></label>
+                                <input class="form-control" id="type" title="Type" name='type'
                                        value='<?php echo $category['type']; ?>'/>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('description'); ?></label>
-                                <textarea class="form-control" title="Description" name='desc'
+                                <label for="description"><?php echo gettext('description'); ?></label>
+                                <textarea class="form-control" id="description" title="Description" name='desc'
                                           rows='6'><?php echo $category['desc']; ?></textarea>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('keywords'); ?></label>
-                                <textarea class="form-control" title="Keywords" name='keywords'
-                                          rows='6'><?php echo $category['keywords']; ?></textarea>
+                                <label for="keywords"><?php echo gettext('keywords'); ?></label>
+                                <textarea class="form-control" id="keywords" title="Keywords" name='keywords'
+                                          rows='6'>
+                                    <?php echo $category['keywords']; ?>
+                                </textarea>
                             </div>
                         </div>
                         <div class="card-footer">&nbsp;</div>
@@ -348,13 +352,14 @@ function media_admin($mthd)
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label><?php echo gettext('nameoffiles'); ?></label>
-                                <input class="form-control" title="Name of Files" name="nameid"
+                                <label for="nameoffiles"><?php echo gettext('nameoffiles'); ?></label>
+                                <input class="form-control" id="nameoffiles" title="Name of Files" name="nameid"
                                        value="<?php echo $game['nameid']; ?>"/>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('name'); ?></label>
+                                <label for="name"><?php echo gettext('name'); ?></label>
                                 <input class="form-control"
+                                       id="name"
                                        title="Game Name"
                                        name="name"
                                        value="<?php echo $game['name']; ?>"/>
@@ -364,15 +369,16 @@ function media_admin($mthd)
                                 <?php echo PHPArcade\Games::getCategorySelect('cat', $game['cat']); ?>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('description'); ?></label>
+                                <label for="description"><?php echo gettext('description'); ?></label>
                                 <textarea class="form-control"
+                                          id="description"
                                           title="Description"
                                           name='desc'
                                           rows='6'><?php echo $game['desc']; ?></textarea>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('instructions'); ?></label>
-                                <textarea class="form-control" title="Instructions" name='instructions'
+                                <label for="instructions"><?php echo gettext('instructions'); ?></label>
+                                <textarea class="form-control" id="instructions" title="Instructions" name='instructions'
                                           rows='6'><?php echo $game['instructions']; ?></textarea>
                             </div>
                         </div>
@@ -384,8 +390,8 @@ function media_admin($mthd)
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label><?php echo gettext('flags'); ?></label>
-                                <select class="form-control" title="Flags" name="flags"><?php
+                                <label for="flags"><?php echo gettext('flags'); ?></label>
+                                <select class="form-control" id="flags" title="Flags" name="flags"><?php
                                     switch ($game['flags']) {
                                         case 'highscore': ?>
                                             <option value='highscore' SELECTED><?php echo gettext('highscore'); ?></option>
@@ -425,7 +431,7 @@ function media_admin($mthd)
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label><?php echo gettext('active'); ?></label>
+                                <label for="active"><?php echo gettext('active'); ?></label>
                                 <input class="form-control"
                                        title="Active"
                                        type="checkbox"
@@ -436,26 +442,27 @@ function media_admin($mthd)
                                        data-offstyle="danger"/>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('customcode'); ?></label>
-                                <textarea class="form-control" title="Custom Code" name='customcode'
-                                          rows='6'><?php echo $game['customcode']; ?></textarea>
+                                <label for="customcode"><?php echo gettext('customcode'); ?></label>
+                                <textarea class="form-control" id="customcode" title="Custom Code" name="customcode"
+                                          rows="6"><?php echo $game['customcode']; ?></textarea>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('width'); ?></label>
+                                <label for="width"><?php echo gettext('width'); ?></label>
                                 <input class="form-control"
+                                       id="width"
                                        title="Width"
                                        name="width"
                                        value="<?php echo $game['width']; ?>"/>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('height'); ?></label>
-                                <input class="form-control" title="Height" name="height"
+                                <label for="height"><?php echo gettext('height'); ?></label>
+                                <input class="form-control" id="height" title="Height" name="height"
                                        value="<?php echo $game['height']; ?>"/>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('release_date'); ?></label>
-                                <input class="form-control" title="Release Date" name='release_date'
-                                       value='<?php echo date('Y-m-d', $game['release_date']); ?>'/>
+                                <label for="release-date"><?php echo gettext('release_date'); ?></label>
+                                <input class="form-control" id="release-date" title="Release Date" name="release_date"
+                                       value="<?php echo date('Y-m-d', $game['release_date']); ?>"/>
                                 <small class="card-block"><?php echo gettext('dateformat'); ?></small>
                             </div>
                         </div>
