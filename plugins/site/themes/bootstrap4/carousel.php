@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 $games = PHPArcade\Games::getGames('all', 0, 5, '-all-', -1);
 $i = 0; ?>
 <!-- Carousel Section -->
-<div class="carousel slide d-none d-md-block mt-4" data-ride="carousel" id="mainCarousel">
+<div class="carousel slide mt-4" data-ride="carousel" id="mainCarousel">
     <div class="carousel-inner col-lg-8 mx-auto"><?php
         foreach ($games as $game) {
             ++$i;
@@ -36,7 +36,7 @@ $i = 0; ?>
                         </div>
                         <div class="col-1">&nbsp;</div>
                     </div>
-                    <div class="row mt-2">
+                    <div class="row mt-2 d-none d-lg-block">
                         <div class="col">&nbsp;</div>
                         <div class="col">
                             <p class="text-justify text-black">
