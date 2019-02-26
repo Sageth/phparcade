@@ -47,8 +47,9 @@ class Scores
 
         /* First, check that we don't have an empty scores array (prevents errors on the front-end.
            If the top score in games_champs is not equal to the top score in games_score, correct it */
-        $player = Users::getUserbyID($scores[0]['player']);
         if (!empty($scores) && $tscores['score'] != $scores[0]['score']) {
+            $player = Users::getUserbyID($scores[0]['player']);
+
             /* NameID is the game name ID */
             Games::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0]['score'], $time);
             self::notifyDiscordHighScore($game['name'], $player['username'], $scores[0]['score'], $link);
