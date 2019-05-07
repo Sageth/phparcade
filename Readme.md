@@ -7,9 +7,11 @@ better adherence to new coding standards.  A production "demo" of the front-end 
 [Free Online Flash Games](https://www.phparcade.com).  Follow our [Twitter](https://twitter.com/phparcade) or
 [Facebook](https://www.facebook.com/PHPArcade-271750579558482) for regular updates.
 
-## Group Discussions
+## Contributing
 If you are interested in fixing issues, would like to help make this application better, or just want to chat, please join
 our [PHPArcade Discord Server](http://discord.gg/wzr3PCf).
+
+Please create your pull request against the `qa-integration` branch.  This will allow for sufficient testing of both CI/CD and manual methods.  Once it passes testing, Code Owner(s) will submit a PR against the master branch.  Or, to think of this another way:  `master` is Production.  `qa-integration` is for QA testing.
 
 ## Features (screenshots below)
 * Add/edit pages via GUI
@@ -33,9 +35,7 @@ repositories. This code has not been tested on Apache. It may work with some bas
 * This code can be found on [GitHub](https://github.com/Sageth/phpArcade) and on [GitLab](https://gitlab.com/Sageth/phparcade).
 
 ## Supported/Tested Platforms:
-* PHP 7.1
-* MariaDB 10.2
-* Nginx 1.8+ (latest recommended)
+* Please review the [.travis.yml](https://github.com/Sageth/phparcade/blob/master/.travis.yml) file in the `master` branch.
 * Please note that MySQL is not tested and is not officially supported, however, it _probably_ works with MySQL 5.7+
 
 ## Support Information
