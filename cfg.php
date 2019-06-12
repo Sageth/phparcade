@@ -19,7 +19,7 @@ define('IMG_DIR_NOSLASH', INST_DIR . 'img');
 define('SITE_URL', sprintf('%s://%s/', isset($_SERVER['HTTPS']) &&
 $_SERVER['HTTPS'] != 'off' ? 'https' : 'http', $_SERVER['SERVER_NAME']));
 define('CHARSET', 'UTF-8');
-define('EXT_IMG', '.png');
+define('EXT_IMG', '.webp');
 define('GRAVATAR_URL', 'https://www.gravatar.com/avatar/');
 define('IMG_URL', SITE_URL . 'img/');
 define('SITE_META_DESCRIPTION', $dbconfig['metadesc']);
