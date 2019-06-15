@@ -38,6 +38,9 @@ class RSS
                     <summary><![CDATA[<?php echo $desc; ?>]]></summary>
                     <content type="xhtml">
                         <div xmlns="http://www.w3.org/1999/xhtml">
+                            <a href="<?php echo $link;?>">
+                                <img src="<?php echo $image;?>" alt="<?php echo $title;?>" width="200" height="200" />
+                            </a>
                             <p><![CDATA[<?php echo $desc; ?>]]></p>
                         </div>
                     </content>
