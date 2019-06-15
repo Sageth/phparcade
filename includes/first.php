@@ -1,4 +1,8 @@
 <?php
+/** @noinspection SyntaxError */
+
+use ReCaptcha\ReCaptcha;
+
 PHPArcade\Core::stopDirectAccess();
 if (!PHPArcade\Administrations::isAdminArea()) {
     $pathinfo = $_SERVER['PATH_INFO'] ?? getenv('PATH_INFO');
@@ -33,42 +37,11 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
     $type = 'rss';
     switch ($type) {
         case 'rss':
-            header('Content-Type: application/rss+xml; charset=' . CHARSET);
+            header('Content-Type: application/atom+xml; charset=' . CHARSET);
             if ($params[1] == 'recent') {
                 $array = PHPArcade\Games::getGamesbyReleaseDate_DESC('all');
             }
-            ?>
-            <?xml version="1.0" encoding="<?php echo CHARSET;?>" ?>
-            <rss version="2.0" xmlns="http://purl.org/rss/1.0/modules/content/"
-                 xmlns:atom="http://www.w3.org/2005/Atom"
-            >
-            <channel>
-                <title><?php echo $dbconfig['sitetitle']; ?></title><?php echo PHP_EOL; ?>
-                <description><?php echo $dbconfig['metadesc']; ?></description>
-                <link><?php echo SITE_URL; ?></link>
-                <atom:link href="<?php echo $dbconfig['rssfeed']; ?>" rel="self" type="application/rss+xml"/><?php PHP_EOL;
-                for ($i = 0; $i < $dbconfig['rssnumlatest']; $i++) {
-                    $title = $array[$i]['name'];
-                    $desc = $array[$i]['desc'];
-                    $link = PHPArcade\Core::getLinkGame($array[$i]['id']);
-                    PHP_EOL; ?>
-                    <item>
-                        <title><?php echo $title; ?></title>
-                        <link><?php echo $link; ?></link>
-                        <description><![CDATA[<?php echo $desc; ?>]]></description>
-                        <guid><?php echo $link; ?></guid>
-                        <category>Games</category>
-                        <category>Browser Games</category>
-                        <category>Famobi Gamess</category>
-                        <category>Flash Games</category>
-                        <category>Free Games</category>
-                        <category>HTML5 Gamess</category>
-                        <category>Mobile Games</category>
-                        <category>Online Games</category>
-                    </item><?php echo PHP_EOL;
-                } ?>
-            </channel>
-            </rss><?php
+            PHPArcade\RSS::GetAtomFeed($array);
             break;
         default:
     }
@@ -90,7 +63,7 @@ switch ($act) {
     case 'register':
         require_once INST_DIR . 'vendor/google/recaptcha/src/autoload.php';
         if (isset($_POST['g-recaptcha-response'])) {
-            $recaptcha = new \ReCaptcha\ReCaptcha($dbconfig['google_recaptcha_secretkey']);
+            $recaptcha = new ReCaptcha($dbconfig['google_recaptcha_secretkey']);
             $resp = $recaptcha->verify($_POST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR']);
             if ($params[1] === 'regdone' && $resp->isSuccess()) {
                 if (empty($_POST['username']) || empty($_POST['email'])) {
