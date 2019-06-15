@@ -2,7 +2,10 @@
 declare(strict_types=1);
 namespace PHPArcade;
 
-use \claviska\SimpleImage;
+use claviska\SimpleImage;
+use Exception;
+use FileUpload\FileUpload;
+use FileUpload\Validator\Simple;
 
 class Games
 {
@@ -48,7 +51,7 @@ class Games
                 ->fromFile(IMG_DIR . $fromImage)
                 ->resize($dbconfig['twidth'], $dbconfig['theight'])
                 ->toFile(IMG_DIR . $nameid . EXT_IMG, 'image/webp');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Core::showError($e, 'ambulance');
         }
         return;
@@ -70,6 +73,13 @@ class Games
         Scores::deleteGameScores($id);
         Core::showSuccess(gettext('deletesuccess'));
     }
+
+    /**
+     * Deletes an image file that doesn't match the extension in cfg.php.  This is used as a cleanup function if you
+     * upload an image that isn't of the expected type, it will remove it after the conversion.
+     *
+     * @param $imageFile: Full filename of image to delete
+     */
     public static function deleteImage($imageFile){
         $ext = pathinfo(IMG_DIR . $imageFile, PATHINFO_EXTENSION);
         if ($ext != EXT_IMG) {
@@ -88,7 +98,7 @@ class Games
             ++$i;
         }
     }
-    public static function getGames($category, $limitstart, $limitend, $page = '-all-', $gamesperpage)
+    public static function getGames($category, $limitstart, $limitend, $gamesperpage, $page = '-all-')
     {
         /* Typical values are:
             Category = "all"
@@ -388,7 +398,7 @@ class Games
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    public static function insertCategory($id = null, $name, $description, $keywords, $order, $type)
+    public static function insertCategory($name, $description, $keywords, $order, $type, $id = null)
     {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_Categories_InsertCategory(:catid, :catname, :catdesc, :catkeywords, :catorder, :cattype);');
@@ -466,10 +476,10 @@ class Games
     public static function uploadImage($image){
         if (!empty($image['name'])) {
             /** @noinspection PhpMethodParametersCountMismatchInspection */
-            $validator = new \FileUpload\Validator\Simple('5M', ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/webp']);  // File upload validations
+            $validator = new Simple('5M', ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/webp']);  // File upload validations
             $pathresolver = new \FileUpload\PathResolver\Simple(IMG_DIR_NOSLASH);     // Upload path
             $filesystem = new \FileUpload\FileSystem\Simple();               // The machine's filesystem
-            $fileupload = new \FileUpload\FileUpload($image, $_SERVER);   // FileUploader itself
+            $fileupload = new FileUpload($image, $_SERVER);   // FileUploader itself
             //Final prep
             $fileupload->setPathResolver($pathresolver);
             $fileupload->setFileSystem($filesystem);
