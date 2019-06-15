@@ -143,6 +143,8 @@ function media_admin($mthd)
 
                 // Image file processing
                 PHPArcade\Games::uploadImage($_FILES['imgfile']);
+                PHPArcade\Games::convertImage($_FILES['imgfile']['name'], $nameid);
+                PHPArcade\Games::deleteImage($_FILES['imgfile']['name']);
 
                 /* If the nameid isn't set, return an error, otherwise upload and continue */
                 if ($nameid === '') {

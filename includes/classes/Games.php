@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace PHPArcade;
 
+use \claviska\SimpleImage;
+
 class Games
 {
     protected $category;
@@ -39,11 +41,15 @@ class Games
     public static function convertImage($fromImage, $nameid)
     {
         $dbconfig = Core::getDBConfig();
-        //Load the file and convert to PNG
+        //Load the file and convert to WEBP
         try {
-            (new \claviska\SimpleImage())->fromFile($fromImage)->resize($dbconfig['twidth'], $dbconfig['theight'])->toFile(IMG_DIR . $nameid, 'image/png');
+            $image = new SimpleImage();
+            $image
+                ->fromFile(IMG_DIR . $fromImage)
+                ->resize($dbconfig['twidth'], $dbconfig['theight'])
+                ->toFile(IMG_DIR . $nameid . EXT_IMG, 'image/webp');
         } catch (\Exception $e) {
-            Core::showError('Unable to convert', 'ambulance');
+            Core::showError($e, 'ambulance');
         }
         return;
     }
@@ -63,6 +69,12 @@ class Games
         Scores::deleteGameChamps($id);
         Scores::deleteGameScores($id);
         Core::showSuccess(gettext('deletesuccess'));
+    }
+    public static function deleteImage($imageFile){
+        $ext = pathinfo(IMG_DIR . $imageFile, PATHINFO_EXTENSION);
+        if ($ext != EXT_IMG) {
+            unlink(IMG_DIR . $imageFile);
+        }
     }
     public static function updateGameOrder()
     {
@@ -454,12 +466,7 @@ class Games
     public static function uploadImage($image){
         if (!empty($image['name'])) {
             /** @noinspection PhpMethodParametersCountMismatchInspection */
-            $validator = new \FileUpload\Validator\Simple(
-                1024 * 1024 * 10,
-                ['image/png'],
-                ['image/jpg'],
-                ['image/gif']
-            );  // File upload validations
+            $validator = new \FileUpload\Validator\Simple('5M', ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/webp']);  // File upload validations
             $pathresolver = new \FileUpload\PathResolver\Simple(IMG_DIR_NOSLASH);     // Upload path
             $filesystem = new \FileUpload\FileSystem\Simple();               // The machine's filesystem
             $fileupload = new \FileUpload\FileUpload($image, $_SERVER);   // FileUploader itself
