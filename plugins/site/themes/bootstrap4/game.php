@@ -103,7 +103,8 @@ global $params; ?>
                                             <tr class="odd gradeA">
                                                 <td><?php echo $i; ?></td>
                                                 <td>
-                                                    <img class="img img-fluid rounded-circle"
+                                                    <img alt="<?php echo $champ['username'];?>'s Gravatar"
+                                                         class="img img-fluid rounded-circle"
                                                          data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'], 40); ?>"
                                                          style="float:left"
                                                     />&nbsp;

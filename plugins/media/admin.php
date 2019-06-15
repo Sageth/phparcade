@@ -10,7 +10,7 @@ function media_admin($mthd)
                 PHPArcade\Core::showWarning(gettext('allfieldserror'));
             } else
             {
-                PHPArcade\Games::insertCategory($_POST['name'], $_POST['desc'], $_POST['keywords'], $order, $_POST['type'], $id);
+                PHPArcade\Games::insertCategory($_POST['name'], $_POST['desc'], $_POST['keywords'], $order, $_POST['type'], null);
             }
             break;
         case 'addcat-form': ?>

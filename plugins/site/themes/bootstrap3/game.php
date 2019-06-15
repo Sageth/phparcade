@@ -104,8 +104,9 @@ global $params; ?>
                                             <tr class="odd gradeA">
                                             <td><?php echo $i; ?></td>
                                             <td>
-                                                <img data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'], 40); ?>"
+                                                <img alt="<?php echo $champ['username'];?>'s Gravatar"
                                                      class="img img-responsive img-circle"
+                                                     data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'], 40); ?>"
                                                      style="float:left"
                                                 />
                                                 &nbsp;
