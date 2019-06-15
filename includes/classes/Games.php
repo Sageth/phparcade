@@ -88,7 +88,7 @@ class Games
     }
     public static function updateGameOrder()
     {
-        $games = self::getGames('all', 0, 10000, '-all', -1);
+        $games = self::getGames('all', 0, 10000, -1, 'all');
         $i = 1;
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGameOrder(:gameorder, :gameid);');
         foreach ($games as $game) {
