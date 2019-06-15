@@ -10,7 +10,7 @@ function media_admin($mthd)
                 PHPArcade\Core::showWarning(gettext('allfieldserror'));
             } else
             {
-                PHPArcade\Games::insertCategory(null, $_POST['name'], $_POST['desc'], $_POST['keywords'], $order, $_POST['type']);
+                PHPArcade\Games::insertCategory($_POST['name'], $_POST['desc'], $_POST['keywords'], $order, $_POST['type'], $id);
             }
             break;
         case 'addcat-form': ?>
@@ -143,6 +143,8 @@ function media_admin($mthd)
 
                 // Image file processing
                 PHPArcade\Games::uploadImage($_FILES['imgfile']);
+                PHPArcade\Games::convertImage($_FILES['imgfile']['name'], $nameid);
+                PHPArcade\Games::deleteImage($_FILES['imgfile']['name']);
 
                 /* If the nameid isn't set, return an error, otherwise upload and continue */
                 if ($nameid === '') {
@@ -506,7 +508,7 @@ function media_admin($mthd)
                 <?php
             break;
         case 'manage':
-            $games = PHPArcade\Games::getGames($cat = 'all', 0, 10, 1, 5000); ?>
+            $games = PHPArcade\Games::getGames($cat = 'all', 0, 10,5000, 1); ?>
             <div class="container">
                 <div class="input-group col-lg-10">
                     <span class="input-group-addon info col-lg-4" id="user-addon">

@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-$games = PHPArcade\Games::getGames('all', 0, 5, '-all-', -1);
+$games = PHPArcade\Games::getGames('all', 0, 5,-1, '-all-');
 $i = 0; ?>
 <!-- Carousel Section -->
 <div class="carousel slide mt-4" data-ride="carousel" id="mainCarousel">
