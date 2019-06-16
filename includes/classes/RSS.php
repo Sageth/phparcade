@@ -26,7 +26,7 @@ class RSS
             </author>
             <?php
             for ($i = 0; $i < $dbconfig['rssnumlatest']; $i++) {
-                $image = IMG_DIR . $array[$i]['nameid'] . EXT_IMG;
+                $image = IMG_URL . $array[$i]['nameid'] . EXT_IMG;
                 $title = $array[$i]['name'];
                 $desc = $array[$i]['desc'];
                 $link = Core::getLinkGame($array[$i]['id']);
