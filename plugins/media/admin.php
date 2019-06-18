@@ -183,12 +183,13 @@ function media_admin($mthd)
                                 <small class="card-text"><?php echo gettext('dateformat'); ?></small>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('uploadswf'); ?></label>
-                                <input class="form-control" type='file' name='swffile'/>
+                                <label for="swffile"><?php echo gettext('uploadswf'); ?></label>
+                                <input class="form-control" id="swffile" type="file" name="swffile"/>
                             </div>
                             <div class="form-group">
                                 <label for="thumbnail"><?php echo gettext('thumbnail'); ?></label>
                                 <input class="form-control" id="thumbnail" type="file" name="imgfile" required />
+                                <small class="form-text text-muted"><?php echo gettext('imgconversion') . " " . EXT_IMG_MIMETYPE . " (" . EXT_IMG . ")";?></small>
                             </div>
                         </div>
                         <div class="card-footer">&nbsp;</div>
