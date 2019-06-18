@@ -106,25 +106,23 @@ require_once __DIR__ . '/themeconfig.php';
         <?php if (true == PHPArcade\Core::is('game')) { ?>
             <script async crossorigin="anonymous" integrity="<?php echo JS_SWFOBJECT_SRI;?>"
                     src="<?php echo JS_SWFOBJECT;?>"></script><?php
-        } ?>
+        }
 
+        include_once INST_DIR . 'includes/js/Schema/siteschema.php';
+	    include_once INST_DIR . 'includes/js/Schema/pageschema.php';  ?>
 
-        <?php
-            include_once INST_DIR . 'includes/js/Schema/siteschema.php';
-	        include_once INST_DIR . 'includes/js/Schema/pageschema.php';
-	    ?>
         <!-- LazyLoader BEGIN -->
         <script crossorigin="anonymous" integrity="<?php echo JS_LAZYLOAD_SRI;?>" src="<?php echo JS_LAZYLOAD; ?>"></script>
         <script>
-           (function() {
+            (function() {
                 let myLazyLoad = new LazyLoad({
                     load_delay: 300 //adjust according to use case
                 });
-           })();
+            })();
         </script>
         <!-- LazyLoader END-->
+
         <!-- Font Awesome BEGIN-->
-        <!--suppress JSUnresolvedLibraryURL -->
         <script async src="https://kit.fontawesome.com/<?php echo FONT_AWESOME_KIT;?>.js" crossorigin="anonymous"></script>
         <!-- Font Awesome END -->
     </body>
