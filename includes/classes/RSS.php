@@ -1,5 +1,6 @@
 <?php
-declare(strict_types=1);
+	/** @noinspection ALL */
+	declare(strict_types=1);
 namespace PHPArcade;
 use DateTime;
 
@@ -36,6 +37,7 @@ class RSS
                     <title><?php echo $title; ?></title>
                     <link href="<?php echo $link; ?>"/>
                     <summary><![CDATA[<?php echo $desc; ?>]]></summary>
+                    <!--suppress HtmlDeprecatedTag, HtmlDeprecatedTag -->
                     <content type="xhtml">
                         <div xmlns="http://www.w3.org/1999/xhtml">
                             <a href="<?php echo $link;?>">

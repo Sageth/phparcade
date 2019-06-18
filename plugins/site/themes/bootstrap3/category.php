@@ -35,12 +35,12 @@ $i = 0; ?>
 						<a href="<?php echo $link; ?>"><?php
                             $img = $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>
 							<img class="img img-responsive img-rounded"
-								 data-src="<?php echo $img; ?>"
-							     alt="Play <?php echo $game['name']; ?> online for free!"
-							     title="Play <?php echo $game['name']; ?> online for free!"
+								 alt="Play <?php echo $game['name']; ?> online for free!"
+                                 data-src="<?php echo $img; ?>"
+                                 height="<?php echo $dbconfig['theight']; ?>"
+                                 title="Play <?php echo $game['name']; ?> online for free!"
 							     width="<?php echo $dbconfig['twidth']; ?>"
-							     height="<?php echo $dbconfig['theight']; ?>"
-								/>
+							/>
 						</a>
 						<div class="caption">
 							<h3><?php echo $game['name']; ?></h3>

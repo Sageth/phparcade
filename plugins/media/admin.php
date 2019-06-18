@@ -103,9 +103,6 @@ function media_admin($mthd)
                     // Doing the actual upload
                     /** @noinspection PhpUnusedLocalVariableInspection */
                     list($files, $headers) = $fileupload->processAll();
-                    // TODO: Set up so that json output goes to screen for accurate error message
-                    //$json = json_encode(['files' => $files]);
-                    //var_dump(json_decode($json,true));
                     if ($type == 'SWF' && $_FILES['swffile']['error'] == 0)
                     { // 0 Means uploaded without error?>
                         <div class="col-md-6 text-left"><?php
@@ -174,7 +171,7 @@ function media_admin($mthd)
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name"><?php echo gettext('name'); ?></label>
-                                <input class="form-control is-invalid" id="name" title="name" name="name"/>
+                                <input class="form-control" id="name" title="name" name="name" required />
                             </div>
                             <div class="form-group">
                                 <label><?php echo gettext('category'); ?></label>
@@ -186,12 +183,13 @@ function media_admin($mthd)
                                 <small class="card-text"><?php echo gettext('dateformat'); ?></small>
                             </div>
                             <div class="form-group">
-                                <label><?php echo gettext('uploadswf'); ?></label>
-                                <input class="form-control is-invalid" type='file' name='swffile'/>
+                                <label for="swffile"><?php echo gettext('uploadswf'); ?></label>
+                                <input class="form-control" id="swffile" type="file" name="swffile"/>
                             </div>
                             <div class="form-group">
                                 <label for="thumbnail"><?php echo gettext('thumbnail'); ?></label>
-                                <input class="form-control" id="thumbnail" type="file" name="imgfile"/>
+                                <input class="form-control" id="thumbnail" type="file" name="imgfile" required />
+                                <small class="form-text text-muted"><?php echo gettext('imgconversion') . " " . EXT_IMG_MIMETYPE . " (" . EXT_IMG . ")";?></small>
                             </div>
                         </div>
                         <div class="card-footer">&nbsp;</div>
@@ -203,11 +201,11 @@ function media_admin($mthd)
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="description"><?php echo gettext('description'); ?></label>
-                                <textarea class="form-control" id="description" title="description" name='desc' rows='6'></textarea>
+                                <textarea class="form-control" id="description" title="description" name='desc' rows='6' required></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="instructions"><?php echo gettext('instructions'); ?></label>
-                                <textarea class="form-control" id="instructions" title="instructions" name="instructions" rows="6"></textarea>
+                                <textarea class="form-control" id="instructions" title="instructions" name="instructions" rows="6" required></textarea>
                             </div>
                         </div>
                         <div class="card-footer">&nbsp;</div>
@@ -236,7 +234,8 @@ function media_admin($mthd)
                                           title="Keywords"
                                           name='keywords'
                                           cols='42'
-                                          rows='6'></textarea>
+                                          rows='6'
+                                          required></textarea>
                             </div>
                         </div>
                         <div class="card-footer">&nbsp;</div>

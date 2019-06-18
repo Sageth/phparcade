@@ -6,7 +6,7 @@ var fixHelperModified = function(e, tr) {
         $helper.children().each(function(index) {
             // noinspection Annotator
             // noinspection Annotator
-            $(this).width($originals.eq(index).width())
+            $(this).width($originals.eq(index).width());
         });
         return $helper;
     },
@@ -23,7 +23,7 @@ var fixHelperModified = function(e, tr) {
 //noinspection JSUnresolvedFunction
 $('#sortable').sortable({
     helper: fixHelperModified,
-    axis: 'y',
+    axis: "y",
     opacity: 0.5,
     crossDomain: false,
     cursor: "move",
@@ -47,7 +47,7 @@ function saveRows(){
     // noinspection Annotator
     $.ajax({
         cache: false,
-        url: "/plugins/site/themes/admin/ajaxUpdate.php",
+        url: "/Zdmin/ajaxUpdate.php",
         type: "POST",
         data: tableRows
     });

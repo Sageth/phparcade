@@ -50,7 +50,7 @@ class Games
             $image
                 ->fromFile(IMG_DIR . $fromImage)
                 ->resize($dbconfig['twidth'], $dbconfig['theight'])
-                ->toFile(IMG_DIR . $nameid . EXT_IMG, 'image/webp');
+                ->toFile(IMG_DIR . $nameid . EXT_IMG, EXT_IMG_MIMETYPE);
         } catch (Exception $e) {
             Core::showError($e, 'ambulance');
         }
@@ -170,7 +170,7 @@ class Games
     public static function getCategorySelect($name, $prev = null)
     {
         $categories = self::getCategories('ASC');
-        $select = "<select class='form-control' name='" . $name . "'>";
+        $select = "<select class='form-control' name='" . $name . "' required>";
         if ($prev != '-nocat-') {
             $select .= "<option value='" . $prev . "'>" . $prev . '</option>';
         }
@@ -228,7 +228,7 @@ class Games
                                href="https://helpx.adobe.com/flash-player/kb/enabling-flash-player-firefox.html"
                                target="_blank"
                                rel="noopener">
-                                Enable Flash - <i class="fa fa-firefox" aria-hidden="true"></i> Firefox
+                                Enable Flash - <?php echo Core::showGlyph('firefox', '1x', 'false', 'b');?> Firefox
                             </a>
                         </div>
                         <div class="pull-right">
@@ -236,7 +236,7 @@ class Games
                                href="<?php echo Core::getLinkPage(6); ?>"
                                target="_blank"
                                rel="noopener">
-                                Enable Flash - <i class="fa fa-chrome" aria-hidden="true"></i> Chrome
+                                Enable Flash - <?php echo Core::showGlyph('chrome', '1x', 'false', 'b');?> Chrome
                             </a>
                         </div>
                     </div>

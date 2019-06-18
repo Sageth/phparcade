@@ -60,16 +60,16 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                         if ($user['facebook_id'] != "") {
                             ?>
                             <a href="<?php echo URL_FACEBOOK . $user['facebook_id']; ?>" target="_blank" rel="noopener">
-                                <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?>
+                                <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false', 'b'); ?>
                             </a><?php
                         } else {
                             ?>
-                            <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?><?php
+                            <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false', 'b'); ?><?php
                         }
                 if ($user['github_id'] != "") {
                     ?>
                         <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" target="_blank" rel="noopener">
-                            <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false'); ?>
+                            <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false', 'b'); ?>
                             </a><?php
                 } else {
                     echo PHPArcade\Core::showGlyph('github', '2x', 'false');
@@ -77,13 +77,11 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                 if ($user['twitter_id'] != "") {
                     ?>
                         <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" target="_blank" rel="noopener">
-                            <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false'); ?>
+                            <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false', 'b'); ?>
                             </a><?php
                 } else {
                     echo PHPArcade\Core::showGlyph('twitter', '2x', 'false');
-                }
-                echo PHPArcade\Core::showGlyph('pinterest', '2x', 'false');
-                echo PHPArcade\Core::showGlyph('google-plus', '2x', 'false'); ?>
+                }?>
                     </div>
                 </div>
                 <?php echo PHPArcade\Ads::getInstance()->showAds(); ?>

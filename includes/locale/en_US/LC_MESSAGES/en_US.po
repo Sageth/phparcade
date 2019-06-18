@@ -5,14 +5,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: phparcade\n"
 "POT-Creation-Date: 2015-08-31 23:28-0500\n"
-"PO-Revision-Date: 2018-05-15 17:50-0400\n"
+"PO-Revision-Date: 2019-06-18 18:08-0400\n"
 "Last-Translator: Sage Russell <webmaster@sageth.com>\n"
 "Language-Team: PHPArcade <webmaster@sageth.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.7\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -162,13 +162,13 @@ msgid "dateformat"
 msgstr "YYYY-MM-DD"
 
 msgid "defaultheight"
-msgstr "Default Height"
+msgstr "Default Flash Height"
 
 msgid "defaultlanguage"
 msgstr "Default Language"
 
 msgid "defaultwidth"
-msgstr "Default Width"
+msgstr "Default Flash Width"
 
 msgid "delete"
 msgstr "Delete"
@@ -211,15 +211,6 @@ msgstr "Display in menu"
 
 msgid "displayuserlist"
 msgstr "User List"
-
-msgid "disqus"
-msgstr "Disqus"
-
-msgid "disqus_enabled"
-msgstr "Enable Disqus"
-
-msgid "disqus_user"
-msgstr "Disqus username"
 
 msgid "domainhelper"
 msgstr "This is typically your domain name (without www)"
@@ -309,7 +300,7 @@ msgid "facebook_developers"
 msgstr "You can find this at <a href='http://www.facebook.com/developers/' target='_blank' rel='noopener'>Facebook Developers</a>"
 
 msgid "facebook_enabled"
-msgstr "Facebook Enabled: "
+msgstr "Facebook Enabled"
 
 msgid "facebook_id"
 msgstr "Facebook ID"
@@ -414,7 +405,7 @@ msgid "hasbeatys"
 msgstr " has beat your score"
 
 msgid "height"
-msgstr "Height"
+msgstr "Thumbnail Height"
 
 msgid "highscores"
 msgstr "High Scores"
@@ -427,6 +418,9 @@ msgstr "Sorry, the highscores system is currently offline."
 
 msgid "home"
 msgstr "Home"
+
+msgid "imgconversion"
+msgstr "Please note that images will be converted to "
 
 msgid "imgurl"
 msgstr "Enter the URL to find game images:"
@@ -577,12 +571,6 @@ msgstr "Meta Tags"
 
 msgid "minimumwidth"
 msgstr "Minimum Width (Set to -1 for no minimum.)"
-
-msgid "mixpanel"
-msgstr "MixPanel"
-
-msgid "mixpanel_id"
-msgstr "MixPanel ID"
 
 msgid "months"
 msgstr "Month(s)"
@@ -891,7 +879,7 @@ msgid "reportthanks"
 msgstr "Thank you for your report."
 
 msgid "rssfeedexample1"
-msgstr "External RSS Feeds only. Default is example.com/rss/recent/1.html"
+msgstr "External RSS Feeds only. Default feed is http://example.com/rss/recent.html"
 
 msgid "rssfeedexample2"
 msgstr "However, you may wish to use something like http://feeds.feeburner.com/ExampleFeed"
@@ -1055,7 +1043,7 @@ msgid "thereis"
 msgstr "There is"
 
 msgid "thumbnail"
-msgstr "Thumbnail (PNG file only)"
+msgstr "Thumbnail"
 
 msgid "thumbnails"
 msgstr "Thumbnails"
@@ -1187,7 +1175,7 @@ msgid "welcome"
 msgstr "Welcome"
 
 msgid "width"
-msgstr "Width"
+msgstr "Thumbnail Width"
 
 msgid "writingtofile"
 msgstr "Writing to file"

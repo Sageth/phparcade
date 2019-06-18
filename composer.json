@@ -2,8 +2,6 @@
   "require": {
     "claviska/simpleimage": "3.*",
     "gargron/fileupload": "1.*",
-    "components/jquery": "3.*",
-    "components/jqueryui": "1.*",
     "ext-curl": "*",
     "ext-gettext": "*",
     "ext-json": "*",

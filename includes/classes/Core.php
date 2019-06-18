@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace PHPArcade;
 
 use PDO;
@@ -15,9 +16,11 @@ use PDO;
         public $line;
         public $links_arr;
         public $string;
+
         private function __construct()
         {
         }
+
         public static function doEvent($event)
         {
             global $actions_array;
@@ -31,60 +34,17 @@ use PDO;
                 }
             }
         }
+
         public static function encodeHTMLEntity($string, $params = null)
         {
             return html_entity_decode($string, $params);
         }
+
         public static function getCurrentDate()
         {
             return time();
         }
-        public static function getFlashModal()
-        {
-            ?>
-            <!--suppress ALL -->
-            <div id="myModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title bg-danger">Notice Regarding Flash</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-default">
-                            Notice: All of the major browsers are ending support of Adobe Flash, so you will need to
-                            enable Flash to have the best experience while we add more mobile-friendly games and apps.
-                        </p>
-                        <p class="text-danger">
-                            Please note: We <strong>ONLY</strong> serve flash games from <?php echo SITE_URL; ?>.  The
-                            settings below will only allow flash for <?php echo SITE_URL; ?>, which will help ensure your
-                            security.
-                        </p>
-                        <p class="text-default">
-                            Alternatively, you may play our HTML5 games which do not require Flash and are also able
-                            to be played on mobile.  Unfortunately, Flash is not available on mobile devices.
-                        </p>
-                        <div class="pull-left">
-                            <a class="btn btn-md btn-info"
-                               href="https://helpx.adobe.com/flash-player/kb/enabling-flash-player-firefox.html"
-                               target="_blank"
-                               rel="noopener">
-                                Enable Flash - <i class="fa fa-firefox" aria-hidden="true"></i> Firefox
-                            </a>
-                        </div>
-                        <div class="pull-right">
-                            <a class="btn btn-md btn-info"
-                               href="<?php echo self::getLinkPage(6); ?>"
-                               target="_blank"
-                               rel="noopener">
-                                Enable Flash - <i class="fa fa-chrome" aria-hidden="true"></i> Chrome
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div><?php
-        }
+
         public static function getLinkPage($id = 0)
         {
             global $links_arr;
@@ -95,16 +55,19 @@ use PDO;
                 $links_arr['page']
             );
         }
+
         public static function getINIConfig()
         {
             return parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/../phpArcade.ini', true);
         }
+
         public static function getLinkGame($id = 0)
         {
             global $gamelist;
             $links_arr = self::loadLinks();
             return str_replace('%name%', $gamelist[$id], str_replace('%id%', $id, $links_arr['game']));
         }
+
         public static function getCleanURL($string)
         {
             $string = preg_replace("/\W/", '-', $string); //Non-word characters, including spaces
@@ -112,21 +75,25 @@ use PDO;
             $string = preg_replace('/-{2,}/', '-', $string); //Double dashes at end of name (e.g. test--.html)
             return $string;
         }
+
         public static function getLinkCategory($name = 'all', $page = 1)
         {
             global $links_arr;
             return str_replace('%page%', $page, str_replace('%name%', $name, $links_arr['category']));
         }
+
         public static function getLinkLogout()
         {
             global $links_arr;
             return $links_arr['logout'];
         }
+
         public static function getLinkRegister()
         {
             global $links_arr;
             return $links_arr['register'];
         }
+
         public static function getLinkProfile($userid)
         {
             global $links_arr;
@@ -143,10 +110,12 @@ use PDO;
                 return 0;
             }
         }
+
         public static function getLinkProfileEdit()
         {
             return '/profile/edit.html';
         }
+
         public static function getPageMetaData()
         {
             global $params;
@@ -193,6 +162,7 @@ use PDO;
             /** @noinspection PhpUndefinedVariableInspection */
             return $metadata;
         }
+
         public static function getDBConfig()
         {
             if (null !== self::$dbconfig) {
@@ -204,6 +174,7 @@ use PDO;
             /** @noinspection PhpUndefinedVariableInspection */
             return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
         }
+
         public static function getInstance()
         {
             /* Singleton use */
@@ -212,6 +183,7 @@ use PDO;
             }
             return self::$instance;
         }
+
         public static function getPages($category = '')
         {
             $dbconfig = self::getDBConfig();
@@ -220,6 +192,7 @@ use PDO;
             $stmt->execute();
             return ceil($stmt->rowCount() / $dbconfig['gamesperpage']);
         }
+
         public static function getPlayCountTotal()
         {
             $stmt = mySQL::getConnection()->prepare('CALL sp_Games_GetPlaycount_Total();');
@@ -227,6 +200,7 @@ use PDO;
             $line = $stmt->fetch();
             return $line['playcount'];
         }
+
         public static function is($location)
         {
             global $act;
@@ -235,6 +209,7 @@ use PDO;
             }
             return $act == $location;
         }
+
         public static function loadLinks()
         {
             /* TODO: Need to clean this up somehow. Change to query string and let mod_rewrite do its thing? */
@@ -259,6 +234,7 @@ use PDO;
             $links_arr = array_map('PHPArcade\preappbase', $links_arr);
             return $links_arr;
         }
+
         public static function loadRedirect($url = '')
         {
             if ($url == '') {
@@ -267,6 +243,7 @@ use PDO;
             header("Location: " . $url);
             exit();
         }
+
         public static function stopDirectAccess()
         {
             if (count(get_included_files()) === 1) {
@@ -274,50 +251,57 @@ use PDO;
             }
             return true;
         }
+
         public static function returnStatusCode($statuscode)
         {
             return http_response_code($statuscode);
         }
+
         public static function showError($text, $glyph = 'ambulance')
         {
             ?>
             <div class="alert alert-danger mt-4" role="alert">
-                <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
+                <span class="fas fa-<?php echo $glyph; ?>"></span>
                 <strong><?php echo gettext('error') ?></strong>
                 <?php echo $text; ?>
             </div><?php
         }
-        public static function showGlyph($glyph, $size = '1x', $hidden = 'true')
+
+        public static function showGlyph($glyph, $size = '1x', $hidden = 'true', $style = "s")
         {
-            return "<i class='fa fa-$glyph fa-$size' aria-hidden='$hidden'></i>";
+            return "<span class='fa$style fa-$glyph fa-$size' aria-hidden='$hidden'></span>";
         }
+
         public static function showInfo($text, $glyph = 'info')
         {
             ?>
             <div class="alert alert-info mt-4" role="alert">
-                <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
+                <span class="fas fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
                 <strong><?php echo gettext('info') ?></strong>
                 <?php echo $text; ?>
             </div><?php
         }
+
         public static function showSuccess($text, $glyph = 'check')
         {
             ?>
             <div class="alert alert-success mt-4" role="alert">
-                <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
+                <span class="fas fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
                 <strong><?php echo gettext('success') ?></strong>
                 <?php echo $text; ?>
             </div><?php
         }
+
         public static function showWarning($text, $glyph = 'warning')
         {
             ?>
             <div class="alert alert-warning mt-4" role="alert">
-                <span class="fa fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
+                <span class="fas fa-<?php echo $glyph; ?> fa-2x text-left" aria-hidden="true"></span>
                 <strong><?php echo gettext('warning') ?></strong>
                 <?php echo $text; ?>
             </div><?php
         }
+
         private function __clone()
         {
         }

@@ -126,19 +126,6 @@ global $params; ?>
             <!-- End Game Code -->
             <?php
         }
-        if ($dbconfig['disqus_on'] === 'on') {
-            ?>
-            <div class="card-deck mt-4">
-                <div class="card">
-                    <h3 class="card-header">
-                        <?php echo gettext('disqus'); ?>
-                    </h3>
-                    <div class="card-body">
-                        <?php include_once(INST_DIR . 'includes/js/Disqus/disqus.php'); ?>
-                    </div>
-                </div>
-            </div><?php
-        }
     } else {
         ?>
         <h1><?php echo gettext('404status'); ?></h1>
@@ -185,43 +172,4 @@ global $params; ?>
         <?php PHPArcade\Games::getGameModal();?>
     </div>
     <!-- Schema -->
-    <script async type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Game",
-          "audience":{
-            "@type":"PeopleAudience",
-            "suggestedMinAge":"13"
-          },
-          "aggregateRating": {
-             "@type": "AggregateRating",
-             "ratingValue": "4.75",
-             "reviewCount": "<?php echo rand(1, 112);?>"
-          },
-          "numberOfPlayers":{
-            "@type":"QuantitativeValue",
-            "minValue":"1",
-            "maxValue":"1"
-          },
-          "datePublished":"<?php echo $dt->format('Y-m-d H:i:s'); ?>",
-          "description":"<?php echo strip_tags($game['desc']); ?>",
-          "headline":"<?php echo $game['name']; ?>",
-          "image":"<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>",
-          "keywords":"<?php echo $game['keywords']; ?>",
-          "name":"<?php echo $game['name']; ?>",
-          "thumbnailUrl":"<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>",
-          "url":"<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"
-        }
-    </script>
-    <?php if (!empty($dbconfig['mixpanel_id'])) {
-                    ?>
-        <script>
-            mixpanel.track(
-                "Loaded Game",
-                {
-                    "GameName": "<?php echo $game['name']; ?>"
-                }
-            );
-        </script>
-    <?php
-                } ?>
+    <?php include_once(INST_DIR . '/includes/js/Schema/gamepageschema.php');

@@ -51,8 +51,6 @@ require_once __DIR__ . '/themeconfig.php';
         <!-- Load everything else -->
         <link crossorigin="anonymous" href="<?php echo CSS_BOOTSTRAP; ?>" integrity="<?php echo CSS_BOOTSTRAP_SRI;?>"
               rel="stylesheet"/>
-        <link crossorigin="anonymous" href="<?php echo CSS_FONTAWESOME; ?>" integrity="<?php echo CSS_FONTAWESOME_SRI;?>"
-              rel="stylesheet"/>
         <link href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" rel="canonical"/>
         <link href="<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>" hreflang="en" rel="alternate"/>
         <link href="<?php echo SITE_URL; ?>favicon.ico" rel="shortcut icon" title="FavIcon" type="image/x-icon"/>
@@ -61,9 +59,6 @@ require_once __DIR__ . '/themeconfig.php';
         <meta content="English" name="language"/>
         <meta content="https://www.unspam.com/noemailcollection" name="no-email-collection"/>
         <meta content="noarchive" name="robots"/>
-        <?php if (!empty($dbconfig['mixpanel_id'])) {
-            include (INST_DIR . 'includes/js/MixPanel/mixpanel.php');
-        } ?>
     </head>
     <body>
         <?php
@@ -111,86 +106,24 @@ require_once __DIR__ . '/themeconfig.php';
         <?php if (true == PHPArcade\Core::is('game')) { ?>
             <script async crossorigin="anonymous" integrity="<?php echo JS_SWFOBJECT_SRI;?>"
                     src="<?php echo JS_SWFOBJECT;?>"></script><?php
-        } ?>
-        <script async type="application/ld+json">
-        {
-            "@context":"http://schema.org",
-            "@type":"Organization",
-            "name":"<?php echo $dbconfig['sitetitle'];?>",
-            "url":"<?php echo SITE_URL;?>",
-            "sameAs": [
-                "<?php echo $dbconfig['facebook_pageurl'];?>"
-            ]
         }
-        </script>
 
-        <script async type="application/ld+json">
-        {
-            "@context":"http://schema.org",
-            "@type":"WebSite",
-            "name":"<?php echo SITE_META_TITLE;?>",
-            "alternateName": "Play fun flash games, html5 games, and mobile games for free.",
-            "url":"<?php echo SITE_URL;?>",
-            "exampleOfWork":"<?php echo URL_GITHUB_PHPARCADE;?>",
-            "sameAs":"<?php echo URL_GITHUB_PHPARCADE;?>",
-            "isAccessibleForFree":"true",
-            "keywords":"<?php echo SITE_META_KEYWORDS;?>",
-            "description":"<?php echo strip_tags(SITE_META_DESCRIPTION);?>",
-            "license":"<?php echo SITE_URL;?>LICENSE.md",
-            "workExample":"https://www.phparcade.com",
-            "potentialAction" : {
-                "@type" : "SearchAction",
-                "target" : "<?php echo SITE_URL;?>?q={search_term}",
-                "query-input" : "required name=search_term"
-            }
-        }
-        </script>
-        <!--suppress JSUnresolvedFunction -->
-        <script async>
-            <?php if (!empty($dbconfig['mixpanel_id'])) {
-                if (PHPArcade\Users::isUserLoggedIn() === true) {
-                    ?>
-                    mixpanel.register({
-                        "$admin": "<?php echo $user['admin']; ?>",
-                        "$birthdate": "<?php echo date('Y-m-d', $user['birth_date']); ?>",
-                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
-                        "$facebook_id": "<?php echo $user['facebook']; ?>",
-                        "$github_id": "<?php echo $user['github']; ?>",
-                        "$id": "<?php echo $user['id']; ?>",
-                        "$email": "<?php echo $user['email']; ?>",
-                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
-                        "$total_games_played": "<?php echo $user['totalgames']; ?>",
-                        "$username": "<?php echo $user['name']; ?>"
-                    });
-                    mixpanel.identify('<?php echo $user['id']; ?>');
-                    mixpanel.people.set({
-                        "$admin": "<?php echo $user['admin']; ?>",
-                        "$birthdate": "<?php echo date('Y-m-d', $user['birth_date']); ?>",
-                        "$created": "<?php echo date('Y-m-d H:i:s', $user['regtime']); ?>",
-                        "$facebook_id": "<?php echo $user['facebook']; ?>",
-                        "$github_id": "<?php echo $user['github']; ?>",
-                        "$id": "<?php echo $user['id']; ?>",
-                        "$email": "<?php echo $user['email']; ?>",
-                        "$last_login": "<?php echo date('Y-m-d H:i:s', $user['last_login']); ?>",
-                        "$total_games_played": "<?php echo $user['totalgames']; ?>",
-                        "$username": "<?php echo $user['name']; ?>"
-                    });
-                  <?php
-                } else {
-                    ?>
-                    mixpanel.register("<?php echo session_id(); ?>");
-                    <?php
-                }
-            } ?>
-        </script>
-        <!-- LazyLoader -->
+        include_once INST_DIR . 'includes/js/Schema/siteschema.php';
+	    include_once INST_DIR . 'includes/js/Schema/pageschema.php';  ?>
+
+        <!-- LazyLoader BEGIN -->
+        <script crossorigin="anonymous" integrity="<?php echo JS_LAZYLOAD_SRI;?>" src="<?php echo JS_LAZYLOAD; ?>"></script>
         <script>
-            window.lazyLoadOptions = {
-                /* Load options here. We just use the defaults.
-                   See more: https://www.andreaverlicchi.eu/lazyload/#recipes */
-            };
+            (function() {
+                let myLazyLoad = new LazyLoad({
+                    load_delay: 300 //adjust according to use case
+                });
+            })();
         </script>
-        <script async crossorigin="anonymous" integrity="<?php echo JS_LAZYLOAD_SRI;?>" src="<?php echo JS_LAZYLOAD; ?>"></script>
-        <!-- End LazyLoader -->
+        <!-- LazyLoader END-->
+
+        <!-- Font Awesome BEGIN-->
+        <script async src="https://kit.fontawesome.com/<?php echo FONT_AWESOME_KIT;?>.js" crossorigin="anonymous"></script>
+        <!-- Font Awesome END -->
     </body>
 </html>

@@ -25,21 +25,15 @@ function users_admin($mthd)
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label>
-									<?php echo gettext('username'); ?>
-								</label>
-                                <input class="form-control" name="username" value="<?php echo $user['username']; ?>" title="username"/>
+								<label for="username"><?php echo gettext('username'); ?></label>
+                                <input class="form-control" id="username" name="<?php echo gettext('username'); ?>" value="<?php echo $user['username']; ?>" title="username"/>
 							</div>
 							<div class="form-group">
-								<label>
-									<?php echo gettext('email'); ?>
-								</label>
-                                <input class="form-control" name="email" value="<?php echo $user['email']; ?>" title="email"/>
+								<label for="email"><?php echo gettext('email'); ?></label>
+                                <input class="form-control" id="email" name="<?php echo gettext('email'); ?>" value="<?php echo $user['email']; ?>" title="email"/>
 							</div>
 							<div class="form-group">
-								<label for="password">
-									<?php echo gettext('password'); ?> (<?php echo gettext('blank'); ?>)
-								</label>
+								<label for="password"><?php echo gettext('password'); ?> (<?php echo gettext('blank'); ?>)</label>
                                 <input class="form-control" id="password" name="password" value=""/>
 							</div>
 							<div class="form-group">
@@ -82,12 +76,12 @@ function users_admin($mthd)
                                 <input class="form-control" id="twitter" name='twitter_id' value='<?php echo $user['twitter_id']; ?>'/>
 							</div>
                             <div>
-                                <label>
-                                    <?php echo gettext('gravatar');?>
-                                </label>
-                                <img class="img img-responsive img-circle"
+                                <label for="gravatar"><?php echo gettext('gravatar');?></label>
+                                <img alt="<?php $user['name'];?>'s Gravatar"
+                                     class="img img-responsive img-circle"
                                      data-src="<?php echo PHPArcade\Users::userGetGravatar($user['username']); ?>"
                                      height="80"
+                                     id="gravatar"
                                      style="float:right"
                                      width="80"
                                 />
@@ -109,12 +103,13 @@ function users_admin($mthd)
                 <div class="input-group col-lg-10">
                     <div class="input-group col-md-6 mt-4">
                         <span class="input-group-addon info col-lg-4" id="user-addon">
-                            <div class="align-middle mt-2">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                                <?php echo gettext('search');?>
-                            </div>
+                           <div class="align-middle mt-2">
+                               <i class="fa fa-search" aria-hidden="true"></i>
+                               <?php echo gettext('search');?>
+                           </div>
                         </span>
-                        <input type="text" class="form-control" id="userList" onkeyup="filterTable()" placeholder="<?php echo gettext('userfilter');?>" aria-describedby="user-addon">
+                        <label for="userList"></label>
+                        <input type="text" class="form-control" id="userList" name="<?php echo gettext('displayuserlist');?>" onkeyup="filterTable()" placeholder="<?php echo gettext('userfilter');?>" aria-describedby="user-addon">
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="table-responsive mt-4">

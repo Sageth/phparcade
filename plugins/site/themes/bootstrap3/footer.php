@@ -15,7 +15,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
 			<?php echo PHPArcade\Core::showGlyph('envelope');?> <?php echo gettext('contactus'); ?>
 		</a> |
 		<a href="<?php echo PHPArcade\Core::getLinkPage(1); ?>" title="<?php echo gettext('terms'); ?>">
-			<?php echo PHPArcade\Core::showGlyph('pencil');?> <?php echo gettext('terms'); ?>
+			<?php echo PHPArcade\Core::showGlyph('pencil-alt');?> <?php echo gettext('terms'); ?>
 		</a> |
 		<a href="<?php echo PHPArcade\Core::getLinkPage(2); ?>" title="<?php echo gettext('pp'); ?>">
 			<?php echo PHPArcade\Core::showGlyph('user-secret');?> <?php echo gettext('pp'); ?>
