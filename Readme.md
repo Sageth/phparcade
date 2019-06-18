@@ -1,4 +1,10 @@
 [![Build Status](https://travis-ci.org/Sageth/phparcade.svg?branch=master)](https://travis-ci.org/Sageth/phparcade)
+![PHP from Travis config](https://img.shields.io/travis/php-v/Sageth/phparcade/master.svg?style=plastic)
+![GitHub](https://img.shields.io/github/license/Sageth/phparcade.svg?style=plastic)
+![Twitter Follow](https://img.shields.io/twitter/follow/phparcade.svg?color=brightgreen&style=plastic)
+![Uptime Robot status](https://img.shields.io/uptimerobot/status/m777308707-9915db739f8f17d2c1b0e901.svg?label=website%20status&style=plastic)
+![Website](https://img.shields.io/website/https/www.phparcade.com.svg?down_color=informational&down_message=offline&style=plastic&up_color=green&up_message=online)
+
 
 ## Description
 This is a Responsive arcade script written in PHP that is -- in spirit -- based on the old (no longer 
@@ -11,16 +17,14 @@ better adherence to new coding standards.  A production "demo" of the front-end 
 If you are interested in fixing issues, would like to help make this application better, or just want to chat, please join
 our [PHPArcade Discord Server](http://discord.gg/wzr3PCf).
 
-Please create your pull request against the `qa-integration` branch.  This will allow for sufficient testing of both CI/CD and manual methods.  Once it passes testing, Code Owner(s) will submit a PR against the master branch.  Or, to think of this another way:  `master` is Production.  `qa-integration` is for QA testing.
+Please create your pull request against the `master` branch. Tests must pass in order for the PR to be merged, though right now our tests are small and not too intricate, so we could use some help there. 
 
 ## Features (screenshots below)
 * Add/edit pages via GUI
 * Add/edit games manually
-* Pre-configured advertising placements
 * Custom languages possible via .PO files, English default
 * Customizable theme modules and uploading
 * Database-driven design, including stored procedures and indexed queries
-* [Disqus](https://disqus.com/) Commenting System (optional)
 * External email support (e.g. [Google Apps for Work](https://goo.gl/S3SgCr), Gmail)
 * HTML5 games and other custom code implementations
 * Internal high score system for some game types, primarily ibPro v2
@@ -48,7 +52,7 @@ repositories. This code has not been tested on Apache. It may work with some bas
 
 ## Credits
 * [Binary Theme](http://www.binarytheme.com/) for use of the Responsive Theme
-* [CDNJS](https://cdnjs.com/) is used CDN-hosted javascript files.
+* [CDNJS](https://cdnjs.com/) is used for CDN-hosted javascript files.
 * [Google ReCaptcha](https://github.com/google/recaptcha) is used for bot verification
 * [PHP Mailer](https://www.github.com/PHPMailer/PHPMailer) is used for email notifications.
 * [phpArcade](https://www.phparcade.com) is made open source by permission. Please note that the maintainer(s) of this 

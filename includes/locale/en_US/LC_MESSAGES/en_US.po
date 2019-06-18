@@ -212,15 +212,6 @@ msgstr "Display in menu"
 msgid "displayuserlist"
 msgstr "User List"
 
-msgid "disqus"
-msgstr "Disqus"
-
-msgid "disqus_enabled"
-msgstr "Enable Disqus"
-
-msgid "disqus_user"
-msgstr "Disqus username"
-
 msgid "domainhelper"
 msgstr "This is typically your domain name (without www)"
 
@@ -577,12 +568,6 @@ msgstr "Meta Tags"
 
 msgid "minimumwidth"
 msgstr "Minimum Width (Set to -1 for no minimum.)"
-
-msgid "mixpanel"
-msgstr "MixPanel"
-
-msgid "mixpanel_id"
-msgstr "MixPanel ID"
 
 msgid "months"
 msgstr "Month(s)"

@@ -65,8 +65,6 @@ CREATE TABLE IF NOT EXISTS `config` (
 
 INSERT INTO `phparcade`.`config` SET `key`='defgheight',`value`='600';
 INSERT INTO `phparcade`.`config` SET `key`='defgwidth',`value`='800';
-INSERT INTO `phparcade`.`config` SET `key`='disqus_on',`value`='off';
-INSERT INTO `phparcade`.`config` SET `key`='disqus_user',`value`='';
 INSERT INTO `phparcade`.`config` SET `key`='emailactivation',`value`='off';
 INSERT INTO `phparcade`.`config` SET `key`='emaildebug',`value`='0';
 INSERT INTO `phparcade`.`config` SET `key`='emaildomain',`value`='';
@@ -85,7 +83,6 @@ INSERT INTO `phparcade`.`config` SET `key`='imgurl',`value`='http://localhost/im
 INSERT INTO `phparcade`.`config` SET `key`='membersenabled',`value`='on';
 INSERT INTO `phparcade`.`config` SET `key`='metadesc',`value`='PHPArcade is a free, open source (FOSS), online flash game arcade script. Download the GitHub script now to set up your own HTML5 and Flash game website for free!';
 INSERT INTO `phparcade`.`config` SET `key`='metakey',`value`='Free,online,game,arcade,action,adventure,arcade,casino,card,driving,flying,shooting, simulation,sports,puzzle,strategy,racing,word';
-INSERT INTO `phparcade`.`config` SET `key`='mixpanel_id',`value`='';
 -- Order isn't used in the front-end, but is still needed for other functionality.
 INSERT INTO `phparcade`.`config` SET `key`='order',`value`='name';
 INSERT INTO `phparcade`.`config` SET `key`='passwordrecovery',`value`='on';

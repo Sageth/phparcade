@@ -40,6 +40,5 @@ foreach ($games as $game) {
     }
 } ?>
 <!--suppress XmlDefaultAttributeValue -->
-<script async type="text/javascript" src="<?php echo JS_LAZYLOAD; ?>" integrity="<?php echo JS_LAZYLOAD_SRI;?>"
-        crossorigin="anonymous"></script>
+
 <!--End Content Section -->

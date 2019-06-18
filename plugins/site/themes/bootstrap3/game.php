@@ -127,20 +127,6 @@ global $params; ?>
             </div>
             <!-- End Game Code --><?php
         }
-        if ($dbconfig['disqus_on'] === 'on') {
-            ?>
-            <div class="clearfix invisible"></div>
-            <div class="col-lg-12">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><?php echo gettext('disqus'); ?></h3>
-                    </div>
-                    <div class="panel-body">
-                        <?php include_once(INST_DIR . 'includes/js/Disqus/disqus.php'); ?>
-                    </div>
-                </div>
-            </div><?php
-        }
     } else {
         ?>
         <h1><?php echo gettext('404status'); ?></h1>
@@ -219,16 +205,4 @@ global $params; ?>
           "url":"<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"
         }
     </script>
-    <?php if (!empty($dbconfig['mixpanel_id'])) {
-                    ?>
-        <script>
-            mixpanel.track(
-                "Loaded Game",
-                {
-                    "GameName": "<?php echo $game['name']; ?>"
-                }
-            );
-        </script>
-    <?php
-                } ?>
 </div>

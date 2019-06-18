@@ -128,8 +128,7 @@ function site_admin($mthd)
         case 'logout':
             PHPArcade\Users::userSessionEnd();
             break;
-        case 'site-config':
-            ?>
+        case 'site-config': ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
                 <div class="container">
                     <div class="card-deck mt-4 ml-5">
@@ -275,7 +274,6 @@ function site_admin($mthd)
             PHPArcade\Core::showSuccess(gettext('updatesuccess'));
             break;
         case 'feature-config':
-            $checkeddisqus = ($dbconfig['disqus_on'] === 'on') ? 'checked' : "";
             $checkedemailact = ($dbconfig['emailactivation'] === 'on') ? 'checked' : "";
             $checkedfacebk = ($dbconfig['facebook_on'] === 'on') ? 'checked' : "";
             $checkedfeed = ($dbconfig['rssenabled'] === 'on') ? 'checked' : "";
@@ -287,30 +285,11 @@ function site_admin($mthd)
 				<div class="card-deck mt-4">
 					<div class="card">
 						<div class="card-header">
-							<?php echo PHPArcade\Core::showGlyph('comments');?>&nbsp;<?php echo gettext('disqus'); ?>
-						</div>
-						<div class="card-body">
-							<div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('commenting-o');?>
-                                <label><?php echo gettext('disqus_enabled'); ?></label>
-                                <div class="checkbox-inline pull-right">
-                                    <label for="disqus_on"></label>
-                                    <input type="checkbox" name="disqus_on" id="disqus_on" <?php echo $checkeddisqus; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div class="form-group">
-                                <label><?php echo gettext('disqus_user'); ?></label>
-                                <input class="form-control" title="Disqus User" name='disqus_user'
-                                       value='<?php echo $dbconfig['disqus_user']; ?>'
-                                />
-                            </div>
-                        </div>
-                        <div class="card-footer">&nbsp;</div>
-                    </div>
-					<div class="card">
-						<div class="card-header">
-							<?php echo PHPArcade\Core::showGlyph('facebook');?>&nbsp;<?php echo gettext('facebook'); ?>
+                            <span style="color: blue;">
+							    <?php echo PHPArcade\Core::showGlyph('facebook', '1x', 'false', 'b');?>
+                            </span>
+                            &nbsp;
+                            <?php echo gettext('facebook'); ?>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
@@ -334,21 +313,6 @@ function site_admin($mthd)
                                 <input class="form-control" title="Facebook Page URL" name="facebook_pageurl"
                                        value="<?php echo $dbconfig['facebook_pageurl']; ?>"/>
                             </div>
-                        </div>
-                        <div class="card-footer">&nbsp;</div>
-					</div>
-					<div class="card">
-						<div class="card-header">
-							<?php echo PHPArcade\Core::showGlyph('bar-chart');?>&nbsp;<?php echo gettext('mixpanel'); ?>
-						</div>
-						<div class="card-body">
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('table'); ?>
-                                <label for="mixpanel_id"><?php echo gettext('mixpanel_id'); ?></label>
-                                <input class="form-control" title="MixPanel ID" name="mixpanel_id"
-                                       value="<?php echo $dbconfig['mixpanel_id']; ?>"/>
-                            </div>
-                            <p class="form-text">If you would like to disable this feature, please leave the field empty.</p>
                         </div>
                         <div class="card-footer">&nbsp;</div>
 					</div>
@@ -508,8 +472,6 @@ function site_admin($mthd)
         case 'feature-config-do':
             PHPArcade\Administrations::updateConfig('defgwidth', $_POST['defgwidth']);
             PHPArcade\Administrations::updateConfig('defgheight', $_POST['defgheight']);
-            PHPArcade\Administrations::updateConfig('disqus_on', array_key_exists('disqus_on', $_POST) ? 'on' : 'off');
-            PHPArcade\Administrations::updateConfig('disqus_user', $_POST['disqus_user']);
             PHPArcade\Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');
             PHPArcade\Administrations::updateConfig('emailfrom', $_POST['emailfrom']);
             PHPArcade\Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
@@ -519,7 +481,6 @@ function site_admin($mthd)
             PHPArcade\Administrations::updateConfig('gtm_id', $_POST['gtm_id']);
             PHPArcade\Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
             PHPArcade\Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
-            PHPArcade\Administrations::updateConfig('mixpanel_id', $_POST['mixpanel_id']);
             PHPArcade\Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
             PHPArcade\Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
             PHPArcade\Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');

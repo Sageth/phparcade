@@ -93,5 +93,6 @@ $content = $content ?? ''; ?>
     <script defer src="<?php echo JS_TABLESORT; ?>"></script>
     <script defer src="<?php echo JS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo JS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous"></script>
     <script defer src="<?php echo JS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo JS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous"></script>
+    <script defer src="https://kit.fontawesome.com/<?php echo FONT_AWESOME_KIT;?>.js" crossorigin="anonymous"></script>
 </body>
 </html>

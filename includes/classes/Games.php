@@ -50,7 +50,7 @@ class Games
             $image
                 ->fromFile(IMG_DIR . $fromImage)
                 ->resize($dbconfig['twidth'], $dbconfig['theight'])
-                ->toFile(IMG_DIR . $nameid . EXT_IMG, 'image/webp');
+                ->toFile(IMG_DIR . $nameid . EXT_IMG, EXT_IMG_MIMETYPE);
         } catch (Exception $e) {
             Core::showError($e, 'ambulance');
         }

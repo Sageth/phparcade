@@ -126,19 +126,6 @@ global $params; ?>
             <!-- End Game Code -->
             <?php
         }
-        if ($dbconfig['disqus_on'] === 'on') {
-            ?>
-            <div class="card-deck mt-4">
-                <div class="card">
-                    <h3 class="card-header">
-                        <?php echo gettext('disqus'); ?>
-                    </h3>
-                    <div class="card-body">
-                        <?php include_once(INST_DIR . 'includes/js/Disqus/disqus.php'); ?>
-                    </div>
-                </div>
-            </div><?php
-        }
     } else {
         ?>
         <h1><?php echo gettext('404status'); ?></h1>
@@ -213,15 +200,3 @@ global $params; ?>
           "url":"<?php echo SITE_URL . trim($_SERVER['REQUEST_URI'], '/'); ?>"
         }
     </script>
-    <?php if (!empty($dbconfig['mixpanel_id'])) {
-                    ?>
-        <script>
-            mixpanel.track(
-                "Loaded Game",
-                {
-                    "GameName": "<?php echo $game['name']; ?>"
-                }
-            );
-        </script>
-    <?php
-                } ?>
