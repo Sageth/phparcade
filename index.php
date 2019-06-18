@@ -38,5 +38,6 @@ $router->any('{route:.*}', function () {
 
 $response = (new Phroute\Phroute\Dispatcher($router->getData()))->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 
-require_once INST_DIR . 'includes/first.php';
-require_once SITE_THEME_PATH;
+require_once(INST_DIR . 'includes/first.php');
+	/** @noinspection PhpIncludeInspection */
+	require_once(SITE_THEME_PATH);

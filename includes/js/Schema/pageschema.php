@@ -6,6 +6,6 @@
     "url":"<?php echo SITE_URL; ?>",
     "sameAs": [
       "<?php echo $dbconfig['facebook_pageurl']; ?>"
-    ],
+    ]
   }
 </script>

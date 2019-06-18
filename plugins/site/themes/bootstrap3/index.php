@@ -124,6 +124,7 @@ require_once __DIR__ . '/themeconfig.php';
         </script>
         <!-- LazyLoader END-->
         <!-- Font Awesome BEGIN-->
+        <!--suppress JSUnresolvedLibraryURL -->
         <script async src="https://kit.fontawesome.com/<?php echo FONT_AWESOME_KIT;?>.js" crossorigin="anonymous"></script>
         <!-- Font Awesome END -->
     </body>

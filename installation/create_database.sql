@@ -331,7 +331,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Ads_GetAllbyName`()
     SELECT `id`, `name`,`location`
     FROM `ads`
     WHERE `location` != ''
-    ORDER BY `name` ASC;
+    ORDER BY `name`;
   END ;;
 DELIMITER ;
 
@@ -374,7 +374,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Categories_GetCategoriesByO
   BEGIN
     SELECT *
     FROM `categories`
-    ORDER BY `order` ASC;
+    ORDER BY `order`;
   END ;;
 DELIMITER ;
 
@@ -530,7 +530,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesByCategory_AS
     WHERE `cat` = g_category
           AND `active` = 'Yes'
           AND release_date <= g_release_date
-    ORDER BY `name` ASC
+    ORDER BY `name`
     LIMIT g_limitstart, g_limitend;
   END ;;
 DELIMITER ;
@@ -606,7 +606,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Games_GetGamesByReleasedate
     SELECT *
     FROM `games`
     WHERE `release_date` != g_release_date
-    ORDER BY `name` ASC
+    ORDER BY `name`
     LIMIT g_limitstart, g_limitend;
   END ;;
 DELIMITER ;
@@ -852,7 +852,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_GamesScore_GetScores_ASC`(
     SELECT *
     FROM `games_score`
     WHERE `nameid` = gamenameid
-    ORDER BY `score` ASC
+    ORDER BY `score`
     LIMIT limitnum;
   END ;;
 DELIMITER ;
@@ -998,7 +998,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Members_GetAllMembers`()
   BEGIN
     SELECT `id`,`username`,`totalgames`,`ip`,`last_login`
     FROM `members`
-    ORDER BY `username` ASC;
+    ORDER BY `username`;
   END ;;
 DELIMITER ;
 
@@ -1174,7 +1174,7 @@ CREATE DEFINER=`phparcade`@`localhost` PROCEDURE `sp_Pages_GetPagesbyID_ASC`()
     SELECT *
     FROM `pages`
     WHERE `id` != ''
-    ORDER BY `id` ASC;
+    ORDER BY `id`;
   END ;;
 DELIMITER ;
 

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace PHPArcade;
 
+use PDOException;
+
 {
 
     class Administrations

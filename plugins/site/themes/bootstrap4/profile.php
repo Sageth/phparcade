@@ -79,7 +79,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                 if ($user['facebook_id'] != "") {
                                     ?>
                                     <a href="<?php echo URL_FACEBOOK . $user['facebook_id']; ?>" target="_blank" rel="noopener">
-                                        <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?>
+                                        <?php echo PHPArcade\Core::showGlyph('facebook', '2x', 'false', 'b'); ?>
                                     </a><?php
                                 } else {
                                     echo PHPArcade\Core::showGlyph('facebook', '2x', 'false'); ?><?php
@@ -88,7 +88,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                     ?>
                                     <a href="<?php echo URL_GITHUB . $user['github_id']; ?>" rel="noopener"
                                        target="_blank">
-                                            <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false'); ?>
+                                            <?php echo PHPArcade\Core::showGlyph('github', '2x', 'false', 'b'); ?>
                                     </a><?php
                                 } else {
                                     echo PHPArcade\Core::showGlyph('github', '2x', 'false');
@@ -97,7 +97,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                     ?>
                                     <a href="<?php echo URL_TWITTER . $user['twitter_id']; ?>" rel="noopener"
                                        target="_blank">
-                                            <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false'); ?>
+                                            <?php echo PHPArcade\Core::showGlyph('twitter', '2x', 'false', 'b'); ?>
                                     </a><?php
                                 } else {
                                     echo PHPArcade\Core::showGlyph('twitter', '2x', 'false');
@@ -254,6 +254,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         </label>
                                         <div class="col-sm-8">
                                             <input class="form-control"
+                                                   id="birth_date"
                                                    name="birth_date"
                                                    pattern="^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$"
                                                    placeholder="<?php echo date('Y-m-d', $user['birth_date']); ?>"
@@ -267,7 +268,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-4 col-form-label" for="email">
+                                        <label class="col-sm-4 col-form-label" for="changePassword">
                                             <?php echo gettext('password'); ?>
                                         </label>
                                         <div class="col-sm-8">
@@ -296,9 +297,12 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                          <div class="col">
                                             <span class="input-group-prepend">
                                                 <div class="input-group-text border-right-0">
-                                                    <?php echo gettext('facebook_link'); ?>
+                                                    <label for="facebook"><?php echo gettext('facebook_link'); ?></label>
                                                 </div>
-                                                <input class="form-control" id="facebook" name="facebook_id" placeholder="Friendly Name"
+                                                <input class="form-control"
+                                                       id="facebook"
+                                                       name="facebook_id"
+                                                       placeholder="Friendly Name"
                                                        value="<?php echo $user['facebook_id']; ?>"/>
                                             </span>
                                         </div>
@@ -307,9 +311,12 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         <div class="col">
                                             <span class="input-group-prepend">
                                                 <div class="input-group-text border-right-0">
-                                                    <?php echo URL_GITHUB; ?>
+                                                    <label for="github_id"><?php echo URL_GITHUB; ?></label>
                                                 </div>
-                                                <input class="form-control" id="github_id" name="github_id" placeholder="Friendly Name"
+                                                <input class="form-control"
+                                                       id="github_id"
+                                                       name="github_id"
+                                                       placeholder="Friendly Name"
                                                        value="<?php echo $user['github_id']; ?>"/>
                                             </span>
                                         </div>
@@ -318,9 +325,11 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         <div class="col">
                                             <span class="input-group-prepend">
                                                 <div class="input-group-text border-right-0">
-                                                    <?php echo gettext('twitter_link');?>
+                                                    <label for="twitter"><?php echo gettext('twitter_link');?></label>
                                                 </div>
-                                                <input class="form-control" id="twitter" name="twitter_id"
+                                                <input class="form-control"
+                                                       id="twitter"
+                                                       name="twitter_id"
                                                        placeholder="Friendly Name" type="text"
                                                        value="<?php echo $user['twitter_id']; ?>"/>
                                             </span>
@@ -328,7 +337,9 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                     </div>
                                     <div class="form-group row text-center mt-4">
                                         <div class="col-sm-8">
-                                            <a class="btn btn-primary" href="https://gravatar.com" rel="noopener"
+                                            <a class="btn btn-primary"
+                                               href="https://gravatar.com"
+                                               rel="noopener"
                                                target="_blank">
                                                 Change Gravatar
                                             </a>
