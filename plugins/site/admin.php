@@ -1,5 +1,8 @@
 <?php
-function site_admin($mthd)
+
+	use PHPArcade\Core;
+
+	function site_admin($mthd)
 {
     $dbconfig = PHPArcade\Core::getDBConfig();
     $prerequisites = PHPArcade\Administrations::getPreReqs();
@@ -282,186 +285,196 @@ function site_admin($mthd)
             $checkeduserson = ($dbconfig['membersenabled'] === 'on') ? 'checked' : "";
             ?>
 			<form action="<?php echo SITE_URL_ADMIN; ?>index.php" method="POST" enctype="multipart/form-data">
-				<div class="card-deck mt-4">
+				<div class="accordion m-4" id="SettingsAccordion">
 					<div class="card">
-						<div class="card-header">
-                            <span style="color: blue;">
-							    <?php echo PHPArcade\Core::showGlyph('facebook', '1x', 'false', 'b');?>
-                            </span>
-                            &nbsp;
-                            <?php echo gettext('facebook'); ?>
+						<div class="card-header" id="FacebookHeading">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFacebook" aria-expanded="true" aria-controls="collapseFacebook" style="color: blue; text-decoration: none;">
+                                <?php echo PHPArcade\Core::showGlyph('chevron-down');?>
+                                &nbsp;
+                                <?php echo gettext('facebook'); ?>
+                                &nbsp;
+	                            <?php echo PHPArcade\Core::showGlyph('facebook', '1x', 'false', 'b');?>
+                            </button>
 						</div>
-						<div class="card-body">
-							<div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('database');?>
-                                <label><?php echo gettext('facebook_enabled'); ?></label>
-                                <div class="checkbox-inline pull-right">
-                                    <label for="facebook_on"></label>
-                                    <input disabled type="checkbox" name="facebook_on" id="facebook_on" <?php echo $checkedfacebk; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                        <div id="collapseFacebook" class="collapse hide" aria-labelledby="FacebookHeading" data-parent="#SettingsAccordion">
+                            <div class="card-body ml-4">
+							    <div class="form-group">
+                                    <label for="facebook_appid"><?php echo gettext('facebook_appid'); ?></label>
+                                    <input class="form-control" title="Facebook App ID" name="facebook_appid" id="facebook_appid" value="<?php echo $dbconfig['facebook_appid']; ?>"/>
+                                    <small class="form-text"><?php echo gettext('facebook_developers'); ?></small>
+                                </div>
+                                <hr/>
+    							<div class="form-group">
+                                    <label for="facebook_pageurl"><?php echo gettext('facebook_pageurl'); ?></label>
+                                    <input class="form-control" title="Facebook Page URL" name="facebook_pageurl" id="facebook_pageurl" value="<?php echo $dbconfig['facebook_pageurl']; ?>"/>
                                 </div>
                             </div>
-                        	<hr/>
-							<div class="form-group">
-                                <label><?php echo gettext('facebook_appid'); ?></label>
-                                <input class="form-control" title="Facebook App ID" name='facebook_appid'
-                                       value='<?php echo $dbconfig['facebook_appid']; ?>'/>
-                                <small class="form-text"><?php echo gettext('facebook_developers'); ?></small>
-                            </div>
-                            <hr/>
-							<div class="form-group">
-                                <label><?php echo gettext('facebook_pageurl'); ?></label>
-                                <input class="form-control" title="Facebook Page URL" name="facebook_pageurl"
-                                       value="<?php echo $dbconfig['facebook_pageurl']; ?>"/>
-                            </div>
                         </div>
-                        <div class="card-footer">&nbsp;</div>
 					</div>
-				</div>
-				<div class="card-deck mt-4">
+                    <div class="card">
+                        <div class="card-header" id="GeneralHeading">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseGeneral" aria-expanded="true" aria-controls="collapseGeneral" style="text-decoration: none;">
+								<?php echo PHPArcade\Core::showGlyph('chevron-down');?>
+                                &nbsp;
+								<?php echo gettext('general'); ?>
+                                &nbsp;
+								<?php echo PHPArcade\Core::showGlyph('list');?>&nbsp;
+                            </button>
+                        </div>
+                        <div id="collapseGeneral" class="collapse hide" aria-labelledby="GeneralHeading" data-parent="#SettingsAccordion">
+                            <div class="card-body ml-4">
+                                <div class="form-group">
+                                    <?php echo PHPArcade\Core::showGlyph('users');?>
+                                    <label for="membersenabled"><?php echo gettext('usersenabled'); ?></label>
+                                    <div class="form-inline">
+                                        <label for="membersenabled"></label>
+                                        <input type="checkbox" name="membersenabled" id="membersenabled" <?php echo $checkeduserson; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <?php echo PHPArcade\Core::showGlyph('list');?>
+                                    <label for="emailactivation"><?php echo gettext('emailactivation'); ?></label>
+                                    <div class="form-inline">
+                                        <label for="emailactivation"></label>
+                                        <input type="checkbox" name="emailactivation" id="emailactivation" <?php echo $checkedemailact; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <?php echo PHPArcade\Core::showGlyph('list');?>
+                                    <label for="passwordrecovery"><?php echo gettext('allowpasswordrecovery'); ?></label>
+                                    <div class="form-inline">
+                                        <label for="passwordrecovery"></label>
+                                        <input type="checkbox" name="passwordrecovery" id="passwordrecovery" <?php echo $checkedpassrecovery; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <?php echo PHPArcade\Core::showGlyph('envelope');?>
+                                    <label for="emailfrom"><?php echo gettext('emailaddressfrom'); ?></label>
+                                    <input class="form-control" name="emailfrom" id="emailfrom" value='<?php echo $dbconfig['emailfrom']; ?>'/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 					<div class="card">
-						<div class="card-header">
-							<?php echo PHPArcade\Core::showGlyph('google');?>&nbsp;<?php echo gettext('google'); ?>
+                        <div class="card-header" id="GoogleHeading">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseGoogle" aria-expanded="true" aria-controls="collapseGoogle" style="color: red; text-decoration: none;">
+	                            <?php echo PHPArcade\Core::showGlyph('chevron-down');?>
+                                &nbsp;
+                                <?php echo gettext('google'); ?>
+                                &nbsp;
+	                            <?php echo PHPArcade\Core::showGlyph('google', '1x', 'false', 'b');?>&nbsp;
+                            </button>
 						</div>
-						<div class="card-body">
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('google');?>&nbsp;
-                                <label><?php echo gettext('gtm_enabled'); ?></label>
-                                <div class="pull-right">
-                                    <label for="gtm_enabled"></label>
-                                    <input type="checkbox" name="gtm_enabled" id="gtm_enabled" <?php echo $checkedgtmon; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                        <div id="collapseGoogle" class="collapse hide" aria-labelledby="GoogleHeading" data-parent="#SettingsAccordion">
+                            <div class="card-body ml-4">
+                                <div class="form-group">
+                                    <?php echo PHPArcade\Core::showGlyph('google', '1x', 'false', 'b');?>&nbsp;
+                                    <label for="gtm_enabled"><?php echo gettext('gtm_enabled'); ?></label>
+                                    <div class="form-inline">
+                                        <input type="checkbox" name="<?php echo gettext('gtm_enabled'); ?>" id="gtm_enabled" <?php echo $checkedgtmon; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gtm_id"><?php echo gettext('gtm_id'); ?></label>
+                                    <input class="form-control" title="<?php echo gettext('gtm_id'); ?>" name='gtm_id' id="gtm_id"
+                                           value='<?php echo $dbconfig['gtm_id']; ?>'/>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
+                                    <?php echo PHPArcade\Core::showGlyph('database');?>
+                                    <label for="google_recaptcha_sitekey"><?php echo gettext('google_recaptcha_sitekey'); ?></label>
+                                    <input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
+                                           name='google_recaptcha_sitekey' id="google_recaptcha_sitekey"
+                                           value='<?php echo $dbconfig['google_recaptcha_sitekey']; ?>'/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="google_recaptcha_secretkey"><?php echo gettext('google_recaptcha_secretkey'); ?></label>
+                                    <input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>"
+                                           name='google_recaptcha_secretkey' id="google_recaptcha_secretkey"
+                                           value='<?php echo $dbconfig['google_recaptcha_secretkey']; ?>'/>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('gtm_id'); ?></label>
-                                <input class="form-control" title="Google Tag Manager ID" name='gtm_id'
-                                       value='<?php echo $dbconfig['gtm_id']; ?>'/>
-                            </div>
-                            <hr/>
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('database');?>
-                                <label><?php echo gettext('google_recaptcha_sitekey'); ?></label>
-                                <input class="form-control" title="<?php echo gettext('google_recaptcha_sitekey');?>"
-                                       name='google_recaptcha_sitekey'
-                                       value='<?php echo $dbconfig['google_recaptcha_sitekey']; ?>'/>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('google_recaptcha_secretkey'); ?></label>
-                                <input class="form-control" title="<?php echo gettext('google_recaptcha_secretkey');?>"
-                                       name='google_recaptcha_secretkey'
-                                       value='<?php echo $dbconfig['google_recaptcha_secretkey']; ?>'/>
-                            </div>
                         </div>
-                        <div class="card-footer">&nbsp;</div>
                     </div>
                     <div class="card">
-                        <div class="card-header">
-                            <?php echo gettext('thumbnails'); ?>
+                        <div class="card-header" id="MediaHeading">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseMedia" aria-expanded="true" aria-controls="collapseMedia" style="text-decoration: none;">
+		                        <?php echo PHPArcade\Core::showGlyph('chevron-down');?>
+                                &nbsp;
+		                        <?php echo gettext('media'); ?>
+                                &nbsp;
+		                        <?php echo PHPArcade\Core::showGlyph('photo-video');?>&nbsp;
+                            </button>
                         </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label><?php echo gettext('width'); ?></label>
-                                <input class="form-control" title="Thumbnail Width" name='twidth'
-                                       value='<?php echo $dbconfig['twidth']; ?>'/>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('height'); ?></label>
-                                <input class="form-control" title="Thumbnail Height" name='theight'
-                                       value='<?php echo $dbconfig['theight']; ?>'/>
+                        <div id="collapseMedia" class="collapse hide" aria-labelledby="MediaHeading" data-parent="#SettingsAccordion">
+                            <div class="card-body ml-4">
+                                <div class="form-group form-inline">
+                                    <label for="twidth"><?php echo gettext('width'); ?></label>
+                                    &nbsp;
+                                    <input class="form-control" title="<?php echo gettext('width'); ?>" name='twidth' id="twidth"
+                                           value='<?php echo $dbconfig['twidth']; ?>'/>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="theight"><?php echo gettext('height'); ?></label>
+                                    &nbsp;
+                                    <input class="form-control" title="<?php echo gettext('height'); ?>" name="theight" id="theight"
+                                           value='<?php echo $dbconfig['theight']; ?>'/>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="defgwidth"><?php echo gettext('defaultwidth'); ?></label>
+                                    &nbsp;
+                                    <input class="form-control" title="<?php echo gettext('defaultwidth'); ?>" name='defgwidth' id="defgwidth"
+                                           value='<?php echo $dbconfig['defgwidth']; ?>'/>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="defgheight"><?php echo gettext('defaultheight'); ?></label>
+                                    &nbsp;
+                                    <input class="form-control" title="<?php echo gettext('defaultheight'); ?>" name='defgheight' id="defgheight"
+                                           value='<?php echo $dbconfig['defgheight']; ?>'/>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-footer">&nbsp;</div>
                     </div>
                     <div class="card">
-                        <div class="card-header">
-                            <?php echo gettext('mediafiles'); ?>
+                        <div class="card-header" id="RSSHeading">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseRSS" aria-expanded="true" aria-controls="collapseRSS" style="text-decoration: none;">
+                                <?php echo PHPArcade\Core::showGlyph('chevron-down');?>
+                                &nbsp;
+                                <?php echo gettext('rssfeeds'); ?>
+                                &nbsp;
+                                <?php echo PHPArcade\Core::showGlyph('rss');?>&nbsp;
+                            </button>
                         </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label><?php echo gettext('defaultwidth'); ?></label>
-                                <input class="form-control" title="Default Game Width" name='defgwidth'
-                                       value='<?php echo $dbconfig['defgwidth']; ?>'/>
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo gettext('defaultheight'); ?></label>
-                                <input class="form-control" title="Default Game Height" name='defgheight'
-                                       value='<?php echo $dbconfig['defgheight']; ?>'/>
-                            </div>
-                        </div>
-                        <div class="card-footer">&nbsp;</div>
-                    </div>
-                </div>
-                <div class="card-deck mt-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <?php echo gettext('rssfeeds'); ?>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('rss');?>
-                                <label><?php echo gettext('enablerss'); ?></label>
-                                <div class="checkbox-inline pull-right">
-                                    <input type="checkbox" name="rssenabled" title="rssenabled" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                        <div id="collapseRSS" class="collapse hide" aria-labelledby="RSSHeading" data-parent="#SettingsAccordion">
+                            <div class="card-body ml-4">
+                                <div class="form-group">
+                                    <?php echo PHPArcade\Core::showGlyph('rss');?>
+                                    <label for="rssenabled"><?php echo gettext('enablerss'); ?></label>
+                                    <div class="checkbox-inline pull-right">
+                                        <input type="checkbox" name="rssenabled" title="<?php echo gettext('enablerss'); ?>" id="rssenabled" <?php echo $checkedfeed;?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <?php echo PHPArcade\Core::showGlyph('asterisk');?>
+                                    <label for="rssnumlatest"><?php echo gettext('numlatest'); ?></label>
+                                    <input class="form-control" name='rssnumlatest' id="rssnumlatest" title="<?php echo gettext('numlatest'); ?>"
+                                           value='<?php echo $dbconfig['rssnumlatest']; ?>'/>
+                                </div>
+                                <hr />
+                                <div class="form-group">
+                                    <?php echo PHPArcade\Core::showGlyph('link');?>
+                                    <label for="rssfeed"><?php echo gettext('rssfeedurl'); ?></label>
+                                    <input class="form-control" id="rssfeed" name="rssfeed" title="<?php echo gettext('rssfeedurl'); ?>"
+                                           value='<?php echo $dbconfig['rssfeed']; ?>'/>
+                                    <small class="form-text text-muted"><?php echo gettext('rssfeedexample1'); ?></small>
+                                    <small class="form-text text-muted"><?php echo gettext('rssfeedexample2'); ?></small>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('asterisk');?>
-                                <label><?php echo gettext('numlatest'); ?></label>
-                                <input class="form-control" name='rssnumlatest' title="rssnumlatest"
-                                       value='<?php echo $dbconfig['rssnumlatest']; ?>'/>
-                            </div>
-                            <hr />
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('link');?>
-                                <label><?php echo gettext('rssfeedurl'); ?></label>
-                                <input class="form-control" name='rssfeed' title="rssfeed"
-                                       value='<?php echo $dbconfig['rssfeed']; ?>'/>
-                                <small class="form-text"><?php echo gettext('rssfeedexample1'); ?></small>
-                                <small class="form-text"><?php echo gettext('rssfeedexample2'); ?></small>
-                            </div>
                         </div>
-                        <div class="card-footer">&nbsp;</div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <?php echo PHPArcade\Core::showGlyph('envelope');?>&nbsp;<?php echo gettext('general'); ?>
-                            <small class="form-text pull-right"><?php echo gettext('google_appsforbusiness');?></small>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('users');?>
-                                <label><?php echo gettext('usersenabled'); ?></label>
-                                <div class="checkbox-inline pull-right">
-                                    <label for="membersenabled"></label>
-                                    <input type="checkbox" name="membersenabled" id="membersenabled" <?php echo $checkeduserson; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('list');?>
-                                <label><?php echo gettext('emailactivation'); ?></label>
-                                <div class="checkbox-inline pull-right">
-                                    <label for="emailactivation"></label>
-                                    <input type="checkbox" name="emailactivation" id="emailactivation" <?php echo $checkedemailact; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('list');?>
-                                <label><?php echo gettext('allowpasswordrecovery'); ?></label>
-                                <div class="checkbox-inline pull-right">
-                                    <label for="passwordrecovery"></label>
-                                    <input type="checkbox" name="passwordrecovery" id="passwordrecovery" <?php echo $checkedpassrecovery; ?> data-toggle="toggle" data-onstyle="success" data-offstyle="danger"/>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group">
-                                <?php echo PHPArcade\Core::showGlyph('envelope');?>
-                                <label for="emailfrom"><?php echo gettext('emailaddressfrom'); ?></label>
-                                <input class="form-control" name="emailfrom" id="emailfrom" value='<?php echo $dbconfig['emailfrom']; ?>'/>
-                            </div>
-                        </div>
-                        <div class="card-footer">&nbsp;</div>
                     </div>
                 </div>
                 <input type='hidden' name='act' value='site' />
