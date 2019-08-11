@@ -2,8 +2,6 @@
 $adminarea = true;
 
 /* Always show errors in Admin */
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 /* End Show Errors */
 
@@ -48,14 +46,7 @@ $content = $content ?? ''; ?>
     sort($files);
     $arr = [];
     foreach ($files as $file) {
-        switch ($file) {
-            case '.':
-            case '..':
-                continue 2;
-        }
-        if ($file[0] != '~') {
-            $arr[] = $file;
-        }
+        $arr[] = $file;
     }
     include INST_DIR . 'includes/first.php';
     foreach ($arr as $plugin) {
