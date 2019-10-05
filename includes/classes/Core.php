@@ -50,7 +50,7 @@ use PDO;
             global $links_arr;
             $page = Pages::getPage($id);
             return str_replace(
-                array('%id%', '%name%'),
+                array('%id%', P_NAME),
                 array($id, self::getCleanURL($page['title'])),
                 $links_arr['page']
             );
@@ -65,7 +65,7 @@ use PDO;
         {
             global $gamelist;
             $links_arr = self::loadLinks();
-            return str_replace('%name%', $gamelist[$id], str_replace('%id%', $id, $links_arr['game']));
+            return str_replace(P_NAME, $gamelist[$id], str_replace('%id%', $id, $links_arr['game']));
         }
 
         public static function getCleanURL($string)
@@ -79,7 +79,7 @@ use PDO;
         public static function getLinkCategory($name = 'all', $page = 1)
         {
             global $links_arr;
-            return str_replace('%page%', $page, str_replace('%name%', $name, $links_arr['category']));
+            return str_replace('%page%', $page, str_replace(P_NAME, $name, $links_arr['category']));
         }
 
         public static function getLinkLogout()

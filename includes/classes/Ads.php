@@ -21,7 +21,7 @@ class Ads
     {
         /* Used by admin to show the advertisement code, edit location, etc. */
         $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_GetAdbyID(:adid);');
-        $stmt->bindParam(':adid', $id);
+        $stmt->bindParam(P_ADID, $id);
         $stmt->execute();
         return $stmt->fetch();
     }
@@ -35,7 +35,7 @@ class Ads
     public static function deleteAd($id)
     {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_Delete_ID(:adid);');
-        $stmt->bindParam(':adid', $id);
+        $stmt->bindParam(P_ADID, $id);
         $stmt->execute();
         Core::showSuccess(gettext('deletesuccess'));
     }
@@ -43,7 +43,7 @@ class Ads
     {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_Ads_Insert(:adid, :adname, :adcode, :adlocation, :advertiser, :adcomments)');
-        $stmt->bindParam(':adid', $id);
+        $stmt->bindParam(P_ADID, $id);
         $stmt->bindParam(':adname', $name);
         $stmt->bindParam(':adcode', $code);
         $stmt->bindParam(':adlocation', $location);
@@ -65,7 +65,7 @@ class Ads
     {
         $stmt =
             mySQL::getConnection()->prepare('CALL sp_Ads_Update(:adid, :adname, :adcode, :adlocation, :advertiser, :adcomments)');
-        $stmt->bindParam(':adid', $id);
+        $stmt->bindParam(P_ADID, $id);
         $stmt->bindParam(':adname', $name);
         $stmt->bindParam(':adcode', $code);
         $stmt->bindParam(':adlocation', $location);

@@ -36,6 +36,12 @@ define('SWF_DIR', INST_DIR . 'swf/');
 define('SWF_URL', SITE_URL . 'swf/');
 define('TOP_SCORE_COUNT', 10);
 
+/* Parameter constants */
+define('P_ADID', ':adid');
+define('P_CONTENT', 'content');
+define('P_NAME', '%name%');
+define('P_SCORE', 'score');
+
 /* ===== LIBRARIES USED THROUGHOUT THE SITE
    ===== YOU CAN FIND THEME-SPECIFIC CONSTANTS IN THE themeconfig.php FILE IN EACH THEME */
 
@@ -69,8 +75,8 @@ define('JS_JQUERY_UI', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/j
 define('JS_JQUERY_UI_SRI', 'sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=');
 
 /* CDNJS - VANILLA-LAZYLOAD */
-define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/12.0.0/lazyload.min.js');
-define('JS_LAZYLOAD_SRI', 'sha256-Hju/Km2VA4ESE7rKn14wlhjKloE2GZylMqClFnwLDxw=');
+define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/12.0.3/lazyload.min.js');
+define('JS_LAZYLOAD_SRI', 'sha256-07HbhWMzlSuhFpeiTy8zouvXxdqnEZ63A4KBLW2Efqc=');
 
 /* CDNJS - v2.2.0 - SWFOBJECT */
 define('JS_SWFOBJECT', 'https://cdnjs.cloudflare.com/ajax/libs/swfobject/2.2/swfobject.min.js');
