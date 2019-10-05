@@ -359,12 +359,12 @@ class Games
                 $stmt->bindParam(':release_date', $time);
                 $stmt->bindParam(':limitstart', $limitstart);
                 $stmt->bindParam(':limitend', $limitend);
+	            $stmt->execute();
+	            return $stmt->fetchAll();
                 break;
             default:
                 echo "ALL?";
         }
-        $stmt->execute();
-        return $stmt->fetchAll();
     }
     public static function getGamesHomePage()
     {
