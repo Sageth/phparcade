@@ -82,7 +82,7 @@ class Games
      */
     public static function deleteImage($imageFile){
         $ext = pathinfo(IMG_DIR . $imageFile, PATHINFO_EXTENSION);
-        if ($ext != EXT_IMG) {
+        if ($ext != EXT_IMG && (int) $_SESSION['user']['id'] && $_SESSION['user']['admin'] === 'yes') {
             unlink(IMG_DIR . $imageFile);
         }
     }
