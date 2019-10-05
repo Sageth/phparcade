@@ -15,10 +15,11 @@ use PDOException;
 
         public static function getPreReqs()
         {
-            return ['broken_games' => Games::getGamesBrokenCount() === 0 ? $broken = ['success', 'check'] : $broken = ['danger', 'support'],
-                'inactive_games' => Games::getGamesInactiveCount() === 0 ? $inactive = ['success', 'check'] : $inactive = ['warning', 'warning'],
-                'ssl' => (self::getScheme() === 'https://') ? ['success', 'lock'] : ['danger', 'unlock'],
-                'folder_session' => is_writable(session_save_path()) ? ['success', 'file'] : ['danger', 'pencil'],
+            return [
+            	'broken_games' => Games::getGamesBrokenCount() === 0 ? $broken = [CSS_SUCCESS, 'check'] : $broken = [CSS_DANGER, 'support'],
+                'inactive_games' => Games::getGamesInactiveCount() === 0 ? $inactive = [CSS_SUCCESS, 'check'] : $inactive = ['warning', 'warning'],
+                'ssl' => (self::getScheme() === 'https://') ? [CSS_SUCCESS, 'lock'] : [CSS_DANGER, 'unlock'],
+                'folder_session' => is_writable(session_save_path()) ? [CSS_SUCCESS, 'file'] : [CSS_DANGER, 'pencil'],
             ];
         }
 

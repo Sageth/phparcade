@@ -87,6 +87,9 @@ define('URL_FACEBOOK', 'https://www.facebook.com/');
 define('URL_GITHUB', 'https://github.com/');
 define('URL_GITHUB_PHPARCADE', 'https://github.com/Sageth/phpArcade/');
 define('URL_TWITTER', 'https://www.twitter.com/');
+
+define('CSS_DANGER', 'danger');
+define('CSS_SUCCESS', 'success');
 /* ====== END CONSTANTS ===== */
 
 
