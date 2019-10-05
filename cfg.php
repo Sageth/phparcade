@@ -39,8 +39,13 @@ define('TOP_SCORE_COUNT', 10);
 /* Parameter constants */
 define('P_ADID', ':adid');
 define('P_CONTENT', 'content');
+define('P_DESCRIPTION', 'description');
+define('P_GAMES', 'Games');
+define('P_KEYWORDS', 'keywords');
 define('P_NAME', '%name%');
 define('P_SCORE', 'score');
+define('P_TITLE', 'title');
+
 
 /* ===== LIBRARIES USED THROUGHOUT THE SITE
    ===== YOU CAN FIND THEME-SPECIFIC CONSTANTS IN THE themeconfig.php FILE IN EACH THEME */
