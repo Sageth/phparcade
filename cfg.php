@@ -42,6 +42,7 @@ define('P_CONTENT', 'content');
 define('P_DESCRIPTION', 'description');
 define('P_GAMES', 'Games');
 define('P_KEYWORDS', 'keywords');
+define('P_LOCATION', 'location');
 define('P_NAME', '%name%');
 define('P_SCORE', 'score');
 define('P_TITLE', 'title');
