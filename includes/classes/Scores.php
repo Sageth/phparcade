@@ -47,27 +47,27 @@ class Scores
 
         /* First, check that we don't have an empty scores array (prevents errors on the front-end.
            If the top score in games_champs is not equal to the top score in games_score, correct it */
-        if (!empty($scores) && $tscores['score'] != $scores[0]['score']) {
+        if (!empty($scores) && $tscores[P_SCORE] != $scores[0][P_SCORE]) {
             $player = Users::getUserbyID($scores[0]['player']);
 
             /* NameID is the game name ID */
-            Games::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0]['score'], $time);
-            self::notifyDiscordHighScore($game['name'], $player['username'], $scores[0]['score'], $link);
+            Games::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0][P_SCORE], $time);
+            self::notifyDiscordHighScore($game['name'], $player['username'], $scores[0][P_SCORE], $link);
         }
     }
     public static function formatScore($number, $dec = 1)
     { // cents: 0=never, 1=if needed, 2=always
         $number = floatval($number);
         if (!$number) {
-            $score['score'] = ($dec == 3 ? '0.00' : '0');
+            $score[P_SCORE] = ($dec == 3 ? '0.00' : '0');
         } else {
             if (floor($number) == $number) {
-                $score['score'] = number_format($number, ($dec == 3 ? 3 : 0));
+                $score[P_SCORE] = number_format($number, ($dec == 3 ? 3 : 0));
             } else {
-                $score['score'] = number_format(round($number, 3), ($dec == 0 ? 0 : 3));
+                $score[P_SCORE] = number_format(round($number, 3), ($dec == 0 ? 0 : 3));
             }
         }
-        return $score['score'];
+        return $score[P_SCORE];
     }
     public static function GetGameChampbyGameNameID($nameid)
     {
@@ -248,14 +248,14 @@ class Scores
         switch ($sort) {
             case 'ASC':
                 /* If the game is a low-score-wins game (e.g. Golf), then update the score */
-                if ($score <= $gamechamp['score']) {
+                if ($score <= $gamechamp[P_SCORE]) {
                     self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
                     self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
                 }
                 break;
             case 'DESC':
                 /* Otherwise, just make sure you have a higher score and then update */
-                if ($score >= $gamechamp['score']) {
+                if ($score >= $gamechamp[P_SCORE]) {
                     self::UpdatePlayerScoreInGameChamps($gameid, $playerid, $score, $time);
                     self::notifyDiscordHighScore($game['name'], $playername, $score, $link);
                 }
@@ -291,7 +291,7 @@ class Scores
             $gamescore = self::GetGameScorebyNameID($game['id'], $playerid);
             switch ($sort) {
                 case 'ASC':
-                    if ($score < $gamescore['score']) {
+                    if ($score < $gamescore[P_SCORE]) {
                         self::UpdateScoreIntoGameScore($gameid, $gamescore['player'], $score, $ip, $time);
                         self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
                         Core::loadRedirect($link);
@@ -300,7 +300,7 @@ class Scores
                     }
                     break;
                 case 'DESC':
-                    if ($score > $gamescore['score']) {
+                    if ($score > $gamescore[P_SCORE]) {
                         self::UpdateScoreIntoGameScore($gameid, $gamescore['player'], $score, $ip, $time);
                         self::notifyDiscordNewScore($game['name'], $playername, $score, $link);
                         Core::loadRedirect($link);

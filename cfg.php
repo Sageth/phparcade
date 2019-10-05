@@ -36,6 +36,11 @@ define('SWF_DIR', INST_DIR . 'swf/');
 define('SWF_URL', SITE_URL . 'swf/');
 define('TOP_SCORE_COUNT', 10);
 
+/* Parameter constants */
+define('P_ADID', ':adid');
+define('P_NAME', '%name%');
+define('P_SCORE', 'score');
+
 /* ===== LIBRARIES USED THROUGHOUT THE SITE
    ===== YOU CAN FIND THEME-SPECIFIC CONSTANTS IN THE themeconfig.php FILE IN EACH THEME */
 
