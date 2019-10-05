@@ -38,6 +38,7 @@ define('TOP_SCORE_COUNT', 10);
 
 /* Parameter constants */
 define('P_ADID', ':adid');
+define('P_CONTENT', 'content');
 define('P_NAME', '%name%');
 define('P_SCORE', 'score');
 

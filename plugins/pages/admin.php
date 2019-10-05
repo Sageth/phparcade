@@ -19,7 +19,7 @@ function pages_admin($mthd)
 								<input class="form-control" title="Title" name='title'/>
 							</div>
 							<div class="form-group">
-								<label><?php echo gettext('content'); ?></label>
+								<label><?php echo gettext(P_CONTENT); ?></label>
 								<textarea class="form-control" title="Content" name='content' rows='10'></textarea>
 							</div>
 						</div>
@@ -48,13 +48,13 @@ function pages_admin($mthd)
 			</form><?php
             break;
         case 'addpage-do':
-            if (html_entity_decode($_POST['title']) == "" || html_entity_decode($_POST['content']) == "") {
+            if (html_entity_decode($_POST['title']) == "" || html_entity_decode($_POST[P_CONTENT]) == "") {
                 PHPArcade\Core::showWarning(gettext('allfieldserror'));
             } else {
                 PHPArcade\Pages::pageAdd(
                     null,
                                 html_entity_decode($_POST['title']),
-                                html_entity_decode($_POST['content']),
+                                html_entity_decode($_POST[P_CONTENT]),
                                 html_entity_decode($_POST['keywords']),
                                 html_entity_decode($_POST['description'])
                 );
@@ -88,9 +88,9 @@ function pages_admin($mthd)
                                        value="<?php echo $page['title']; ?>"/>
 							</div>
 							<div class="form-group">
-								<label><?php echo gettext('content'); ?></label>
+								<label><?php echo gettext(P_CONTENT); ?></label>
 									<textarea class="form-control" title="Content" name='content' rows='10'>
-										<?php echo $page['content']; ?>
+										<?php echo $page[P_CONTENT]; ?>
 									</textarea>
 							</div>
 						</div>
@@ -124,10 +124,10 @@ function pages_admin($mthd)
 			</form><?php
             break;
         case 'editpage-do':
-            if ($_POST['title'] == "" || $_POST['content'] == "") {
+            if ($_POST['title'] == "" || $_POST[P_CONTENT] == "") {
                 PHPArcade\Core::showWarning(gettext('allfieldserror'));
             } else {
-                PHPArcade\Pages::pageUpdate($_POST['id'], $_POST['title'], $_POST['content'], $_POST['description'], $_POST['keywords']);
+                PHPArcade\Pages::pageUpdate($_POST['id'], $_POST['title'], $_POST[P_CONTENT], $_POST['description'], $_POST['keywords']);
                 PHPArcade\Core::showSuccess(gettext('updatesuccess'));
             }
             break;
@@ -143,18 +143,18 @@ function pages_admin($mthd)
                         <thead>
                             <tr>
                                 <th scope="col"><?php echo gettext('title'); ?></th>
-                                <th scope="col"><?php echo gettext('content'); ?></th>
+                                <th scope="col"><?php echo gettext(P_CONTENT); ?></th>
                                 <th scope="col">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody><?php
                             foreach ($pages as $page) {
-                                if (mb_strlen($page['content']) > 72) {
-                                    $page['content'] = substr($page['content'], 0, 72) . '...';
+                                if (mb_strlen($page[P_CONTENT]) > 72) {
+                                    $page[P_CONTENT] = substr($page[P_CONTENT], 0, 72) . '...';
                                 } ?>
                                 <tr>
                                     <td><?php echo $page['title']; ?></td>
-                                    <td><?php echo $page['content']; ?></td>
+                                    <td><?php echo $page[P_CONTENT]; ?></td>
                                     <td>
                                         <?php PHPArcade\Pages::getEditButton($page['id'], 'pages', 'editpage-form', gettext('edit')); ?>
                                         &nbsp;
