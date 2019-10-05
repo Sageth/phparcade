@@ -55,7 +55,6 @@ class Ads
     public static function showAds()
     {
         /* Displays ad on the front-end webpage */
-        /* TODO: Add location to stored procedure */
         $stmt = mySQL::getConnection()->prepare('CALL sp_Ads_GetAll_Random();');
         $stmt->execute();
         $ad = $stmt->fetch();

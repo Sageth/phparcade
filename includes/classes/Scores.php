@@ -234,7 +234,6 @@ class Scores
 
         self::updateGameChamp($gameid, $playerid, $score, $sort, $time);
         self::updateGameScore($gameid, $playerid, $score, $ip, $time, $sort);
-        return;
     }
     public static function updateGameChamp($gameid = '', $playerid, $score, $sort, $time)
     {
@@ -308,6 +307,7 @@ class Scores
                         Core::loadRedirect($link);
                     }
                     break;
+	            default:
             }
         }
     }

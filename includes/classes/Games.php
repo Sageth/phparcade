@@ -121,7 +121,6 @@ class Games
         switch ($category) {
             case 'all':
                 /* Carousel and admin "manage media" sections */
-                /* TODO: Break this out into separate functions */
                 $sql =
                     Administrations::isAdminArea() ? 'CALL sp_Games_GetGamesByReleasedate_ASC(:release_date, :limitstart, :limitend);' : 'CALL sp_Games_GetGamesByReleasedate_DESC(:release_date, :limitstart, :limitend);';
                 $stmt = mySQL::getConnection()->prepare($sql);
@@ -455,23 +454,11 @@ class Games
         $stmt->execute();
         Core::showSuccess(gettext('updatesuccess'));
     }
-    public static function updateGameChamp($tgameid, $tplayername, $tscore, $time)
-    {
-        $stmt =
-            mySQL::getConnection()->prepare('CALL sp_GameChamps_UpdateChamp(:top_nameid, :top_player, :top_score, :curr_time);');
-        $stmt->bindParam(':top_nameid', $tgameid);
-        $stmt->bindParam(':top_player', $tplayername);
-        $stmt->bindParam(':top_score', $tscore);
-        $stmt->bindParam(':curr_time', $time);
-        $stmt->execute();
-        return;
-    }
     public static function updateGamePlaycount($gameid)
     {
         $stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGamePlaycountbyID(:gameid);');
         $stmt->bindParam(':gameid', $gameid);
         $stmt->execute();
-        return;
     }
     public static function uploadImage($image){
         if (!empty($image['name'])) {
@@ -491,7 +478,6 @@ class Games
         } else {
             //Images are required
             Core::showError(gettext('selectafileerror'));
-            return;
         }
     }
     private function __clone()
