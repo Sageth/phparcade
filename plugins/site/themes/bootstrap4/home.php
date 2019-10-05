@@ -9,6 +9,7 @@ foreach (PHPArcade\Games::getGamesHomePage() as $game) {
         case 0:
             echo '<div class="card-deck mt-4">';
             break;
+        default:
     } ?>
     <div class="card">
         <div class="card-body">

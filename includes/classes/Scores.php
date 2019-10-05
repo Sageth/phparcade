@@ -308,6 +308,7 @@ class Scores
                         Core::loadRedirect($link);
                     }
                     break;
+	            default:
             }
         }
     }
