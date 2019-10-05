@@ -121,7 +121,6 @@ class Games
         switch ($category) {
             case 'all':
                 /* Carousel and admin "manage media" sections */
-                /* TODO: Break this out into separate functions */
                 $sql =
                     Administrations::isAdminArea() ? 'CALL sp_Games_GetGamesByReleasedate_ASC(:release_date, :limitstart, :limitend);' : 'CALL sp_Games_GetGamesByReleasedate_DESC(:release_date, :limitstart, :limitend);';
                 $stmt = mySQL::getConnection()->prepare($sql);

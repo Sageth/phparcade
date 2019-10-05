@@ -61,7 +61,6 @@ function media_admin($mthd)
             </form><?php
             break;
         case 'addgame-do':
-            /* TODO: Break this up into smaller functions */
             $dbconfig = PHPArcade\Core::getDBConfig();
 
             /* Check that the game isn't already added */

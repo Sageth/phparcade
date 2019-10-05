@@ -45,7 +45,6 @@ $games = PHPArcade\Games::getGames($category['name'], 0, 10, $dbconfig['gamesper
     <nav aria-label="Category Pagination">
         <ul class="pagination pagination-sm justify-content-center flex-wrap mt-4"><?php
 
-            /* TODO: Fix this so it doesn't need flex-wrap */
             $totalPages = PHPArcade\Core::getPages($category['name']);
             for ($i = 0; $i < $totalPages; ++$i) {
                 /* If $i is equal to $params[2] minus 1, then that's the active page */ ?>

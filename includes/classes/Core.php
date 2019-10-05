@@ -212,8 +212,6 @@ use PDO;
 
         public static function loadLinks()
         {
-            /* TODO: Need to clean this up somehow. Change to query string and let mod_rewrite do its thing? */
-
             global $links_arr, $append, $gamelist;
             /** @noinspection OnlyWritesOnParameterInspection */
             $append = '.html';
