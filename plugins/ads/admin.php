@@ -27,7 +27,7 @@ function ads_admin($mthd)
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label><?php echo gettext('location'); ?></label>
+								<label><?php echo gettext(P_LOCATION); ?></label>
 								<input class="form-control" title="Location" name='location'/>
 							</div>
 							<div class="form-group">
@@ -51,7 +51,7 @@ function ads_admin($mthd)
             if ($_POST['name'] == "" || $_POST['code'] == "") {
                 PHPArcade\Core::showWarning(gettext('fillallerror'));
             } else {
-                PHPArcade\Ads::insertAd(null, $_POST['name'], $_POST['code'], $_POST['location'], $_POST['advertisername'], $_POST['adcomment']);
+                PHPArcade\Ads::insertAd(null, $_POST['name'], $_POST['code'], $_POST[P_LOCATION], $_POST['advertisername'], $_POST['adcomment']);
             }
             break;
         case 'delete-do':
@@ -85,9 +85,9 @@ function ads_admin($mthd)
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label><?php echo gettext('location'); ?></label>
+								<label><?php echo gettext(P_LOCATION); ?></label>
 								<input class="form-control" title="Location"
-                                       name='location' value="<?php echo $ad['location']; ?>"/>
+                                       name='location' value="<?php echo $ad[P_LOCATION]; ?>"/>
 							</div>
 							<div class="form-group">
 								<label><?php echo gettext('advertiser'); ?></label>
@@ -113,7 +113,7 @@ function ads_admin($mthd)
             if ($_POST['name'] == "" || $_POST['code'] == "") {
                 PHPArcade\Core::showWarning(gettext('fillallerror'));
             } else {
-                PHPArcade\Ads::updateAd($_POST['id'], $_POST['name'], $_POST['code'], $_POST['location'], $_POST['advertisername'], $_POST['adcomment']);
+                PHPArcade\Ads::updateAd($_POST['id'], $_POST['name'], $_POST['code'], $_POST[P_LOCATION], $_POST['advertisername'], $_POST['adcomment']);
             }
             break;
         case 'getcode': ?>
@@ -125,11 +125,11 @@ function ads_admin($mthd)
                     <div class="form-group"><?php
                         $ad = PHPArcade\Ads::getInstance()->getAd($_REQUEST['id']);
                         $ad['code'] = '<?php echo Ads::getInstance()->showAds("' . $ad['id'] . '");?>';
-                        $ad['lcode'] = '<?php echo Ads::getInstance()->showAds("' . $ad['location'] . '");?>'; ?>
+                        $ad['lcode'] = '<?php echo Ads::getInstance()->showAds("' . $ad[P_LOCATION] . '");?>'; ?>
                         <label><?php echo gettext('individualadcode'); ?></label>
                         <textarea class="form-control" title="Ad Code" rows="3"><?php echo $ad['code']; ?></textarea>
                         <br/>
-                        <label><?php echo gettext('location'); ?> (Recommended)</label>
+                        <label><?php echo gettext(P_LOCATION); ?> (Recommended)</label>
                         <textarea class="form-control" title="Ad Location" rows="3"><?php echo $ad['lcode']; ?></textarea>
                     </div>
                 </div>
@@ -149,7 +149,7 @@ function ads_admin($mthd)
 								<thead class="thead-light">
 									<tr>
 										<th><?php echo gettext('name'); ?></th>
-										<th><?php echo gettext('location'); ?></th>
+										<th><?php echo gettext(P_LOCATION); ?></th>
 										<th>&nbsp;</th>
 									</tr>
 								</thead>
@@ -162,7 +162,7 @@ function ads_admin($mthd)
                                         } ?>
 										<tr>
 											<td><?php echo $ad['name']; ?></td>
-											<td><?php echo $ad['location']; ?></td>
+											<td><?php echo $ad[P_LOCATION]; ?></td>
 											<td>
 												<?php PHPArcade\Pages::getEditButton($ad['id'], 'ads', 'getcode', gettext('getcode'), 'info'); ?>
 												&nbsp;
