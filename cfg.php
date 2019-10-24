@@ -118,5 +118,9 @@ if (PHPArcade\Administrations::getScheme() === 'https://') {
 /* Set cookie to http only */
 ini_set('session.cookie_httponly', 1);
 
+/* Set cookie to SameSite Lax */
+/* https://www.php.net/manual/en/session.configuration.php#ini.session.cookie-samesite */
+ini_set('session.cookie_samesite', 'Lax');
+
 /* Set Timezone */
 date_default_timezone_set('America/New_York');
