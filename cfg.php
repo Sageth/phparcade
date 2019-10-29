@@ -120,7 +120,7 @@ ini_set('session.cookie_httponly', 1);
 
 /* Set cookie to SameSite Lax */
 /* https://www.php.net/manual/en/session.configuration.php#ini.session.cookie-samesite */
-ini_set('session.cookie_samesite', 'Lax');
+ini_set('session.cookie_samesite', 'strict');
 
 /* Set Timezone */
 date_default_timezone_set('America/New_York');
