@@ -6,8 +6,8 @@ function users_admin($mthd)
             PHPArcade\Users::userDelete($_REQUEST['id']);
             break;
         case 'edituser-do':
-            $_POST['admin'] = array_key_exists('admin', $_POST) ? 'Yes' : 'No';
-            $_POST['active'] = array_key_exists('active', $_POST) ? 'Yes' : 'No';
+            $_POST['admin'] = property_exists('admin', $_POST) ? 'Yes' : 'No';
+            $_POST['active'] = property_exists('active', $_POST) ? 'Yes' : 'No';
             PHPArcade\Users::userEdit($_POST['id']);
             if ($_POST['password'] != '') {
                 PHPArcade\Users::userPasswordUpdateByID($_POST['id'], $_POST['password']);
