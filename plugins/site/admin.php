@@ -541,18 +541,18 @@
 			case 'feature-config-do':
 				PHPArcade\Administrations::updateConfig('defgwidth', $_POST['defgwidth']);
 				PHPArcade\Administrations::updateConfig('defgheight', $_POST['defgheight']);
-				PHPArcade\Administrations::updateConfig('emailactivation', array_key_exists('emailactivation', $_POST) ? 'on' : 'off');
+				PHPArcade\Administrations::updateConfig('emailactivation', property_exists('emailactivation', $_POST) ? 'on' : 'off');
 				PHPArcade\Administrations::updateConfig('emailfrom', $_POST['emailfrom']);
 				PHPArcade\Administrations::updateConfig('facebook_appid', $_POST['facebook_appid']);
 				PHPArcade\Administrations::updateConfig('facebook_pageurl', $_POST['facebook_pageurl']);
-				PHPArcade\Administrations::updateConfig('facebook_on', array_key_exists('facebook_on', $_POST) ? 'on' : 'off');
-				PHPArcade\Administrations::updateConfig('gtm_enabled', array_key_exists('gtm_enabled', $_POST) ? 'on' : 'off');
+				PHPArcade\Administrations::updateConfig('facebook_on', property_exists('facebook_on', $_POST) ? 'on' : 'off');
+				PHPArcade\Administrations::updateConfig('gtm_enabled', property_exists('gtm_enabled', $_POST) ? 'on' : 'off');
 				PHPArcade\Administrations::updateConfig('gtm_id', $_POST['gtm_id']);
 				PHPArcade\Administrations::updateConfig('google_recaptcha_secretkey', $_POST['google_recaptcha_secretkey']);
 				PHPArcade\Administrations::updateConfig('google_recaptcha_sitekey', $_POST['google_recaptcha_sitekey']);
-				PHPArcade\Administrations::updateConfig('membersenabled', array_key_exists('membersenabled', $_POST) ? 'on' : 'off');
-				PHPArcade\Administrations::updateConfig('passwordrecovery', array_key_exists('passwordrecovery', $_POST) ? 'on' : 'off');
-				PHPArcade\Administrations::updateConfig('rssenabled', array_key_exists('rssenabled', $_POST) ? 'on' : 'off');
+				PHPArcade\Administrations::updateConfig('membersenabled', property_exists('membersenabled', $_POST) ? 'on' : 'off');
+				PHPArcade\Administrations::updateConfig('passwordrecovery', property_exists('passwordrecovery', $_POST) ? 'on' : 'off');
+				PHPArcade\Administrations::updateConfig('rssenabled', property_exists('rssenabled', $_POST) ? 'on' : 'off');
 				PHPArcade\Administrations::updateConfig('rssfeed', $_POST['rssfeed']);
 				PHPArcade\Administrations::updateConfig('rssnumlatest', $_POST['rssnumlatest']);
 				PHPArcade\Administrations::updateConfig('twidth', $_POST['twidth']);
