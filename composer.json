@@ -15,8 +15,8 @@
     "optimize-autoloader": true
   },
   "require-dev": {
-    "phpunit/phpunit": "^7",
     "phpstan/phpstan": "^0.12.18",
+    "phpunit/phpunit": "^9",
     "roave/security-advisories": "dev-master"
   },
   "autoload": {
