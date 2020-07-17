@@ -435,9 +435,8 @@ class Games
     }
     public static function updateGame($id)
     {
-        $_POST['active'] = property_exists('active', $_POST) ? 'Yes' : 'No';
-        $stmt =
-            mySQL::getConnection()->prepare('CALL sp_Games_UpdateGame(:gamename, :gamenameid, :gamedesc, :gamecat, :gamekeywords, :gameflags, :gameinstructions, :gamecustomcode, :gamewidth, :gameheight, :gameactive, :gamerelease, :gameid);');
+	$_POST['active'] = property_exists('active', $_POST['active']) ? 'No' : 'Yes';
+	$stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGame(:gamename, :gamenameid, :gamedesc, :gamecat, :gamekeywords, :gameflags, :gameinstructions, :gamecustomcode, :gamewidth, :gameheight, :gameactive, :gamerelease, :gameid);');
         $stmt->bindParam(':gamename', $_POST['name']);
         $stmt->bindParam(':gamenameid', $_POST['nameid']);
         $stmt->bindParam(':gamedesc', $_POST['desc']);
