@@ -12,7 +12,7 @@ foreach ($games as $game) {
         <div class="thumbnail">
             <a href="<?php echo $link; ?>">
                 <img alt="Play <?php echo $game['name']; ?> online for free!"
-                     class="img img-responsive img-rounded"
+                     class="img img-responsive img-rounded lazy"
                      data-src="<?php echo $img; ?>"
                      height="<?php echo $dbconfig['theight']; ?>"
                      title="Play <?php echo $game['name']; ?> online for free!"

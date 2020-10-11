@@ -116,7 +116,7 @@ require_once __DIR__ . '/themeconfig.php';
         <script>
             (function() {
                 let myLazyLoad = new LazyLoad({
-                    load_delay: 300 //adjust according to use case
+                    cancel_on_exit: true,
                 });
             })();
         </script>

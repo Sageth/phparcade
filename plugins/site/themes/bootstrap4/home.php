@@ -15,7 +15,7 @@ foreach (PHPArcade\Games::getGamesHomePage() as $game) {
         <div class="card-body">
             <a href="<?php echo PHPArcade\Core::getLinkGame($game['id']); ?>">
                 <img alt="Play <?php echo $game['name']; ?> online for free!"
-                     class="img-thumbnail rounded mx-auto d-block"
+                     class="img-thumbnail rounded mx-auto d-block lazy"
                      data-src="<?php echo $dbconfig['imgurl'] . $game['nameid'] . EXT_IMG; ?>"
                      height="<?php echo $dbconfig['theight']; ?>"
                      title="Play <?php echo $game['name']; ?> online for free!"

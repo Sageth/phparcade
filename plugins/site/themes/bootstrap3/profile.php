@@ -18,7 +18,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                 $games = PHPArcade\Games::getGamesChamp($user['id']); ?>
         <div class="col-sm-10">
             <img alt="<?php echo $user['username']; ?>'s Gravatar"
-                 class="img img-responsive img-circle"
+                 class="img img-responsive img-circle lazy"
                  src="<?php echo PHPArcade\Users::userGetGravatar($user['username'], 80); ?>"
                  title="<?php echo $user['username']; ?>'s Gravatar"
             />
@@ -105,7 +105,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                                         . $game['name']
                                         . ' '
                                         . gettext('onlineforfree'); ?>"
-                                         class="img img-responsive img-rounded"
+                                         class="img img-responsive img-rounded lazy"
                                          data-src="<?php echo $img; ?>"
                                          height="<?php echo $dbconfig['theight']; ?>"
                                          title="<?php echo gettext('play')

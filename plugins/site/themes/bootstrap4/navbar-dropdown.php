@@ -24,7 +24,7 @@ if (PHPArcade\Users::isUserLoggedIn()) {
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
             <li class="dropdown-header">
                 <img alt="<?php $user['name'];?>'s Gravatar"
-                     class="img img-fluid rounded-circle"
+                     class="img img-fluid rounded-circle lazy"
                      data-src="<?php echo PHPArcade\Users::userGetGravatar($user['name'], 25); ?>"
                      style="float:left"
                 />&nbsp;
