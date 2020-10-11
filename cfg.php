@@ -81,8 +81,8 @@ define('JS_JQUERY_UI', 'https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/j
 define('JS_JQUERY_UI_SRI', 'sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=');
 
 /* CDNJS - VANILLA-LAZYLOAD */
-define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/12.0.3/lazyload.min.js');
-define('JS_LAZYLOAD_SRI', 'sha256-07HbhWMzlSuhFpeiTy8zouvXxdqnEZ63A4KBLW2Efqc=');
+define('JS_LAZYLOAD', 'https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.1.2/lazyload.min.js');
+define('JS_LAZYLOAD_SRI', 'sha512-V3DZ9ZAJrv8ZYY5Zarlfjusec9J6S8htRT3bJDKTdEgq0g9OhbHQUjK+vsBkE6CH0J5VJtBCzPSXJ0ZCVpjPdQ==');
 
 /* CDNJS - v2.2.0 - SWFOBJECT */
 define('JS_SWFOBJECT', 'https://cdnjs.cloudflare.com/ajax/libs/swfobject/2.2/swfobject.min.js');

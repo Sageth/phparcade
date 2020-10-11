@@ -105,7 +105,7 @@ global $params; ?>
                                             <td><?php echo $i; ?></td>
                                             <td>
                                                 <img alt="<?php echo $champ['username'];?>'s Gravatar"
-                                                     class="img img-responsive img-circle"
+                                                     class="img img-responsive img-circle lazy"
                                                      data-src="<?php echo PHPArcade\Users::userGetGravatar($champ['username'], 40); ?>"
                                                      style="float:left"
                                                 />
@@ -149,7 +149,7 @@ global $params; ?>
                     <div class="thumbnail">
                         <a href="<?php echo $link; ?>"><?php
                             $img = $dbconfig['imgurl'] . $gamelikethis['nameid'] . EXT_IMG; ?>
-                            <img class="img img-responsive img-rounded"
+                            <img class="img img-responsive img-rounded lazy"
                                  data-src="<?php echo $img; ?>"
                                  alt="Play <?php echo $gamelikethis['name']; ?> online for free!"
                                  title="Play <?php echo $gamelikethis['name']; ?> online for free!"
