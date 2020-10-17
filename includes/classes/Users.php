@@ -38,7 +38,7 @@ class Users
     }
     public static function isUserLoggedIn()
     {
-        return isset($_SESSION['user']) ? true : false;
+        return isset($_SESSION['user']);
     }
     public static function passwordRecoveryForm()
     {
@@ -65,7 +65,6 @@ class Users
         $inicfg = Core::getINIConfig();
         $status = '';
         if ($dbconfig['passwordrecovery'] === 'on') {
-            /** @noinspection PhpUndefinedVariableInspection */
             $username = $args['username'] ?? trim($_POST['username']);
             $email = $args['email'] ?? $_POST['email'];
             $password = self::passwordGenerate();
@@ -78,46 +77,28 @@ class Users
             $stmt->execute();
             $count = $stmt->rowCount();
             if ($count == 1) {
-                /** @noinspection PhpUndefinedClassInspection */
-                /** @noinspection PhpUndefinedNamespaceInspection */
                 $mail = new PHPMailer();
                 try {
                     $body = file_get_contents(INST_DIR . 'includes/messages/forgottenmessage.txt');
                     $body = nl2br(str_replace('%username%', $username, $body));
                     $body = nl2br(str_replace('%password%', $clearpass, $body));
-                    /** @noinspection PhpUndefinedMethodInspection */
                     $mail->isSMTP(); // telling the class to use SMTP
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->SMTPDebug = $dbconfig['emaildebug']; //Ask for HTML-friendly debug output
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->Debugoutput = 'html';
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->SMTPAuth = true;                    // enable SMTP authentication
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->SMTPSecure = 'tls';                    // sets the prefix to the server
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->Host = $dbconfig['emailhost']; //SMTP over IPv6
                     //$mail->Host = gethostbyname($dbconfig["emailhost"]); //SMTP over IPv4
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->Port = $dbconfig['emailport'];
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->Username = $dbconfig['emailfrom'];
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->Password = $inicfg['mail']['gmailpassword'];
-                    /** @noinspection PhpUndefinedMethodInspection */
                     $mail->setFrom($dbconfig['emailfrom'], $dbconfig['emaildomain']);
-                    /** @noinspection PhpUndefinedMethodInspection */
                     $mail->addReplyTo($dbconfig['emailfrom'], $dbconfig['emaildomain']);
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->Subject = 'Password Reset Request';
-                    /** @noinspection PhpUndefinedFieldInspection */
                     $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
-                    /** @noinspection PhpUndefinedMethodInspection */
                     $mail->msgHTML($body);
                     $address = $email;
-                    /** @noinspection PhpUndefinedMethodInspection */
                     $mail->addAddress($address, $dbconfig['emaildomain']);
-                    /** @noinspection PhpUndefinedMethodInspection */
                     $mail->send();
                     /* This allows the next stored procedure in userPasswordUpdatebyEmail() to run simultaneously */
                     $stmt->nextRowset();
@@ -128,7 +109,6 @@ class Users
                     <p class="bg-danger">
                         <?php echo gettext('emailfail');
                     if ($dbconfig['emaildebug'] > 0) {
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->ErrorInfo;
                     } ?>
                     </p><?php
@@ -191,8 +171,6 @@ class Users
             } else {
                 if ($rowcount == 0) {
                     try {
-                        /** @noinspection PhpUndefinedClassInspection */
-                        /** @noinspection PhpUndefinedNamespaceInspection */
                         $mail = new PHPMailer();
                         $password = self::passwordGenerate();
                         $clearpass = $password;
@@ -201,36 +179,21 @@ class Users
                         $body = nl2br(str_replace('%siteurl%', SITE_URL, $body));
                         $body = nl2br(str_replace('%username%', $username, $body));
                         $body = nl2br(str_replace('%password%', $clearpass, $body));
-                        /** @noinspection PhpUndefinedMethodInspection */
                         $mail->isSMTP(); // telling the class to use SMTP
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->SMTPDebug = $dbconfig['emaildebug'];
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->SMTPAuth = true;                    // enable SMTP authentication
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->SMTPSecure = 'tls';                    // sets the prefix to the server
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->Host = $dbconfig['emailhost'];
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->Port = $dbconfig['emailport'];
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->Username = $dbconfig['emailfrom'];
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->Password = $inicfg['mail']['gmailpassword'];
-                        /** @noinspection PhpUndefinedMethodInspection */
                         $mail->setFrom($dbconfig['emailfrom'], $dbconfig['emaildomain']);
-                        /** @noinspection PhpUndefinedMethodInspection */
                         $mail->addReplyTo($dbconfig['emailfrom'], $dbconfig['emaildomain']);
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->Subject = 'Account Creation';
-                        /** @noinspection PhpUndefinedFieldInspection */
                         $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
-                        /** @noinspection PhpUndefinedMethodInspection */
                         $mail->msgHTML($body);
                         $address = $email;
-                        /** @noinspection PhpUndefinedMethodInspection */
                         $mail->addAddress($address, $dbconfig['emaildomain']);
-                        /** @noinspection PhpUndefinedMethodInspection */
                         $mail->send();
                         $status = 'confemail';
                     } catch (PDOException $e) {
@@ -238,7 +201,6 @@ class Users
                         <p class="bg-danger">
                             <?php echo gettext('emailfail');
                         if ($dbconfig['emaildebug'] > 0) {
-                            /** @noinspection PhpUndefinedFieldInspection */
                             /** @noinspection PhpUndefinedVariableInspection */
                             $mail->ErrorInfo;
                         } ?>

@@ -1,5 +1,4 @@
 <?php
-/** @noinspection SyntaxError */
 
 use ReCaptcha\ReCaptcha;
 
@@ -29,7 +28,6 @@ if (!isset($_SESSION)) {
     $user = $_SESSION['user'];
 }
 $dbconfig = PHPArcade\Core::getDBConfig();
-/** @noinspection PhpUndefinedVariableInspection */
 $params[2] = $params[2] ?? "";
 /* This is the old 'exec.php' from each plugin folder, consolidated and in order */
 /** @noinspection PhpUndefinedVariableInspection */
@@ -40,8 +38,8 @@ if (($act === 'rssfeeds' || $act === 'rss') && !isset($adminarea) && ($dbconfig[
             header('Content-Type: application/atom+xml; charset=' . CHARSET);
             if ($params[1] == 'recent') {
                 $array = PHPArcade\Games::getGamesbyReleaseDate_DESC('all');
+                PHPArcade\RSS::GetAtomFeed($array);
             }
-            PHPArcade\RSS::GetAtomFeed($array);
             break;
         default:
     }

@@ -26,7 +26,7 @@ $dbconfig = PHPArcade\Core::getDBConfig(); ?>
                 PHPArcade\Users::userSessionEnd();
             } elseif ($params[1] === 'recover') {
                 if ($params[2] === "" || empty($params[2]) || !isset($params[2])) {
-                    PHPArcade\Users::passwordRecoveryForm(); ?><br/>
+                    PHPArcade\Users::passwordRecoveryForm(); ?>
 					<?php echo gettext('emailwillbesentpw');
                 } elseif ($params[2] === 'do') {
                     PHPArcade\Users::passwordRecovery();

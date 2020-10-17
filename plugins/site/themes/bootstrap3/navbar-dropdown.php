@@ -8,7 +8,7 @@ if (PHPArcade\Users::isUserLoggedIn()) {
     ?>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <?php echo gettext('gamecategories'); ?> <span class="caret"></span>
+            <?php echo gettext('gamecategories'); ?> <span class="caret" />
         </a>
         <ul class="dropdown-menu" role="menu">
             <?php include_once __DIR__ . '/categoriesmenu.php'; ?>
@@ -17,7 +17,7 @@ if (PHPArcade\Users::isUserLoggedIn()) {
     <li class="dropdown ">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <?php echo gettext('myaccount'); ?>
-            <span class="caret"></span>
+            <span class="caret" />
         </a>
         <ul class="dropdown-menu dropdown-menu-right" role="menu">
             <li class="dropdown-header">
@@ -27,19 +27,18 @@ if (PHPArcade\Users::isUserLoggedIn()) {
                      style="float:left"
                 />&nbsp;
                 <?php
-                /** @noinspection PhpUndefinedVariableInspection */
                 echo $user['name']; ?>
             </li><?php
             if ($user['admin'] === 'Yes') {
                 ?>
-                <li class="divider"></li>
+                <li class="divider" />
                 <li>
                     <a href="<?php echo SITE_URL_ADMIN; ?>" target="_blank" rel="noopener">
                         <?php echo gettext('admin'); ?>
                     </a>
                 </li><?php
             } ?>
-            <li class="divider"></li>
+            <li class="divider" />
             <li class="dropdown-header">
                 <?php echo gettext('profile'); ?>
             </li>
@@ -53,7 +52,7 @@ if (PHPArcade\Users::isUserLoggedIn()) {
                     <?php echo gettext('profileedit'); ?>
                 </a>
             </li>
-            <li class="divider"></li>
+            <li class="divider" />
             <li>
                 <a href='<?php echo PHPArcade\Core::getLinkLogout(); ?>'>
                     <?php echo gettext('logout'); ?>

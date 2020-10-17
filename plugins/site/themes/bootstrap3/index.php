@@ -16,7 +16,6 @@ PHPArcade\Scores::registerScoreSystem();
 
 require_once __DIR__ . '/themeconfig.php';
 ?>
-
 <!DOCTYPE html>
 <!--suppress JSIgnoredPromiseFromCall, HtmlUnknownTag -->
 <html lang="en" prefix="og:http://ogp.me/ns#" xmlns="https://www.w3.org/1999/xhtml">

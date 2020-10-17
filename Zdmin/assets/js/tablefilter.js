@@ -1,6 +1,6 @@
 function filterTable() {
     // Declare variables
-    var input, filter, table, tr, td, i;
+    let input, filter, table, tr, td, i;
     input = document.getElementById("userList");
     filter = input.value.toUpperCase();
     table = document.getElementById("dataTables-example");

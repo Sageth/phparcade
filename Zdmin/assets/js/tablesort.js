@@ -1,16 +1,16 @@
-var fixHelperModified = function(e, tr) {
+const fixHelperModified = function (e, tr) {
         var $originals = tr.children();
         // noinspection Annotator
         var $helper = tr.clone();
         // noinspection Annotator
-        $helper.children().each(function(index) {
+        $helper.children().each(function (index) {
             // noinspection Annotator
             // noinspection Annotator
             $(this).width($originals.eq(index).width());
         });
         return $helper;
     },
-    updateIndex = function(e, ui) {
+    updateIndex = function (e, ui) {
         // noinspection Annotator
         // noinspection Annotator
         $('td.index', ui.item.parent()).each(function (i) {
@@ -40,7 +40,7 @@ function saveRows(){
     $(this).sortable();
     // noinspection Annotator
     // noinspection Annotator
-    var tableRows = $(this).sortable('serialize');
+    const tableRows = $(this).sortable('serialize');
 
     // POST to server using $.ajax
     // noinspection Annotator
