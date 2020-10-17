@@ -461,7 +461,6 @@ class Games
     }
     public static function uploadImage($image){
         if (!empty($image['name'])) {
-            /** @noinspection PhpMethodParametersCountMismatchInspection */
             $validator = new Simple('5M', ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/webp']);  // File upload validations
             $pathresolver = new \FileUpload\PathResolver\Simple(IMG_DIR_NOSLASH);     // Upload path
             $filesystem = new \FileUpload\FileSystem\Simple();               // The machine's filesystem

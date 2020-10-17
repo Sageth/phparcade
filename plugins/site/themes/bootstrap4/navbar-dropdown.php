@@ -29,7 +29,6 @@ if (PHPArcade\Users::isUserLoggedIn()) {
                      style="float:left"
                 />&nbsp;
                 <?php
-                /** @noinspection PhpUndefinedVariableInspection */
                 echo $user['name']; ?>
             </li><?php
             if ($user['admin'] === 'Yes') {

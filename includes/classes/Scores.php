@@ -38,10 +38,12 @@ class Scores
             champs table.
             $tscore['x'] is the top player in the games list.*/
         if (self::getScoreType('lowhighscore', $game['flags'])) {
-            $scores = self::getGameScore($gameid, 'ASC', TOP_SCORE_COUNT);
+            $sort = 'ASC';
+            $scores = self::getGameScore($gameid, $sort, TOP_SCORE_COUNT);
             $tscores = self::GetGameChampbyGameNameID($gameid); // Fix scores when users are deleted
         } else {
-            $scores = self::getGameScore($gameid, 'DESC', TOP_SCORE_COUNT);
+            $sort = 'DESC';
+            $scores = self::getGameScore($gameid, $sort, TOP_SCORE_COUNT);
             $tscores = self::GetGameChampbyGameNameID($gameid); //Fix champ scores when users are deleted
         }
 
@@ -51,7 +53,7 @@ class Scores
             $player = Users::getUserbyID($scores[0]['player']);
 
             /* NameID is the game name ID */
-            Games::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0][P_SCORE], $time);
+            Scores::updateGameChamp($scores[0]['nameid'], $scores[0]['player'], $scores[0][P_SCORE], $sort, $time);
             self::notifyDiscordHighScore($game['name'], $player['username'], $scores[0][P_SCORE], $link);
         }
     }

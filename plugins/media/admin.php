@@ -87,7 +87,6 @@ function media_admin($mthd)
                     $swffile = $_FILES['swffile']['name'];
                     $realswf = SWF_DIR . $swffile;
                     // Set type and nameID
-                    /** @noinspection PhpUnusedLocalVariableInspection */
                     $nameid = mb_strtolower(pathinfo($swffile, PATHINFO_FILENAME)); //Get base name
                     $type = mb_strtoupper(pathinfo($swffile, PATHINFO_EXTENSION)); //Get file extension
                     $validator = new FileUpload\Validator\Simple(1024 * 1024 *

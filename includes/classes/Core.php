@@ -171,7 +171,6 @@ use PDO;
                 $stmt = mySQL::getConnection()->prepare("CALL sp_Config_Get();");
                 $stmt->execute();
             }
-            /** @noinspection PhpUndefinedVariableInspection */
             return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
         }
 

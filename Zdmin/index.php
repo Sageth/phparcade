@@ -32,7 +32,7 @@ $content = $content ?? ''; ?>
     </title>
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
     <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_ADMIN; ?>" integrity="<?php echo CSS_BOOTSTRAP_ADMIN_SRI;?>" crossorigin="anonymous" />
-    <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>"/>
+    <link rel="stylesheet" href="<?php echo CSS_BOOTSTRAP_TOGGLE; ?>" integrity="<?php echo CSS_BOOTSTRAP_TOGGLE_SRI;?>" crossorigin="anonymous"/>
     <link rel="stylesheet" href="<?php echo CSS_INPUTCOLORS;?>"/>
 </head>
 <body>
