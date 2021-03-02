@@ -9,15 +9,7 @@
 ## Description
 This is a Responsive arcade script written in PHP that is -- in spirit -- based on the old (no longer 
 supported or maintained) version of GameSiteScript 4. Nearly all of the code has been rewritten for 
-better adherence to new coding standards.  A production "demo" of the front-end is always available at 
-[Free Online Flash Games](https://www.phparcade.com).  Follow our [Twitter](https://twitter.com/phparcade) or
-[Facebook](https://www.facebook.com/PHPArcade-271750579558482) for regular updates.
-
-## Contributing
-If you are interested in fixing issues, would like to help make this application better, or just want to chat, please join
-our [PHPArcade Discord Server](http://discord.gg/wzr3PCf).
-
-Please create your pull request against the `master` branch. Tests must pass in order for the PR to be merged, though right now our tests are small and not too intricate, so we could use some help there. 
+better adherence to new coding standards.  
 
 ## Features (screenshots below)
 * Add/edit pages via GUI
@@ -55,8 +47,6 @@ repositories. This code has not been tested on Apache. It may work with some bas
 * [CDNJS](https://cdnjs.com/) is used for CDN-hosted javascript files.
 * [Google ReCaptcha](https://github.com/google/recaptcha) is used for bot verification
 * [PHP Mailer](https://www.github.com/PHPMailer/PHPMailer) is used for email notifications.
-* [phpArcade](https://www.phparcade.com) is made open source by permission. Please note that the maintainer(s) of this 
-repository do not imply ownership or affiliation with [GameSiteScript](http://www.gamesitescript.com) or its contents.
 * [JetBrains](https://www.jetbrains.com/) has been incredibly helpful and I'd like to thank them for their products and 
 continued offering of an [open source license](https://www.jetbrains.com/buy/opensource/).  
 ![JetBrains Logo](https://www.phparcade.com/includes/images/jetbrains-variant-3.svg)
