@@ -1,6 +1,6 @@
 {
   "require": {
-    "claviska/simpleimage": "3.*",
+    "claviska/simpleimage": "4.*",
     "gargron/fileupload": "1.*",
     "ext-curl": "*",
     "ext-gettext": "*",
