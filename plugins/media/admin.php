@@ -280,7 +280,7 @@ function media_admin($mthd)
             }
             break;
         case 'editcat-do':
-            PHPArcade\Games::updateCategory(PHPArcade\Core::encodeHTMLEntity($_POST['id']), PHPArcade\Core::encodeHTMLEntity($_POST['name']), PHPArcade\Core::encodeHTMLEntity($_POST['type']), PHPArcade\Core::encodeHTMLEntity($_POST['desc']), PHPArcade\Core::encodeHTMLEntity($_POST['keywords']));
+            PHPArcade\Games::updateCategory(PHPArcade\Core::decodeHTMLEntity($_POST['id']), PHPArcade\Core::decodeHTMLEntity($_POST['name']), PHPArcade\Core::decodeHTMLEntity($_POST['type']), PHPArcade\Core::decodeHTMLEntity($_POST['desc']), PHPArcade\Core::decodeHTMLEntity($_POST['keywords']));
             break;
         case 'editcat-form':
             $category = PHPArcade\Games::getCategoryID($_REQUEST['id']); ?>

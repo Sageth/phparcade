@@ -14,7 +14,7 @@ $page = PHPArcade\Pages::getPage($params[1]); ?>
             </h3>
             <div class="card-body">
                 <p class="card-text"><?php
-                    echo PHPArcade\Core::encodeHTMLEntity($page['content'], ENT_QUOTES); ?>
+                    echo PHPArcade\Core::decodeHTMLEntity($page['content'], ENT_QUOTES); ?>
                 </p>
             </div>
         </div>

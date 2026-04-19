@@ -35,7 +35,7 @@ use PDO;
             }
         }
 
-        public static function encodeHTMLEntity($string, $params = null)
+        public static function decodeHTMLEntity($string, $params = ENT_QUOTES | ENT_SUBSTITUTE)
         {
             return html_entity_decode($string, $params);
         }
@@ -244,7 +244,8 @@ use PDO;
         public static function stopDirectAccess()
         {
             if (count(get_included_files()) === 1) {
-                return http_response_code(403) . die('Direct access not permitted.');
+                http_response_code(403);
+                die('Direct access not permitted.');
             }
             return true;
         }

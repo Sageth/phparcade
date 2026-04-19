@@ -7,7 +7,7 @@ $page = PHPArcade\Pages::getPage($params[1]); ?>
 			<h1 class="panel-title"><?php echo $page['title']; ?></h1>
 		</div>
 		<div class="panel-body"><?php
-            echo PHPArcade\Core::encodeHTMLEntity($page['content'], ENT_QUOTES); ?>
+            echo PHPArcade\Core::decodeHTMLEntity($page['content'], ENT_QUOTES); ?>
 		</div>
 	</div>
 </div>
