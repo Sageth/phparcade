@@ -284,13 +284,13 @@ class Games
                         $game['filename'] = SWF_URL . $game['filename'];
                         break;
                     case 'CustomCode':
-                        $game['customcode'] = Core::encodeHTMLEntity($game['customcode'], ENT_QUOTES);
+                        $game['customcode'] = Core::decodeHTMLEntity($game['customcode'], ENT_QUOTES);
                         break;
                     default:
                 }
             }
-            $game['instructions'] = Core::encodeHTMLEntity($game['instructions'], ENT_HTML5);
-            $game['desc'] = Core::encodeHTMLEntity($game['desc'], ENT_HTML5);
+            $game['instructions'] = Core::decodeHTMLEntity($game['instructions'], ENT_HTML5);
+            $game['desc'] = Core::decodeHTMLEntity($game['desc'], ENT_HTML5);
         }
         return $game;
     }

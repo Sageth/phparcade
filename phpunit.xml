@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
-         colors="false"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="true">
-    <testsuites>
-        <testsuite name="Users">
-            <directory suffix=".php">includes/classes/</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">includes/classes/</directory>
-        </whitelist>
-    </filter>
-    <php>
-        <server name="DOCUMENT_ROOT" value="/www/phparcade"/>
-        <server name="SERVER_NAME" value="http://sandbox-phparcade"/>
-    </php>
+<phpunit backupGlobals="false" bootstrap="vendor/autoload.php" colors="false" processIsolation="false" stopOnFailure="true" cacheDirectory=".phpunit.cache" backupStaticProperties="false">
+  <testsuites>
+    <testsuite name="PHPArcade">
+      <directory suffix="Test.php">tests/</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <server name="DOCUMENT_ROOT" value="/www/phparcade"/>
+    <server name="SERVER_NAME" value="http://sandbox-phparcade"/>
+  </php>
+  <source>
+    <include>
+      <directory suffix=".php">includes/classes/</directory>
+    </include>
+  </source>
 </phpunit>
