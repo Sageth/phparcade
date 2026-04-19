@@ -129,7 +129,7 @@ class Users
     public static function UpdateProfile()
     {
         /* Sanitization */
-        $birth_date = '' ? '1970-01-01' : filter_var(strtotime($_POST['birth_date']), FILTER_SANITIZE_NUMBER_INT);
+        $birth_date = $_POST['birth_date'] === '' ? '1970-01-01' : filter_var(strtotime($_POST['birth_date']), FILTER_SANITIZE_NUMBER_INT);
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $facebook = filter_var($_POST['facebook_id'], FILTER_SANITIZE_STRING);
         $github = filter_var($_POST['github_id'], FILTER_SANITIZE_STRING);
@@ -148,10 +148,10 @@ class Users
             $stmt->execute();
         } catch (PDOException $e) {
             $params[2] = 'wompwomp';
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-                Core::showSuccess(gettext('emailvalid'));
-            } else {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
                 Core::showError(gettext('emailinvalid'));
+            } else {
+                Core::showSuccess(gettext('emailvalid'));
             }
             Core::showError($e->getMessage());
         }

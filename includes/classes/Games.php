@@ -338,7 +338,7 @@ class Games
                 break;
             default:
                 $stmt =
-                    mySQL::getConnection()->prepare('CALL sp_Games_GetGames_ActivebyCategory(:releasedate, :category');
+                    mySQL::getConnection()->prepare('CALL sp_Games_GetGames_ActivebyCategory(:releasedate, :category);');
                 $stmt->bindParam(':category', $category);
                 $stmt->bindParam(':releasedate', $time);
                 break;
@@ -358,11 +358,10 @@ class Games
                 $stmt->bindParam(':release_date', $time);
                 $stmt->bindParam(':limitstart', $limitstart);
                 $stmt->bindParam(':limitend', $limitend);
-	            $stmt->execute();
-	            return $stmt->fetchAll();
-                break;
+                $stmt->execute();
+                return $stmt->fetchAll();
             default:
-                echo "ALL?";
+                return [];
         }
     }
     public static function getGamesHomePage()
@@ -435,7 +434,7 @@ class Games
     }
     public static function updateGame($id)
     {
-	$_POST['active'] = property_exists('active', $_POST['active']) ? 'No' : 'Yes';
+        $_POST['active'] = isset($_POST['active']) ? 'No' : 'Yes';
 	$stmt = mySQL::getConnection()->prepare('CALL sp_Games_UpdateGame(:gamename, :gamenameid, :gamedesc, :gamecat, :gamekeywords, :gameflags, :gameinstructions, :gamecustomcode, :gamewidth, :gameheight, :gameactive, :gamerelease, :gameid);');
         $stmt->bindParam(':gamename', $_POST['name']);
         $stmt->bindParam(':gamenameid', $_POST['nameid']);
